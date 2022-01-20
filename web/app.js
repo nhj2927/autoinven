@@ -39,7 +39,7 @@ const sessionStore = new MySQLStore({}, connection);
 // 5) cookie 데이터 받기
 app.use(cookieParser());
 // 6) 'Public' Directory에 정적 파일(사진, 이미지)을 위치시키기
-app.use(express.static('Public'));
+app.use(express.static('public'));
 // 7) CORS 허용
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -63,12 +63,18 @@ app.use(
 // 9) i18n - 다국어 모듈 설정
 app.use(i18n);
 
+app.use('/', require('./routes/main')());
+
+app.get('/aa', (req, res) => {
+  console.log('aaa');
+})
+
 // TEST
 app.get('*', (req, res) => {
   res.send('<h1>Autoinven Server is running now.</h1');
+  // 서버 실행
 });
 
-// 서버 실행
 app.listen(PORT, (req, res) => {
   console.log(`connected on Server [PORT : ${PORT}]`);
 });
