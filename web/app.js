@@ -13,13 +13,14 @@ const fs = require('fs').promises;
 const i18n = require('./config/i18n');
 // 8) cookieParser Module 불러오기
 const cookieParser = require('cookie-parser');
+
 // 9) mysql2 Module 불러오기
 const mysql2 = require('mysql2/promise');
-// 10) PORT
-const PORT = process.env.PORT || 5000;
+
+// // 10) PORT
+ const PORT = process.env.PORT || 5000;
 
 const sequelize = require('./config/sequelize');
-
 sequelize.sync().then((response) => {
   console.log('DB sync is completed.');
 });
@@ -64,10 +65,6 @@ app.use(
 app.use(i18n);
 
 app.use('/', require('./routes/main')());
-
-app.get('/aa', (req, res) => {
-  console.log('aaa');
-})
 
 // TEST
 app.get('*', (req, res) => {
