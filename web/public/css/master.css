@@ -27,7 +27,7 @@
 
 html {
   font-family: 'nanum-r';
-  font-size: 15px;
+  font-size: 14px;
   line-height: 1.15;
   box-sizing: border-box;
   -webkit-text-size-adjust: 100%;
@@ -1479,12 +1479,16 @@ table.info-table {
 }
 td.info-table-td-head {
   background-color: #f5f5f5;
-  font-family: 'nanum-eb';
-  font-size: 1.1rem;
+  font-family: 'nanum-b';
+  font-size: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 td.info-table-td {
   text-align: left;
-  font-family: 'nanum-b';
-  font-size: 1.1rem;
+  font-family: 'nanum-r';
+  font-size: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }

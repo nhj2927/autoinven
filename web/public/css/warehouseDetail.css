@@ -32,12 +32,14 @@ form.input-contract-info{
 .contract-card-element{
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
+  align-items: center;
 }
 .submit-footer{
   font-family: "nanum-r";
   font-size: 1rem;
   color: gray;
 }
+
 #title-container {
   margin-top: 2rem;
 }
@@ -62,28 +64,39 @@ form.input-contract-info{
   color: #2F7EFF;
 }
 #info-card-start-date {
-  width: 45%;
+  width: 44%;
   font-size: 1.2rem;
+  color: gray;
   padding: 1rem;
   border-radius: 10px;
   border-style: hidden;
-  box-shadow: 0 0 0 1px gray;
+  box-shadow: 0 0 0 1px #C4C4C4;
+  overflow: visible;
 }
 #info-card-end-date {
-  width: 45%;
-  float: right;
+  width: 44%;
+  color: gray;
   font-size: 1.2rem;
   padding: 1rem;
   border-radius: 10px;
   border-style: hidden;
-  box-shadow: 0 0 0 1px gray;
+  box-shadow: 0 0 0 1px #C4C4C4;
+  overflow: visible;
+}
+#info-card-arrow{
+  width: 10%;
+  height: 20px;
+  background: no-repeat;
 }
 #info-card-area-for-contract {
   width: 90%;
   font-size: 1.5rem;
-  padding: 0.5rem;
+  padding: 1rem;
   text-align: center;
   border-radius: 10px;
   border-style: hidden;
-  box-shadow: 0 0 0 1px gray;
+  box-shadow: 0 0 0 1px #C4C4C4;
+}
+#contract-submit{
+  width: 80%;
 }

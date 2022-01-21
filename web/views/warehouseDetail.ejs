@@ -94,16 +94,22 @@
               <div class="contract-card-element">
                 <p>임대기간 선택</p>
                 <input id="info-card-start-date" type="date" class="input-contract-info"/>
+                <img id="info-card-arrow" src="/image/icon/arrow-right-solid.svg"/>
                 <input id="info-card-end-date" type="date" class="input-contract-info"/>
               </div>
 
-              <div class="contract-card-element">
-                <p style="float: right;">최대 499평</p>
-                <input id="info-card-area-for-contract" type="number" placeholder="임대면적" class="input-contract-info" min="0"/>
+              <div class="contract-card-element" >
+                <div style="margin-left: 9%;">
+                  <p>최대 700평</p>
+                  <span style="text-align:center;">
+                    <input id="info-card-area-for-contract" type="number" placeholder="임대면적" class="input-contract-info" min="0"/>
+                    <span style="font-size: 1.5rem; font-family: 'nanum-b'; color: gray; float:inline-end;">평</span>
+                  </span>
+                </div>
               </div>
 
-              <div class="contract-card-element">
-                <button type="submit" class="btn btn-main">견적확인</button>
+              <div class="contract-card-element" style="text-align:center;">
+                <button id="contract-submit" type="submit" class="btn btn-main">견적확인</button>
                 <p class="submit-footer">입력 정보를 모두 채운 후 견적을 확인해주세요.</p>
               </div>
             </div>
@@ -152,13 +158,15 @@
       </table>
     </div>
     <!--창고 상세정보-->
-
-    <div style="margin-top:3rem;">
+    <div style="margin-top:3rem; margin-bottom:3rem;">
       <h3 class="wh-detail-title">창고환경</h3>
-      <div class="info-card" style="height: 20rem;">
-
+      <div class="info-card" style="height: 600px;">
       </div>
     </div>
   </div>
+
+  <footer>
+    <%- include('footer') %>
+  </footer>
 </body>
 </html>
