@@ -17,10 +17,8 @@ const cookieParser = require('cookie-parser');
 const mysql2 = require('mysql2/promise');
 // 10) PORT
 const PORT = process.env.PORT || 5000;
-
-const sequelize = require('./config/sequelize');
-
-sequelize.sync().then((response) => {
+// 11) DB 테이블 생성(없으면 생성해줌)
+db.sequelize.sync().then((response) => {
   console.log('DB sync is completed.');
 });
 
@@ -63,9 +61,33 @@ app.use(
 // 9) i18n - 다국어 모듈 설정
 app.use(i18n);
 
-// TEST
+// 10) 각 라우터에 인자값을 넘겨주는 것
+app.use('/', require('./routes')(db));
+app.use('/auth', require('./routes/auth')(db));
+app.use('/user', require('./routes/user')(db));
+app.use('/admin', require('./routes/admin')(db));
+app.use('/api', require('./routes/admin')(db));
+// app.use('/User', require('./Routes/user')(app, mysql.pool));
+// app.use('/Admin', require('./Routes/ad')(app, mysql.pool));
+// app.use('/Provider', require('./Routes/pv')(app, mysql.pool));
+// app.use('/Buyer', require('./Routes/by')(app, mysql.pool));
+// app.use('/Iot', require('./Routes/iot')(app, mysql.pool));
+// app.use('/api', require('./Routes/api')(app, mysql.pool));
+
+// 11) 다국어 지원
+app.get('/en', (req, res) => {
+  res.cookie('lang', 'en');
+  res.redirect('back');
+});
+app.get('/ko', (req, res) => {
+  res.cookie('lang', 'ko');
+  res.redirect('back');
+});
+
+// 없는페이지 에러메세지
 app.get('*', (req, res) => {
-  res.send('<h1>Autoinven Server is running now.</h1');
+  console.log(`${req.path}: not found`);
+  res.render('error/cannotAccess');
 });
 
 // 서버 실행
