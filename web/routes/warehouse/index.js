@@ -7,7 +7,7 @@ module.exports = (db) => {
   });
 
   router.get('/:warehouse_id', (req, res) => {
-    res.render('common/myWarehouseDetail', {});
+    res.render('common/warehouseDetailWithItem', {});
   });
 
   router.use('/:warehouse_id/iot', require('./iot')(db));
