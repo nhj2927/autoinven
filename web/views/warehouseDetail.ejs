@@ -3,10 +3,75 @@
 <head>
   <meta charset="UTF-8">
   <%- include('head') %>
-  
+  <link rel="stylesheet" href="/css/warehouseDetail.css"/>
   <title>창고 상세 정보</title>
 </head>
 <body>
-  <h1>hello</h1>
+  <div class="photo-container test-gray">
+    photos
+  </div>
+
+  <div id="title-container" class="container">
+    <p class="badge-text-purple">
+      <img src="/image/icon/map_mark_icon.svg" class="badge-svg"/> 대구광역시 북구 산격동 112-22
+      <img src="/image/icon/verified_icon.svg" class="badge-svg"/> 인증창고
+    </p>
+    <h3 class="wh-detail-title">대구 광역시 글로벌 물류센터</h3>
+    <p class="badge-text">
+      <img src="/image/icon/phone-alt-solid.svg" class="badge-svg"/> 053-1234-1234
+      <img src="/image/icon/envelope-solid.svg" class="badge-svg"/> daegu@gmail.com
+    </p>
+  </div>
+  
+  <div class="container">
+    <div class="row align-items-start">
+      <div id="wh-info-table" class="col">
+        <h3 class="wh-detail-title">창고정보</h3>
+        <p class="badge-text">
+          <img src="/image/icon/truck-solid.svg" class="badge-svg"/> 도킹시설
+          <img src="/image/icon/is_racked_icon.svg" class="badge-svg"/> 파레트 렉
+          <img src="/image/icon/elevator_icon.svg" class="badge-svg"/> 엘리베이터
+          <img src="/image/icon/is_bonded_icon.svg" class="badge-svg"/> 보세
+        </p>
+        <table class="table info-table">
+          <tr>
+            <td class=info-table-td-head>창고명</td>
+            <td class="info-table-td" colspan="3">대구 광역시 글로벌 물류센터</td>
+          </tr>
+          <tr>
+            <td class=info-table-td-head>종류</td>
+            <td class="info-table-td" colspan="3">일반 창고</td>
+          </tr>
+          <tr>
+            <td class=info-table-td-head>임대료</td>
+            <td class="info-table-td" colspan="3" style="color: #D00101; font-family:'nanum-b'">평당 ￦800 /일</td>
+          </tr>
+          <tr>
+            <td class=info-table-td-head>주소</td>
+            <td class="info-table-td" colspan="3">대구 광역시 북구 산격동 112-13</td>
+          </tr>
+          <tr>
+            <td class=info-table-td-head>상세주소</td>
+            <td class="info-table-td" colspan="3">대구 스마트 물류단지 내부</td>
+          </tr>
+          <tr>
+            <td class=info-table-td-head>대지면적</td>
+            <td>9000㎡ (2722평)</td>
+            <td class=info-table-td-head>연면적</td>
+            <td>8900㎡ (2692평)</td>
+          </tr>
+          <tr>
+            <td class=info-table-td-head>공용면적</td>
+            <td>2900㎡ (877평)</td>
+            <td class=info-table-td-head>전용면적</td>
+            <td>6000㎡ (1815평)</td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-5 test-gray">
+        hello
+      </div>
+    </div>
+  </div>
 </body>
 </html>
