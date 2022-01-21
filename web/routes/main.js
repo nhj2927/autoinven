@@ -3,7 +3,7 @@ module.exports = function () {
   var router = express.Router();
 
   router.get('/test', function (req, res, next) {
-    res.render('signup', { session: req.session });
+    res.render('warehouseDetail', { session: req.session });
   });
 
   return router;
