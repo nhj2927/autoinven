@@ -1463,6 +1463,7 @@ h6,
 .btn-help-right:hover a {
   color: #fff;
 }
+
 /* iot page */
 #iot {
   padding-top: 100px;
@@ -1481,22 +1482,6 @@ h6,
   color: black;
 }
 
-/*.sensor {
-  display: inline-block;
-  margin: 30px;
-  padding: 40px 40px;
-  background: white;
-  border-radius: 10px;
-  border: 2px solid transparent;
-  transition: all .3s ease;
-}
-
-.sensor:hover {
-  border-color: #7b68ee;
-  transform: translateY(-5px);
-  box-shadow: 5px 5px 11px 2px rgba(27, 35, 80, 0.12);
-}*/
-
 .select {
   display: inline-block;
   width: 300px;
@@ -1513,7 +1498,34 @@ h6,
   background-color: white;
 }
 
+
+/*customed */
 .test-gray {
   background-color: #aaaaaa;
   border: 1px solid black;
+}
+
+.info-card {
+  border-collapse: collapse;
+  border-radius: 10px;
+  border-style: hidden;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+table.info-table {
+  border-collapse: collapse;
+  border-radius: 10px;
+  border-style: hidden;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+td.info-table-td-head {
+  background-color: #f5f5f5;
+  font-family: 'nanum-eb';
+  font-size: 1.1rem;
+}
+
+td.info-table-td {
+  text-align: left;
+  font-family: 'nanum-b';
+  font-size: 1.1rem;
 }

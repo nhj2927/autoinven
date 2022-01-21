@@ -11,10 +11,17 @@
     photos
   </div>
 
+  <!--창고 상세정보 타이틀-->
   <div id="title-container" class="container">
-    <p class="badge-text-purple">
-      <img src="/image/icon/map_mark_icon.svg" class="badge-svg"/> 대구광역시 북구 산격동 112-22
-      <img src="/image/icon/verified_icon.svg" class="badge-svg"/> 인증창고
+    <p>
+      <span class="badge-text-purple">
+        <img src="/image/icon/map_mark_icon.svg" class="badge-svg"/> 
+        대구광역시 북구 산격동 112-22
+      </span>
+      <span class="badge-text">
+        <img src="/image/icon/verified_icon.svg" style="width:30px; height:30px; background: no-repeat;"/>
+        인증창고
+      </span>
     </p>
     <h3 class="wh-detail-title">대구 광역시 글로벌 물류센터</h3>
     <p class="badge-text">
@@ -22,9 +29,11 @@
       <img src="/image/icon/envelope-solid.svg" class="badge-svg"/> daegu@gmail.com
     </p>
   </div>
+  <!--창고 상세정보 타이틀-->
   
   <div class="container">
     <div class="row align-items-start">
+      <!--창고 정보 테이블-->
       <div id="wh-info-table" class="col">
         <h3 class="wh-detail-title">창고정보</h3>
         <p class="badge-text">
@@ -56,20 +65,96 @@
           </tr>
           <tr>
             <td class=info-table-td-head>대지면적</td>
-            <td>9000㎡ (2722평)</td>
+            <td class="info-table-td">9000㎡ (2722평)</td>
             <td class=info-table-td-head>연면적</td>
-            <td>8900㎡ (2692평)</td>
+            <td class="info-table-td">8900㎡ (2692평)</td>
           </tr>
           <tr>
             <td class=info-table-td-head>공용면적</td>
-            <td>2900㎡ (877평)</td>
+            <td class="info-table-td">2900㎡ (877평)</td>
             <td class=info-table-td-head>전용면적</td>
-            <td>6000㎡ (1815평)</td>
+            <td class="info-table-td">6000㎡ (1815평)</td>
           </tr>
         </table>
       </div>
-      <div class="col-5 test-gray">
-        hello
+      <!--창고 정보 테이블-->
+
+      <!--견적 확인 카드뷰-->
+      <div class="col-5">
+        <form>
+          <div class="info-card" id="contract-card" >
+            <div class="card-body">
+              <div>
+                <span id="wh-detail-contract-card-title">합계</span>
+                <span id="wh-detail-contract-card-price">670,000￦</span>
+              </div>
+              
+              <div class="contract-card-element">
+                <p>임대기간 선택</p>
+                <input id="info-card-start-date" type="date" class="input-contract-info"/>
+                <input id="info-card-end-date" type="date" class="input-contract-info"/>
+              </div>
+
+              <div class="contract-card-element">
+                <p style="float: right;">최대 499평</p>
+                <input id="info-card-area-for-contract" type="number" placeholder="임대면적" class="input-contract-info" min="0"/>
+              </div>
+
+              <div class="contract-card-element">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <p class="submit-footer">입력 정보를 모두 채운 후 견적을 확인해주세요.</p>
+              </div>
+            </div>
+
+          </div>
+        </form>
+      </div>
+      <!--견적 확인 카드뷰-->
+    </div>
+
+    <!--창고 상세정보-->
+    <div style="margin-top: 2rem;">
+      <h3 class="wh-detail-title">상세정보</h3>
+      <table class="table info-table">
+        <tr>
+          <td class=info-table-td-head>층수</td>
+          <td class="info-table-td">1층</td>
+          <td class=info-table-td-head>유효층고</td>
+          <td class="info-table-td">약 11m</td>
+          <td class=info-table-td-head>출입가능차량</td>
+          <td class="info-table-td">전차종 출입가능</td>
+        </tr>
+        <tr>
+          <td class=info-table-td-head>준공일</td>
+          <td class="info-table-td">2021.08.28</td>
+          <td class=info-table-td-head>접근성</td>
+          <td class="info-table-td" colspan="3">정왕IC 9km, 남안산IC 10km </td>
+        </tr>
+        <tr>
+          <td class=info-table-td-head>창고소개</td>
+          <td class="info-table-td" colspan="6">깔끔한 신축 물류 창고 입니다.</td>
+        </tr>
+        <tr>
+          <td class=info-table-td-head>보유장비현황 및 특이사항</td>
+          <td class="info-table-td" colspan="6">
+              □ 물류장비
+              - 지게차 5대 : 전동 5대
+              파렛트
+              - 목재 : 단면 양방향 1000ea(1000＊1200),
+              □ 보안설비
+              - 보안시스템 완비(출입보안, CCTV 등)
+              □ 화재설비
+              - 소화기, 소화전, 화재경보기, 화재감지기, 가스누설경보기, 피난기구, 스프링쿨러 등
+          </td>
+        </tr>
+      </table>
+    </div>
+    <!--창고 상세정보-->
+
+    <div style="margin-top:3rem;">
+      <h3 class="wh-detail-title">창고환경</h3>
+      <div class="info-card" style="height: 20rem;">
+
       </div>
     </div>
   </div>
