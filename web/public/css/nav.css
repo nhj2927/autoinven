@@ -1,0 +1,27 @@
+.inner{
+    display: flex;
+    max-width: 100%;
+    height: 100px;
+    margin: 0 auto;
+  }
+  .navbar navbar-expand-lg navbar-light bg -light{
+    width: 100%;
+  }
+  .inner .navbar-brand{
+    margin-top: 5px;
+    width: 200px;
+    height: 50px;
+    display: block;
+    background: url("public/image/main_logo.png");
+    text-indent: -9999px;
+  }
+  .inner .navbar{
+      width: 100%;
+  }
+  .inner .navbar-collapse{
+      float: right;
+      flex-grow: 0;
+  }
+  .nav-item a{
+      font-weight: 1000;
+  }
