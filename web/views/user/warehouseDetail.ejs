@@ -12,8 +12,27 @@
   <header>
     <%- include('../partial/navbar') %>
   </header>
-  <div class="photo-container test-gray">
-    photos
+  <!-- Slider main container -->
+  <div class="swiper">
+    <!-- Additional required wrapper -->
+    <div class="swiper-wrapper">
+      <!-- Slides -->
+      <div class="swiper-slide">
+        <img src="/image/test_image_1.jpg"/>
+      </div>
+      <div class="swiper-slide">
+        <img src="/image/test_image_2.jpg"/>
+      </div>
+      <div class="swiper-slide">
+        <img src="/image/test_image_3.jpg"/>
+      </div>
+    </div>
+    <!-- If we need pagination -->
+    <div class="swiper-pagination"></div>
+
+    <!-- If we need navigation buttons -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
   </div>
 
   <!--창고 상세정보 타이틀-->
@@ -172,4 +191,27 @@
     <%- include('../partial/footer') %>
   </footer>
 </body>
+
+<script>
+  const swiper = new Swiper('.swiper', {
+    // Optional parameters
+    direction: 'horizontal',
+    loop: true,
+
+    //for centered slide
+    slidesPerView: 3,
+    centeredSlides: true,
+
+    //pagination
+    pagination: {
+      el: '.swiper-pagination',
+    },
+    // Navigation arrows
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+  });
+
+</script>
 </html>
