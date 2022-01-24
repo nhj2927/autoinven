@@ -39,6 +39,7 @@ const sessionStore = new MySQLStore({}, connection);
 app.use(cookieParser());
 // 6) 'Public' Directory에 정적 파일(사진, 이미지)을 위치시키기
 app.use(express.static('public'));
+app.use('/utils', express.static('utils'));
 // 7) CORS 허용
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -68,12 +69,6 @@ app.use('/auth', require('./routes/auth')(db));
 app.use('/user', require('./routes/user')(db));
 app.use('/admin', require('./routes/admin')(db));
 app.use('/api', require('./routes/admin')(db));
-// app.use('/User', require('./Routes/user')(app, mysql.pool));
-// app.use('/Admin', require('./Routes/ad')(app, mysql.pool));
-// app.use('/Provider', require('./Routes/pv')(app, mysql.pool));
-// app.use('/Buyer', require('./Routes/by')(app, mysql.pool));
-// app.use('/Iot', require('./Routes/iot')(app, mysql.pool));
-// app.use('/api', require('./Routes/api')(app, mysql.pool));
 
 // 11) 다국어 지원
 app.get('/en', (req, res) => {
