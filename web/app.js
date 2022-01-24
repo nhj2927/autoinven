@@ -5,20 +5,22 @@ const express = require('express');
 const app = express();
 // 4) env파일 사용
 require('dotenv').config();
-// 5) EJS Module 불러오기
+// 5) 절대경로 설정
+require('better-module-alias')(__dirname);
+// 6) EJS Module 불러오기
 const ejs = require('ejs');
-// 6) fs core moduel 불러오기
+// 7) fs core moduel 불러오기
 const fs = require('fs').promises;
-// 7) 다국어 지원 Module 불러오기
+// 8) 다국어 지원 Module 불러오기
 const i18n = require('./config/i18n');
-// 8) cookieParser Module 불러오기
+// 9) cookieParser Module 불러오기
 const cookieParser = require('cookie-parser');
 
-// 9) mysql2 Module 불러오기
+// 10) mysql2 Module 불러오기
 const mysql2 = require('mysql2/promise');
-// 10) PORT
+// 11) PORT
 const PORT = process.env.PORT || 5000;
-// 11) DB 테이블 생성(없으면 생성해줌)
+// 12) DB 테이블 생성(없으면 생성해줌)
 db.sequelize.sync().then((response) => {
   console.log('DB sync is completed.');
 });
@@ -35,15 +37,14 @@ const { info } = require('./config/db');
 const MySQLStore = require('express-mysql-session')(session);
 const connection = mysql2.createPool(info);
 const sessionStore = new MySQLStore({}, connection);
-
+// 4) body에 데이터 담기
 app.use(express.json());
 // 5) cookie 데이터 받기
 app.use(cookieParser());
 // 6) 'Public' Directory에 정적 파일(사진, 이미지)을 위치시키기
 app.use(express.static('public'));
-//app.use('/utils', express.static('utils'));
 // 7) CORS 허용
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
   next();

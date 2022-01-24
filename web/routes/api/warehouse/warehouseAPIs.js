@@ -94,7 +94,7 @@ const searchWarehouse = async (req, db) => {
           group: 'warehouse_id',
         },
       ],
-      where: { available_area: { [db.Op.gte]: area } },
+      where: { 'dedicated_area - total_lease_area': { [db.Op.gte]: area } },
     });
     //(3) 해당 창고들을 return
     //  - 호출한 함수에서 지도에 찍고, 거리순으로 리스팅
