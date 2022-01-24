@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <%- include('../head') %>
+    <link rel="stylesheet" href="/css/myInfo.css">
+    <title>Document</title>
+</head>
+
+<body>
+  <header>
+    <%- include('../partial/navbar') %>
+  </header>
+  <div class="inner img">
+
+  </div>
+  <div class="inner main">
+    <ul style="list-style: none;">
+      <li>
+        <h2 style=" font-family: nanum-eb; margin-bottom: 10%;">회원정보 수정</h2>
+      </li>
+      <li>
+        <p class="tag">E-mail</p>
+        <p class="input--text">nhj2927@naver.com</p>
+      </li>
+      <li>
+        <p class="tag">이름</p><input type="text" class="input--text" placeholder="나현준">
+      </li>
+      <li>
+        <p class="tag">비밀번호</p><button class="btn-main">비밀번호 변경하기</button>
+      </li>
+      <li>
+        <p class="tag">휴대전화</p><input type="tel" class="input--text" placeholder="01012345678">
+      </li>
+    </ul>
+  </div>
+  <footer>
+    <%- include('../partial/footer') %>
+  </footer>
+</body>
+
+</html>
