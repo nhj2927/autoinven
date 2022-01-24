@@ -21,7 +21,12 @@
   -webkit-align-items: center;
   align-items: center;
 }
-
+.swiper-button-prev{
+  color: white;
+}
+.swiper-button-next{
+  color: white;
+}
 .badge-svg {
   width: 20px;
   height: 20px;
@@ -59,7 +64,7 @@ form.input-contract-info{
   font-size: 1rem;
   color: gray;
 }
-
+.div-inline-block
 #title-container {
   margin-top: 2rem;
 }
@@ -120,3 +125,12 @@ form.input-contract-info{
 #contract-submit{
   width: 80%;
 }
+#dayButton,
+#monthButton,
+#yearButton {
+  border-style: hidden;
+  box-shadow: 0 0 0 1px #dddddd;
+  margin : 0 0 0.5rem 0.5rem;
+  display: inline-block;
+}
+

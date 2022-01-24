@@ -1,0 +1,90 @@
+<div class="info-card">
+    <div class="colflex" id="dashChart">
+        <div class="rowflex">
+            <div class="main_chart">
+                <div class="chart_row">
+                    <div class="graph_temp">
+                        <canvas id="chart_temp" width="350" height="350"></canvas>
+                    </div>
+                    <div class="graph_humidity">
+                        <canvas id="chart_humi" width="350" height="350"></canvas>
+                    </div>
+                </div>
+                <div class="chart_row">
+                    <div class="graph_co">
+                        <canvas id="chart_co" width="350" height="350"></canvas>
+                    </div>
+                    <div class="graph_lpg">
+                        <canvas id="chart_lpg" width="350" height="350"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="summary colflex">
+                <div class="s_temp colflex">
+                    <div class="rowflex">
+                        <h3 class="summaryName" style="color:#36a2eb"><img src="/image/icon/temp.png">Temperature</h3>
+                    </div>
+                    <div class="rowflex">
+                        <span>MAX</span>
+                        <span>MIN</span>
+                        <span>AVG</span>
+                    </div>
+                    <div class="rowflex realdata">
+                        <span id="maxTemp">0.0</span>
+                        <span id="minTemp">0.0</span>
+                        <span id="avgTemp">0.0</span>
+                    </div>
+                </div>
+
+                <div class="s_humi colflex">
+                    <div class="rowflex">
+                        <h3 class="summaryName" style="color:#8fbe96"><img src="/image/icon/humi.png">Humidity</h3>
+                    </div>
+                    <div class="rowflex">
+                        <span>MAX</span>
+                        <span>MIN</span>
+                        <span>AVG</span>
+                    </div>
+                    <div class="rowflex realdata">
+                        <span id="maxHumi">0.0</span>
+                        <span id="minHumi">0.0</span>
+                        <span id="avgHumi">0.0</span>
+                    </div>
+                </div>
+
+                <div class="s_co colflex">
+                    <div class="rowflex">
+                        <h3 class="summaryName" style="color:#e04006"><img src="/image/icon/co.png">CO</h3>
+                    </div>
+                    <div class="rowflex">
+                        <span>MAX</span>
+                        <span>MIN</span>
+                        <span>AVG</span>
+                    </div>
+                    <div class="rowflex realdata">
+                        <span id="maxCo">0.0</span>
+                        <span id="minCo">0.0</span>
+                        <span id="avgCo">0.0</span>
+                    </div>
+                </div>
+
+                <div class="s_lpg colflex">
+                    <div class="rowflex">
+                        <h3 class="summaryName" style="color:#f29d00"><img src="/image/icon/lpg.png" style="width:12px">LPG</h3>
+                    </div>
+                    <div class="rowflex">
+                        <span>MAX</span>
+                        <span>MIN</span>
+                        <span>AVG</span>
+                    </div>
+                    <div class="rowflex realdata">
+                        <span id="maxLpg">0.0</span>
+                        <span id="minLpg">0.0</span>
+                        <span id="avgLpg">0.0</span>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
