@@ -70,7 +70,7 @@ app.use('/', require('./routes')(db));
 app.use('/auth', require('./routes/auth')(db));
 app.use('/user', require('./routes/user')(db));
 app.use('/admin', require('./routes/admin')(db));
-app.use('/api', require('./routes/admin')(db));
+app.use('/api', require('./routes/api')(db));
 
 // 11) 다국어 지원
 app.get('/en', (req, res) => {
