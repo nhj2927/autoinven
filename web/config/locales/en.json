@@ -1,1 +1,28 @@
-{}
+{
+	"signup_sign": "SIGN",
+	"signup_up": "UP",
+	"signup_email": "E-mail",
+	"signup_send_authcode": "Certify",
+	"signup_authcode": "Auth Code",
+	"signup_check": "Check",
+	"signup_name": "Name",
+	"signup_pw": "Password",
+	"signup_pwcheck": "Password Check",
+	"signup_tel": "Phone",
+	"signup_signup": "Sign up",
+
+	"signin_sign": "SIGN",
+	"signin_in": "IN",
+	"signin_email": "E-mail",
+	"signin_pw": "Password",
+	"signin_signin": "Sign in",
+	"signin_content1": "Don't have account yet?",
+	"signin_signup": "sign up",
+
+  "navbar_search_warehouse": "SEARCH WAREHOUSE",
+  "navbar_my_warehouse": "MY WAREHOUSE",
+  "navbar_my_contract": "MY CONTRACT",
+  "navbar_help1": "HELP",
+  "navbar_signin": "signin",
+  "navbar_help2": "HELP"
+}

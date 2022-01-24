@@ -76,11 +76,13 @@ h1{
 }
 
 .btn-main.small{
+  display: flex;
   width:90px;
   height: 40px;
   margin: 0.75rem 0;
   margin-left: 10px;
   float: right;
-  font-size: 22px;
-  position: absolute;
+  font-size: 20px;
+  justify-content: center;
+  align-items: center;
 }
