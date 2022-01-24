@@ -38,6 +38,15 @@
   font-weight: bold;
 }
 
+.add_item{
+  font-size: 1rem;
+  font-weight: bold;
+  color: #7c139a;
+  background-color: white;
+  border-style: hidden;
+  margin: 0 0 5px;
+}
+
 .badge-text-purple {
   font-size: 1rem;
   font-weight: bold;
@@ -64,7 +73,7 @@ form.input-contract-info{
   font-size: 1rem;
   color: gray;
 }
-.div-inline-block
+
 #title-container {
   margin-top: 2rem;
 }
@@ -73,10 +82,12 @@ form.input-contract-info{
   padding: 1.5rem;
 }
 
-#wh-info-table {
+#wh-info-table-div {
   margin-top: 3rem;
 }
-
+#wh-info-table{
+  height: 25rem;
+}
 #wh-detail-contract-card-title {
   font-family: 'nanum-eb';
   font-size: 2.5rem;
@@ -132,5 +143,18 @@ form.input-contract-info{
   box-shadow: 0 0 0 1px #dddddd;
   margin : 0 0 0.5rem 0.5rem;
   display: inline-block;
+}
+
+#item-list-card{
+  height: 25rem; 
+  padding: 1rem;
+}
+.item-list-element{
+  height: 8rem;
+  width: 100%;
+}
+.item-list-image{
+  height: 5rem;
+  width: 5rem;
 }
 

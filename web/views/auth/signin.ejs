@@ -3,32 +3,46 @@
 
 <head>
   <meta charset="UTF-8">
-  <%- include('head') %>
-    <link rel="stylesheet" href="./css/signin.css">
+  <%- include('../head') %>
+    <link rel="stylesheet" href="/css/signin.css">
+
     <title>Document</title>
 </head>
 
 <body>
+  <header>
+    <%- include('../partial/navbar') %>
+  </header>
   <div class="inner">
     <div class="left">
       <form id="sign-form">
         <a class="logo" href="signin">Autoinven</a>
         <div class="textdiv">
           <h1>
-            <p class="main_color">로그</p>
+            <p class="main_color">
+              <%= __('signin_sign')%>
+            </p>
           </h1>
           <h1>
-            <p class="black_color">인</p>
+            <p class="black_color">
+              <%= __('signin_in')%>
+            </p>
           </h1>
         </div>
         <ul>
-          <li><input type="email" class="input--text" placeholder="이메일"></li>
-          <li><input type="password" class="input--text" placeholder="비밀번호"></li>
+          <li><input type="email" class="input--text" placeholder="<%= __('signin_email')%>"></li>
+          <li><input type="password" class="input--text" placeholder="<%= __('signin_pw')%>"></li>
         </ul>
-        <button type="submit" class="btn btn-main">로그인</button>
+        <button type="submit" class="btn btn-main">
+          <%= __('signin_signin')%>
+        </button>
         <div class=signin>
-          <p style="color: #000; margin-right: 10px;">아직 계정이 없으신가요? </p>
-          <a style="color: rgb(124,19,154); font-size: 15px;" href="signup"> 회원가입</a>
+          <p style="color: #000; margin-right: 10px;">
+            <%= __('signin_content1')%>
+          </p>
+          <a style="color: rgb(124,19,154); font-size: 15px;" href="signup">
+            <%= __('signin_signup')%>
+          </a>
         </div>
       </form>
     </div>
