@@ -672,8 +672,8 @@ h6,
 
 .inner{
   display: flex;
-  max-width: 100%;
-  height: 100px;
+  max-width: 95%;
+  height: 80px;
   margin: 0 auto;
 }
 .navbar navbar-expand-lg navbar-light bg -light{
