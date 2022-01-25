@@ -3,6 +3,7 @@ module.exports = (db) => {
   const router = express.Router();
 
   const { doAsync } = require('$base/utils/asyncWrapper');
+  const signout = require('./signout');
   const signin = require('./signin');
 
   router.post(
@@ -22,7 +23,17 @@ module.exports = (db) => {
 
   router.use('/signup', require('./signup')(db));
 
-  router.get('/signout', (req, res) => {});
+  router.get('/signout', (req, res, next) => {
+    try {
+      signout(req.session);
+
+      res.json({
+        message: 'success',
+      });
+    } catch (err) {
+      next(err);
+    }
+  });
 
   return router;
 };
