@@ -4,7 +4,7 @@ module.exports = (db) => {
 
   router.post('/signin', (req, res) => {});
 
-  router.use('/signup', require('./signup'));
+  router.use('/signup', require('./signup')(db));
 
   router.get('/signout', (req, res) => {});
 
