@@ -5,7 +5,7 @@ module.exports = async (user_info, db) => {
 
   try {
     password_info = await getEncryptedPasswordInfo(password);
-    await db['User'].create({
+    await db.User.create({
       email,
       name,
       phone,
