@@ -55,7 +55,7 @@
 	"warehousedetail_completion_date": "Completion Date",
 	"warehousedetail_accessability": "Accessability",
 	"warehousedetail_introduce": "Introduce",
-	"warehousedetail_note": "Equipemts & Note",
+	"warehousedetail_note": "Equipments & Note",
 	"warehousedetail_environ": "ENVIRONMENT",
 	"signup_sign": "SIGN",
 	"signup_up": "UP",
@@ -79,8 +79,15 @@
 	"navbar_my_warehouse": "MY WAREHOUSE",
 	"navbar_my_contract": "MY CONTRACT",
 	"navbar_help1": "HELP",
-	"navbar_signin": "signin",
+	"navbar_signin": "SIGNIN",
 	"navbar_help2": "HELP",
-	"warehousedetailwithitem_itemlist": "ItemList",
-	"warehousedetailwithitem_add_item": "ADD"
+	"warehousedetailwithitem_itemlist": "ITEMLIST",
+	"warehousedetailwithitem_add_item": "ADD ITEM",
+	"warehousedetailwithitem_owner": "OWNER",
+	"warehousedetailwithitem_date_in": "DATE",
+	"warehousedetailwithitem_badge_in": "IN",
+	"warehousedetailwithitem_date_out": "DATE",
+	"warehousedetailwithitem_badge_out": "OUT",
+	"warehousedetailwithitem_date_register": "DATE",
+	"warehousedetailwithitem_badge_before_in": "BEFORE"
 }
