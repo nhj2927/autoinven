@@ -9,7 +9,7 @@
 </head>
 
 <body>
-  <header>
+  <header style="z-index: 1000;">
     <%- include('../partial/navbar') %>
   </header>
   <div class="inner img">
@@ -18,20 +18,30 @@
   <div class="inner main">
     <ul style="list-style: none;">
       <li>
-        <h2 style=" font-family: nanum-eb; margin-bottom: 10%;">회원정보 수정</h2>
+        <h2 style=" font-family: nanum-eb; margin-bottom: 10%;">
+          <%= __('myInfo_title')%>
+        </h2>
       </li>
       <li>
         <p class="tag">E-mail</p>
         <p class="input--text">nhj2927@naver.com</p>
       </li>
       <li>
-        <p class="tag">이름</p><input type="text" class="input--text" placeholder="나현준">
+        <p class="tag">
+          <%= __('myInfo_name')%>
+        </p><input type="text" class="input--text" placeholder="나현준">
       </li>
       <li>
-        <p class="tag">비밀번호</p><button class="btn-main">비밀번호 변경하기</button>
+        <p class="tag">
+          <%= __('myInfo_pw')%>
+        </p><button class="btn-main">
+          <%= __('myInfo_change_pw')%>
+        </button>
       </li>
       <li>
-        <p class="tag">휴대전화</p><input type="tel" class="input--text" placeholder="01012345678">
+        <p class="tag">
+          <%= __('myInfo_phone')%>
+        </p><input type="tel" class="input--text" placeholder="01012345678">
       </li>
     </ul>
   </div>

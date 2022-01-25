@@ -24,5 +24,11 @@
   "navbar_my_contract": "MY CONTRACT",
   "navbar_help1": "HELP",
   "navbar_signin": "signin",
-  "navbar_help2": "HELP"
+  "navbar_help2": "HELP",
+
+  "myInfo_title": "Edit myInfo",
+  "myInfo_name": "Name",
+  "myInfo_pw": "Password",
+  "myInfo_phone": "Phone",
+  "myInfo_change_pw": "Change Password"
 }
