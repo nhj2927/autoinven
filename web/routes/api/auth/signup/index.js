@@ -4,6 +4,7 @@ module.exports = (db) => {
 
   const { doAsync } = require('$base/utils/asyncWrapper');
   const signup = require('./signup');
+  const verifyEmail = require('./verifyEmail');
 
   //회원가입
   router.post(
@@ -20,7 +21,20 @@ module.exports = (db) => {
   );
 
   //이메일 인증
-  router.post('/email', (req, res) => {});
+  router.post(
+    '/email',
+    doAsync(async (req, res) => {
+      const {
+        body: { email },
+      } = req;
+
+      const auth_code = await verifyEmail(email);
+
+      res.status(200).json({
+        auth_code,
+      });
+    })
+  );
 
   return router;
 };
