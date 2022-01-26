@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       warehouse_id: {
         allowNull: false,
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
       },
       user_email: {
         allowNull: false,

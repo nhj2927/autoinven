@@ -25,6 +25,21 @@ db.sequelize.sync().then((response) => {
   console.log('DB sync is completed.');
 });
 
+/*
+// 창고번호 한달 마다 초기화
+let warehouseId = 0;
+global.wdId = warehouseId;
+const warehouseIdSchedule = require('./utils/warehouseIdSchedule');
+warehouseIdSchedule.job();
+
+console.log(new Date());
+const job = schedule.scheduleJob('0 0 0 1 * *', () => {
+  console.log(`before warehouse id : ${wdId}`);
+  wdId += 1;
+  console.log(`after warehouse id : ${wdId}`);
+});
+*/
+
 // 1. 설정
 // 1) View 경로 설정
 app.set('views', __dirname + '/views');
@@ -43,6 +58,7 @@ app.use(express.json());
 app.use(cookieParser());
 // 6) 'Public' Directory에 정적 파일(사진, 이미지)을 위치시키기
 app.use(express.static('public'));
+app.use('/uploads', express.static('uploads'));
 // 7) CORS 허용
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
