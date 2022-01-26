@@ -4,6 +4,7 @@ module.exports = (db) => {
 
   const { doAsync } = require('$base/utils/asyncWrapper');
   const editMyinfo = require('./editMyinfo');
+  const editPassword = require('./editPassword');
 
   //내정보 수정
   router.put(
@@ -19,7 +20,21 @@ module.exports = (db) => {
     })
   );
 
-  router.put('/password', (req, res) => {});
+  //비밀번호 수정
+  router.put(
+    '/password',
+    doAsync(async (req, res) => {
+      const {
+        body: { current_password, new_password },
+      } = req;
+
+      await editPassword(current_password, new_password, db);
+
+      res.status(200).json({
+        message: 'success',
+      });
+    })
+  );
 
   return router;
 };
