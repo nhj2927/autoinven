@@ -83,6 +83,10 @@ const getWarehouseInfo = async (id, db) => {
 
 const registerWarehouse = async (req, db) => {
   const newWarehouse = getNewWarehouse(req.body); // 창고 가져오기
+  console.log(newWarehouse.completion_date);
+  if (newWarehouse.completion_date == null) {
+    delete newWarehouse.completion_date;
+  }
   const addressInfo = getAddressInfo(req.body); // 주소 가져오기
   const whFiles = req.files; // 이미지 파일들 가져오기
   // 주소가 기존에 존재하는지 검색(제약조건 때문)

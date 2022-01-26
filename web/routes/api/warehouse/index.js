@@ -31,6 +31,7 @@ module.exports = (db) => {
     '/',
     upload.array('images', 6),
     doAsync(async (req, res, next) => {
+      console.log('창고 등록 요청됨');
       const newWarehouse = await warehouseAPIs.registerWarehouse(req, db);
       res.status(200).send(newWarehouse);
     })

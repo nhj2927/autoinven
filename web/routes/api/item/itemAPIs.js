@@ -11,7 +11,7 @@ const getAllItems = async (db) => {
   const items = await db.Item.findAll();
   return items;
 };
-const getItemInfo = async (id, db) => {
+const getItem = async (id, db) => {
   const item = await db.Item.findByPk(id);
   return item;
 };
@@ -63,7 +63,7 @@ const editItem = async (req, db) => {
 
 module.exports = {
   getAllItems,
-  getItemInfo,
+  getItem,
   registerItem,
   editItem,
 };
