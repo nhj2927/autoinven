@@ -47,6 +47,7 @@ app.use(express.static('public'));
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
   next();
 });
 // 8) 세션을 적용
@@ -84,8 +85,11 @@ app.get('/ko', (req, res) => {
 });
 
 app.use((err, req, res, next) => {
+  console.log(err);
   res.statusCode = err.statusCode || 500;
-  res.send(err.message);
+  res.json({
+    message: err.message,
+  });
 });
 
 // 없는페이지 에러메세지
