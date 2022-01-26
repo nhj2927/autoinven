@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'category_id',
       });
       models.Warehouse.hasMany(models.IotDevice, {
-        foreignKey: 'device_id',
+        foreignKey: 'warehouse_id',
       });
       models.Warehouse.hasMany(models.LeaseContract, {
         foreignKey: 'warehouse_id',
@@ -31,7 +31,8 @@ module.exports = (sequelize, DataTypes) => {
       warehouse_id: {
         allowNull: false,
         primaryKey: true,
-        type: DataTypes.STRING,
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
       },
       name_ko: DataTypes.STRING,
       name_en: DataTypes.STRING,
