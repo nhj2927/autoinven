@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <%- include('../head') %>
+    <script src="/js/signin.js"></script>
     <link rel="stylesheet" href="/css/signin.css">
     <title>로그인</title>
 </head>
@@ -14,7 +15,7 @@
   </header>
   <div class="inner">
     <div class="left">
-      <form id="sign-form">
+      <form id="sign-form" action="/api/auth/signin" method="post" onsubmit="return false">
         <a class="logo" href="signin">Autoinven</a>
         <div class="textdiv">
           <h1>
@@ -29,10 +30,12 @@
           </h1>
         </div>
         <ul>
-          <li><input type="email" class="input--text" placeholder="<%= __('signin_email')%>"></li>
-          <li><input type="password" class="input--text" placeholder="<%= __('signin_pw')%>"></li>
+          <li><input type="email" name="email" id="email" class="input--text" placeholder="<%= __('signin_email')%>">
+          </li>
+          <li><input type="password" name="password" id="password" class="input--text"
+              placeholder="<%= __('signin_pw')%>"></li>
         </ul>
-        <button type="submit" class="btn btn-main">
+        <button type="submit" id="signin_button" name="signin_button" class="btn btn-main">
           <%= __('signin_signin')%>
         </button>
         <div class=signin>

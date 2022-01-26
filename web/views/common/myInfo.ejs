@@ -34,9 +34,18 @@
       <li>
         <p class="tag">
           <%= __('myInfo_pw')%>
-        </p><button class="btn-main">
+        </p>
+        <button class="btn-main" value="open" id="change_pw">
           <%= __('myInfo_change_pw')%>
         </button>
+        <div id='modal'>
+          <div id='container'>
+            <input type='button' value='X' class="close" id='btnClose' />
+            <label>암호를 입력하세요</label><br />
+            <input type='password' id='pwd' value='1234' />
+            <input type='button' value='check' id='btnCheck' />
+          </div>
+        </div>
       </li>
       <li>
         <p class="tag">

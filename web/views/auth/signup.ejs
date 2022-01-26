@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <%- include('../head') %>
+    <script src="/js/signup.js"></script>
     <link rel="stylesheet" href="/css/signup.css">
     <title>Document</title>
 </head>
@@ -14,7 +15,7 @@
   </header>
   <div class="inner">
     <div class="left">
-      <form id="sign-form">
+      <form id="signup-form" action="/api/auth/signup" method="post" onsubmit="return false">
         <a class="logo" href="signup">Autoinven</a>
         <div class="textdiv">
           <h1>
@@ -29,30 +30,31 @@
           </h1>
         </div>
         <ul>
-          <li><input type="email" class="input--text short" placeholder="<%=__('signup_email')%>"> <label
-              class="btn-main small" for="sendAuthCode">
+          <li><input type="email" id="email" name="email" class="input--text short"
+              placeholder="<%=__('signup_email')%>"> <label class="btn-main small" for="sendAuthCode">
               <%= __('signup_send_authcode')%>
             </label>
             <input type="button" class="upload-btn-hidden" id="sendAuthCode" name="sendAuthCode"
               value="Send Auth Code"><br>
           </li>
-          <li><input type="text" class="input--text short" placeholder="<%=__('signup_authcode')%>" />
+          <li id="li_auth" name="li_auth"><input type="text" id="authcode" name="authcode" class="input--text short"
+              placeholder="<%=__('signup_authcode')%>" />
             <% if(locals.err){ %>
               <span class="invalid-feedback">
                 <%= locals.err %>
               </span>
               <% } %>
-                <label class="btn-main small" for="codeCheck">
+                <label class="btn-main small" id="codecheck" for="codeCheck">
                   <%=__('signup_check')%>
                 </label>
-                <input type="button" class="upload-btn-hidden" id="codeCheck" name="codeCheck" value="check"><br>
+                <input type="button" class="upload-btn-hidden" id="codecheck" name="codecheck" value="check"><br>
           </li>
-          <li><input type="text" class="input--text" placeholder="<%=__('signup_name')%>"></li>
-          <li><input type="password" class="input--text" placeholder="<%=__('signup_pw')%>"></li>
-          <li><input type="password" class="input--text" placeholder="<%=__('signup_pwcheck')%>"></li>
-          <li><input type="tel" class="input--text" placeholder="<%=__('signup_tel')%>"></li>
+          <li><input type="text" id="name" class="input--text" placeholder="<%=__('signup_name')%>"></li>
+          <li><input type="password" id="pw" class="input--text" placeholder="<%=__('signup_pw')%>"></li>
+          <li><input type="password" id="pwcheck" class="input--text" placeholder="<%=__('signup_pwcheck')%>"></li>
+          <li><input type="tel" id="tel" class="input--text" placeholder="<%=__('signup_tel')%>"></li>
         </ul>
-        <button type="submit" class="btn btn-main">
+        <button type="submit" id="signup_button" name="signup_button" class="btn btn-main">
           <%=__('signup_signup')%>
         </button>
       </form>

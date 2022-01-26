@@ -28,7 +28,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./app.js",
-    "dev": "nodemon -L ./app.js",
+    "dev": "nodemon -L --ignore public/js ./app.js",
     "migrate": "sequelize db:migrate",
     "seed": "sequelize db:seed:all"
   },
