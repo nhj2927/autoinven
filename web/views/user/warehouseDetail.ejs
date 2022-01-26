@@ -4,17 +4,43 @@
 <head>
   <meta charset="UTF-8">
   <%- include('../head') %>
+  <link rel='stylesheet' href='/css/iot/nav.css' />
+    <link rel='stylesheet' href='/css/iot/dashboard.css' />
+    <link rel='stylesheet' href='/css/iot/iot_statistic.css' />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/js/iot_statistic.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/css/warehouseDetail.css" />
-    <title>창고 상세 정보</title>
 </head>
 
 <body>
   <header>
     <%- include('../partial/navbar') %>
   </header>
-  <div class="photo-container test-gray">
-    photos
+  <!-- Slider main container -->
+  <div class="swiper" style="margin-top: 1rem;">
+    <!-- Additional required wrapper -->
+    <div class="swiper-wrapper">
+      <!-- Slides -->
+      <div class="swiper-slide">
+        <img src="/image/test_image_1.jpg"/>
+      </div>
+      <div class="swiper-slide">
+        <img src="/image/test_image_2.jpg"/>
+      </div>
+      <div class="swiper-slide">
+        <img src="/image/test_image_3.jpg"/>
+      </div>
+    </div>
+    <div class="swiper-pagination"></div>
+
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
   </div>
+
 
   <!--창고 상세정보 타이틀-->
   <div id="title-container" class="container">
@@ -25,7 +51,7 @@
       </span>
       <span class="badge-text">
         <img src="/image/icon/verified_icon.svg" style="width:30px; height:30px; background: no-repeat;" />
-        인증창고
+        <%= __('warehousedetail_verified') %>
       </span>
     </p>
     <h3 class="wh-detail-title">대구 광역시 글로벌 물류센터</h3>
@@ -39,45 +65,45 @@
   <div class="container">
     <div class="row align-items-start">
       <!--창고 정보 테이블-->
-      <div id="wh-info-table" class="col">
-        <h3 class="wh-detail-title">창고정보</h3>
+      <div id="wh-info-table-div" class="col">
+        <h3 class="wh-detail-title"><%= __('warehousedetail_info')%></h3>
         <p class="badge-text">
-          <img src="/image/icon/truck-solid.svg" class="badge-svg" /> 도킹시설
-          <img src="/image/icon/is_racked_icon.svg" class="badge-svg" /> 파레트 렉
-          <img src="/image/icon/elevator_icon.svg" class="badge-svg" /> 엘리베이터
-          <img src="/image/icon/is_bonded_icon.svg" class="badge-svg" /> 보세
+          <img src="/image/icon/truck-solid.svg" class="badge-svg" /> <%= __('warehousedetail_is_docked')%>
+          <img src="/image/icon/is_racked_icon.svg" class="badge-svg" /> <%= __('warehousedetail_is_recked')%>
+          <img src="/image/icon/elevator_icon.svg" class="badge-svg" /> <%= __('warehousedetail_elevator')%>
+          <img src="/image/icon/is_bonded_icon.svg" class="badge-svg" /> <%= __('warehousedetail_is_bonded')%>
         </p>
-        <table class="table info-table">
+        <table id="wh-info-table" class="table info-table">
           <tr>
-            <td class=info-table-td-head>창고명</td>
+            <td class=info-table-td-head><%= __('warehousedetail_warehouse_name')%></td>
             <td class="info-table-td" colspan="3">대구 광역시 글로벌 물류센터</td>
           </tr>
           <tr>
-            <td class=info-table-td-head>종류</td>
+            <td class=info-table-td-head><%= __('warehousedetail_warehouse_type')%></td>
             <td class="info-table-td" colspan="3">일반 창고</td>
           </tr>
           <tr>
-            <td class=info-table-td-head>임대료</td>
+            <td class=info-table-td-head><%= __('warehousedetail_lease_cost')%></td>
             <td class="info-table-td" colspan="3" style="color: #D00101; font-family:'nanum-b'">평당 ￦800 /일</td>
           </tr>
           <tr>
-            <td class=info-table-td-head>주소</td>
+            <td class=info-table-td-head><%= __('warehousedetail_address')%></td>
             <td class="info-table-td" colspan="3">대구 광역시 북구 산격동 112-13</td>
           </tr>
           <tr>
-            <td class=info-table-td-head>상세주소</td>
+            <td class=info-table-td-head><%= __('warehousedetail_detail_address')%></td>
             <td class="info-table-td" colspan="3">대구 스마트 물류단지 내부</td>
           </tr>
           <tr>
-            <td class=info-table-td-head>대지면적</td>
+            <td class=info-table-td-head><%= __('warehousedetail_land_area')%></td>
             <td class="info-table-td">9000㎡ (2722평)</td>
-            <td class=info-table-td-head>연면적</td>
+            <td class=info-table-td-head><%= __('warehousedetail_gross_floor_area')%></td>
             <td class="info-table-td">8900㎡ (2692평)</td>
           </tr>
           <tr>
-            <td class=info-table-td-head>공용면적</td>
+            <td class=info-table-td-head><%= __('warehousedetail_common_area')%></td>
             <td class="info-table-td">2900㎡ (877평)</td>
-            <td class=info-table-td-head>전용면적</td>
+            <td class=info-table-td-head><%= __('warehousedetail_net_leaseable_area')%></td>
             <td class="info-table-td">6000㎡ (1815평)</td>
           </tr>
         </table>
@@ -86,67 +112,35 @@
 
       <!--견적 확인 카드뷰-->
       <div class="col-5">
-        <form>
-          <div class="info-card" id="contract-card">
-            <div class="card-body">
-              <div>
-                <span id="wh-detail-contract-card-title">합계</span>
-                <span id="wh-detail-contract-card-price">670,000 ￦</span>
-              </div>
-
-              <div class="contract-card-element">
-                <p>임대기간 선택</p>
-                <input id="info-card-start-date" type="date" class="input-contract-info"/>
-                <img id="info-card-arrow" src="/image/icon/arrow-right-solid.svg"/>
-                <input id="info-card-end-date" type="date" class="input-contract-info"/>
-              </div>
-
-              <div class="contract-card-element" >
-                <div style="margin-left: 9%;">
-                  <p>최대 700평</p>
-                  <span style="text-align:center;">
-                    <input id="info-card-area-for-contract" type="number" placeholder="임대면적" class="input-contract-info" min="0"/>
-                    <span style="font-size: 1.5rem; font-family: 'nanum-b'; color: gray; float:inline-end;">평</span>
-                  </span>
-                </div>
-              </div>
-
-              <div class="contract-card-element" style="text-align:center;">
-                <button id="contract-submit" type="submit" class="btn btn-main">견적확인</button>
-                <p class="submit-footer">입력 정보를 모두 채운 후 견적을 확인해주세요.</p>
-              </div>
-            </div>
-
-          </div>
-        </form>
+        <%- include('../partial/warehouseEstimate')%>
       </div>
       <!--견적 확인 카드뷰-->
     </div>
 
     <!--창고 상세정보-->
     <div style="margin-top: 2rem;">
-      <h3 class="wh-detail-title">상세정보</h3>
+      <h3 class="wh-detail-title"><%= __('warehousedetail_detail_info')%></h3>
       <table class="table info-table">
         <tr>
-          <td class=info-table-td-head>층수</td>
+          <td class=info-table-td-head><%= __('warehousedetail_floor_num')%></td>
           <td class="info-table-td">1층</td>
-          <td class=info-table-td-head>유효층고</td>
+          <td class=info-table-td-head><%= __('warehousedetail_valid_floor_height')%></td>
           <td class="info-table-td">약 11m</td>
-          <td class=info-table-td-head>출입가능차량</td>
+          <td class=info-table-td-head><%= __('warehousedetail_accessable_vehicle')%></td>
           <td class="info-table-td">전차종 출입가능</td>
         </tr>
         <tr>
-          <td class=info-table-td-head>준공일</td>
+          <td class=info-table-td-head><%= __('warehousedetail_completion_date')%></td>
           <td class="info-table-td">2021.08.28</td>
-          <td class=info-table-td-head>접근성</td>
+          <td class=info-table-td-head><%= __('warehousedetail_accessability')%></td>
           <td class="info-table-td" colspan="3">정왕IC 9km, 남안산IC 10km </td>
         </tr>
         <tr>
-          <td class=info-table-td-head>창고소개</td>
+          <td class=info-table-td-head><%= __('warehousedetail_introduce')%></td>
           <td class="info-table-td" colspan="6">깔끔한 신축 물류 창고 입니다.</td>
         </tr>
         <tr>
-          <td class=info-table-td-head>보유장비현황 및 특이사항</td>
+          <td class=info-table-td-head><%= __('warehousedetail_note')%></td>
           <td class="info-table-td" colspan="6">
             □ 물류장비
             - 지게차 5대 : 전동 5대
@@ -161,15 +155,57 @@
       </table>
     </div>
     <!--창고 상세정보-->
-    <div style="margin-top:3rem; margin-bottom:3rem;">
-      <h3 class="wh-detail-title">창고환경</h3>
-      <div class="info-card" style="height: 600px;">
-      </div>
-    </div>
-  </div>
 
+    <!--창고 환경-->
+    <div style="margin-top:3rem; margin-bottom:3rem;">
+      <div id="environ-title">
+        <h3 class="wh-detail-title" style="display: inline;"><%= __('warehousedetail_environ')%></h3>
+        
+        <div style="display: inline; float: right;">
+            <div style="display: inline;">
+                <input type='date' id='currentDate' style='width: 10rem;' />
+                <input type='text' class='datepicker' id='currentYear' style='display:none; width:10rem;' />
+            </div>
+            <div style="display: inline;">
+                <div id="dayButton" style="display: inline-block;"><%= __('iot_Statistic_DAILY') %></div>
+                <div id="monthButton" style="display: inline-block;"><%= __('iot_Statistic_MONTHLY') %></div>
+                <div id="yearButton" style="display: inline-block;"><%= __('iot_Statistic_YEARLY') %></div>
+            </div>
+        </div>
+      </div>
+        
+      <div>
+        <%- include('../partial/embeddedStatistic') %>
+      </div>
+    </div> 
+    <!--창고 환경-->
+
+  </div>
   <footer>
     <%- include('../partial/footer') %>
   </footer>
 </body>
+
+<script>
+  const swiper = new Swiper('.swiper', {
+    // Optional parameters
+    direction: 'horizontal',
+    loop: true,
+
+    //for centered slide
+    slidesPerView: 3,
+    centeredSlides: true,
+
+    //pagination
+    pagination: {
+      el: '.swiper-pagination',
+    },
+    // Navigation arrows
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+  });
+  
+</script>
 </html>

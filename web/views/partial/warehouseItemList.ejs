@@ -1,0 +1,70 @@
+<h3 class="wh-detail-title"><%= __('warehousedetailwithitem_itemlist')%></h3>
+<div style="text-align: right;">
+    <button class="add_item">
+        <img src="/image/icon/plus-solid.svg" class="badge-svg" /> <%= __('warehousedetailwithitem_add_item')%>
+    </button>
+</div>
+<div id="item-list-card" class="info-card" style="overflow-y: scroll;">
+  <ul class="list-group list-group-flush">
+
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <img src="/image/test_image_1.jpg" class="item-list-image"/>
+      <div class="item-list-text-div">
+        <div class="item-list-title">자동차 엔진 부품 1</div>
+
+        <div class="item-list-body">
+          <span><%= __('warehousedetailwithitem_owner')%> : </span>
+          <span>나현준</span>
+          <br/>
+          <span><%= __('warehousedetailwithitem_date_in')%> : </span>
+          <span>21.12.22 22:11</span>
+        </div>
+      </div>
+
+      <div class="badge-div">
+        <span class="badge bg-success" ><%= __('warehousedetailwithitem_badge_in')%></span>
+      </div>
+    </li>
+
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <img src="/image/test_image_1.jpg" class="item-list-image"/>
+      <div class="item-list-text-div">
+        <div class="item-list-title">자동차 엔진 부품 2</div>
+
+        <div class="item-list-body">
+          <span><%= __('warehousedetailwithitem_owner')%> : </span>
+          <span>나현준</span>
+          <br/>
+          <span><%= __('warehousedetailwithitem_date_out')%> : </span>
+          <span>21.12.22 22:11</span>
+        </div>
+      </div>
+
+      <div class="badge-div">
+        <span class="badge bg-danger" ><%= __('warehousedetailwithitem_badge_out')%></span>
+      </div>
+    </li>
+
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <img src="/image/test_image_1.jpg" class="item-list-image"/>
+      <div class="item-list-text-div">
+        <div class="item-list-title">자동차 엔진 부품 3</div>
+
+        <div class="item-list-body">
+          <span><%= __('warehousedetailwithitem_owner')%> : </span>
+          <span>나현준</span>
+          <br/>
+          <span><%= __('warehousedetailwithitem_date_register')%> : </span>
+          <span>21.12.22 22:11</span>
+        </div>
+      </div>
+
+      <div class="badge-div">
+        <span class="badge bg-secondary" >
+          <%= __('warehousedetailwithitem_badge_before_in')%>
+        </span>
+      </div>
+    </li>
+  
+  </ul>
+</div>

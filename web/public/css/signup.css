@@ -6,10 +6,12 @@ ul{
 .inner{
   display: flex;
   width: 100%;
-  height: 100%;
+  height: calc(100% - 80px);
+  max-width: 100%;
   margin: 0;
 }
 .left, .right{
+  display: flex;
   width: 50%;
   height: 100%;
 }
@@ -20,19 +22,19 @@ ul{
   background: url("../image/small_logo.png");
   text-indent: -9999px;
 }
-#sign-form{
+#signup-form{
   padding-top: 15%;
   display: block;
   height: 100%;
   width: 400px;
   margin: 0 auto;
 }
-#sign-form .input--text{
+#signup-form .input--text{
   height: 40px;
   width: 400px;
 }
 
-#sign-form .input--text:focus {
+#sign-formup .input--text:focus {
   border-color: #51A7E8;
   box-shadow: 0 0 5px rgba(81,167,232,0.5);
 }
@@ -69,7 +71,19 @@ h1{
   margin: 0px;
 }
 
-#sign-form .input--text.short{
+#signup-form .input--text.short{
   height: 40px;
   width: 300px;
+}
+
+.btn-main.small{
+  display: flex;
+  width:90px;
+  height: 40px;
+  margin: 0.75rem 0;
+  margin-left: 10px;
+  float: right;
+  font-size: 20px;
+  justify-content: center;
+  align-items: center;
 }

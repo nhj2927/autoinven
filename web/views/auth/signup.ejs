@@ -1,39 +1,62 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
-  <%- include('head') %>
-    <link rel="stylesheet" href="./css/signup.css">
+  <%- include('../head') %>
+    <script src="/js/signup.js"></script>
+    <link rel="stylesheet" href="/css/signup.css">
     <title>Document</title>
 </head>
 
 <body>
+  <header>
+    <%- include('../partial/navbar') %>
+  </header>
   <div class="inner">
     <div class="left">
-      <form id="sign-form">
+      <form id="signup-form" action="/api/auth/signup" method="post" onsubmit="return false">
         <a class="logo" href="signup">Autoinven</a>
         <div class="textdiv">
           <h1>
-            <p class="main_color">회원</p>
+            <p class="main_color">
+              <%= __('signup_sign')%>
+            </p>
           </h1>
           <h1>
-            <p class="black_color">가입</p>
+            <p class="black_color">
+              <%= __('signup_up')%>
+            </p>
           </h1>
         </div>
         <ul>
-          <li><input type="email" class="input--text short" placeholder="이메일"></li>
-          <li><input type="password" class="input--text" placeholder="비밀번호"></li>
-          <li><input type="email" class="input--text" placeholder="이메일"></li>
-          <li><input type="password" class="input--text" placeholder="비밀번호"></li>
-          <input type="button" class="upload-btn-hidden" id="sendAuthCode" name="sendAuthCode"
-            value="Send Auth Code">인증하기</input>
+          <li><input type="email" id="email" name="email" class="input--text short"
+              placeholder="<%=__('signup_email')%>"> <label class="btn-main small" for="sendAuthCode">
+              <%= __('signup_send_authcode')%>
+            </label>
+            <input type="button" class="upload-btn-hidden" id="sendAuthCode" name="sendAuthCode"
+              value="Send Auth Code"><br>
+          </li>
+          <li id="li_auth" name="li_auth"><input type="text" id="authcode" name="authcode" class="input--text short"
+              placeholder="<%=__('signup_authcode')%>" />
+            <% if(locals.err){ %>
+              <span class="invalid-feedback">
+                <%= locals.err %>
+              </span>
+              <% } %>
+                <label class="btn-main small" id="codecheck" for="codeCheck">
+                  <%=__('signup_check')%>
+                </label>
+                <input type="button" class="upload-btn-hidden" id="codecheck" name="codecheck" value="check"><br>
+          </li>
+          <li><input type="text" id="name" class="input--text" placeholder="<%=__('signup_name')%>"></li>
+          <li><input type="password" id="pw" class="input--text" placeholder="<%=__('signup_pw')%>"></li>
+          <li><input type="password" id="pwcheck" class="input--text" placeholder="<%=__('signup_pwcheck')%>"></li>
+          <li><input type="tel" id="tel" class="input--text" placeholder="<%=__('signup_tel')%>"></li>
         </ul>
-        <button type="submit" class="btn btn-main">회원가입</button>
-        <div class=signin>
-          <p style="color: #000; margin-right: 10px;">아직 계정이 없으신가요? </p>
-          <a style="color: rgb(124,19,154); font-size: 15px;" href="signup"> 회원가입</a>
-        </div>
+        <button type="submit" id="signup_button" name="signup_button" class="btn btn-main">
+          <%=__('signup_signup')%>
+        </button>
       </form>
     </div>
     <div class="right">
