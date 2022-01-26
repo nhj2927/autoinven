@@ -16,17 +16,18 @@
         <!--창고 사진-->
         <div class="image-preview">
             <h4 class="enroll-warehouse-sub-title">창고사진</h4>
-            <div id='att_zone' data-placeholder="파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그 앤 드롭 하세요">
+            <div id='att_zone'>
+                <p id="image-placeholder">이미지를 첨부 하려면 이미지 업로드 버튼을 클릭하거나 파일을 드래그 앤 드롭 하세요</p>
             </div>
             <label class="input-file-button" for="btnAtt">
-                업로드
+                이미지 업로드
             </label>
             <input id="btnAtt" type='file' multiple='multiple' style='display: none;'/>
         </div>
         <!--창고 사진-->
 
         <!--창고 정보-->
-        <div id="warehouse-info-div">
+        <div id="warehouse-info-div" style="margin-top: 2rem;">
             <h4 class="enroll-warehouse-sub-title" style="display: inline;">창고정보</h4>
             <div>
                 <input id="is_verified" class="form-check-input" type="checkbox" checked="true">
@@ -252,7 +253,7 @@
         <%- include('../partial/footer') %>
     </footer>
 </body>
-
+<!--formdata 생성 및 post요청-->
 <script>
     function clkSubmit(){
 		let formdata = new FormData();
@@ -313,6 +314,9 @@
         })
     }
 </script>
+<!--formdata 생성 및 post요청-->
+
+
 <!--주소 및 위경도 API-->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -371,80 +375,93 @@
     btnAtt.onchange = (e) => {
     const files = e.target.files;
     const fileArr = Array.prototype.slice.call(files)
-    for(f of fileArr){
-        imageLoader(f);
-    }
+        for(f of fileArr){
+            imageLoader(f);
+        }
     }  
     
     // 탐색기에서 드래그앤 드롭 사용
     attZone.addEventListener('dragenter', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+        e.preventDefault();
+        e.stopPropagation();
     }, false)
     
     attZone.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+        e.preventDefault();
+        e.stopPropagation();
     
     }, false)
 
     attZone.addEventListener('drop', (e) => {
-    var files = {};
-    e.preventDefault();
-    e.stopPropagation();
-    var dt = e.dataTransfer;
-    files = dt.files;
-    for(f of files){
-        imageLoader(f);
-    }
+        var files = {};
+        e.preventDefault();
+        e.stopPropagation();
+        var dt = e.dataTransfer;
+        files = dt.files;
+        for(f of files){
+            imageLoader(f);
+        }
     
     }, false)
+
+    /*이미지 미리보기 상자가 비어있으면 텍스트 노출*/
+    placeholerObserver = ()=>{
+        if(sel_files.length <= 0){
+            $('#image-placeholder')[0].setAttribute('style', 'diplay: block;');
+        }else{
+            $('#image-placeholder')[0].setAttribute('style','display: none;');
+        }
+    }
+
     /*첨부된 이미지들을 배열에 넣고 미리보기 */
     imageLoader = (file) => {
-    sel_files.push(file);
-    var reader = new FileReader();
-    reader.onload = (e) => {
-        let img = document.createElement('img')
-        img.setAttribute('style', img_style)
-        img.src = e.target.result;
-        attZone.appendChild(makeDiv(img, file));
-    }
-    
-    reader.readAsDataURL(file);
+        sel_files.push(file);
+        var reader = new FileReader();
+        reader.onload = (e) => {
+            let img = document.createElement('img')
+            img.setAttribute('style', img_style)
+            img.src = e.target.result;
+            attZone.appendChild(makeDiv(img, file));
+        }
+        
+        reader.readAsDataURL(file);
+
+        placeholerObserver();
     }
     
     /*첨부된 파일이 있는 경우 checkbox와 함께 attZone에 추가할 div를 만들어 반환 */
     makeDiv = (img, file) => {
-    const div = document.createElement('div')
-    div.setAttribute('style', div_style)
-    const icon = document.createElement('img')
-    const btn = document.createElement('input')
-    btn.setAttribute('type', 'button')
-    btn.setAttribute('value', 'X')
-    btn.setAttribute('class', 'btn btn-danger')
-    btn.setAttribute('delFile', file.name);
-    btn.setAttribute('style', chk_style);
-    btn.onclick = (ev) => {
-        var ele = ev.srcElement;
-        var delFile = ele.getAttribute('delFile');
-        for(var i=0 ;i<sel_files.length; i++){
-        if(delFile== sel_files[i].name){
-            sel_files.splice(i, 1);      
+        const div = document.createElement('div')
+        div.setAttribute('style', div_style)
+        const icon = document.createElement('img')
+        const btn = document.createElement('input')
+        btn.setAttribute('type', 'button')
+        btn.setAttribute('value', 'X')
+        btn.setAttribute('class', 'btn btn-danger')
+        btn.setAttribute('delFile', file.name);
+        btn.setAttribute('style', chk_style);
+        btn.onclick = (ev) => {
+            var ele = ev.srcElement;
+            var delFile = ele.getAttribute('delFile');
+            for(var i=0 ;i<sel_files.length; i++){
+                if(delFile== sel_files[i].name){
+                    sel_files.splice(i, 1);      
+                }
+            }
+            
+            dt = new DataTransfer();
+            for(f in sel_files) {
+                var file = sel_files[f];
+                dt.items.add(file);
+            }
+            btnAtt.files = dt.files;
+            var p = ele.parentNode;
+            attZone.removeChild(p)
+            placeholerObserver();
         }
-        }
-        
-        dt = new DataTransfer();
-        for(f in sel_files) {
-        var file = sel_files[f];
-        dt.items.add(file);
-        }
-        btnAtt.files = dt.files;
-        var p = ele.parentNode;
-        attZone.removeChild(p)
-    }
-    div.appendChild(img)
-    div.appendChild(btn)
-    return div
+        div.appendChild(img)
+        div.appendChild(btn)
+        return div
     }
 </script>
 <!--이미지 업로드 및 미리보기-->
