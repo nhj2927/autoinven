@@ -12,6 +12,10 @@ module.exports = async (user_info, db) => {
       ...password_info,
     });
   } catch (err) {
+    // 이메일 중복
+    if (err.name === 'SequelizeUniqueConstraintError') {
+      err.statusCode = 409;
+    }
     throw err;
   }
 };
