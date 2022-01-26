@@ -149,12 +149,34 @@ form.input-contract-info{
   height: 25rem; 
   padding: 1rem;
 }
-.item-list-element{
-  height: 8rem;
+.item-list-text-div{
+  height: 7rem;
   width: 100%;
+  position: relative;
+  padding-left: 0.5rem;
 }
 .item-list-image{
-  height: 5rem;
-  width: 5rem;
+  height: 7rem;
+  width: 7rem;
+}
+.item-list-title{
+  position: absolute;
+  font-family: "nanum-eb";
+  font-size: 1.2rem;
+  top: 0px;
+}
+.item-list-body{
+  position: absolute;
+  font-family: "nanum-b";
+  font-size: 1rem;
+  bottom: 0px;
+}
+.badge-div{
+  height: 7rem; 
+  width: 4rem; 
+  vertical-align: top;
+}
+.badge{
+  font-size: 1rem;
 }
 

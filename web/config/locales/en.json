@@ -23,7 +23,7 @@
 	"iot_Statistic_DAILY": "DAILY",
 	"iot_Statistic_MONTHLY": "MONTHLY",
 	"iot_Statistic_YEARLY": "YEARLY",
-  
+
 	"Approve": "Approve",
 	"Reject": "Reject",
 
@@ -57,7 +57,7 @@
 	"warehousedetail_completion_date": "Completion Date",
 	"warehousedetail_accessability": "Accessability",
 	"warehousedetail_introduce": "Introduce",
-	"warehousedetail_note": "Equipemts & Note",
+	"warehousedetail_note": "Equipments & Note",
 	"warehousedetail_environ": "ENVIRONMENT",
 
 	"signup_sign": "SIGN",
@@ -91,7 +91,15 @@
   "myInfo_pw": "Password",
   "myInfo_phone": "Phone",
   "myInfo_change_pw": "Change Password",
+  "myInfo_change_myinfo": "Edit",
 
-	"warehousedetailwithitem_itemlist": "ItemList",
-	"warehousedetailwithitem_add_item": "ADD"
+	"warehousedetailwithitem_itemlist": "ITEMLIST",
+	"warehousedetailwithitem_add_item": "ADD ITEM",
+	"warehousedetailwithitem_owner": "OWNER",
+	"warehousedetailwithitem_date_in": "DATE",
+	"warehousedetailwithitem_badge_in": "IN",
+	"warehousedetailwithitem_date_out": "DATE",
+	"warehousedetailwithitem_badge_out": "OUT",
+	"warehousedetailwithitem_date_register": "DATE",
+	"warehousedetailwithitem_badge_before_in": "BEFORE"
 }

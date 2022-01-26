@@ -23,7 +23,7 @@
 	"iot_Statistic_DAILY": "일간",
 	"iot_Statistic_MONTHLY": "월간",
 	"iot_Statistic_YEARLY": "년간",
-  
+
 	"Approve": "승인",
 	"Reject": "거부",
 
@@ -61,6 +61,13 @@
   "warehousedetail_environ" : "창고환경",
   "warehousedetailwithitem_itemlist" : "물품목록",
   "warehousedetailwithitem_add_item" : "물품추가",
+  "warehousedetailwithitem_badge_in" : "입고",
+  "warehousedetailwithitem_badge_out" : "출고",
+  "warehousedetailwithitem_badge_before_in" : "입고전",
+  "warehousedetailwithitem_owner" : "화주",
+  "warehousedetailwithitem_date_in" : "입고일",
+  "warehousedetailwithitem_date_out" : "출고일",
+  "warehousedetailwithitem_date_register" : "등록일",
 
   "signup_sign": "회원",
   "signup_up": "가입",
@@ -93,5 +100,6 @@
 	"myInfo_name": "이름",
 	"myInfo_pw": "비밀번호",
 	"myInfo_phone": "휴대전화",
-	"myInfo_change_pw": "비밀번호 변경하기"
+	"myInfo_change_pw": "비밀번호 변경하기",
+  "myInfo_change_myinfo": "수정하기"
 }
