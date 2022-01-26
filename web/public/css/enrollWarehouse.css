@@ -53,3 +53,20 @@ td.info-table-td{
   font-family: 'nanum-eb';
   margin-top: 0.5rem;
 }
+.centered-div{
+  display: flex; 
+  justify-content: center; 
+  text-align: center;
+}
+.btn-submit{
+  font-size: 1.5rem;
+  background-color: #7c139a;
+  width: 10rem;
+  margin: 1rem;
+}
+.btn-cancel{
+  font-size: 1.5rem;
+  background-color: #aaa;
+  width : 10rem;
+  margin: 1rem;
+}
