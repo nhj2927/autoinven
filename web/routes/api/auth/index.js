@@ -3,6 +3,7 @@ module.exports = (db) => {
   const router = express.Router();
 
   const { doAsync } = require('$base/utils/asyncWrapper');
+  const checkClientType = require('$base/utils/checkClientType');
   const signout = require('./signout');
   const signin = require('./signin');
 
@@ -13,11 +14,15 @@ module.exports = (db) => {
         body: { email, password },
       } = req;
 
-      await signin(email, password, db, req.session);
+      const result = await signin(
+        email,
+        password,
+        db,
+        req.session,
+        checkClientType(req.headers['user-agent'])
+      );
 
-      res.json({
-        message: 'success',
-      });
+      res.status(200).json(result);
     })
   );
 
