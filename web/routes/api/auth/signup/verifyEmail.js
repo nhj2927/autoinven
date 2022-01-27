@@ -1,4 +1,17 @@
-module.exports = async (email) => {
+const checkEmailDuplicate = async (email, db) => {
+  try {
+    const user = await db.User.findByPk(email);
+    if (!user) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (err) {
+    throw err;
+  }
+};
+
+module.exports = async (email, db) => {
   const ejs = require('ejs');
   const nodemailer = require('nodemailer');
 
@@ -6,6 +19,12 @@ module.exports = async (email) => {
   const year = new Date().getFullYear().toString();
 
   try {
+    // 이메일 중복 확인
+    if (!(await checkEmailDuplicate(email, db))) {
+      const error = new Error('Email Duplicated');
+      error.statusCode = 409;
+      throw error;
+    }
     // 메일 전송시 보낼 화면
     const email_template = await ejs.renderFile(
       'views/auth/emailTemplate.ejs',
