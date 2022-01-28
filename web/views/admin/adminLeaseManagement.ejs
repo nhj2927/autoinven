@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <%- include('../head') %>
+    <link rel="stylesheet" href="/css/leaseManagement.css">
+    <title>Document</title>
+</head>
+
+<body>
+  <header style="z-index: 1000;">
+    <%- include('../partial/navbar') %>
+  </header>
+  <div class="inner img">
+  </div>
+  <div class="inner main">
+    <ul class="pager" style="list-style: none;">
+      <li style="display: flex; align-items: center;">
+        <h2 style=" font-family: nanum-eb;">
+          <%= __('leaseManagement_title') %>
+        </h2>
+        <input type="text" id="search" class="input--text search" style="margin-left: auto">
+        <button type = "submit" class="class="btn" id="search_button" style="border: none; background: #FFF;"><img src="/image/search.png"></button>
+      </li>
+      <li>
+        <span class="badge" style="background: rgb(196,196,196);">승인 대기중</span>
+        <span class="badge" style="background: rgb(143,207,104);">결제 대기중</span>
+        <span class="badge" style="background: rgb(89,166,237);">승인 완료</span>
+        <span class="badge bg-danger">승인 거절</span>
+        <table class="table table-hover">
+          <th><%= __('table_num') %></th>
+          <th><%= __('table_state') %></th>
+          <th><%= __('table_reg_num') %></th>
+          <th><%= __('table_wh_name') %></th>
+          <th><%= __('table_wh_area') %></th>
+          <th><%= __('table_lease_area') %></th>
+          <th><%= __('table_contract_period') %></th>
+          <th><%= __('table_price') %></th>
+          <th><%= __('table_request_date') %></th>
+          <tr>
+            <td>1</td>
+            <td><span class="badge" style="background: rgb(196,196,196);">승인 대기중</span></td>
+            <td>202101001</td>
+            <td>좋은창고</td>
+            <td>20000</td>
+            <td>10000</td>
+            <td>2021-01-24 ~ 2021-05-31</td>
+            <td>500000원</td>
+            <td>2021-01-15</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td><span class="badge" style="background: rgb(143,207,104);">결제 대기중</span></td>
+            <td>202101001</td>
+            <td>좋은창고</td>
+            <td>20000</td>
+            <td>10000</td>
+            <td>2021-01-24 ~ 2021-05-31</td>
+            <td>500000원</td>
+            <td>2021-01-15</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td><span class="badge" style="background: rgb(89,166,237);">승인 완료</span></td>
+            <td>202101001</td>
+            <td>좋은창고</td>
+            <td>20000</td>
+            <td>10000</td>
+            <td>2021-01-24 ~ 2021-05-31</td>
+            <td>500000원</td>
+            <td>2021-01-15</td>
+          </tr>
+        </table>
+      </li>
+    </ul>
+  </div>
+  <footer>
+    <%- include('../partial/footer') %>
+  </footer>
+</body>
+</html>
