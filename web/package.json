@@ -7,6 +7,7 @@
     "prettier": "^2.5.1"
   },
   "dependencies": {
+    "axios": "^0.25.0",
     "better-module-alias": "^1.1.0",
     "cookie-parser": "^1.4.6",
     "dotenv": "^14.2.0",
