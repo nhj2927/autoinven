@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<<<<<<< HEAD
 <head>
   <meta charset="UTF-8">
   <%- include('../head') %>
@@ -79,4 +80,143 @@
   </footer>
 </body>
 
+=======
+
+<head>
+  <meta charset="UTF-8">
+  <%- include('../head') %>
+  <link rel="stylesheet" href="/css/contractRequestDetail.css"/>
+</head>
+
+<body>
+  <header>
+    <%- include('../partial/navbar') %>
+  </header>
+    <div class="container">
+        <h3 class="contract-request-detail-title">견적 상세 정보</h3>
+        <div class="row align-items-start">
+            <div class="col">
+                <h4 class="contract-sub-title">창고정보</h4>
+                <table id="wh-info-table" class="table info-table" style="height: 30rem;">
+                    <tr>
+                        <td class="info-table-td-head">창고명</td>
+                        <td class="info-table-td" colspan="3">대구 광역시 글로벌 물류센터</td>
+                    </tr>
+                    <tr>
+                        <td class=info-table-td-head>종류</td>
+                        <td class="info-table-td" colspan="3">일반 창고</td>
+                    </tr>
+                    <tr>
+                        <td class=info-table-td-head>주소</td>
+                        <td class="info-table-td" colspan="3">대구 광역시 북구 산격동 112-13</td>
+                    </tr>
+                    <tr>
+                        <td class=info-table-td-head>상세주소</td>
+                        <td class="info-table-td" colspan="3">대구 스마트 물류단지 내부</td>
+                    </tr>
+                    <tr>
+                        <td class=info-table-td-head>창고소개</td>
+                        <td class="info-table-td" colspan="3">깔끔한 신축창고 입니다.</td>
+                    </tr>
+                    <tr>
+                        <td class=info-table-td-head>대지면적</td>
+                        <td class="info-table-td">9000㎡ (2722평)</td>
+                        <td class=info-table-td-head>연면적</td>
+                        <td class="info-table-td">8900㎡ (2692평)</td>
+                    </tr>
+                    <tr>
+                        <td class=info-table-td-head>공용면적</td>
+                        <td class="info-table-td">2900㎡ (877평)</td>
+                        <td class=info-table-td-head>전용면적</td>
+                        <td class="info-table-td">6000㎡ (1815평)</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-5">
+                <h4 class="contract-sub-title">요청상세</h4>
+                <table id="contract-info-table" class="table info-table" style="height: 30rem;">
+                    <tr>
+                      <td class=info-table-td-head>시작일</td>
+                      <td class="info-table-td" colspan="3">
+                          <input id="start_date"type="date" class="form-control" disabled="true"
+                          value="2018-07-22"></input>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class=info-table-td-head>종료일</td>
+                      <td class="info-table-td" colspan="3">
+                        <input id="end_date" type="date" class="form-control" disabled="true"
+                        value="2018-07-22"></input>
+                      </td>
+                    </tr>
+                    <tr>
+                        <td class=info-table-td-head>사용 가능 면적</td>
+                        <td class="info-table-td" colspan="3">2000</td>
+                    </tr>
+                    <tr>
+                        <td class=info-table-td-head>계약 면적</td>
+                        <td id="lease_area" class="info-table-td contract-table-td-red" colspan="3">300</td>
+                    </tr>
+                    <tr>
+                        <td class=info-table-td-head>임대료</td>
+                        <td class="info-table-td" colspan="3">평당 ￦800/일</td>
+                    </tr>
+                    <tr>
+                        <td class=info-table-td-head>합계</td>
+                        <td id="amount" class="info-table-td contract-table-td-red" colspan="3">600000</td>
+                    </tr>
+                    <tr>
+                        <td class=info-table-td-head>용도</td>
+                        <td class="info-table-td" colspan="3">
+                            <input id="purpose" type="text" class="form-control"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <table class="table info-table">
+            <tr>
+                <td class=info-table-td-head>요청사항</td>
+                <td class="info-table-td">
+                    <textarea id="note" class="form-control" cols="40" rows="5"></textarea>
+                </td>
+            </tr>
+        </table>
+
+        <div class="centered-div">
+            <button class="btn btn-submit" onclick="clkSubmit()">승인요청</button>
+            <button class="btn btn-cancel" onclick="history.back()">취소</button>
+        </div>
+    </div>
+
+    <footer style="margin-top: 3rem;">
+        <%- include('../partial/footer') %>
+    </footer>
+</body>
+<script>
+    function clkSubmit() {
+        const formdata = new FormData();
+        formdata.append('warehouse_id',"20");
+        formdata.append('start_date',$('#start_date')[0].value);
+        formdata.append('end_date',$('#end_date')[0].value);
+        formdata.append('lease_area',$('#lease_area').text());
+        formdata.append('amount',$('#amount').text());
+        formdata.append('purpose',$('#purpose')[0].value);
+        formdata.append('note',$('#note')[0].value);
+
+        $.ajax({
+            url: 'http://192.168.0.16:5000/api/contract/request',
+            type: 'POST',
+            data: formdata,
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (e) {
+                console.log("ERROR : ", e);
+            }
+        });
+    }
+</script>
+>>>>>>> 9786a930d015922efc192106bc34ada19c64a158
 </html>

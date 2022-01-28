@@ -17,11 +17,11 @@ h4.enroll-warehouse-sub-title{
 	height: 18rem;
 	padding:10px;
 	border:1px solid #C4C4C4;
+  border-radius: 10px;
 }
-#att_zone:empty:before{
-	content : attr(data-placeholder);
+#image-placeholder{
 	color : #999;
-	font-size:.9em;
+	font-size:1em;
 }
 
 input.form-control{
