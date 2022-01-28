@@ -1,0 +1,173 @@
+<link rel="stylesheet" href="/css/itemDetailModal.css" />
+<div
+  class="modal fade"
+  id="ItemDetailModal"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ItemDetailModalTitle">
+          <img src="/image/icon/box-solid.svg" class="badge-svg" />
+          상세정보
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <div id="item-images-div">
+          <div class="image-wrapper-div">
+            <img src="/image/default-image.jpg" class="item-image" />
+          </div>
+          <div class="image-wrapper-div">
+            <img src="/image/default-image.jpg" class="item-image" />
+          </div>
+        </div>
+
+        <table class="table info-table">
+          <colgroup>
+            <col width="15%" />
+            <col width="35%" />
+            <col width="15%" />
+            <col width="35%" />
+          </colgroup>
+          <tr>
+            <td class="info-table-td-head">물품명</td>
+            <td id="item-modal-name" class="info-table-td">상자</td>
+            <td class="info-table-td-head">상태</td>
+            <td class="info-table-td table-td-modal">
+              <span id="item-modal-status" class="badge bg-success bg-modal"
+                ><%= __('warehousedetailwithitem_badge_in')%></span
+              >
+            </td>
+          </tr>
+          <tr>
+            <td class="info-table-td-head">취급시 유의사항</td>
+            <td class="info-table-td" colspan="3">
+              <textarea
+                id="item-modal-note"
+                class="form-control"
+                cols="40"
+                rows="5"
+                style="margin: 0"
+                disabled="true"
+              ></textarea>
+            </td>
+          </tr>
+        </table>
+
+        <table class="table info-table table-bordered">
+          <tr>
+            <td class="info-table-td-head">등록일</td>
+            <td class="info-table-td-head">입고일</td>
+            <td class="info-table-td-head">출고일</td>
+          </tr>
+
+          <tr>
+            <td
+              id="item-modal-before-in-date"
+              class="info-table-td table-td-modal"
+            >
+              2021-10-21 14:13
+            </td>
+            <td id="item-modal-in-date" class="info-table-td table-td-modal">
+              -
+            </td>
+            <td id="item-modal-out-date" class="info-table-td table-td-modal">
+              -
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-submit" onclick="">QR코드</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          닫기
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  openItemDetailModal = (item_id) => {
+    const itemImagesDiv = document.getElementById('item-images-div');
+    const itemName = document.getElementById('item_modal_name');
+    const itemStatus = document.getElementById('item_modal_status');
+    let itemTimeStampElement = [
+      document.getElementById('item-modal-before-in-date'),
+      document.getElementById('item-modal-in-date'),
+      document.getElementById('item-modal-out-date'),
+    ];
+    let baseUrl = 'http://192.168.0.16:5000/api/item/' + item_id;
+
+    console.log(baseUrl);
+    $.ajax({
+      url: baseUrl,
+      type: 'GET',
+      datatype: 'application/json',
+      success: (data) => {
+        itemName.text = data.item.name;
+        itemNote.text = data.item.note;
+        itemStatus.text = data.item.status;
+        switch (data.item.status) {
+          case 'in':
+            itemStatus.setAttribute('class', 'badge bg-success bg-modal');
+            break;
+          case 'out':
+            itemStatus.setAttribute('class', 'badge bg-danger bg-modal');
+            break;
+          case 'before in':
+            itemStatus.setAttribute('class', 'badge bg-secondary bg-modal');
+            break;
+        }
+
+        for (let i in itemTimeStampElement) {
+          if (i < data.item_time_stamp.length) {
+            itemTimeStampElement[i].text =
+              data.item_time_stamp[i].get('createdAt');
+          } else {
+            itemTimeStampElement[i].text = '-';
+          }
+        }
+
+        /*div초기화 하기*/
+        itemImagesDiv.innerHTML = '';
+
+        /*image url이 없으면 기본이미지 추가*/
+        if (data.item.images.length < 0) {
+          const div = document.createElement('div');
+          const img = document.createElement('img');
+          div.setAttribute('class', 'image-wrapper-div');
+          img.src = '/image/default-image.jpg';
+          img.setAttribute('class', 'item-image');
+          div.appendChild(img);
+          itemImagesDiv.appendChild(div);
+        } else {
+          /*image url이 있으면 모두 추가*/
+          data.item.images.foreach((url) => {
+            const div = document.createElement('div');
+            const img = document.createElement('img');
+            div.setAttribute('class', 'image-wrapper-div');
+            img.src = url;
+            img.setAttribute('class', 'item-image');
+            div.appendChild(img);
+            itemImagesDiv.appendChild(div);
+          });
+        }
+      },
+      error: (e) => {
+        console.log('ERROR : ', e);
+      },
+    });
+  };
+</script>
