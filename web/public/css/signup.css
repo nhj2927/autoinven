@@ -26,12 +26,12 @@ ul{
   padding-top: 15%;
   display: block;
   height: 100%;
-  width: 400px;
+  width: 30rem;
   margin: 0 auto;
 }
 #signup-form .input--text{
-  height: 40px;
-  width: 400px;
+  height: 3rem;
+  width: 30rem;
 }
 
 #signup-form .input--text:focus {
@@ -51,9 +51,9 @@ ul{
 }
 
 .btn-main{
-  width:300px;
-  height:50px;
-  margin: 0.75rem 50px;
+  width: 22rem;
+  height: 3.5rem;
+  margin: 0.75rem 4rem;
 }
 
 .section--visual{
@@ -72,14 +72,14 @@ h1{
 }
 
 #signup-form .input--text.short{
-  height: 40px;
-  width: 300px;
+  height: 3rem;
+  width: 22rem;
 }
 
 .btn-main.small{
   display: flex;
-  width:90px;
-  height: 40px;
+  width: 7rem;
+  height: 3rem;
   margin: 0.75rem 0;
   margin-left: 10px;
   float: right;
