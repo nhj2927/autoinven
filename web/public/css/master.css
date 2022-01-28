@@ -691,7 +691,7 @@ h6,
   padding-bottom: 16px;
   padding-left: 24px;
   -webkit-justify-content: space-between;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .modal-content .modal-footer button {
@@ -1232,12 +1232,17 @@ h6,
   box-sizing: border-box;
   outline: none;
   box-shadow: inset 0 1px 2px, rgba(0,0,0,0.075);
+  font-family: sans-serif;
 }
 .input--text:focus {
   border-color: #51A7E8;
   box-shadow: 0 0 5px rgba(81,167,232,0.5);
 }
-
+.input--text.search{
+  width:40%;
+  height: 45px;
+  margin-left: auto;
+}
 .info-card {
   border-collapse: collapse;
   border-radius: 10px;

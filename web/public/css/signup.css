@@ -34,7 +34,7 @@ ul{
   width: 400px;
 }
 
-#sign-formup .input--text:focus {
+#signup-form .input--text:focus {
   border-color: #51A7E8;
   box-shadow: 0 0 5px rgba(81,167,232,0.5);
 }

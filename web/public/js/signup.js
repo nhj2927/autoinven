@@ -4,6 +4,7 @@
         var pw_check = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
         var email_check = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
         var name_check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+        var phone_check = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
         var authedEmails = [''];
         var authCode = null;
         var authFlag = false;
@@ -28,7 +29,6 @@
         $('#sendAuthCode').click(function () {
             var email = $('#email').val();
             var data = { email }
-            console.log(email);
             if (email_check.test(email) == false)
                 swalError('형식에 맞는 이메일을 입력해주세요.');
             else if (email != '') {
@@ -53,14 +53,7 @@
                         }
                     },
                     error: function (request, status, error) {
-                        if (status == 401) {
-                            Swal.fire({
-                                title: 'Error',
-                                html: `code: ${request.status}<br>message: 이메일을 다시 확인해주세요.<br>error: ${error}`,
-                                icon: 'error'
-                            });
-                        }
-                        else if (status == 409) {
+                        if (status == 409) {
                             Swal.fire({
                                 title: 'Error',
                                 html: `code: ${request.status}<br>message: 이미 가입된 이메일 주소입니다.<br>error: ${error}`,
@@ -106,30 +99,33 @@
             var pwcheck = $("#pwcheck").val();
             var name = $("#name").val();
             var phone = $("#tel").val();
+            phone = phone.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+            console.log(phone);
             var data = {
                 email,
                 password,
                 name,
                 phone
             }
-            console.log(name);
-            if (authFlag == false) {
+            if (authFlag == false)
                 swalError("이메일 인증을 완료해주세요.");
-            }
-            else if (!email) {
+            else if (!email)
                 swalError('이메일을 입력해주세요.');
-            }
             else if (!name)
                 swalError('이름을 입력해주세요.');
-            else if (name_check.test(name) == false) {
+            else if (name_check.test(name) == false)
                 swalError('정확한 이름을 입력해주세요.');
-            }
             else if (!password)
                 swalError('비밀번호를 입력해주세요.');
             else if ((pw_check.test(password)) == false)
                 swalError('최소8자리 영문 대소문자 및 숫자를 조합한 비밀번호를 입력해주세요.');
             else if (password != pwcheck)
                 swalError('비밀번호를 다시 확인해주세요.');
+            else if (!phone)
+                swalError('휴대폰 번호를 입력해주세요.');
+            else if (phone_check.test(phone) == false)
+                swalError('올바른 전화번호가 아닙니다.');
+
             else {
                 $.ajax({
                     url: 'http://192.168.0.18:5000/api/auth/signup',
@@ -147,21 +143,11 @@
                         })
                     },
                     error: function (request, status, error) {
-                        if (status == 401) {
-                            Swal.fire({
-                                title: 'Error',
-                                html: `code: ${request.status}<br>message: 이메일, 비밀번호를 다시 확인해주세요.<br>error: ${error}`,
-                                icon: 'error'
-                            });
-                        }
-                        else {
-                            console.log(email);
-                            Swal.fire({
-                                title: 'Error',
-                                html: `code: ${request.status}<br>message: 서버 내부 오류가 발생하였습니다. 잠시후 다시 시도해주세요.<br>error: ${error}`,
-                                icon: 'error'
-                            });
-                        }
+                        Swal.fire({
+                            title: 'Error',
+                            html: `code: ${request.status}<br>message: 서버 내부 오류가 발생하였습니다. 잠시후 다시 시도해주세요.<br>error: ${error}`,
+                            icon: 'error'
+                        });
                     }
                 })
             }

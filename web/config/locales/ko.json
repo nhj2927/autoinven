@@ -101,5 +101,28 @@
 	"myInfo_pw": "비밀번호",
 	"myInfo_phone": "휴대전화",
 	"myInfo_change_pw": "비밀번호 변경하기",
-  "myInfo_change_myinfo": "수정하기"
+  "myInfo_change_myinfo": "변경하기",
+  "myInfo_text1": "현재 비밀번호",
+  "myInfo_text2": "변경할 비밀번호",
+  "myInfo_text3": "변경할 비밀번호 확인",
+  
+  "warehouse_title": "창고 관리",
+  "warehouse_verify": "인증",
+
+  "leaseManagement_title": "계약 관리",
+  "table_num": "번호",
+  "table_state": "상태",
+  "table_reg_num": "등록 번호",
+  "table_wh_name": "창고명",
+  "table_wh_area": "창고 면적",
+  "table_lease_area": "임대 면적",
+  "table_contract_period": "계약 기간",
+  "table_price": "금액",
+  "table_contractor": "계약자",
+  "table_request_date": "요청일",
+
+  "badge_approved": "승인 완료",
+  "badge_pending_payment": "결제 대기중",
+  "badge_pending_approval": "승인 대기중",
+  "badge_reject": "승인 거절"
 }
