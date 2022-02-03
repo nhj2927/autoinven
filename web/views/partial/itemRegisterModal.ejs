@@ -1,0 +1,105 @@
+<!--아이템 등록 모달-->
+<div
+  class="modal fade"
+  id="ItemRegisterModal"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ItemRegisterModalTitle">
+          <img src="/image/icon/box-solid.svg" class="badge-svg" />
+          물품등록
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="image-preview">
+          <div id="att_zone">
+            <p id="image-placeholder">
+              이미지를 첨부 하려면 이미지 업로드 버튼을 클릭하거나 파일을 드래그
+              앤 드롭 하세요 (최대 5개)
+            </p>
+          </div>
+          <label class="input-file-button" for="btnAtt"> 이미지 업로드 </label>
+          <input
+            id="btnAtt"
+            type="file"
+            multiple="multiple"
+            style="display: none"
+          />
+        </div>
+        <input
+          id="name"
+          type="text"
+          class="form-control"
+          placeholder="물품명"
+        />
+        <textarea
+          id="note"
+          class="form-control enroll-text-area"
+          cols="40"
+          rows="5"
+          placeholder="물품 취급시 유의 사항을 반드시 입력해주세요.
+(물품에 관련된 정보를 최대한 입력해주세요)"
+        ></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-submit" onclick="registerItem()">
+          등록하기
+        </button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          닫기
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--아이템 등록 모달-->
+
+<!--아이템 등록 버튼-->
+<script>
+  registerItem = () => {
+    let formdata = new FormData();
+
+    formdata.append('name', $('#name')[0].value);
+    formdata.append('user_email', 'jacob9404@gmail.com');
+    formdata.append('l_contract_id', 1);
+    formdata.append('note', $('#note')[0].value);
+
+    sel_files.forEach((file) => {
+      formdata.append('images', file);
+    });
+
+    for (var pair of formdata.entries()) {
+      console.log(pair[0] + ', ' + pair[1]);
+    }
+
+    $.ajax({
+      url: 'http://192.168.0.16:5000/api/item',
+      type: 'POST',
+      enctype: 'multipart/form-data',
+      processData: false,
+      contentType: false,
+      cache: false,
+      data: formdata,
+      success: function (data) {
+        // 전송 후 성공 시 실행 코드
+        console.log(data);
+      },
+      error: function (e) {
+        // 전송 후 에러 발생 시 실행 코드
+        console.log('ERROR : ', e);
+      },
+    });
+  };
+</script>
+<!--아이템 등록 버튼-->
