@@ -8,6 +8,8 @@ li{
   width: 500px;
   align-items: center;
   font-size: 20px;
+  font-weight: 400;
+  color: gray;
 }
 .input--text.short{
   display: flex;

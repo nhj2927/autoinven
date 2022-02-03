@@ -31,7 +31,7 @@ ul{
   margin: 0 auto;
 }
 #signup-form .input--text{
-  height: 3rem;
+  height: 2.5rem;
   width: 30rem;
 }
 
@@ -60,6 +60,7 @@ ul{
 .section--visual{
   background-image: url("../image/background.jpg");
   background-repeat: no-repeat;
+  background-size: cover;
   width: 100%;
   height: 100%;
 } 
@@ -73,14 +74,14 @@ h1{
 }
 
 #signup-form .input--text.short{
-  height: 3rem;
+  height: 2.5rem;
   width: 22rem;
 }
 
 .btn-main.small{
   display: flex;
   width: 7rem;
-  height: 3rem;
+  height: 2.5rem;
   margin: 0.75rem 0;
   margin-left: 10px;
   float: right;
