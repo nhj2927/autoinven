@@ -11,7 +11,14 @@ module.exports = (db) => {
   });
 
   router.get('/myinfo', (req, res) => {
-    res.render('common/myInfo', {});
+    const { email, type, name, phone } = req.session;
+    const user = {
+      email,
+      type,
+      name,
+      phone,
+    };
+    res.render('common/myInfo', { user });
   });
 
   router.use('/warehouse', require('./warehouse')(db));
