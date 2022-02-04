@@ -83,8 +83,8 @@ const getWarehouseInfo = async (id, db) => {
 
 const registerWarehouse = async (req, db) => {
   const newWarehouse = getNewWarehouse(req.body); // 창고 가져오기
-  console.log(newWarehouse.completion_date);
-  if (newWarehouse.completion_date == null) {
+  console.log(req.files);
+  if (newWarehouse.completion_date == '') {
     delete newWarehouse.completion_date;
   }
   const addressInfo = getAddressInfo(req.body); // 주소 가져오기
@@ -98,13 +98,13 @@ const registerWarehouse = async (req, db) => {
   // 창고 등록
   const warehouse = await db.Warehouse.create(newWarehouse);
   // 이미지 등록
-  whFiles.forEach(async (file) => {
-    const { path } = file;
+  for (index in whFiles) {
+    const { path } = whFiles[index];
     await db.WarehouseImage.create({
       url: path,
       warehouse_id: warehouse.warehouse_id,
     });
-  });
+  }
 
   return warehouse;
 };
@@ -127,13 +127,13 @@ const editWarehouse = async (req, db) => {
     where: { warehouse_id },
   });
   // 수정된 창고 사진 재등록
-  whFiles.forEach(async (file) => {
-    const { path } = req.file;
-    await db.WarehouseImages.create({
+  for (index in whFiles) {
+    const { path } = whFiles[index];
+    await db.WarehouseImage.create({
       url: path,
-      warehouse_id,
+      warehouse_id: warehouse.warehouse_id,
     });
-  });
+  }
   if (result2[0]) {
     return result[0];
   } else {
@@ -146,6 +146,7 @@ const editWarehouse = async (req, db) => {
 
 const searchWarehouse = async (req, db) => {
   let { startDate, endDate, type, area } = req.query;
+  console.log(req.query);
   // 타입이 입력되지 않으면 전체타입으로 대체
   if (!type) {
     type = [1, 2, 3];
@@ -154,6 +155,7 @@ const searchWarehouse = async (req, db) => {
   if (!area) {
     area = 1;
   }
+  console.log(req.query.startDate);
   // 1. 기간이 있다면
   if (startDate) {
     //(1) 해당 기간이 포함 된 계약 모두 조회
@@ -163,11 +165,15 @@ const searchWarehouse = async (req, db) => {
     const warehouses = await db.Warehouse.findAll({
       attributes: [
         'warehouse_id',
-        [literal('(dedicated_area - SUM(lease_area))'), 'available_area'],
+        [
+          literal('(dedicated_area - IFNULL(SUM(lease_area),0))'),
+          'available_area',
+        ],
       ],
       include: [
         {
           model: db.LeaseContract,
+          required: false,
           attributes: [],
           where: {
             [Op.or]: [

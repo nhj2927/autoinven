@@ -1,0 +1,192 @@
+.searchBox {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: space-around;
+  height: fit-content;
+  width: 100%;
+  border-top: 0.01rem solid rgba(0, 0, 0, 0.3);
+}
+
+.searchContainer {
+  display: inline-flex;
+  height: 80.6%;
+  width: 100%;
+}
+
+.searchInput {
+  flex-shrink: 1;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 1em;
+  height: 5vh;
+  border-radius: 0.5em;
+  border-width: 0;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 20%), 0 -1px 0 rgb(0 0 0 / 2%);
+  font-size: 1em;
+}
+
+#pac-input {
+  padding-left: 5vh;
+  padding-right: 20%;
+  min-width: 10vh;
+  width: 50rem;
+  font-size: 18px;
+  height: 100%;
+  border-width: 0;
+}
+
+#pac-input:focus {
+  border-color: #4d90fe;
+  border-width: 0px;
+  outline: none;
+}
+#searchBtn {
+  transition: all 0.2s;
+  position: absolute;
+  left: 80%;
+  margin-top: 1.2vh;
+}
+
+#searchBtn:hover {
+  cursor: pointer;
+  fill: #1a73e8;
+}
+
+.autoinven {
+  background-color: #4d90fe;
+  color: white;
+}
+
+#backicon {
+  transition: all 0.2s;
+}
+
+#backicon:hover {
+  cursor: pointer;
+  fill: #1a73e8;
+}
+
+#clearSearchBox {
+  transition: all 0.2s;
+  position: absolute;
+  left: 90%;
+  margin-top: 0.8vh;
+}
+.align_center {
+  align-items: center;
+}
+
+.w50 {
+  width: 50%;
+}
+
+#clearSearchBox:hover {
+  cursor: pointer;
+  fill: #1a73e8;
+}
+
+#midbar {
+  position: absolute;
+  left: 88%;
+  margin-top: 1vh;
+  font-size: 20px;
+  color: #cccccc;
+  font-weight: bold;
+}
+
+#startDate {
+  flex-shrink: 1;
+  width: 13rem;
+  min-width: 5rem;
+  text-align: center;
+}
+#endDate {
+  width: 13rem;
+  min-width: 5rem;
+  text-align: center;
+}
+
+#whType {
+  width: 13rem;
+  min-width: 5rem;
+  text-align: center;
+}
+
+input[type='date']:valid {
+  color: #c9c9c9;
+}
+input[type='date']::-webkit-calendar-picker-indicator {
+}
+
+.marker_list {
+  overflow-y: auto;
+  /* border: 1px solid #4d90fe; */
+  border-radius: 3px;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 20%), 0 -1px 0 rgb(0 0 0 / 2%);
+}
+
+.marker_item {
+  /* border-radius: 3px; */
+  /* box-shadow: 0 2px 4px rgb(0 0 0 / 20%), 0 -1px 0 rgb(0 0 0 / 2%); */
+  padding: 1rem;
+  height: fit-content;
+}
+
+.marker_item:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.marker_hr {
+  width: 100%;
+  margin: 0;
+}
+
+.marker_title {
+  font-weight: bold;
+  font-size: 1.3em;
+}
+
+.marker_price {
+  font-weight: bold;
+  color: #d00101;
+}
+
+.marker_list::-webkit-scrollbar {
+  width: 0.4rem;
+}
+
+.marker_list::-webkit-scrollbar-thumb {
+  background-color: #cccccc;
+}
+
+.marker_list::-webkit-scrollbar-track {
+  background-color: #f0f0f0;
+}
+
+.marker_type {
+  border-radius: 5px;
+  border-width: 0px;
+  padding: 0.3rem;
+  width: 4rem;
+  text-align: center;
+}
+.fcol {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.frow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.warehouseImage {
+  width: 15rem;
+}

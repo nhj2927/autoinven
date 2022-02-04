@@ -2,6 +2,7 @@ const { Op, literal } = require('sequelize');
 
 const createContract = async (req, db) => {
   const newConstract = req.body;
+  console.log(newConstract);
   const contract = await db.LeaseContract.create(newConstract);
   return contract;
 };

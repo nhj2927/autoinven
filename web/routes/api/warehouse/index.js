@@ -16,7 +16,17 @@ module.exports = (db) => {
     })
   );
 
-  // 2) 특정 id 창고 조회
+  // 2) 창고 검색
+  router.get(
+    '/search',
+    doAsync(async (req, res, next) => {
+      console.log('request is incomming');
+      const result = await warehouseAPIs.searchWarehouse(req, db);
+      res.send(result);
+    })
+  );
+
+  // 3) 특정 id 창고 조회
   router.get(
     '/:id',
     doAsync(async (req, res, next) => {
@@ -26,7 +36,7 @@ module.exports = (db) => {
     })
   );
 
-  // 3) 창고 등록
+  // 4) 창고 등록
   router.post(
     '/',
     upload.array('images', 6),
@@ -37,21 +47,12 @@ module.exports = (db) => {
     })
   );
 
-  // 4) 창고 수정
+  // 5) 창고 수정
   router.put(
     '/:warehouse_id',
     doAsync(async (req, res, next) => {
       const result = await warehouseAPIs.editWarehouse(req, db);
       res.send({ message: `${result} row(s) affected` });
-    })
-  );
-
-  // 5) 창고 검색
-  router.get(
-    '/search',
-    doAsync(async (req, res, next) => {
-      const result = await warehouseAPIs.searchWarehouse(req, db);
-      res.send(result);
     })
   );
 
