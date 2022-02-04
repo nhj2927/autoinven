@@ -1,7 +1,6 @@
-
 <!--아이템 등록 모달 & 상세 정보 모달-->
-<%- include('../partial/ItemRegisterModal') %>
-<%- include('../partial/ItemDetailModal') %>
+<%- include('../partial/ItemRegisterModal') %> <%-
+include('../partial/ItemDetailModal') %>
 <!--아이템 등록 모달 & 상세 정보 모달--->
 
 <link rel="stylesheet" href="/css/warehouseItemList.css" />
@@ -14,93 +13,49 @@
     data-bs-toggle="modal"
     data-bs-target="#ItemRegisterModal"
   >
-    <img src="/image/icon/plus-solid.svg" class="badge-svg" /> 
+    <img src="/image/icon/plus-solid.svg" class="badge-svg" />
     <%=__('warehousedetailwithitem_add_item')%>
   </button>
 </div>
 <div id="item-list-card" class="info-card" style="overflow-y: auto">
   <ul class="list-group list-group-flush">
+    <% for(let i in items) { %>
     <li
       class="list-group-item d-flex justify-content-between align-items-center"
       data-bs-toggle="modal"
       data-bs-target="#ItemDetailModal"
-      style="cursor: pointer;"
-      onclick="openItemDetailModal('<%= 12%>')"
+      style="cursor: pointer"
+      onclick="openItemDetailModal('<%= items[i].item_id%>')"
     >
-      <img src="/image/test_image_1.jpg" class="item-list-image" />
+      <img src="<%= items[i].image%>" class="item-list-image" />
       <div class="item-list-text-div">
-        <div class="item-list-title">자동차 엔진 부품 1</div>
+        <div class="item-list-title"><%= items[i].name%></div>
 
         <div class="item-list-body">
           <span><%= __('warehousedetailwithitem_owner')%> : </span>
-          <span>나현준</span>
+          <span><%= items[i].owner_name%></span>
           <br />
           <span><%= __('warehousedetailwithitem_date_in')%> : </span>
-          <span>21.12.22 22:11</span>
+          <span><%= items[i].date %></span>
         </div>
       </div>
-
+      <% if(items[i].status == 1) { %>
       <div class="badge-div">
-        <span class="badge bg-success"
-          ><%= __('warehousedetailwithitem_badge_in')%></span
+        <span class="badge bg-secondary"
+          ><%= __('warehousedetailwithitem_badge_before_in')%></span
         >
       </div>
+      <% } else if(items[i].status == 2) { %>
+      <span class="badge bg-success"
+        ><%= __('warehousedetailwithitem_badge_in')%></span
+      >
+      <% } else { %>
+      <span class="badge bg-danger"
+        ><%= __('warehousedetailwithitem_badge_out')%></span
+      >
+      <% } %>
     </li>
-
-    <li
-      class="list-group-item d-flex justify-content-between align-items-center"
-      data-bs-toggle="modal"
-      data-bs-target="#ItemDetailModal"
-      style="cursor: pointer;"
-      onclick="openItemDetailModal('<%= 8%>')"
-    >
-      <img src="/image/test_image_1.jpg" class="item-list-image" />
-      <div class="item-list-text-div">
-        <div class="item-list-title">자동차 엔진 부품 2</div>
-
-        <div class="item-list-body">
-          <span><%= __('warehousedetailwithitem_owner')%> : </span>
-          <span>나현준</span>
-          <br />
-          <span><%= __('warehousedetailwithitem_date_out')%> : </span>
-          <span>21.12.22 22:11</span>
-        </div>
-      </div>
-
-      <div class="badge-div">
-        <span class="badge bg-danger"
-          ><%= __('warehousedetailwithitem_badge_out')%></span
-        >
-      </div>
-    </li>
-
-    <li
-      class="list-group-item d-flex justify-content-between align-items-center"
-      data-bs-toggle="modal"
-      data-bs-target="#ItemDetailModal"
-      style="cursor: pointer;"
-      onclick="openItemDetailModal('<%= 5%>')"
-    >
-      <img src="/image/test_image_1.jpg" class="item-list-image" />
-      <div class="item-list-text-div">
-        <div class="item-list-title">자동차 엔진 부품 3</div>
-
-        <div class="item-list-body">
-          <span><%= __('warehousedetailwithitem_owner')%> : </span>
-          <span>나현준</span>
-          <br />
-          <span><%= __('warehousedetailwithitem_date_register')%> : </span>
-          <span>21.12.22 22:11</span>
-        </div>
-      </div>
-
-      <div class="badge-div">
-        <span class="badge bg-secondary">
-          <%= __('warehousedetailwithitem_badge_before_in')%>
-        </span>
-      </div>
-    </li>
+    <% } %>
   </ul>
 </div>
 <!--창고 상세 페이지의 물품목록-->
-
