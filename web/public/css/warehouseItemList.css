@@ -1,0 +1,51 @@
+#att_zone {
+  width: 100%;
+  height: 10rem;
+  padding: 10px;
+  border: 1px solid #c4c4c4;
+  border-radius: 10px;
+  overflow: auto;
+}
+#image-placeholder {
+  color: #999;
+  font-size: 1em;
+}
+.input-file-button {
+  padding: 0.3rem 1.5rem;
+  background-color: #7c139a;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  font-family: 'nanum-eb';
+  margin-top: 0.5rem;
+}
+#name{
+  width: 100%;
+  padding: 10px;
+  margin : 1rem 0 1rem 0;
+}
+#note{
+  width: 100%;
+  padding: 10px;
+  margin : 1rem 0 1rem 0;
+}
+.badge-svg {
+  width: 20px;
+  height: 20px;
+  background: no-repeat;
+}
+.modal-title {
+  font-family: 'nanum-eb'; 
+  font-size: 2rem;
+}
+.btn-submit{
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  background-color: #7c139a;
+  border: 1px solid #7c139a;
+}
+.btn-secondary{
+  font-size: 1.2rem;
+  padding: 0.5rem;
+}

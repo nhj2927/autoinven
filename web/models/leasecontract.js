@@ -24,6 +24,9 @@ module.exports = (sequelize, DataTypes) => {
       models.LeaseContract.hasMany(models.Item, {
         foreignKey: 'l_contract_id',
       });
+      models.LeaseContract.belongsTo(models.User, {
+        foreignKey: 'user_email',
+      });
     }
   }
   LeaseContract.init(

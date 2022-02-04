@@ -1,0 +1,21 @@
+.inner.main{
+  align-items: start;
+  margin-top: 5%;
+}
+.container{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.badge{
+  display: flex;
+  height: 30px;
+  width: fit-content;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+.table{
+  cursor: pointer;
+}

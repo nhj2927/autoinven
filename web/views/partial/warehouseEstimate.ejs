@@ -1,0 +1,33 @@
+<form>
+    <div class="info-card" id="contract-card">
+      <div class="card-body">
+        <div>
+          <span id="wh-detail-contract-card-title"><%= __('warehousedetail_contract_total')%></span>
+          <span id="wh-detail-contract-card-price">670,000 <%= __('warehousedetail_contract_monetary_unit')%></span>
+        </div>
+
+        <div class="contract-card-element">
+          <p><%= __('warehousedetail_contract_pick_date')%></p>
+          <input id="info-card-start-date" type="date" class="input-contract-info"/>
+          <img id="info-card-arrow" src="/image/icon/arrow-right-solid.svg"/>
+          <input id="info-card-end-date" type="date" class="input-contract-info"/>
+        </div>
+
+        <div class="contract-card-element" >
+          <div style="margin-left: 9%;">
+            <p><%= __('warehousedetail_contract_max')%> 700 <%= __('warehousedetail_contract_area_unit')%></p>
+            <span style="text-align:center;">
+              <input id="info-card-area-for-contract" type="number" placeholder="<%= __('warehousedetail_contract_pick_date')%>" class="input-contract-info" min="0"/>
+              <span style="font-size: 1.5rem; font-family: 'nanum-b'; color: gray; float:inline-end;"><%= __('warehousedetail_contract_area_unit')%></span>
+            </span>
+          </div>
+        </div>
+
+        <div class="contract-card-element" style="text-align:center;">
+          <button id="contract-submit" class="btn btn-main"><%= __('warehousedetail_check_contract')%></button>
+          <p class="submit-footer"><%= __('warehousedetail_contract_note')%></p>
+        </div>
+      </div>
+
+    </div>
+  </form>

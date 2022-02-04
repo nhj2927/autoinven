@@ -1,4 +1,4 @@
-module.exports = async (email, password, db, session) => {
+module.exports = async (email, password, db, session, client_type) => {
   const getEncryptedPasswordInfo = require('./signup/getEncryptedPasswordInfo');
 
   // 멤버 확인
@@ -32,9 +32,34 @@ module.exports = async (email, password, db, session) => {
     throw error;
   }
 
-  // 세션에 데이터 저장
-  session.email = member.email;
-  session.type = type;
-  session.name = member.name;
-  session.phone = member.phone;
+  // 웹인 경우
+  if (client_type === 'web') {
+    // 세션에 데이터 저장
+    session.email = email;
+    session.type = type;
+    session.name = member.name;
+    session.phone = member.phone;
+
+    return {
+      message: 'success',
+    };
+  }
+  // 앱인 경우
+  else {
+    // jwt 반환
+    const jwt = require('jsonwebtoken');
+    const secret_key = process.env.JWT_SECRET_KEY;
+
+    return {
+      token: jwt.sign(
+        {
+          email,
+          type,
+          name: member.name,
+          phone: member.phone,
+        },
+        secret_key
+      ),
+    };
+  }
 };

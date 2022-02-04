@@ -1,41 +1,59 @@
-<body>
-  <div class="inner">
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #FFF;">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Autoinven</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-          aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="#" style="font-size: 1.2rem;">창고 검색</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#" style="font-size: 1.2rem;">내 창고</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#" style="font-size: 1.2rem;">내 계약</a>
-            </li>
+<div class="nav_inner">
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #FFF; position: fixed;;">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">Autoinven</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/search" style="font-size: 1.2rem;">
+              <%= __('navbar_search_warehouse')%>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/warehouse" style="font-size: 1.2rem;">
+              <%= __('navbar_my_warehouse')%>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contract" style="font-size: 1.2rem;">
+              <%= __('navbar_my_contract')%>
+            </a>
+          </li>
 
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 1.2rem;">
-                고객센터
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 1.2rem;">
+              <%= __('navbar_help1')%>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li><a class="dropdown-item" href="#">
+                  <%= __('navbar_help2')%>
+                </a></li>
+              <li><a class="dropdown-item" href="#">FAQ</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a id="login" class="nav-link" href="/auth/signin" style="color: rgba(124,19,154,1); font-size: 1.2rem;">
+              <%= __('navbar_signin')%>
+            </a>
+          </li>
+          <li>
+            <div class="btn-group">
+              <button type="button" id="img_btn" data-bs-toggle="dropdown" aria-expanded="false"
+                style="border: none; background: #FFF;"><img src="/image/select_language.png"></button>
+              </button>
+              <ul class="dropdown-menu" style="width: 4rem; min-width: 4rem">
+                <li><a class="dropdown-item" href="/ko">kor</a></li>
+                <li><a class="dropdown-item" href="/en">eng</a></li>
               </ul>
-            </li>
-            <li class="nav-item">
-                <a id="logout" class="nav-link " href="#" style="color: rgba(124,19,154,1); font-size: 1.2rem;">로그인</a>
-            </li>
-          </ul>
-        </div>
+            </div>
+          </li>
+        </ul>
       </div>
-    </nav>
-  </div>
-</body>
+    </div>
+  </nav>
+</div>

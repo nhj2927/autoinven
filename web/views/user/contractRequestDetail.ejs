@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+  <meta charset="UTF-8">
+  <%- include('../head') %>
+  <link rel="stylesheet" href="/css/contractRequestDetail.css"/>
+</head>
+
+<body>
+  <header>
+    <%- include('../partial/navbar') %>
+  </header>
+    <div class="container">
+        <h3 class="contract-request-detail-title"><%= __('contractRequestDetail_title')%></h3>
+        <div class="row align-items-start">
+            <div class="col">
+                <h4 class="contract-sub-title"><%= __('contractRequestDetail_wh_info')%></h4>
+                <table id="wh-info-table" class="table info-table" style="height: 30rem;">
+                    <tr>
+                        <td class="info-table-td-head"><%= __('contractRequestDetail_wh_name')%></td>
+                        <td class="info-table-td" colspan="3">대구 광역시 글로벌 물류센터</td>
+                    </tr>
+                    <tr>
+                        <td class=info-table-td-head><%= __('contractRequestDetail_wh_type')%></td>
+                        <td class="info-table-td" colspan="3">일반 창고</td>
+                    </tr>
+                    <tr>
+                        <td class=info-table-td-head><%= __('contractRequestDetail_wh_address')%></td>
+                        <td class="info-table-td" colspan="3">대구 광역시 북구 산격동 112-13</td>
+                    </tr>
+                    <tr>
+                        <td class=info-table-td-head><%= __('contractRequestDetail_wh_address_detail')%></td>
+                        <td class="info-table-td" colspan="3">대구 스마트 물류단지 내부</td>
+                    </tr>
+                    <tr>
+                        <td class=info-table-td-head><%= __('contractRequestDetail_wh_intro')%></td>
+                        <td class="info-table-td" colspan="3">깔끔한 신축창고 입니다.</td>
+                    </tr>
+                    <tr>
+                        <td class=info-table-td-head><%= __('contractRequestDetail_land_area')%></td>
+                        <td class="info-table-td">9000㎡ (2722평)</td>
+                        <td class=info-table-td-head><%= __('contractRequestDetail_gross_floor_area')%></td>
+                        <td class="info-table-td">8900㎡ (2692평)</td>
+                    </tr>
+                    <tr>
+                        <td class=info-table-td-head><%= __('contractRequestDetail_common_area')%></td>
+                        <td class="info-table-td">2900㎡ (877평)</td>
+                        <td class=info-table-td-head><%= __('contractRequestDetail_net_leaseable_area')%></td>
+                        <td class="info-table-td">6000㎡ (1815평)</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-5">
+                <h4 class="contract-sub-title"><%= __('contractRequestDetail_req_detail')%></h4>
+                <table id="contract-info-table" class="table info-table" style="height: 30rem;">
+                    <tr>
+                      <td class=info-table-td-head><%= __('contractRequestDetail_start_date')%></td>
+                      <td class="info-table-td" colspan="3">
+                          <input id="start_date"type="date" class="form-control" disabled="true"
+                          value="2018-07-22"></input>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class=info-table-td-head><%= __('contractRequestDetail_end_date')%></td>
+                      <td class="info-table-td" colspan="3">
+                        <input id="end_date" type="date" class="form-control" disabled="true"
+                        value="2018-07-22"></input>
+                      </td>
+                    </tr>
+                    <tr>
+                        <td class=info-table-td-head><%= __('contractRequestDetail_available_area')%></td>
+                        <td class="info-table-td" colspan="3">2000</td>
+                    </tr>
+                    <tr>
+                        <td class=info-table-td-head><%= __('contractRequestDetail_req_area')%></td>
+                        <td id="lease_area" class="info-table-td contract-table-td-red" colspan="3">300</td>
+                    </tr>
+                    <tr>
+                        <td class=info-table-td-head><%= __('contractRequestDetail_cost')%></td>
+                        <td class="info-table-td" colspan="3">평당 ￦800/일</td>
+                    </tr>
+                    <tr>
+                        <td class=info-table-td-head><%= __('contractRequestDetail_total_cost')%></td>
+                        <td id="amount" class="info-table-td contract-table-td-red" colspan="3">600000</td>
+                    </tr>
+                    <tr>
+                        <td class=info-table-td-head><%= __('contractRequestDetail_purpose')%></td>
+                        <td class="info-table-td" colspan="3">
+                            <input id="purpose" type="text" class="form-control" maxlength="255"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <table class="table info-table">
+            <tr>
+                <td class=info-table-td-head><%= __('contractRequestDetail_note')%></td>
+                <td class="info-table-td">
+                    <textarea id="note" class="form-control" cols="40" rows="5"></textarea>
+                </td>
+            </tr>
+        </table>
+
+        <div class="centered-div">
+            <button class="btn btn-submit" onclick="clkSubmit()"><%= __('contractRequestDetail_submit')%></button>
+            <button class="btn btn-cancel" onclick="history.back()"><%= __('contractRequestDetail_cancel')%></button>
+        </div>
+    </div>
+
+    <footer style="margin-top: 3rem;">
+        <%- include('../partial/footer') %>
+    </footer>
+</body>
+<script>
+    clkSubmit =() => {
+        let formdata ={
+          'warehouse_id':"1",
+          'start_date':$('#start_date')[0].value,
+          'end_date':$('#end_date')[0].value,
+          'lease_area':$('#lease_area').text(),
+          'amount':$('#amount').text(),
+          'purpose':$('#purpose')[0].value,
+          'note':$('#note')[0].value,
+          'user_email': 'jacob9404@gmail.com'
+        }
+
+        for (var key in formdata) {
+          console.log("key : " + key +", value : " + formdata[key]);
+        }
+
+        $.ajax({
+            url: 'http://192.168.0.16:5000/api/contract',
+            type: 'POST',
+            accepts: 'application/json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(formdata),
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (e) {
+                console.log("ERROR : ", e);
+            }
+        });
+    }
+</script>
+
+</html>
