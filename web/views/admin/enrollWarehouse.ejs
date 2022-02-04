@@ -26,6 +26,7 @@
           type="file"
           multiple="multiple"
           style="display: none"
+          accept="image/png, image/jpeg, image/jpg"
         />
       </div>
       <!--창고 사진-->
@@ -560,13 +561,23 @@
     attZone.addEventListener(
       'drop',
       (e) => {
-        var files = {};
         e.preventDefault();
         e.stopPropagation();
-        var dt = e.dataTransfer;
+        const dt = e.dataTransfer;
+        const files = {};
+        let extension;
+        let isSuccess;
         files = dt.files;
+        fileTypes = ['jpg', 'jpeg', 'png'];
+
         for (f of files) {
-          if (sel_files.length < max_images) imageLoader(f);
+          if (sel_files.length < max_images) {
+            extension = f.name.split('.').pop().toLowerCase();
+            isSuccess = fileTypes.indexOf(extension) > -1;
+            if (isSuccess) {
+              imageLoader(f);
+            }
+          }
         }
       },
       false
