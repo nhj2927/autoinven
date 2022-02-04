@@ -91,10 +91,13 @@
 
 	"navbar_search_warehouse": "창고 검색",
 	"navbar_my_warehouse": "내 창고",
+  "navbar_manage_warehouse": "창고 관리",
 	"navbar_my_contract": "내 계약",
+  "navbar_manage_contract": "계약 관리",
 	"navbar_help1": "고객센터",
 	"navbar_signin": "로그인",
 	"navbar_help2": "도움말",
+  "navbar_signout": "로그아웃",
 
 	"myInfo_title": "회원정보 수정",
 	"myInfo_name": "이름",
@@ -119,12 +122,13 @@
   "table_contract_period": "계약 기간",
   "table_price": "금액",
   "table_contractor": "계약자",
-  "table_request_date": "요청일",
+  "table_created_date": "생성일",
 
   "badge_approved": "승인 완료",
   "badge_pending_payment": "결제 대기중",
   "badge_pending_approval": "승인 대기중",
   "badge_reject": "승인 거절",
+  "badge_expired": "기간 만료",
 
   "contractRequestDetail_title" : "견적 상세 정보",
   "contractRequestDetail_wh_info" : "창고정보",

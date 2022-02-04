@@ -33,7 +33,6 @@ ul{
   padding: 0.375rem .75rem;
   width: 30rem;
 }
-
 #signup-form .input--text:focus {
   border-color: #51A7E8;
   box-shadow: 0 0 5px rgba(81,167,232,0.5);
@@ -49,7 +48,6 @@ ul{
   color: #000;
   font-weight: bolder;
 }
-
 .btn-main{
   width: 22rem;
   margin: 0.75rem 4rem;
