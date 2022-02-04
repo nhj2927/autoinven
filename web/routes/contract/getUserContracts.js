@@ -23,6 +23,7 @@ module.exports = async (db, user_email, locale) => {
     where: { user_email },
     include: {
       model: db.Warehouse,
+      required: true,
       attributes: ['name_ko', 'name_en'],
     },
   });
@@ -38,7 +39,7 @@ module.exports = async (db, user_email, locale) => {
       period: `${contract.start_date} ~ ${contract.end_date}`,
       area: contract.lease_area,
       price: contract.amount,
-      contract_date: contract.createdAt,
+      created_date: contract.createdAt,
     };
   });
 

@@ -3,7 +3,7 @@ module.exports = (db) => {
   const router = express.Router();
 
   const { doAsync } = require('$base/utils/asyncWrapper');
-  const getContracts = require('./getContracts');
+  const getUserContracts = require('./getUserContracts');
 
   router.get(
     '/',
@@ -13,11 +13,10 @@ module.exports = (db) => {
         session: { type, email },
       } = req;
 
-      const contracts = await getContracts(db, email, locale);
+      const contracts = await getUserContracts(db, email, locale);
 
       res.render('common/leaseManagement', {
         type,
-        locale,
         contracts,
       });
     })
