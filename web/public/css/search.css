@@ -100,18 +100,15 @@
 
 #startDate {
   flex-shrink: 1;
-  width: 13rem;
   min-width: 5rem;
   text-align: center;
 }
 #endDate {
-  width: 13rem;
   min-width: 5rem;
   text-align: center;
 }
 
 #whType {
-  width: 13rem;
   min-width: 5rem;
   text-align: center;
 }
