@@ -83,10 +83,14 @@
 
   "navbar_search_warehouse": "SEARCH WAREHOUSE",
   "navbar_my_warehouse": "MY WAREHOUSE",
+  "navbar_manage_warehouse": "MANAGE WAREHOUSE",
   "navbar_my_contract": "MY CONTRACT",
+  "navbar_manage_contract": "MANAGE CONTRACT",
   "navbar_help1": "HELP",
   "navbar_signin": "signin",
   "navbar_help2": "HELP",
+  "navbar_signout": "signout",
+
   "myInfo_title": "Edit myInfo",
   "myInfo_name": "Name",
   "myInfo_pw": "Password",
@@ -120,12 +124,13 @@
   "table_contract_period": "Contract Period",
   "table_price": "Price",
   "table_contractor": "Contractor",
-  "table_request_date": "Request Date",
+  "table_created_date": "Created Date",
 
   "badge_approved": "Approved",
   "badge_pending_payment": "Pending Payment",
   "badge_pending_approval": "Pending Approval",
   "badge_reject": "Rejected",
+  "badge_expired": "Expired",
 
   "contractRequestDetail_title": "ESTIMATE",
   "contractRequestDetail_wh_info": "INFO",

@@ -11,7 +11,16 @@ module.exports = (db) => {
   });
 
   router.get('/myinfo', (req, res) => {
-    res.render('common/myInfo', {});
+
+    const user = {
+      type: "admin",
+      email: "nhj2927@naver.com",
+      name: "나현준",
+      phone: "010-1234-5647"
+    };
+    res.render('common/myInfo', {
+      user
+    });
   });
 
   router.use('/warehouse', require('./warehouse')(db));

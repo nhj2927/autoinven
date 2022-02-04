@@ -13,17 +13,31 @@
               <%= __('navbar_search_warehouse')%>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/warehouse" style="font-size: 1.2rem;">
-              <%= __('navbar_my_warehouse')%>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/contract" style="font-size: 1.2rem;">
-              <%= __('navbar_my_contract')%>
-            </a>
-          </li>
-
+          <% if(user.type) { %>
+            <% if(user.type == 'user') { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/warehouse" style="font-size: 1.2rem;">
+                  <%= __('navbar_my_warehouse')%>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/contract" style="font-size: 1.2rem;">
+                  <%= __('navbar_my_contract')%>
+                </a>
+              </li>
+            <% } else if(user.type == 'admin') { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/warehouse" style="font-size: 1.2rem;">
+                  <%= __('navbar_manage_warehouse')%>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/contract" style="font-size: 1.2rem;">
+                  <%= __('navbar_manage_contract')%>
+                </a>
+              </li>
+            <% } %>
+          <% } %>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
               data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 1.2rem;">
@@ -37,9 +51,15 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a id="login" class="nav-link" href="/auth/signin" style="color: rgba(124,19,154,1); font-size: 1.2rem;">
-              <%= __('navbar_signin')%>
-            </a>
+            <% if(user.type) { %>
+              <a id="login" class="nav-link" href="/" style="color: rgba(124,19,154,1); font-size: 1.2rem;">
+                <%= __('navbar_signout')%>
+              </a>
+            <% } else { %>
+              <a id="login" class="nav-link" href="/auth/signin" style="color: rgba(124,19,154,1); font-size: 1.2rem;">
+                <%= __('navbar_signin')%>
+              </a>
+            <% } %>
           </li>
           <li>
             <div class="btn-group">

@@ -2,7 +2,7 @@ module.exports = (db) => {
   const express = require('express');
   const router = express.Router();
 
-  router.get('/constract', (req, res) => {
+  router.get('/contract', (req, res) => {
     res.render('admin/adminLeaseManagement', {});
   });
 
