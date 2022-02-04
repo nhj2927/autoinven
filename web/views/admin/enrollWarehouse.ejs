@@ -564,12 +564,11 @@
         e.preventDefault();
         e.stopPropagation();
         const dt = e.dataTransfer;
-        const files = {};
+        let files = {};
         let extension;
         let isSuccess;
         files = dt.files;
         fileTypes = ['jpg', 'jpeg', 'png'];
-
         for (f of files) {
           if (sel_files.length < max_images) {
             extension = f.name.split('.').pop().toLowerCase();

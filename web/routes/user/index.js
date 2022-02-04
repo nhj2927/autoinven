@@ -2,8 +2,12 @@ module.exports = (db) => {
   const express = require('express');
   const router = express.Router();
 
+  const user = {
+    type: 'admin',
+  };
   router.get('/warehouse/:id', (req, res) => {
     res.render('user/warehouseDetail', {
+      user: user,
       warehouse_id: 1,
       name: '대구 광역시 글로벌 물류센터',
       category: '일반창고',
