@@ -25,12 +25,12 @@
       </li>
       <li>
         <p class="tag">E-mail</p>
-        <p class="input--text">nhj2927@naver.com</p>
+        <p class="input--text"><%= user.email %></p>
       </li>
       <li>
         <p class="tag">
           <%= __('myInfo_name')%>
-        </p><input type="text" id="name" class="input--text" value="나현준">
+        </p><input type="text" id="name" class="input--text" value="<%= user.name %>">
       </li>
       <li>
         <p class="tag">
@@ -64,7 +64,7 @@
       <li>
         <p class="tag">
           <%= __('myInfo_phone')%>
-        </p><input type="tel" id="phone" class="input--text" value="01012345678">
+        </p><input type="tel" id="phone" class="input--text" value="<%= user.phone %>">
       </li>
       <li class="align_center">
         <button class="btn-main small" type="submit" id="change_myinfo">

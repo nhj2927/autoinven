@@ -1,7 +1,6 @@
-
 <!--아이템 등록 모달 & 상세 정보 모달-->
-<%- include('../partial/ItemRegisterModal') %>
-<%- include('../partial/ItemDetailModal') %>
+<%- include('../partial/ItemRegisterModal') %> <%-
+include('../partial/ItemDetailModal') %>
 <!--아이템 등록 모달 & 상세 정보 모달--->
 
 <link rel="stylesheet" href="/css/warehouseItemList.css" />
@@ -14,214 +13,49 @@
     data-bs-toggle="modal"
     data-bs-target="#ItemRegisterModal"
   >
-    <img src="/image/icon/plus-solid.svg" class="badge-svg" /> 
+    <img src="/image/icon/plus-solid.svg" class="badge-svg" />
     <%=__('warehousedetailwithitem_add_item')%>
   </button>
 </div>
 <div id="item-list-card" class="info-card" style="overflow-y: auto">
   <ul class="list-group list-group-flush">
+    <% for(let i in items) { %>
     <li
       class="list-group-item d-flex justify-content-between align-items-center"
       data-bs-toggle="modal"
       data-bs-target="#ItemDetailModal"
-      style="cursor: pointer;"
-      onclick="openItemDetailModal('<%= 1%>')"
+      style="cursor: pointer"
+      onclick="openItemDetailModal('<%= items[i].item_id%>')"
     >
-      <img src="/image/test_image_1.jpg" class="item-list-image" />
+      <img src="<%= items[i].image%>" class="item-list-image" />
       <div class="item-list-text-div">
-        <div class="item-list-title">자동차 엔진 부품 1</div>
+        <div class="item-list-title"><%= items[i].name%></div>
 
         <div class="item-list-body">
           <span><%= __('warehousedetailwithitem_owner')%> : </span>
-          <span>나현준</span>
+          <span><%= items[i].owner_name%></span>
           <br />
           <span><%= __('warehousedetailwithitem_date_in')%> : </span>
-          <span>21.12.22 22:11</span>
+          <span><%= items[i].date %></span>
         </div>
       </div>
-
+      <% if(items[i].status == 1) { %>
       <div class="badge-div">
-        <span class="badge bg-success"
-          ><%= __('warehousedetailwithitem_badge_in')%></span
+        <span class="badge bg-secondary"
+          ><%= __('warehousedetailwithitem_badge_before_in')%></span
         >
       </div>
+      <% } else if(items[i].status == 2) { %>
+      <span class="badge bg-success"
+        ><%= __('warehousedetailwithitem_badge_in')%></span
+      >
+      <% } else { %>
+      <span class="badge bg-danger"
+        ><%= __('warehousedetailwithitem_badge_out')%></span
+      >
+      <% } %>
     </li>
-
-    <li
-      class="list-group-item d-flex justify-content-between align-items-center"
-      data-bs-toggle="modal"
-      data-bs-target="#ItemDetailModal"
-      style="cursor: pointer;"
-    >
-      <img src="/image/test_image_1.jpg" class="item-list-image" />
-      <div class="item-list-text-div">
-        <div class="item-list-title">자동차 엔진 부품 2</div>
-
-        <div class="item-list-body">
-          <span><%= __('warehousedetailwithitem_owner')%> : </span>
-          <span>나현준</span>
-          <br />
-          <span><%= __('warehousedetailwithitem_date_out')%> : </span>
-          <span>21.12.22 22:11</span>
-        </div>
-      </div>
-
-      <div class="badge-div">
-        <span class="badge bg-danger"
-          ><%= __('warehousedetailwithitem_badge_out')%></span
-        >
-      </div>
-    </li>
-
-    <li
-      class="list-group-item d-flex justify-content-between align-items-center"
-      data-bs-toggle="modal"
-      data-bs-target="#ItemDetailModal"
-      style="cursor: pointer;"
-    >
-      <img src="/image/test_image_1.jpg" class="item-list-image" />
-      <div class="item-list-text-div">
-        <div class="item-list-title">자동차 엔진 부품 3</div>
-
-        <div class="item-list-body">
-          <span><%= __('warehousedetailwithitem_owner')%> : </span>
-          <span>나현준</span>
-          <br />
-          <span><%= __('warehousedetailwithitem_date_register')%> : </span>
-          <span>21.12.22 22:11</span>
-        </div>
-      </div>
-
-      <div class="badge-div">
-        <span class="badge bg-secondary">
-          <%= __('warehousedetailwithitem_badge_before_in')%>
-        </span>
-      </div>
-    </li>
+    <% } %>
   </ul>
 </div>
 <!--창고 상세 페이지의 물품목록-->
-
-
-<!--이미지 업로드 및 미리보기-->
-<script>
-  /* att_zone : 이미지들이 들어갈 위치 id, btn : file tag id */
-  const attZone = document.getElementById('att_zone');
-  const btnAtt = document.getElementById('btnAtt');
-  let sel_files = [];
-  const max_images = 5;
-
-  // 이미지와 체크 박스를 감싸고 있는 div 속성
-  const div_style =
-    'display:inline-block;position:relative;' +
-    'width:8rem;height:8rem;margin:5px;border:1px solid #f0f0f0; z-index:1';
-  // 미리보기 이미지 속성
-  const img_style = 'width:100%;height:100%;z-index:none';
-  // 이미지안에 표시되는 체크박스의 속성
-  const chk_style =
-    'position:absolute; padding: 3px 5px 0.5px 5px; border-radius: 3px;' +
-    'right:0px;top:0px;z-index:999;';
-
-  btnAtt.onchange = (e) => {
-    const files = e.target.files;
-    const fileArr = Array.prototype.slice.call(files);
-    for (f of fileArr) {
-      imageLoader(f);
-    }
-  };
-
-  // 탐색기에서 드래그앤 드롭 사용
-  attZone.addEventListener(
-    'dragenter',
-    (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-    },
-    false
-  );
-
-  attZone.addEventListener(
-    'dragover',
-    (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-    },
-    false
-  );
-
-  attZone.addEventListener(
-    'drop',
-    (e) => {
-      var files = {};
-      e.preventDefault();
-      e.stopPropagation();
-      var dt = e.dataTransfer;
-      files = dt.files;
-      for (f of files) {
-        if (sel_files.length < max_images) imageLoader(f);
-      }
-    },
-    false
-  );
-
-  /*이미지 미리보기 상자가 비어있으면 텍스트 노출*/
-  placeholerObserver = () => {
-    if (sel_files.length <= 0) {
-      $('#image-placeholder')[0].setAttribute('style', 'diplay: block;');
-    } else {
-      $('#image-placeholder')[0].setAttribute('style', 'display: none;');
-    }
-  };
-
-  /*첨부된 이미지들을 배열에 넣고 미리보기 */
-  imageLoader = (file) => {
-    sel_files.push(file);
-    var reader = new FileReader();
-    reader.onload = (e) => {
-      let img = document.createElement('img');
-      img.setAttribute('style', img_style);
-      img.src = e.target.result;
-      attZone.appendChild(makeDiv(img, file));
-    };
-
-    reader.readAsDataURL(file);
-
-    placeholerObserver();
-  };
-
-  /*첨부된 파일이 있는 경우 checkbox와 함께 attZone에 추가할 div를 만들어 반환 */
-  makeDiv = (img, file) => {
-    const div = document.createElement('div');
-    div.setAttribute('style', div_style);
-    const icon = document.createElement('img');
-    const btn = document.createElement('input');
-    btn.setAttribute('type', 'button');
-    btn.setAttribute('value', 'X');
-    btn.setAttribute('class', 'btn btn-danger');
-    btn.setAttribute('delFile', file.name);
-    btn.setAttribute('style', chk_style);
-    btn.onclick = (ev) => {
-      var ele = ev.srcElement;
-      var delFile = ele.getAttribute('delFile');
-      for (var i = 0; i < sel_files.length; i++) {
-        if (delFile == sel_files[i].name) {
-          sel_files.splice(i, 1);
-        }
-      }
-
-      dt = new DataTransfer();
-      for (f in sel_files) {
-        var file = sel_files[f];
-        dt.items.add(file);
-      }
-      btnAtt.files = dt.files;
-      var p = ele.parentNode;
-      attZone.removeChild(p);
-      placeholerObserver();
-    };
-    div.appendChild(img);
-    div.appendChild(btn);
-    return div;
-  };
-</script>
-<!--이미지 업로드 및 미리보기-->
