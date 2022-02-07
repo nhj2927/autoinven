@@ -59,6 +59,7 @@ module.exports = (db) => {
     })
   );
 
+  /*
   //QR 출력
   router.get(
     '/:item_id/qr',
@@ -70,6 +71,7 @@ module.exports = (db) => {
       res.send(qrcode);
     })
   );
+  */
 
   return router;
 };

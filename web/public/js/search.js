@@ -5,6 +5,8 @@ let i = 0;
 let today = new Date();
 let locale;
 let center;
+let infowindow;
+let infowindowContent;
 today.setHours(0, 0, 0, 0);
 
 $('#searchBtn').click(() => {
@@ -28,6 +30,107 @@ $(clearSearchBox).click(function () {
   input.value = null;
 });
 */
+
+const searchResultListing = (lists, searchType) => {
+  $('.marker_list').text('');
+  for (l in lists) {
+    let index = lists[l].marker.index;
+    let name;
+    let address;
+    let addressDetail;
+    let dedicated_area;
+    let type;
+    let price;
+
+    if (locale === 'ko') {
+      name = warehouses[index].name_ko;
+      address = warehouses[index].address1_ko;
+      addressDetail = warehouses[index].address2_ko;
+      dedicated_area = warehouses[index].dedicated_area + ' m<sup>2</sup>';
+      price = `m<sup>2</sup>당 &#8361;${warehouses[index].rent}/일`;
+      if (warehouses[index].is_verified) {
+        type = '인증';
+      } else {
+        type = '미인증';
+      }
+    } else if (locale === 'en') {
+      name = warehouses[index].name_en;
+      address = warehouses[index].address1_en;
+      addressDetail = warehouses[index].address2_en;
+      dedicated_area = warehouses[index].dedicated_area + ' m<sup>2</sup>';
+      price = `per m<sup>2</sup> $${warehouses[index].rent}/per`;
+      if (warehouses[index].is_verified) {
+        type = 'verified';
+      } else {
+        type = 'not verified';
+      }
+    }
+    console.log(name, address, addressDetail, dedicated_area);
+    console.log(warehouses[index].WarehouseImages[0].url);
+    // 지도만 검색
+    if (searchType === 1) {
+      $('.marker_list').append(
+        ` 
+          <div class="marker_item frow" id="marker${warehouses[index].warehouse_id}">
+            <div class="frow warehouseImage" style>
+              <img src="${warehouses[index].WarehouseImages[0].url}">
+            </div>
+            <div class="fcol warehouseInfo">
+              <div class="frow">
+                  <div class="marker_title">${name}</div>
+                  <div class="marker_type autoinven">${type}</div>
+              </div>
+              <div class="makrer_address">
+                ${address}<br>
+                ${addressDetail}
+              </div>
+              <div class="frow">
+                  <div class="marker_price">${price}</div>
+                  <div class="marker_distance">${lists[l].distance}km</div>
+              </div>
+            </div>
+          </div>
+          <hr class="marker_hr">
+        `
+      );
+    }
+    // 사용가능 공간 포함 검색
+    else {
+      let available_area = lists[l].available_area;
+      $('.marker_list').append(
+        ` 
+          <div class="marker_item frow" id="marker${warehouses[index].warehouse_id}">
+            <div class="frow warehouseImage" style>
+              <img src="${warehouses[index].WarehouseImages[0].url}">
+            </div>
+            <div class="fcol warehouseInfo">
+              <div class="frow">
+                  <div class="marker_title">${name}</div>
+                  <div class="marker_type autoinven">${type}</div>
+              </div>
+              <div class="makrer_address">
+                ${address}<br>
+                ${addressDetail}
+              </div>
+              <div class="frow">
+                  <div class="marker_price">${price}</div>
+                  <div class="marker_available">${available_area}</div>
+                  <div class="marker_distance">${lists[l].distance}km</div>
+              </div>
+            </div>
+          </div>
+          <hr class="marker_hr">
+        `
+      );
+    }
+
+    let id = '#marker' + l;
+    const m = lists[l].marker;
+    $(id).click(function () {
+      google.maps.event.trigger(m, 'click');
+    });
+  }
+};
 
 const listing = (lists) => {
   $('.marker_list').text('');
@@ -66,16 +169,16 @@ const listing = (lists) => {
     console.log(warehouses[index].WarehouseImages[0].url);
     $('.marker_list').append(
       ` 
-          <div class="marker_item frow" id="marker${l}">
+          <div class="marker_item frow" id="marker${warehouses[index].warehouse_id}">
             <div class="frow warehouseImage" style>
               <img src="${warehouses[index].WarehouseImages[0].url}">
             </div>
-            <div class="fcol">
+            <div class="fcol warehouseInfo">
               <div class="frow">
                   <div class="marker_title">${name}</div>
                   <div class="marker_type autoinven">${type}</div>
               </div>
-              <div class="makrer_address">${address} / ${addressDetail}</div>
+              <div class="makrer_address">${address}<br>${addressDetail}</div>
               <div class="frow">
                   <div class="marker_price">${price}</div>
               </div>
@@ -114,7 +217,25 @@ async function initMap() {
       icon: notAvailableIcon,
     });
     markers[warehouses[index].warehouse_id].index = index;
-    markers[warehouses[index].warehouse_id].addListener('click', () => {});
+    let name;
+    let address;
+    if (locale === 'ko') {
+      name = warehouses[index].name_ko;
+      address = warehouses[index].address1_ko + warehouses[index].address2_ko;
+    } else if (locale == 'en') {
+      name = warehouses[index].name_en;
+      address = warehouses[index].address1_en + warehouses[index].address2_en;
+    }
+    const m = markers[warehouses[index].warehouse_id];
+    const wid = warehouses[index].warehouse_id;
+    markers[warehouses[index].warehouse_id].addListener('click', () => {
+      infowindowContent.style.display = 'block';
+      infowindowContent.children['place-name'].textContent = name;
+      infowindowContent.children['place-address'].textContent = address;
+      infowindow.open(map, m);
+      document.querySelector(`#marker${wid}`).focus();
+      document.querySelector(`#marker${wid}`).scrollIntoView();
+    });
   }
   // 초기 리스팅
   listing(markers);
@@ -132,8 +253,8 @@ async function initMap() {
   map.addListener('bounds_changed', () => {
     searchBox.setBounds(map.getBounds());
   });
-  const infowindow = new google.maps.InfoWindow();
-  const infowindowContent = document.getElementById('infowindow-content');
+  infowindow = new google.maps.InfoWindow();
+  infowindowContent = document.getElementById('infowindow-content');
   infowindow.setContent(infowindowContent);
 
   // 검색 결과를 표시할 마커
@@ -148,6 +269,7 @@ async function initMap() {
     const endDate = $('#endDate')[0].value;
     let whType = [$('#whType option:selected').val()];
     let leaseArea = $('#leaseArea')[0].value;
+    lists = [];
     // 시작, 종료일 면적 모두 입력하거나 입력하지 않은 경우
     if (
       (startDate === '' && endDate === '' && leaseArea === '') ||
@@ -174,14 +296,15 @@ async function initMap() {
       marker.setPosition(place.geometry.location);
       marker.setVisible(false);
       map.setZoom(15);
+      infowindowContent.style.display = 'block';
       infowindowContent.children['place-name'].textContent = place.name;
       infowindowContent.children['place-address'].textContent =
         place.formatted_address;
       infowindow.open(map, marker);
 
       if (startDate === '' && endDate === '' && leaseArea === '') {
+        console.log('if 문으로 들어옴');
         // 그냥 검색한 곳에서 가까운대로 리스팅
-        lists = [];
         $('.marker_list').text('');
         for (m in markers) {
           const d = calcDistance(
@@ -197,69 +320,9 @@ async function initMap() {
           if (a.distance === b.distance) return 0;
           if (a.distance < b.distance) return -1;
         });
-        for (l in lists) {
-          let index = lists[l].marker.index;
-          let name;
-          let address;
-          let addressDetail;
-          let dedicated_area;
-          let type;
-          let price;
-          if (locale === 'ko') {
-            name = warehouses[index].name_ko;
-            address = warehouses[index].address1_ko;
-            addressDetail = warehouses[index].address2_ko;
-            dedicated_area =
-              warehouses[index].dedicated_area + ' m<sup>2</sup>';
-            price = `m<sup>2</sup>당 &#8361;${warehouses[index].rent}/일`;
-            if (warehouses[index].is_verified) {
-              type = '인증';
-            } else {
-              type = '미인증';
-            }
-          } else if (locale === 'en') {
-            name = warehouses[index].name_en;
-            address = warehouses[index].address1_en;
-            addressDetail = warehouses[index].address2_en;
-            dedicated_area =
-              warehouses[index].dedicated_area + ' m<sup>2</sup>';
-            price = `per m<sup>2</sup> $${warehouses[index].rent}/per`;
-            if (warehouses[index].is_verified) {
-              type = 'verified';
-            } else {
-              type = 'not verified';
-            }
-          }
-          console.log(name, address, addressDetail, dedicated_area);
-          console.log(warehouses[index].WarehouseImages[0].url);
-          $('.marker_list').append(
-            ` 
-                <div class="marker_item frow" id="marker${l}">
-                  <div class="frow warehouseImage" style>
-                    <img src="${warehouses[index].WarehouseImages[0].url}">
-                  </div>
-                  <div class="fcol">
-                    <div class="frow">
-                        <div class="marker_title">${name}</div>
-                        <div class="marker_type autoinven">${type}</div>
-                    </div>
-                    <div class="makrer_address">${address} / ${addressDetail}</div>
-                    <div class="frow">
-                        <div class="marker_price">${price}</div>
-                        <div class="marker_distance">${lists[l].distance}km</div>
-                    </div>
-                  </div>
-                </div>
-                <hr class="marker_hr">
-                `
-          );
-          let id = '#marker' + l;
-          const m = lists[l].marker;
-          $(id).click(function () {
-            google.maps.event.trigger(m, 'click');
-          });
-        }
+        searchResultListing(lists, 1);
       } else {
+        console.log('else 문으로 들어옴');
         // 검색해서 주위 이용가능 한 창고만 리스팅
         // 입력 안했을 경우, 서버에서 인식 가능하도로 null로 변경
         if (whType[0] == '창고종류') {
@@ -279,10 +342,29 @@ async function initMap() {
 
         for (index in searchResult) {
           markers[searchResult[index].warehouse_id].setIcon(myIcon);
-          console.log(markers[searchResult[index].warehouse_id].index);
+          //const index = markers[searchResult[index].warehouse_id].index;
+          //console.log(m);
+          const d = calcDistance(
+            new google.maps.LatLng(
+              markers[searchResult[index].warehouse_id].position
+            ),
+            new google.maps.LatLng(marker.position)
+          );
+          if (d < 50) {
+            lists.push({
+              marker: markers[searchResult[index].warehouse_id],
+              distance: d,
+              available_area: searchResult[index].available_area,
+            });
+          }
         }
+        lists.sort(function (a, b) {
+          if (a.distance > b.distance) return 1;
+          if (a.distance === b.distance) return 0;
+          if (a.distance < b.distance) return -1;
+        });
+        searchResultListing(lists, 2);
       }
-    } else if (startDate !== '' && endDate !== '' && leaseArea !== '') {
     } else {
       // 시작일, 종료일, 면적 중 1개 또는 2개 빼먹은 경우
       // 경고창만 뜨게
