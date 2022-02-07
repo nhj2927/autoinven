@@ -27,7 +27,6 @@ module.exports = (db) => {
   );
 
   router.get('/myinfo', (req, res) => {
-<<<<<<< HEAD
     const { email, type, name, phone } = req.session;
     const user = {
       email,
@@ -36,18 +35,6 @@ module.exports = (db) => {
       phone,
     };
     res.render('common/myInfo', { user });
-=======
-
-    const user = {
-      type: "admin",
-      email: "nhj2927@naver.com",
-      name: "나현준",
-      phone: "010-1234-5647"
-    };
-    res.render('common/myInfo', {
-      user
-    });
->>>>>>> da6c925e448dca4378eaa896d876e96362f03584
   });
 
   router.use('/warehouse', require('./warehouse')(db));
