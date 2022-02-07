@@ -46,7 +46,12 @@ module.exports = (db) => {
   });
 
   router.get('/contract/request', (req, res) => {
-    res.render('user/contractRequestDetail', {});
+    const user = {
+      type: 'admin',
+    };
+    res.render('user/contractRequestDetail', {
+      user: user,
+    });
   });
 
   return router;

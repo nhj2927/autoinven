@@ -122,11 +122,8 @@
       ', left = ' +
       left +
       ', location = no';
-    let win = window.open('', 'QR', option);
-    win.document.write(
-      '<button type=button onclick="window.print();">프린트하기</button>'
-    );
-    win.document.write('<img src="/image/default-image.jpg"/>');
+
+    let win = window.open('http://192.168.0.16:5000/item/6/qr', 'QR', option);
   }
 
   openItemDetailModal = (item_id) => {
