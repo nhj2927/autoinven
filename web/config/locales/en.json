@@ -83,6 +83,32 @@
 
   "navbar_search_warehouse": "SEARCH WAREHOUSE",
   "navbar_my_warehouse": "MY WAREHOUSE",
+<<<<<<< HEAD
+  "navbar_my_contract": "MY CONTRACT",
+  "navbar_help1": "HELP",
+  "navbar_signin": "signin",
+  "navbar_help2": "HELP",
+  "myInfo_title": "Edit myInfo",
+  "myInfo_name": "Name",
+  "myInfo_pw": "Password",
+  "myInfo_phone": "Phone",
+  "myInfo_change_pw": "Change Password",
+  "myInfo_change_myinfo": "Edit",
+  "myInfo_text1": "Current Password",
+  "myInfo_text2": "New Password",
+  "myInfo_text3": "Confirm New Password",
+
+  "warehousedetailwithitem_itemlist": "ITEMLIST",
+  "warehousedetailwithitem_add_item": "ADD ITEM",
+  "warehousedetailwithitem_owner": "OWNER",
+  "warehousedetailwithitem_date_in": "DATE",
+  "warehousedetailwithitem_badge_in": "IN",
+  "warehousedetailwithitem_date_out": "DATE",
+  "warehousedetailwithitem_badge_out": "OUT",
+  "warehousedetailwithitem_date_register": "DATE",
+  "warehousedetailwithitem_badge_before_in": "BEFORE",
+
+=======
   "navbar_manage_warehouse": "MANAGE WAREHOUSE",
   "navbar_my_contract": "MY CONTRACT",
   "navbar_manage_contract": "MANAGE CONTRACT",
@@ -111,6 +137,7 @@
   "warehousedetailwithitem_date_register": "DATE",
   "warehousedetailwithitem_badge_before_in": "BEFORE",
 
+>>>>>>> da6c925e448dca4378eaa896d876e96362f03584
   "warehouse_title": "Warehouse Management",
   "warehouse_verify": "verified",
 

@@ -12,6 +12,7 @@ module.exports = {
       idle: 30000,
       acquire: 60000,
     },
+    timezone: env.MYSQL_TZ,
   },
   test: {
     username: 'root',
@@ -31,5 +32,6 @@ module.exports = {
       idle: 30000,
       acquire: 60000,
     },
+    timezone: env.MYSQL_TZ,
   },
 };

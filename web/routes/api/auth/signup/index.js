@@ -3,16 +3,17 @@ module.exports = (db) => {
   const router = express.Router();
 
   const { doAsync } = require('$base/utils/asyncWrapper');
-  const editMyinfo = require('./editMyinfo');
-  const editPassword = require('./editPassword');
+  const signup = require('./signup');
+  const verifyEmail = require('./verifyEmail');
 
-  //내정보 수정
-  router.put(
+  //회원가입
+  router.post(
     '/',
     doAsync(async (req, res) => {
-      const { body: user_info } = req;
+      const user_info = req.body;
+      console.log(user_info);
 
-      await editMyinfo(user_info, db);
+      await signup(user_info, db);
 
       res.status(200).json({
         message: 'success',
@@ -20,18 +21,18 @@ module.exports = (db) => {
     })
   );
 
-  //비밀번호 수정
-  router.put(
-    '/password',
+  //이메일 인증
+  router.post(
+    '/email',
     doAsync(async (req, res) => {
       const {
-        body: { current_password, new_password },
+        body: { email },
       } = req;
 
-      await editPassword(current_password, new_password, db);
+      const auth_code = await verifyEmail(email, db);
 
       res.status(200).json({
-        message: 'success',
+        auth_code,
       });
     })
   );

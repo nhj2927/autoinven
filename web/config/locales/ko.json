@@ -43,10 +43,16 @@
   "warehousedetail_common_area": "공용면적",
   "warehousedetail_net_leaseable_area": "전용면적",
   "warehousedetail_contract_total": "합계",
+<<<<<<< HEAD
+  "warehousedetail_contract_monetary_unit": "￦",
+  "warehousedetail_contract_pick_date": "임대기간 선택",
+  "warehousedetail_contract_area_unit": "평",
+=======
   "warehousedetail_contract_monetary_unit": "원",
   "warehousedetail_contract_pick_date": "임대기간 선택",
   "warehousedetail_contract_pick_area": "임대 희망 면적",
   "warehousedetail_contract_area_unit": "㎡",
+>>>>>>> da6c925e448dca4378eaa896d876e96362f03584
   "warehousedetail_contract_max": "최대",
   "warehousedetail_lease_area": "임대면적",
   "warehousedetail_check_contract": "견적확인",
@@ -92,6 +98,12 @@
 
   "navbar_search_warehouse": "창고 검색",
   "navbar_my_warehouse": "내 창고",
+<<<<<<< HEAD
+  "navbar_my_contract": "내 계약",
+  "navbar_help1": "고객센터",
+  "navbar_signin": "로그인",
+  "navbar_help2": "도움말",
+=======
   "navbar_manage_warehouse": "창고 관리",
   "navbar_my_contract": "내 계약",
   "navbar_manage_contract": "계약 관리",
@@ -99,6 +111,7 @@
   "navbar_signin": "로그인",
   "navbar_help2": "도움말",
   "navbar_signout": "로그아웃",
+>>>>>>> da6c925e448dca4378eaa896d876e96362f03584
 
   "myInfo_title": "회원정보 수정",
   "myInfo_name": "이름",
@@ -123,8 +136,12 @@
   "table_contract_period": "계약 기간",
   "table_price": "금액",
   "table_contractor": "계약자",
+<<<<<<< HEAD
+  "table_request_date": "요청일",
+=======
   "table_created_date": "생성일",
 
+>>>>>>> da6c925e448dca4378eaa896d876e96362f03584
   "badge_approved": "승인 완료",
   "badge_pending_payment": "결제 대기중",
   "badge_pending_approval": "승인 대기중",
