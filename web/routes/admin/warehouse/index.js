@@ -3,7 +3,12 @@ module.exports = (db) => {
   const router = express.Router();
 
   router.get('/enroll', (req, res) => {
-    res.render('admin/enrollWarehouse', {});
+    const user = {
+      type: 'admin',
+    };
+    res.render('admin/enrollWarehouse', {
+      user: user,
+    });
   });
 
   router.get('/:warehouse_id/edit', (req, res) => {
