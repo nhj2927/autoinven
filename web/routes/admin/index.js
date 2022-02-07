@@ -9,16 +9,10 @@ module.exports = (db) => {
     '/contract',
     doAsync(async (req, res) => {
       const locale = res.locale;
-      const {
-        session: { type },
-      } = req;
 
       const contracts = await getContracts(db, locale);
 
-      res.render('admin/adminLeaseManagement', {
-        type,
-        contracts,
-      });
+      res.render('admin/adminLeaseManagement', { contracts });
     })
   );
 
