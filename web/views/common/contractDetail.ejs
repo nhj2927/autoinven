@@ -12,10 +12,37 @@
     <%- include('../partial/navbar') %>
   </header>
     <div class="container">
+      <!--타이틀 & 뱃지-->
         <h3 class="contract-request-detail-title" style="display: inline;"><%=__('contractDetail_title')%></h3>
+        <% switch(contract_info.c_state_id) { 
+          case 1: %>
+        <span class="badge bg-secondary">
+          승인 대기중
+        </span>
+        <% break; %>
+        <% case 2: %>
+        <span class="badge bg-warning">
+          결제 대기중
+        </span>
+        <% break; %>
+        <% case 3: %>
         <span class="badge bg-primary">
           완료
         </span>
+        <% break; %>
+        <% case 4: %>
+        <span class="badge bg-danger">
+          승인 거부
+        </span>
+        <% break; %>
+        <% case 5: %>
+        <span class="badge bg-secondary">
+          기간 만료
+        </span>
+        <% break; %>
+        <% } %>
+      <!--타이틀 & 뱃지-->
+
         <div class="row align-items-start">
             <div class="col">
                 <h4 class="contract-sub-title"><%=__('contractDetail_req_detail')%></h4>
@@ -24,34 +51,42 @@
                       <td class=info-table-td-head><%=__('contractDetail_start_date')%></td>
                       <td class="info-table-td">
                           <input id="start_date"type="date" class="form-control" disabled="true"
-                          value="2018-07-22"></input>
+                          value="<%= contract_info.start_date%>"></input>
                       </td>
                       <td class=info-table-td-head><%=__('contractDetail_end_date')%></td>
                       <td class="info-table-td">
                         <input id="end_date" type="date" class="form-control" disabled="true"
-                        value="2018-07-22"></input>
+                        value="<%= contract_info.end_date%>"></input>
                       </td>
                     </tr>
 
                     <tr>
                         <td class=info-table-td-head><%=__('contractDetail_available_area')%></td>
-                        <td class="info-table-td" colspan="3">2000</td>
+                        <td class="info-table-td" colspan="3">
+                          <%= contract_info.available_area%>㎡
+                        </td>
                     </tr>
                     <tr>
                         <td class=info-table-td-head><%=__('contractDetail_req_area')%></td>
-                        <td id="lease_area" class="info-table-td contract-table-td-red" colspan="3">300</td>
+                        <td id="lease_area" class="info-table-td contract-table-td-red" colspan="3">
+                          <%= contract_info.req_area%>㎡
+                        </td>
                     </tr>
                     <tr>
                         <td class=info-table-td-head><%=__('contractDetail_cost')%></td>
-                        <td class="info-table-td" colspan="3">평당 ￦800/일</td>
+                        <td class="info-table-td" colspan="3">￦ <%= warehouse.rent%>㎡/일</td>
                     </tr>
                     <tr>
                         <td class=info-table-td-head><%=__('contractDetail_total_cost')%></td>
-                        <td id="amount" class="info-table-td contract-table-td-red" colspan="3">600000</td>
+                        <td id="amount" class="info-table-td contract-table-td-red" colspan="3">
+                          <%= contract_info.total_cost%>
+                        </td>
                     </tr>
                     <tr>
                         <td class=info-table-td-head><%=__('contractDetail_purpose')%></td>
-                        <td class="info-table-td" colspan="3">의류보관</td>
+                        <td class="info-table-td" colspan="3">
+                          <%= contract_info.purpose%>
+                        </td>
                     </tr>
                     
                 </table>
@@ -61,28 +96,26 @@
               <table class="table info-table" style="height: 30rem;">
                 <tr>
                     <td class=info-table-td-head><%=__('contractDetail_lender_name')%></td>
-                    <td class="info-table-td">나현준</td>
+                    <td class="info-table-td"><%= user.name%></td>
                 </tr>
                 <tr>
                   <td class=info-table-td-head><%=__('contractDetail_lender_email')%></td>
-                  <td class="info-table-td">idiot@gmail.com</td>
-                </tr>
-                <tr>
-                  <td class=info-table-td-head><%=__('contractDetail_lender_tel')%></td>
-                  <td class="info-table-td">053-111-2222</td>
+                  <td class="info-table-td"><%= user.email%></td>
                 </tr>
                 <tr>
                   <td class=info-table-td-head><%=__('contractDetail_lender_phone')%></td>
-                  <td class="info-table-td">010-1111-2222</td>
+                  <td class="info-table-td"><%= user.phone%></td>
                 </tr>
                 <tr>
                   <td class=info-table-td-head><%=__('contractDetail_payment')%></td>
-                  <td class="info-table-td">신용카드</td>
+                  <td class="info-table-td"><%= contract_info.payment%></td>
                 </tr>
                 <tr>
                   <td class=info-table-td-head><%=__('contractDetail_note')%></td>
                   <td class="info-table-td" colspan="3">
-                    <textarea id="note" class="form-control" cols="40" rows="5" disabled='true'></textarea>
+                    <textarea id="note" class="form-control" cols="40" rows="5" disabled='true'>
+                      <%= contract_info.note%>
+                    </textarea>
                   </td>
               </tr>
             </table>
@@ -94,35 +127,35 @@
         <table id="wh-info-table" class="table info-table" style="height: 25rem;">
           <tr>
               <td class="info-table-td-head"><%=__('contractDetail_wh_name')%></td>
-              <td class="info-table-td" colspan="3">대구 광역시 글로벌 물류센터</td>
+              <td class="info-table-td" colspan="3"><%= warehouse.name%></td>
           </tr>
           <tr>
               <td class=info-table-td-head><%=__('contractDetail_wh_type')%></td>
-              <td class="info-table-td" colspan="3">일반 창고</td>
+              <td class="info-table-td" colspan="3"><%= warehouse.type%></td>
           </tr>
           <tr>
               <td class=info-table-td-head><%=__('contractDetail_wh_address')%></td>
-              <td class="info-table-td" colspan="3">대구 광역시 북구 산격동 112-13</td>
+              <td class="info-table-td" colspan="3"><%= warehouse.address1%></td>
           </tr>
           <tr>
               <td class=info-table-td-head><%=__('contractDetail_wh_address_detail')%></td>
-              <td class="info-table-td" colspan="3">대구 스마트 물류단지 내부</td>
+              <td class="info-table-td" colspan="3"><%= warehouse.address2%></td>
           </tr>
           <tr>
               <td class=info-table-td-head><%=__('contractDetail_wh_intro')%></td>
-              <td class="info-table-td" colspan="3">깔끔한 신축창고 입니다.</td>
+              <td class="info-table-td" colspan="3"><%= warehouse.description%></td>
           </tr>
           <tr>
               <td class=info-table-td-head><%=__('contractDetail_land_area')%></td>
-              <td class="info-table-td">9000㎡ (2722평)</td>
-              <td class=info-table-td-head><%=__('contractDetail_gross_floor_area')%></td>
-              <td class="info-table-td">8900㎡ (2692평)</td>
+              <td class="info-table-td"><%= warehouse.land_area%>㎡</td>
+              <td class=info-table-td-head><%=__('contractDetail_total_ground_area')%></td>
+              <td class="info-table-td"><%= warehouse.total_ground_area%>㎡</td>
           </tr>
           <tr>
               <td class=info-table-td-head><%=__('contractDetail_common_area')%></td>
-              <td class="info-table-td">2900㎡ (877평)</td>
-              <td class=info-table-td-head><%=__('contractDetail_net_leaseable_area')%></td>
-              <td class="info-table-td">6000㎡ (1815평)</td>
+              <td class="info-table-td"><%= warehouse.common_area%>㎡</td>
+              <td class=info-table-td-head><%=__('contractDetail_dedicated_area')%></td>
+              <td class="info-table-td"><%= warehouse.dedicated_area%>㎡</td>
           </tr>
         </table>
 
@@ -138,6 +171,11 @@
     </footer>
 </body>
 <script>
+  $(document).ready(function() {
+    const amount = document.getElementById('amount')
+    amount.innerText = parseInt('<%= contract_info.total_cost%>').toLocaleString('ko-KR') + '원'
+  })
+  
   adminApproval= ()=>{
     let formdata ={"c_state_id": 2 }
     $.ajax({
