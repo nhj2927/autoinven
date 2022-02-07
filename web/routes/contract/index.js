@@ -21,6 +21,9 @@ module.exports = (db) => {
       });
     })
   );
+  router.get('/', (req, res) => {
+    res.render('common/leaseManagement', {});
+  });
 
   router.get('/:id', (req, res) => {
     res.render('common/contractDetail', {});
