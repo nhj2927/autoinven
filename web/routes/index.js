@@ -39,6 +39,7 @@ module.exports = (db) => {
 
   router.use('/warehouse', require('./warehouse')(db));
   router.use('/contract', require('./contract')(db));
+  router.use('/item', require('./item')(db));
 
   return router;
 };

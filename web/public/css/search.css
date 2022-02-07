@@ -11,7 +11,7 @@
 
 .searchContainer {
   display: inline-flex;
-  height: 80.6%;
+  height: 80%;
   width: 100%;
 }
 
@@ -113,6 +113,11 @@
   text-align: center;
 }
 
+#leaseArea {
+  min-width: 5rem;
+  text-align: center;
+}
+
 input[type='date']:valid {
   color: #c9c9c9;
 }
@@ -170,6 +175,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
   border-width: 0px;
   padding: 0.3rem;
   width: 4rem;
+  height: 2rem;
   text-align: center;
 }
 .fcol {
@@ -185,5 +191,14 @@ input[type='date']::-webkit-calendar-picker-indicator {
 }
 
 .warehouseImage {
-  width: 15rem;
+  width: 40%;
+}
+
+.warehouseInfo {
+  width: 55%;
+}
+
+.marker_available {
+  font-weight: bold;
+  color: #1a73e8;
 }
