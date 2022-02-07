@@ -28,7 +28,8 @@ exports.authorizeAdmin = (req, res, next) => {
     // 인증 성공
     if (authenticateWeb(req.session)) {
       // 인가 성공
-      if (req.session.type === 'admin') {
+      if (req.session.role === 'admin') {
+        res.locals.role = 'admin';
         next();
       }
       // 인가 실패
@@ -53,7 +54,7 @@ exports.authorizeAdmin = (req, res, next) => {
     // 인증 성공
     if (user_info) {
       // 인가 성공
-      if (user_info.type === 'admin') {
+      if (user_info.role === 'admin') {
         req.user = user_info;
         next();
       }
@@ -80,7 +81,8 @@ exports.authorizeUser = (req, res, next) => {
     // 인증 성공
     if (authenticateWeb(req.session)) {
       // 인가 성공
-      if (req.session.type === 'user') {
+      if (req.session.role === 'user') {
+        res.locals.role = 'user';
         next();
       }
       // 인가 실패
@@ -105,7 +107,7 @@ exports.authorizeUser = (req, res, next) => {
     // 인증 성공
     if (user_info) {
       // 인가 성공
-      if (user_info.type === 'user') {
+      if (user_info.role === 'user') {
         req.user = user_info;
         next();
       }
