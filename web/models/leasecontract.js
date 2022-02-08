@@ -24,6 +24,9 @@ module.exports = (sequelize, DataTypes) => {
       models.LeaseContract.hasMany(models.Item, {
         foreignKey: 'l_contract_id',
       });
+      models.LeaseContract.belongsTo(models.User, {
+        foreignKey: 'user_email',
+      });
     }
   }
   LeaseContract.init(
@@ -41,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       warehouse_id: {
         allowNull: false,
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
       },
       user_email: {
         allowNull: false,
@@ -65,7 +68,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       purpose: {
         allowNull: false,
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
       },
       note: {
         allowNull: false,

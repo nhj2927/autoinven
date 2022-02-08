@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       models.IotDevice.belongsTo(models.Warehouse, {
-        foreignKey: 'device_id',
+        foreignKey: 'warehouse_id',
       });
     }
   }
@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       warehouse_id: {
         allowNull: false,
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
       },
       url: {
         type: DataTypes.STRING,
