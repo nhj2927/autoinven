@@ -1,9 +1,8 @@
-const { doAsync } = require('$base/utils/asyncWrapper');
-
 module.exports = (db) => {
   const express = require('express');
   const router = express.Router();
 
+  const { doAsync } = require('$base/utils/asyncWrapper');
   const getWarehouses = require('./getWarehouses');
 
   router.get(

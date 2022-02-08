@@ -1,9 +1,7 @@
-const getFullAddress = (address1, address2) => {
-  return `${address1} ${address2}`;
-};
-
 module.exports = async (db, locale) => {
   const { fn, col } = require('sequelize');
+  const getFullAddress = require('$base/utils/getFullAddress');
+  const getLocaleLanguageValue = require('$base/utils/getLocaleLanguageValue');
 
   const warehouses_result = await db.LeaseContract.findAll({
     attributes: [
@@ -39,20 +37,22 @@ module.exports = async (db, locale) => {
 
   const warehouses = warehouses_result.map((warehouse) => {
     return {
-      name:
-        locale === 'ko'
-          ? warehouse.Warehouse.name_ko
-          : warehouse.Warehouse.name_en,
-      address:
-        locale === 'ko'
-          ? getFullAddress(
-              warehouse.Warehouse.address1_ko,
-              warehouse.Warehouse.address2_ko
-            )
-          : getFullAddress(
-              warehouse.Warehouse.address1_en,
-              warehouse.Warehouse.address2_en
-            ),
+      name: getLocaleLanguageValue(
+        locale,
+        warehouse.Warehouse.name_ko,
+        warehouse.Warehouse.name_en
+      ),
+      address: getLocaleLanguageValue(
+        locale,
+        getFullAddress(
+          warehouse.Warehouse.address1_ko,
+          warehouse.Warehouse.address2_ko
+        ),
+        getFullAddress(
+          warehouse.Warehouse.address1_en,
+          warehouse.Warehouse.address2_en
+        )
+      ),
       area: warehouse.lease_area,
       is_verified: warehouse.Warehouse.is_verified,
       image_url: warehouse.Warehouse.WarehouseImages.map((image) => {
