@@ -17,27 +17,27 @@
         <% switch(contract_info.c_state_id) { 
           case 1: %>
         <span class="badge bg-secondary">
-          승인 대기중
+          <%= __('contract_state_waiting_for_approval') %>
         </span>
         <% break; %>
         <% case 2: %>
         <span class="badge bg-warning">
-          결제 대기중
+          <%= __('contract_state_waiting_for_payment') %>
         </span>
         <% break; %>
         <% case 3: %>
         <span class="badge bg-primary">
-          완료
+          <%= __('contract_state_completed') %>
         </span>
         <% break; %>
         <% case 4: %>
         <span class="badge bg-danger">
-          승인 거부
+          <%= __('contract_state_rejected') %>
         </span>
         <% break; %>
         <% case 5: %>
         <span class="badge bg-secondary">
-          기간 만료
+          <%= __('contract_state_expired') %>
         </span>
         <% break; %>
         <% } %>
@@ -107,14 +107,13 @@
                   <td class="info-table-td"><%= user.phone%></td>
                 </tr>
                 <tr>
-                  <td class=info-table-td-head><%=__('contractDetail_payment')%></td>
+                  <td class=info-table-td-head><%=__('contractDetail_mean_of_payment')%></td>
                   <td class="info-table-td"><%= contract_info.payment%></td>
                 </tr>
                 <tr>
                   <td class=info-table-td-head><%=__('contractDetail_note')%></td>
                   <td class="info-table-td" colspan="3">
-                    <textarea id="note" class="form-control" cols="40" rows="5" disabled='true'>
-                      <%= contract_info.note%>
+                    <textarea id="note" class="form-control" cols="40" rows="5" disabled='true'><%= contract_info.note%>
                     </textarea>
                   </td>
               </tr>
@@ -160,9 +159,29 @@
         </table>
 
         <div class="centered-div">
-            <button class="btn btn-submit" onclick="adminApproval()"><%=__('contractDetail_submit')%></button>
-            <button class="btn btn-submit" data-bs-toggle="modal" data-bs-target="#paymentInfoModal">결제하기</button>
-            <button class="btn btn-cancel" onclick="history.back()"><%=__('contractDetail_cancel')%></button>
+          <% if(role == 'user' && contract_info.c_state_id == 2) { %>
+            <button class="btn btn-submit" data-bs-toggle="modal" data-bs-target="#paymentInfoModal">
+              <%=__('contractDetail_payment')%>
+            </button>
+          <% } %>
+
+          <% if(role == 'admin') { 
+            if (contract_info.c_state_id == 1) { %>
+            <button class="btn btn-submit" onclick="adminApproval('<%= contract_info.l_contract_id%>')">
+              <%=__('contractDetail_approve')%>
+            </button>
+            <button class="btn btn-reject" onclick="adminReject('<%= contract_info.l_contract_id%>')">
+              <%=__('contractDetail_reject')%>
+            </button>
+              <% } else if (contract_info.c_state_id == 2) { %>
+            <button class="btn btn-submit" onclick="adminCompletion('<%= contract_info.l_contract_id%>')">
+              <%=__('contractDetail_complete')%>
+            </button>
+            <% } %>
+          <% } %>
+            <button class="btn btn-cancel" onclick="history.back()">
+              <%=__('contractDetail_back')%>
+            </button>
         </div>
     </div>
 
@@ -176,10 +195,10 @@
     amount.innerText = parseInt('<%= contract_info.total_cost%>').toLocaleString('ko-KR') + '원'
   })
   
-  adminApproval= ()=>{
-    let formdata ={"c_state_id": 2 }
+  adminApproval= (item_id)=>{
+    let formdata ={"c_state_id": 2 } // 계약을 결제 대기중 상태로 변경
     $.ajax({
-      url: 'http://192.168.0.16:5000/api/contract/1',
+      url: 'http://192.168.0.16:5000/api/contract/'+item_id,
       type: 'PUT',
       data: JSON.stringify(formdata),
       accepts: 'application/json',
@@ -192,10 +211,10 @@
       }
     })
   }
-  adminCompletion= ()=>{
-    let formdata ={"c_state_id": 3}
+  adminCompletion= (item_id)=>{
+    let formdata ={"c_state_id": 3} // 계약을 완료 상태로 변경
     $.ajax({
-      url: 'http://192.168.0.16:5000/api/contract/1',
+      url: 'http://192.168.0.16:5000/api/contract/'+item_id,
       type: 'PUT',
       data: JSON.stringify(formdata),
       accepts: 'application/json',
@@ -209,10 +228,10 @@
     })
 
   }
-  adminReject= ()=>{
-    let formdata ={"c_state_id": 4}
+  adminReject= (item_id)=>{
+    let formdata ={"c_state_id": 4} // 계약을 거절 상태로 변경
     $.ajax({
-      url: 'http://192.168.0.16:5000/api/contract/1',
+      url: 'http://192.168.0.16:5000/api/contract/'+item_id,
       type: 'PUT',
       data: JSON.stringify(formdata),
       accepts: 'application/json',
@@ -229,7 +248,7 @@
 </script>
 </html>
 
-<!--계좌정보 모달 추후에 if 추가해서 결제대기 상태일 때만 포함 되도록 하기-->
+<!--계좌정보 모달-->
 <div class="modal fade" id="paymentInfoModal" tabindex="-1"aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">

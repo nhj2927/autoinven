@@ -152,7 +152,7 @@
   "contractRequestDetail_total_cost": "합계",
   "contractRequestDetail_purpose": "용도",
   "contractRequestDetail_note": "요청사항",
-  "contractRequestDetail_submit": "승인요청",
+  "contractRequestDetail_submit": "승인하기",
   "contractRequestDetail_cancel": "취소",
 
   "contractDetail_title": "계약 상세 정보",
@@ -169,7 +169,7 @@
   "contractDetail_lender_email": "이메일",
   "contractDetail_lender_tel": "사무실 번호",
   "contractDetail_lender_phone": "휴대전화",
-  "contractDetail_payment": "지불수단",
+  "contractDetail_mean_of_payment": "지불수단",
   "contractDetail_note": "요청사항",
   "contractDetail_wh_info": "창고정보",
   "contractDetail_wh_name": "창고명",
@@ -181,6 +181,15 @@
   "contractDetail_total_ground_area": "연면적",
   "contractDetail_common_area": "공용면적",
   "contractDetail_dedicated_area": "전용면적",
-  "contractDetail_submit": "승인요청",
-  "contractDetail_cancel": "취소"
+  "contractDetail_approve": "승인하기",
+  "contractDetail_reject": "거절하기",
+  "contractDetail_complete": "계약완료",
+  "contractDetail_payment": "결제하기",
+  "contractDetail_back": "뒤로가기",
+
+  "contract_state_waiting_for_approval": "승인대기중",
+  "contract_state_waiting_for_payment": "결제대기중",
+  "contract_state_completed": "계약완료",
+  "contract_state_rejected": "승인거절",
+  "contract_state_expired": "기간만료"
 }

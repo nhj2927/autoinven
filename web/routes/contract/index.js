@@ -47,6 +47,7 @@ module.exports = (db) => {
     ];
     res.render('common/leaseManagement', {
       user,
+      role: 'user',
       contracts,
     });
   });
@@ -61,6 +62,7 @@ module.exports = (db) => {
 
     res.render('common/contractDetail', {
       user: user,
+      role: 'admin',
       warehouse: {
         name: '대구 광역시 글로벌 물류센터',
         type: '일반 창고',
@@ -74,6 +76,7 @@ module.exports = (db) => {
         rent: 800,
       },
       contract_info: {
+        l_contract_id: 1,
         start_date: '2022-01-13',
         end_date: '2022-02-14',
         available_area: 3000,
@@ -82,7 +85,7 @@ module.exports = (db) => {
         purpose: '재고 물품 보관',
         note: '습기가 적었으면 좋겠습니다.',
         payment: '신용카드',
-        c_state_id: 3, // 1: 승인 대기, 2: 결제 대기, 3: 완료, 4: 승인 거부, 5: 기간 만료
+        c_state_id: 1, // 1: 승인 대기, 2: 결제 대기, 3: 완료, 4: 승인 거부, 5: 기간 만료
       },
     });
   });

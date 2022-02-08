@@ -169,7 +169,7 @@
   "contractDetail_lender_email": "Email",
   "contractDetail_lender_tel": "Tel",
   "contractDetail_lender_phone": "Phone",
-  "contractDetail_payment": "Payment",
+  "contractDetail_mean_of_payment": "Mean Of Payment",
   "contractDetail_note": "Note",
   "contractDetail_wh_info": "WAREHOUSE INFO",
   "contractDetail_wh_name": "Name",
@@ -181,6 +181,15 @@
   "contractDetail_total_ground_area": "Total Ground Area",
   "contractDetail_common_area": "Common Area",
   "contractDetail_dedicated_area": "Dedicated Area",
-  "contractDetail_submit": "REQUEST APPROVAL",
-  "contractDetail_cancel": "CANCEL"
+  "contractDetail_approve": "REQUEST APPROVAL",
+  "contractDetail_reject": "REJECT",
+  "contractDetail_complete": "COMPLETE",
+  "contractDetail_payment": "PAYMENT",
+  "contractDetail_back": "BACK",
+
+  "contract_state_waiting_for_approval": "PENDING APPROVAL",
+  "contract_state_waiting_for_payment": "PENDING PAYMENT",
+  "contract_state_completed": "COMPLETED",
+  "contract_state_rejected": "REJECTED",
+  "contract_state_expired": "EXPIRED"
 }
