@@ -1,8 +1,7 @@
-const getLocaleLanguageValue = require('$base/utils/getLocaleLanguageValue');
-
 module.exports = async (db, user_email, locale) => {
   const { fn, col } = require('sequelize');
   const getFullAddress = require('$base/utils/getFullAddress');
+  const getLocaleLanguageValue = require('$base/utils/getLocaleLanguageValue');
 
   const warehouses_result = await db.LeaseContract.findAll({
     attributes: [
