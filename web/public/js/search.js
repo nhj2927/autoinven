@@ -31,7 +31,13 @@ $(clearSearchBox).click(function () {
 });
 */
 
-const searchResultListing = (lists, searchType) => {
+const searchResultListing = (
+  lists,
+  searchType,
+  startDate,
+  endDate,
+  leaseArea
+) => {
   $('.marker_list').text('');
   for (l in lists) {
     let index = lists[l].marker.index;
@@ -41,13 +47,14 @@ const searchResultListing = (lists, searchType) => {
     let dedicated_area;
     let type;
     let price;
-
+    let detail;
     if (locale === 'ko') {
       name = warehouses[index].name_ko;
       address = warehouses[index].address1_ko;
       addressDetail = warehouses[index].address2_ko;
       dedicated_area = warehouses[index].dedicated_area + ' m<sup>2</sup>';
-      price = `m<sup>2</sup>당 &#8361;${warehouses[index].rent}/일`;
+      price = `&#8361;${warehouses[index].rent} m<sup>2</sup>/일`;
+      detail = '자세히 보기';
       if (warehouses[index].is_verified) {
         type = '인증';
       } else {
@@ -58,7 +65,8 @@ const searchResultListing = (lists, searchType) => {
       address = warehouses[index].address1_en;
       addressDetail = warehouses[index].address2_en;
       dedicated_area = warehouses[index].dedicated_area + ' m<sup>2</sup>';
-      price = `per m<sup>2</sup> $${warehouses[index].rent}/per`;
+      price = `$${warehouses[index].rent} m<sup>2</sup>/day`;
+      detail = 'more detail';
       if (warehouses[index].is_verified) {
         type = 'verified';
       } else {
@@ -71,22 +79,20 @@ const searchResultListing = (lists, searchType) => {
     if (searchType === 1) {
       $('.marker_list').append(
         ` 
-          <div class="marker_item frow" id="marker${warehouses[index].warehouse_id}">
-            <div class="frow warehouseImage" style>
-              <img src="${warehouses[index].WarehouseImages[0].url}">
-            </div>
-            <div class="fcol warehouseInfo">
+          <div class="flex sm:flex p-3 hover:bg-slate-100" id="marker${warehouses[index].warehouse_id}">
+            <img class="w-40 h-30 sm:w-60 sm:h-48 rounded" src="${warehouses[index].WarehouseImages[0].url}">
+            <div class="pl-3 pt-2 pb-2 w-full text-left flex flex-col sm:flex sm:flex-col justify-between">
               <div class="frow">
-                  <div class="marker_title">${name}</div>
+                  <div class="text-lg font-bold sm:text-xl">${name}</div>
                   <div class="marker_type autoinven">${type}</div>
               </div>
-              <div class="makrer_address">
-                ${address}<br>
-                ${addressDetail}
-              </div>
+              <div class="text-sm sm:text-lg">${address}<br>${addressDetail}</div>
               <div class="frow">
-                  <div class="marker_price">${price}</div>
-                  <div class="marker_distance">${lists[l].distance}km</div>
+                  <div class="text-sm font-extrabold sm:text-lg">${price}</div>
+                  <div class="text-sm font-bold sm:text-lg ">${lists[l].distance}km</div>
+              </div>
+              <div class="flex w-full flex-row-reverse">
+              <a href="/user/warehouse/${warehouses[index].warehouse_id}" class="text-base font-bold text-purple-600 sm:text-lg">${detail}</a>
               </div>
             </div>
           </div>
@@ -97,26 +103,30 @@ const searchResultListing = (lists, searchType) => {
     // 사용가능 공간 포함 검색
     else {
       let available_area = lists[l].available_area;
+      if (locale === 'ko') {
+        available_area = `대여가능 면적: ${lists[l].available_area}m<sup>2</sup>`;
+      } else if (locale === 'en') {
+        available_area = `
+        Usable area: ${lists[l].available_area}m<sup>2</sup>`;
+      }
       $('.marker_list').append(
         ` 
-          <div class="marker_item frow" id="marker${warehouses[index].warehouse_id}">
-            <div class="frow warehouseImage" style>
-              <img src="${warehouses[index].WarehouseImages[0].url}">
-            </div>
-            <div class="fcol warehouseInfo">
+          <div class="flex sm:flex p-3 hover:bg-slate-100" id="marker${warehouses[index].warehouse_id}">
+            <img class="w-40 h-30 sm:w-60 sm:h-48 rounded" src="${warehouses[index].WarehouseImages[0].url}">
+            <div class="pl-3 pt-2 pb-2 w-full text-left flex flex-col sm:flex sm:flex-col justify-between">
               <div class="frow">
-                  <div class="marker_title">${name}</div>
+                  <div class="text-lg font-bold sm:text-xl">${name}</div>
                   <div class="marker_type autoinven">${type}</div>
               </div>
-              <div class="makrer_address">
-                ${address}<br>
-                ${addressDetail}
-              </div>
+              <div class="text-sm sm:text-lg">${address}<br>${addressDetail}</div>
               <div class="frow">
-                  <div class="marker_price">${price}</div>
-                  <div class="marker_available">${available_area}</div>
-                  <div class="marker_distance">${lists[l].distance}km</div>
+                  <div class="text-sm font-extrabold sm:text-lg">${price}</div>
+                  <div class="text-sm font-bold sm:text-lg">${lists[l].distance}km</div>
               </div>
+              <div class="flex w-full flex-row-reverse justify-between">
+                <a href="/user/warehouse/${warehouses[index].warehouse_id}?startDate=${startDate}&endDate=${endDate}&leaseArea=${leaseArea}" class="text-base font-bold text-right text-purple-600 sm:text-lg">${detail}</a>
+                <div class="text-sm font-bold sm:text-lg text-blue-600">${available_area}</div>
+                </div>
             </div>
           </div>
           <hr class="marker_hr">
@@ -124,7 +134,7 @@ const searchResultListing = (lists, searchType) => {
       );
     }
 
-    let id = '#marker' + l;
+    let id = `#marker${warehouses[index].warehouse_id}`;
     const m = lists[l].marker;
     $(id).click(function () {
       google.maps.event.trigger(m, 'click');
@@ -142,12 +152,14 @@ const listing = (lists) => {
     let dedicated_area;
     let type;
     let price;
+    let detail;
     if (locale === 'ko') {
       name = warehouses[index].name_ko;
       address = warehouses[index].address1_ko;
       addressDetail = warehouses[index].address2_ko;
       dedicated_area = warehouses[index].dedicated_area + ' m<sup>2</sup>';
-      price = `m<sup>2</sup>당 &#8361;${warehouses[index].rent}/일`;
+      price = `&#8361;${warehouses[index].rent} m<sup>2</sup>/일`;
+      detail = '자세히 보기';
       if (warehouses[index].is_verified) {
         type = '인증';
       } else {
@@ -158,7 +170,8 @@ const listing = (lists) => {
       address = warehouses[index].address1_en;
       addressDetail = warehouses[index].address2_en;
       dedicated_area = warehouses[index].dedicated_area + ' m<sup>2</sup>';
-      price = `per m<sup>2</sup> $${warehouses[index].rent}/per`;
+      price = `$${warehouses[index].rent} m<sup>2</sup>/day`;
+      detail = 'more detail';
       if (warehouses[index].is_verified) {
         type = 'verified';
       } else {
@@ -169,26 +182,27 @@ const listing = (lists) => {
     console.log(warehouses[index].WarehouseImages[0].url);
     $('.marker_list').append(
       ` 
-          <div class="marker_item frow" id="marker${warehouses[index].warehouse_id}">
-            <div class="frow warehouseImage" style>
-              <img src="${warehouses[index].WarehouseImages[0].url}">
-            </div>
-            <div class="fcol warehouseInfo">
+          <div class="flex sm:flex p-3 hover:bg-slate-100" id="marker${warehouses[index].warehouse_id}">
+            <img class="w-40 h-30 sm:w-60 sm:h-48 rounded" src="${warehouses[index].WarehouseImages[0].url}">
+            <div class="pl-3 pt-2 pb-2 w-full text-left flex flex-col sm:flex sm:flex-col justify-between">
               <div class="frow">
-                  <div class="marker_title">${name}</div>
-                  <div class="marker_type autoinven">${type}</div>
+                  <div class="text-lg font-bold sm:text-xl">${name}</div>
+                  <div class="rounded w-12 h-6 text-sm p-0.5 font-bold sm:text-base sm:w-16 sm:h-8 sm:p-1 text-center bg-sky-500 text-white">${type}</div>
               </div>
-              <div class="makrer_address">${address}<br>${addressDetail}</div>
+              <div class="text-sm sm:text-lg">${address}<br>${addressDetail}</div>
               <div class="frow">
-                  <div class="marker_price">${price}</div>
+                  <div class="text-sm font-extrabold sm:text-lg">${price}</div>
+              </div>
+              <div class="flex w-full flex-row-reverse">
+                <a href="/user/warehouse/${warehouses[index].warehouse_id}" class="text-base font-bold text-purple-600 sm:text-lg">${detail}</a>
               </div>
             </div>
           </div>
-          <hr class="marker_hr">
+          <hr class=" h-1 bg-slate-400 ">
           `
     );
-    let id = '#marker' + l;
-    const m = lists[l].marker;
+    let id = `#marker${warehouses[index].warehouse_id}`;
+    const m = lists[l];
     $(id).click(function () {
       google.maps.event.trigger(m, 'click');
     });
@@ -232,9 +246,16 @@ async function initMap() {
       infowindowContent.style.display = 'block';
       infowindowContent.children['place-name'].textContent = name;
       infowindowContent.children['place-address'].textContent = address;
+      map.setZoom(15);
       infowindow.open(map, m);
-      document.querySelector(`#marker${wid}`).focus();
-      document.querySelector(`#marker${wid}`).scrollIntoView();
+      clickedMarker = document.querySelector(`#marker${wid}`);
+      clickedMarker.focus();
+      clickedMarker.scrollIntoView();
+      clickedMarker.classList.add('bg-slate-100');
+      map.setCenter(m.position);
+      setTimeout(() => {
+        clickedMarker.classList.remove('bg-slate-100');
+      }, 500);
     });
   }
   // 초기 리스팅
@@ -311,9 +332,7 @@ async function initMap() {
             new google.maps.LatLng(markers[m].position),
             new google.maps.LatLng(marker.position)
           );
-          if (d < 50) {
-            lists.push({ marker: markers[m], distance: d });
-          }
+          lists.push({ marker: markers[m], distance: d });
         }
         lists.sort(function (a, b) {
           if (a.distance > b.distance) return 1;
@@ -350,20 +369,18 @@ async function initMap() {
             ),
             new google.maps.LatLng(marker.position)
           );
-          if (d < 50) {
-            lists.push({
-              marker: markers[searchResult[index].warehouse_id],
-              distance: d,
-              available_area: searchResult[index].available_area,
-            });
-          }
+          lists.push({
+            marker: markers[searchResult[index].warehouse_id],
+            distance: d,
+            available_area: searchResult[index].available_area,
+          });
         }
         lists.sort(function (a, b) {
           if (a.distance > b.distance) return 1;
           if (a.distance === b.distance) return 0;
           if (a.distance < b.distance) return -1;
         });
-        searchResultListing(lists, 2);
+        searchResultListing(lists, 2, startDate, endDate, leaseArea);
       }
     } else {
       // 시작일, 종료일, 면적 중 1개 또는 2개 빼먹은 경우

@@ -1,7 +1,7 @@
 <head>
   <meta charset="UTF-8" />
   <%- include('../head') %>
-  <link href="public/dist/output.css" rel="stylesheet" />
+  <link href="/dist/output.css" rel="stylesheet" />
   <link rel="stylesheet" href="/css/search.css" />
   <script type="text/javascript" src="/js/search.js"></script>
   <title>창고 검색</title>
@@ -9,7 +9,7 @@
 
 <body>
   <header><%- include('../partial/navbar') %></header>
-  <div class="searchBox flow-root">
+  <div class="searchBox">
     <input
       class="searchInput"
       id="startDate"
@@ -99,16 +99,16 @@
       </svg>
     </div>
     <button
-      class="searchInput"
+      class="searchInput min-w-min w-16"
       id="initializeLists"
       style="background-color: #7c13a2; color: white"
     >
       초기화
     </button>
   </div>
-  <div class="searchContainer">
+  <div class="searchContainer flex">
     <!-- 지도 -->
-    <div style="width: 70%; float: left">
+    <div class="hidden md:inline-block md:w-2/3">
       <div id="map" style="width: 100%; height: 100%"></div>
       <div id="infowindow-content" style="display: none">
         <span id="place-name" class="title"></span><br />
@@ -116,15 +116,18 @@
       </div>
     </div>
     <!-- 목록 -->
-    <div class="marker_list" style="width: 30%; float: right"></div>
+    <div class="marker_list w-full md:w-1/3"></div>
   </div>
 </body>
 <script type="text/javascript">
   // 창고 정보 가져오기
   let _warehouses = '<%= JSON.stringify(warehouses) %>';
+
   _warehouses = _warehouses.replaceAll(`&#34;`, '"');
   _warehouses = _warehouses.replaceAll(/\n/gi, '\\r\\n');
+
   _warehouses = JSON.parse(_warehouses);
+  console.log(_warehouses);
   let _locale = "<%= __('locale') %>";
   setWarehouses(_warehouses, _locale);
   //초기화
