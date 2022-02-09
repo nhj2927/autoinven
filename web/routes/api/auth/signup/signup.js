@@ -11,6 +11,12 @@ module.exports = async (user_info, db) => {
       phone,
       ...password_info,
     });
+
+    // 세션에 데이터 저장
+    session.email = email;
+    session.role = 'user';
+    session.name = member.name;
+    session.phone = member.phone;
   } catch (err) {
     throw err;
   }

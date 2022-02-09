@@ -1,5 +1,6 @@
 module.exports = async (db, user_email, locale) => {
   const { fn, col } = require('sequelize');
+  const getLocaleLanguageValue = require('$base/utils/getLocaleLanguageValue');
 
   const contracts_result = await db.LeaseContract.findAll({
     attributes: [
@@ -32,10 +33,11 @@ module.exports = async (db, user_email, locale) => {
     return {
       id: contract.l_contract_id,
       state: contract.c_state_id,
-      name:
-        locale === 'ko'
-          ? contract.Warehouse.name_ko
-          : contract.Warehouse.name_en,
+      name: getLocaleLanguageValue(
+        locale,
+        contract.Warehouse.name_ko,
+        contract.Warehouse.name_en
+      ),
       period: `${contract.start_date} ~ ${contract.end_date}`,
       area: contract.lease_area,
       price: contract.amount,
