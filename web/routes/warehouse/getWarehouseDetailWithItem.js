@@ -46,6 +46,7 @@ const getItemsOfContract = (items) => {
         name: item.name,
         state: item.i_state_id,
         owner_name: item.User.name,
+        date: getItemTimeStamp(item),
         image: getFirstImage(item.ItemImages),
       };
     });
