@@ -11,7 +11,6 @@ module.exports = (db) => {
     '/',
     doAsync(async (req, res) => {
       const user_info = req.body;
-      console.log(user_info);
 
       await signup(user_info, db);
 

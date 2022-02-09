@@ -21,7 +21,10 @@
         <!-- Slides -->
         <% for(let i in images){ %>
         <div class="swiper-slide">
-          <img src="<%= images[i]%>" class="slider-image" />
+          <img
+            src="http://192.168.0.144:5000/<%= images[i]%>"
+            class="slider-image"
+          />
         </div>
         <% } %>
       </div>

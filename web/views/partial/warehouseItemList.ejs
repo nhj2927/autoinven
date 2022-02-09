@@ -27,7 +27,10 @@ include('../partial/ItemDetailModal') %>
       style="cursor: pointer"
       onclick="openItemDetailModal('<%= items[i].item_id%>')"
     >
-      <img src="<%= items[i].image%>" class="item-list-image" />
+      <img
+        src="http://192.168.0.144:5000/<%= items[i].image%>"
+        class="item-list-image"
+      />
       <div class="item-list-text-div">
         <div class="item-list-title"><%= items[i].name%></div>
 
