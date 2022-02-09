@@ -18,6 +18,51 @@ const getImages = (images) => {
   }
 };
 
+const getFirstImage = (images) => {
+  if (!images || !images.length) {
+    return null;
+  } else {
+    return images[0].url;
+  }
+};
+
+const getItemTimeStamp = (item) => {
+  const time_stamps = item.ItemTimestamps;
+
+  if (!time_stamps || !time_stamps.length) {
+    return item.createdAt;
+  } else {
+    return time_stamps[0].createdAt;
+  }
+};
+
+const getItemsOfContract = (items) => {
+  if (!items || !items.length) {
+    return [];
+  } else {
+    return items.map((item) => {
+      return {
+        item_id: item.item_id,
+        name: item.name,
+        state: item.i_state_id,
+        owner_name: item.User.name,
+        date: getItemTimeStamp(item),
+        image: getFirstImage(item.ItemImages),
+      };
+    });
+  }
+};
+
+const getItemsOfWarehouse = (contracts) => {
+  if (!contracts || !contracts.length) {
+    return [];
+  } else {
+    return contracts.reduce((item_array, contract) => {
+      return item_array.concat(getItemsOfContract(contract.Items));
+    }, []);
+  }
+};
+
 module.exports = async (db, locale, warehouse_id) => {
   const { fn, col } = require('sequelize');
 
@@ -46,6 +91,50 @@ module.exports = async (db, locale, warehouse_id) => {
       {
         model: db.WarehouseImage,
         attributes: ['url'],
+      },
+      {
+        model: db.LeaseContract,
+        include: {
+          model: db.Item,
+          attributes: {
+            include: [
+              [
+                fn(
+                  'date_format',
+                  col('LeaseContracts->Items.createdAt'),
+                  '%Y-%m-%d %H:%i'
+                ),
+                'createdAt',
+              ],
+            ],
+            exclude: ['qrcode', 'note'],
+          },
+          include: [
+            {
+              model: db.User,
+              required: true,
+              attributes: ['name'],
+            },
+            {
+              model: db.ItemTimestamp,
+              attributes: [
+                [
+                  fn(
+                    'date_format',
+                    col('LeaseContracts->Items->ItemTimestamps.createdAt'),
+                    '%Y-%m-%d %H:%i'
+                  ),
+                  'createdAt',
+                ],
+              ],
+              order: ['createdAt', 'DESC'],
+            },
+            {
+              model: db.ItemImage,
+              attributes: ['url'],
+            },
+          ],
+        },
       },
     ],
   });
@@ -114,5 +203,6 @@ module.exports = async (db, locale, warehouse_id) => {
     rack: warehouse_result.rack,
     iot_url: getIotUrl(warehouse_result.IotDevices),
     images: getImages(warehouse_result.WarehouseImages),
+    items: getItemsOfWarehouse(warehouse_result.LeaseContracts),
   };
 };

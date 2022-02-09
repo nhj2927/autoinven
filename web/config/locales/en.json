@@ -1,4 +1,5 @@
 {
+  "locale": "en",
   "sign_in": "Sign In",
   "IOT_Edititem_title": "Change Product Information",
   "iot_Monitoring_title": "AUTOINVEN-Monitoring",
@@ -23,10 +24,8 @@
   "iot_Statistic_DAILY": "DAILY",
   "iot_Statistic_MONTHLY": "MONTHLY",
   "iot_Statistic_YEARLY": "YEARLY",
-
   "Approve": "Approve",
   "Reject": "Reject",
-
   "warehousedetail_verified": "VERIFIED",
   "warehousedetail_info": "INFO",
   "warehousedetail_is_docked": "Docking facility",
@@ -39,9 +38,9 @@
   "warehousedetail_address": "Address",
   "warehousedetail_detail_address": "Address Detail",
   "warehousedetail_land_area": "Land Area",
-  "warehousedetail_total_ground_area": "Total Ground Area",
+  "warehousedetail_gross_floor_area": "Gross Floor Area",
   "warehousedetail_common_area": "Common Area",
-  "warehousedetail_dedicated_area": "Dedicated Area",
+  "warehousedetail_net_leaseable_area": "Net Leaseable Area",
   "warehousedetail_contract_total": "Total",
   "warehousedetail_contract_monetary_unit": "$",
   "warehousedetail_contract_pick_date": "Select Rental Period",
@@ -60,7 +59,6 @@
   "warehousedetail_introduce": "Introduce",
   "warehousedetail_note": "Equipments & Note",
   "warehousedetail_environ": "ENVIRONMENT",
-
   "signup_sign": "SIGN",
   "signup_up": "UP",
   "signup_email": "E-mail",
@@ -72,7 +70,6 @@
   "signup_pwcheck": "Password Check",
   "signup_tel": "Phone",
   "signup_signup": "Sign up",
-
   "signin_sign": "SIGN",
   "signin_in": "IN",
   "signin_email": "E-mail",
@@ -80,7 +77,6 @@
   "signin_signin": "Sign in",
   "signin_content1": "Don't have account yet?",
   "signin_signup": "sign up",
-
   "navbar_search_warehouse": "SEARCH WAREHOUSE",
   "navbar_my_warehouse": "MY WAREHOUSE",
   "navbar_manage_warehouse": "MANAGE WAREHOUSE",
@@ -90,7 +86,6 @@
   "navbar_signin": "signin",
   "navbar_help2": "HELP",
   "navbar_signout": "signout",
-
   "myInfo_title": "Edit myInfo",
   "myInfo_name": "Name",
   "myInfo_pw": "Password",
@@ -100,7 +95,6 @@
   "myInfo_text1": "Current Password",
   "myInfo_text2": "New Password",
   "myInfo_text3": "Confirm New Password",
-
   "warehousedetailwithitem_itemlist": "ITEMLIST",
   "warehousedetailwithitem_add_item": "ADD ITEM",
   "warehousedetailwithitem_owner": "OWNER",
@@ -110,10 +104,10 @@
   "warehousedetailwithitem_badge_out": "OUT",
   "warehousedetailwithitem_date_register": "DATE",
   "warehousedetailwithitem_badge_before_in": "BEFORE",
-
   "warehouse_title": "Warehouse Management",
   "warehouse_verify": "verified",
-
+  "warehouse_area": "contract area",
+  "warehouse_period": "contract period",
   "leaseManagement_title": "Contract Management",
   "table_num": "Num",
   "table_state": "State",
@@ -125,13 +119,11 @@
   "table_price": "Price",
   "table_contractor": "Contractor",
   "table_created_date": "Created Date",
-
   "badge_approved": "Approved",
   "badge_pending_payment": "Pending Payment",
   "badge_pending_approval": "Pending Approval",
   "badge_reject": "Rejected",
   "badge_expired": "Expired",
-
   "contractRequestDetail_title": "ESTIMATE",
   "contractRequestDetail_wh_info": "INFO",
   "contractRequestDetail_wh_name": "Name",
@@ -140,9 +132,9 @@
   "contractRequestDetail_wh_address_detail": "Address Detail",
   "contractRequestDetail_wh_intro": "Introduction",
   "contractRequestDetail_land_area": "Land Area",
-  "contractRequestDetail_total_ground_area": "Total Ground Area",
+  "contractRequestDetail_gross_floor_area": "Gross Flooer Area",
   "contractRequestDetail_common_area": "Common Area",
-  "contractRequestDetail_dedicated_area": "Dedicated Area",
+  "contractRequestDetail_net_leaseable_area": "Net Leasable Area",
   "contractRequestDetail_req_detail": "DETAIL",
   "contractRequestDetail_start_date": "FROM",
   "contractRequestDetail_end_date": "TO",
@@ -154,7 +146,6 @@
   "contractRequestDetail_note": "Note",
   "contractRequestDetail_submit": "REQUEST APPROVAL",
   "contractRequestDetail_cancel": "CANCEL",
-
   "contractDetail_title": "CONTRACT",
   "contractDetail_req_detail": "DETAIL",
   "contractDetail_start_date": "FROM",
@@ -169,7 +160,7 @@
   "contractDetail_lender_email": "Email",
   "contractDetail_lender_tel": "Tel",
   "contractDetail_lender_phone": "Phone",
-  "contractDetail_mean_of_payment": "Mean Of Payment",
+  "contractDetail_payment": "Payment",
   "contractDetail_note": "Note",
   "contractDetail_wh_info": "WAREHOUSE INFO",
   "contractDetail_wh_name": "Name",
@@ -178,13 +169,33 @@
   "contractDetail_wh_address_detail": "Address Detail",
   "contractDetail_wh_intro": "Introduction",
   "contractDetail_land_area": "Land Area",
-  "contractDetail_total_ground_area": "Total Ground Area",
+  "contractDetail_gross_floor_area": "Gross Floor Area",
   "contractDetail_common_area": "Common Area",
+  "contractDetail_net_leaseable_area": "Net Leaseable Area",
+  "contractDetail_submit": "REQUEST APPROVAL",
+  "contractDetail_cancel": "CANCEL",
+  "search_searchPlace": "Search location",
+  "search_leaseArea": "Lease Area",
+  "search_whtype": "Warehouse Type",
+  "search_whtype1": "general",
+  "search_whtype2": "frozen",
+  "search_whtype3": "refrigeration",
+
+  "warehousedetail_total_ground_area": "Total Ground Area",
+
+  "warehousedetail_dedicated_area": "Dedicated Area",
+
+  "contractRequestDetail_total_ground_area": "Total Ground Area",
+  "contractRequestDetail_dedicated_area": "Dedicated Area",
+
+  "contractDetail_mean_of_payment": "Mean Of Payment",
+
+  "contractDetail_total_ground_area": "Total Ground Area",
+
   "contractDetail_dedicated_area": "Dedicated Area",
   "contractDetail_approve": "REQUEST APPROVAL",
   "contractDetail_reject": "REJECT",
   "contractDetail_complete": "COMPLETE",
-  "contractDetail_payment": "PAYMENT",
   "contractDetail_back": "BACK",
 
   "contract_state_waiting_for_approval": "PENDING APPROVAL",

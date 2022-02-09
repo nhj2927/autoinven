@@ -28,6 +28,7 @@ module.exports = (db) => {
   router.get('/:warehouse_id/edit', (req, res) => {
     const warehouses = {
       name: '창고명',
+      name_en: '창고명 영문',
       category: '야지',
       rent: '800',
       zip_code: '43241',
@@ -35,6 +36,8 @@ module.exports = (db) => {
       longitude: '15',
       address1: '대구 광역시 북구 산격동 111-22',
       address2: '대구 스마트 물류단지 내부',
+      address1_en: 'qefqfqef',
+      address2_en: 'effefefef',
       land_area: 9000,
       common_area: 2900,
       dedicated_area: 6000,
