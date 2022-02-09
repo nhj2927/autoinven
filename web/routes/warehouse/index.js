@@ -4,6 +4,7 @@ module.exports = (db) => {
 
   const { doAsync } = require('$base/utils/asyncWrapper');
   const getUserWarehouses = require('./getUserWarehouses');
+  const getWarehouseDetailWithItem = require('./getWarehouseDetailWithItem');
 
   router.get(
     '/',
@@ -19,9 +20,23 @@ module.exports = (db) => {
     })
   );
 
-  router.get('/:warehouse_id', (req, res) => {
-    res.render('common/warehouseDetailWithItem', {});
-  });
+  router.get(
+    '/:id',
+    doAsync(async (req, res) => {
+      const locale = res.locale;
+      const {
+        params: { id: warehouse_id },
+      } = req;
+
+      const warehouse = await getWarehouseDetailWithItem(
+        db,
+        locale,
+        warehouse_id
+      );
+
+      res.render('common/warehouseDetailWithItem', { ...warehouse });
+    })
+  );
 
   router.use('/:warehouse_id/iot', require('./iot')(db));
 

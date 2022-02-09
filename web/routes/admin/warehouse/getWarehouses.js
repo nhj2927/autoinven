@@ -1,3 +1,13 @@
+const getImages = (images) => {
+  if (!images || !images.length) {
+    return [];
+  } else {
+    return images.map((img) => {
+      return img.url;
+    });
+  }
+};
+
 module.exports = async (db, locale) => {
   const { fn, col } = require('sequelize');
   const getFullAddress = require('$base/utils/getFullAddress');
@@ -29,7 +39,6 @@ module.exports = async (db, locale) => {
       ],
       include: {
         model: db.WarehouseImage,
-        required: true,
         attributes: ['url'],
       },
     },
@@ -55,9 +64,7 @@ module.exports = async (db, locale) => {
       ),
       area: warehouse.lease_area,
       is_verified: warehouse.Warehouse.is_verified,
-      image_url: warehouse.Warehouse.WarehouseImages.map((image) => {
-        return image.url;
-      }),
+      image_url: getImages(warehouse.Warehouse.WarehouseImages),
     };
   });
 
