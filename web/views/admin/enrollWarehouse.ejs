@@ -448,7 +448,7 @@
         console.log(pair[0] + ', ' + pair[1]);
       }
       $.ajax({
-        url: 'http://192.168.0.16:5000/api/warehouse',
+        url: server_url + 'api/warehouse',
         type: 'POST',
         enctype: 'multipart/form-data',
         data: formdata,

@@ -173,10 +173,31 @@
   "contractDetail_net_leaseable_area": "전용면적",
   "contractDetail_submit": "승인요청",
   "contractDetail_cancel": "취소",
-  "search_searchPlace" : "위치를 검색하세요",
-  "search_leaseArea" : "계약 면적",
+  "search_searchPlace": "위치를 검색하세요",
+  "search_leaseArea": "계약 면적",
   "search_whtype": "창고 종류",
-  "search_whtype1" : "일반",
-  "search_whtype2" : "냉장",
-  "search_whtype3" : "냉동"
+  "search_whtype1": "일반",
+  "search_whtype2": "냉장",
+  "search_whtype3": "냉동",
+
+  "warehousedetail_total_ground_area": "연면적",
+  "warehousedetail_dedicated_area": "전용면적",
+
+  "contractRequestDetail_total_ground_area": "연면적",
+  "contractRequestDetail_dedicated_area": "전용면적",
+
+  "contractDetail_mean_of_payment": "지불수단",
+
+  "contractDetail_total_ground_area": "연면적",
+
+  "contractDetail_dedicated_area": "전용면적",
+  "contractDetail_approve": "승인하기",
+  "contractDetail_reject": "거절하기",
+  "contractDetail_complete": "계약완료",
+  "contractDetail_back": "뒤로가기",
+  "contract_state_waiting_for_approval": "승인대기중",
+  "contract_state_waiting_for_payment": "결제대기중",
+  "contract_state_completed": "계약완료",
+  "contract_state_rejected": "승인거절",
+  "contract_state_expired": "기간만료"
 }

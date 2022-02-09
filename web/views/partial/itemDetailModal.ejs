@@ -106,11 +106,12 @@
 </div>
 
 <script>
+  let item_id_for_qr = -1;
   function printQR() {
-    let width = 500;
-    let height = 500;
+    let width = 900;
+    let height = 550;
     let left = window.screen.width / 2 - width / 2;
-    let top = window.screen.height / 4;
+    let top = window.screen.height / 6;
 
     let option =
       'width = ' +
@@ -122,14 +123,13 @@
       ', left = ' +
       left +
       ', location = no';
-    let win = window.open('/item/6/qr', 'QR', option);
-    win.document.write(
-      '<button type=button onclick="window.print();">프린트하기</button>'
-    );
-    win.document.write('<img src="/image/default-image.jpg"/>');
+    if (item_id_for_qr != -1) {
+      let win = window.open('/item/' + item_id_for_qr + '/qr', 'QR', option);
+    }
   }
 
   openItemDetailModal = (item_id) => {
+    item_id_for_qr = item_id;
     const itemImagesDiv = document.getElementById('item-images-div');
     const itemName = document.getElementById('item-modal-name');
     const itemStatus = document.getElementById('item-modal-status');
@@ -139,7 +139,7 @@
       document.getElementById('item-modal-in-date'),
       document.getElementById('item-modal-out-date'),
     ];
-    let baseUrl = 'http://192.168.0.16:5000/api/item/' + item_id;
+    let baseUrl = server_url + 'api/item/' + item_id;
 
     console.log(baseUrl);
     $.ajax({
@@ -191,7 +191,7 @@
             const div = document.createElement('div');
             const img = document.createElement('img');
             div.setAttribute('class', 'image-wrapper-div');
-            img.src = 'http://192.168.0.16:5000/' + data.ItemImages[i].url;
+            img.src = server_url + data.ItemImages[i].url;
             img.setAttribute('class', 'item-image');
             div.appendChild(img);
             itemImagesDiv.appendChild(div);

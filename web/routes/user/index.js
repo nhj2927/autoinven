@@ -55,6 +55,8 @@ module.exports = (db) => {
 
       const warehouse = await getWarehouseDetail(db, locale, warehouse_id);
 
+      console.log('===============' + warehouse);
+
       res.render('user/warehouseDetail', {
         ...warehouse,
         selected_start_date: start_date,
@@ -66,7 +68,31 @@ module.exports = (db) => {
   );
 
   router.get('/contract/request', (req, res) => {
-    res.render('user/contractRequestDetail', {});
+    const user = {
+      type: 'admin',
+    };
+    res.render('user/contractRequestDetail', {
+      user: user,
+      warehouse: {
+        name: '대구 광역시 글로벌 물류센터',
+        type: '일반 창고',
+        address1: '대구 광역시 북구 산격동 112-13',
+        address2: '대구 스마트 물류단지 내부',
+        description: '깔끔한 신축창고 입니다.',
+        land_area: 9000,
+        common_area: 2900,
+        dedicated_area: 6000,
+        total_ground_area: 8900,
+        rent: 800,
+      },
+      lease_info: {
+        start_date: '2022-01-13',
+        end_date: '2022-02-14',
+        available_area: 3000,
+        req_area: 1000,
+        total_cost: 100000,
+      },
+    });
   });
 
   return router;

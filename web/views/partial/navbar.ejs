@@ -13,8 +13,8 @@
               <%= __('navbar_search_warehouse')%>
             </a>
           </li>
-          <% if(user.type) { %>
-            <% if(user.type == 'user') { %>
+          <% if(locals.role) { %>
+            <% if(locals.role == 'user') { %>
               <li class="nav-item">
                 <a class="nav-link" href="/warehouse" style="font-size: 1.2rem;">
                   <%= __('navbar_my_warehouse')%>
@@ -25,7 +25,7 @@
                   <%= __('navbar_my_contract')%>
                 </a>
               </li>
-            <% } else if(user.type == 'admin') { %>
+            <% } else if(locals.role == 'admin') { %>
               <li class="nav-item">
                 <a class="nav-link" href="/warehouse" style="font-size: 1.2rem;">
                   <%= __('navbar_manage_warehouse')%>
@@ -51,7 +51,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <% if(user.type) { %>
+            <% if(locals.role) { %>
               <a id="login" class="nav-link" href="/" style="color: rgba(124,19,154,1); font-size: 1.2rem;">
                 <%= __('navbar_signout')%>
               </a>
