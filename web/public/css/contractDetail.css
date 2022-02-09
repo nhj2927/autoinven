@@ -19,6 +19,12 @@ h4.contract-sub-title {
   width: 10rem;
   margin: 1rem;
 }
+.btn-reject {
+  font-size: 1.5rem;
+  background-color: rgb(219, 48, 48);
+  width: 10rem;
+  margin: 1rem;
+}
 .btn-cancel {
   font-size: 1.5rem;
   background-color: #aaa;
@@ -30,10 +36,10 @@ h4.contract-sub-title {
   justify-content: center;
   text-align: center;
 }
-.badge{
+.badge {
   font-size: 1.5rem;
 }
-.btn-detail{
+.btn-detail {
   font-size: 1rem;
   padding: 0.5rem;
   background-color: #7c139a;

@@ -2,12 +2,55 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <%- include('../head') %>
+    <link rel="stylesheet" href="/css/qrPopup.css" />
   </head>
   <body>
     <div class="container">
-      <button type="button" class="btn btn-primary"/>
-      <img src="http://placehold.it/"/>
+      <div id="title_div">
+        <span class="qr_title"
+          ><img src="/image/icon/qrcode.svg" class="qr_icon" />QR CODE</span
+        >
+      </div>
+
+      <div id="qr_div">
+        <img id="qr_code" src="<%= qr_code%>" />
+      </div>
     </div>
-  
+
+    <div class="row align-items-start print_footer">
+      <div class="col">
+        <span>
+          QR 코드를 AUTOINVEN 어플리케이션으로 스캔하시면 물품의 입출고 상태가
+          변경됩니다.
+        </span>
+      </div>
+
+      <div class="col">
+        <button type="button" class="btn btn-print" onclick="printPage()">
+          <img src="/image/icon/print_black.svg" class='print_icon'/>
+          </br>
+          프린트하기
+        </button>
+      </div>
+    </div>
   </body>
+  <script>
+    let initBodyHtml;
+
+    function printPage() {
+      window.print();
+    }
+
+    function beforePrint() {
+      initBodyHtml = document.body.innerHTML;
+      document.body.innerHTML = document.getElementById('qr_div').innerHTML;
+    }
+    function afterPrint() {
+      document.body.innerHTML = initBodyHtml;
+    }
+
+    window.onbeforeprint = beforePrint;
+    window.onafterprint = afterPrint;
+  </script>
 </html>
