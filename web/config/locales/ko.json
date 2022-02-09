@@ -172,5 +172,11 @@
   "contractDetail_common_area": "공용면적",
   "contractDetail_net_leaseable_area": "전용면적",
   "contractDetail_submit": "승인요청",
-  "contractDetail_cancel": "취소"
+  "contractDetail_cancel": "취소",
+  "search_searchPlace" : "위치를 검색하세요",
+  "search_leaseArea" : "계약 면적",
+  "search_whtype": "창고 종류",
+  "search_whtype1" : "일반",
+  "search_whtype2" : "냉장",
+  "search_whtype3" : "냉동"
 }

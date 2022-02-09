@@ -18,24 +18,28 @@
     />
     <input class="searchInput" id="endDate" type="date" placeholder="종료일" />
     <select class="searchInput" id="whType" name="cars">
-      <option selected>창고 종류</option>
-      <option value="1">일반</option>
-      <option value="2">냉장</option>
-      <option value="3">냉동</option>
+      <option selected><%= __('search_whtype') %></option>
+      <option value="1"><%= __('search_whtype1') %></option>
+      <option value="2"><%= __('search_whtype2') %></option>
+      <option value="3"><%= __('search_whtype3') %></option>
     </select>
     <input
       class="searchInput"
       id="leaseArea"
       type="number"
       oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-      placeholder="계약 면적(평)"
+      placeholder="<%= __('search_leaseArea') %> (㎡)"
     />
     <div
       class="searchInput search-card"
       id="search-card"
       style="position: relative"
     >
-      <input id="pac-input" type="text" placeholder="위치를 검색하세요" />
+      <input
+        id="pac-input"
+        type="text"
+        placeholder="<%= __('search_searchPlace') %>"
+      />
       <svg
         id="backicon"
         style="

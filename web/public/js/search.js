@@ -104,7 +104,7 @@ const searchResultListing = (
     else {
       let available_area = lists[l].available_area;
       if (locale === 'ko') {
-        available_area = `대여가능 면적: ${lists[l].available_area}m<sup>2</sup>`;
+        available_area = `대여가능 면적: ${lists[l].available_area} m<sup>2</sup>`;
       } else if (locale === 'en') {
         available_area = `
         Usable area: ${lists[l].available_area}m<sup>2</sup>`;
@@ -124,7 +124,7 @@ const searchResultListing = (
                   <div class="text-sm font-bold sm:text-lg">${lists[l].distance}km</div>
               </div>
               <div class="flex w-full flex-row-reverse justify-between">
-                <a href="/user/warehouse/${warehouses[index].warehouse_id}?startDate=${startDate}&endDate=${endDate}&leaseArea=${leaseArea}" class="text-base font-bold text-right text-purple-600 sm:text-lg">${detail}</a>
+                <a href="/user/warehouse/${warehouses[index].warehouse_id}?start_date=${startDate}&end_date=${endDate}&selected_area=${leaseArea}&available_area=${available_area}" class="text-base font-bold text-right text-purple-600 sm:text-lg">${detail}</a>
                 <div class="text-sm font-bold sm:text-lg text-blue-600">${available_area}</div>
                 </div>
             </div>
