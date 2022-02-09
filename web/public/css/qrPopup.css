@@ -13,7 +13,7 @@
   height: 10rem;
   background-color: rgb(221, 221, 221);
   text-align: center;
-  padding: 2rem;
+  padding: 2rem 2rem 2rem 5rem;
 }
 .qr_title {
   font-family: 'nanum-eb';
@@ -31,7 +31,7 @@
   font-size: 1.5rem;
 }
 .print_icon {
-  width: 3rem;
-  height: 3rem;
+  width: 2rem;
+  height: 2rem;
   background: no-repeat;
 }
