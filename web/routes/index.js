@@ -7,6 +7,10 @@ module.exports = (db) => {
     res.render('main', {});
   });
 
+  const user = {
+    type: 'admin',
+  };
+
   router.get(
     '/search',
     doAsync(async (req, res) => {
@@ -22,7 +26,7 @@ module.exports = (db) => {
         ],
       });
       console.log(warehouses[0]);
-      res.render('common/search', { warehouses: warehouses });
+      res.render('common/search', { warehouses: warehouses, user });
     })
   );
 
