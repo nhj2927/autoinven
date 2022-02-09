@@ -31,10 +31,9 @@ module.exports = (db) => {
   );
 
   router.get('/myinfo', (req, res) => {
-    const { email, type, name, phone } = req.session;
+    const { email, name, phone } = req.session;
     const user = {
       email,
-      type,
       name,
       phone,
     };

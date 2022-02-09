@@ -2,7 +2,7 @@ module.exports = async (email, password, db, session, client_type) => {
   const getEncryptedPasswordInfo = require('./signup/getEncryptedPasswordInfo');
 
   // 멤버 확인
-  let type = 'user';
+  let role = 'user';
   let member = await db.User.findOne({
     where: {
       email,
@@ -18,7 +18,7 @@ module.exports = async (email, password, db, session, client_type) => {
       throw error;
     }
 
-    type = 'admin';
+    role = 'admin';
   }
 
   // 비밀번호 확인
@@ -36,7 +36,7 @@ module.exports = async (email, password, db, session, client_type) => {
   if (client_type === 'web') {
     // 세션에 데이터 저장
     session.email = email;
-    session.type = type;
+    session.role = role;
     session.name = member.name;
     session.phone = member.phone;
 
@@ -54,7 +54,7 @@ module.exports = async (email, password, db, session, client_type) => {
       token: jwt.sign(
         {
           email,
-          type,
+          role,
           name: member.name,
           phone: member.phone,
         },
