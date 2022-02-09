@@ -7,7 +7,6 @@ module.exports = (db) => {
   router.get(
     '/:item_id/qr',
     doAsync(async (req, res) => {
-      console.log('INININ');
       const { item_id } = req.params;
       const item = await db.Item.findOne({ where: { item_id } });
       console.log(item.qrcode);

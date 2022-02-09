@@ -106,6 +106,7 @@
 </div>
 
 <script>
+  let item_id_for_qr = -1;
   function printQR() {
     let width = 500;
     let height = 500;
@@ -122,14 +123,13 @@
       ', left = ' +
       left +
       ', location = no';
-    let win = window.open('', 'QR', option);
-    win.document.write(
-      '<button type=button onclick="window.print();">프린트하기</button>'
-    );
-    win.document.write('<img src="/image/default-image.jpg"/>');
+    if (item_id_for_qr != -1) {
+      let win = window.open('/' + item_id_for_qr + '/qr', 'QR', option);
+    }
   }
 
   openItemDetailModal = (item_id) => {
+    item_id_for_qr = item_id;
     const itemImagesDiv = document.getElementById('item-images-div');
     const itemName = document.getElementById('item-modal-name');
     const itemStatus = document.getElementById('item-modal-status');

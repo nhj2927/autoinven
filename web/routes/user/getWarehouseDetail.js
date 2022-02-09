@@ -21,12 +21,10 @@ module.exports = async (db, locale, warehouse_id) => {
       },
       {
         model: db.IotDevice,
-        required: true,
         attributes: ['url'],
       },
       {
         model: db.WarehouseImage,
-        required: true,
         attributes: ['url'],
       },
     ],
