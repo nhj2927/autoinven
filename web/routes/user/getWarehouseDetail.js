@@ -1,3 +1,23 @@
+const getIotUrl = (iot_devices) => {
+  if (!iot_devices || !iot_devices.length) {
+    return [];
+  } else {
+    return iot_devices.map((iot) => {
+      return iot.url;
+    });
+  }
+};
+
+const getImages = (images) => {
+  if (!images || !images.length) {
+    return [];
+  } else {
+    return images.map((img) => {
+      return img.url;
+    });
+  }
+};
+
 module.exports = async (db, locale, warehouse_id) => {
   const { fn, col } = require('sequelize');
 
@@ -21,16 +41,21 @@ module.exports = async (db, locale, warehouse_id) => {
       },
       {
         model: db.IotDevice,
-        required: true,
         attributes: ['url'],
       },
       {
         model: db.WarehouseImage,
-        required: true,
         attributes: ['url'],
       },
     ],
   });
+
+  if (!warehouse_result) {
+    const error = new Error('Warehouse Not Found');
+    error.statusCode = 404;
+
+    throw error;
+  }
 
   return {
     warehouse_id,
@@ -87,11 +112,7 @@ module.exports = async (db, locale, warehouse_id) => {
     is_verified: warehouse_result.is_verified,
     docking_station: warehouse_result.docking_station,
     rack: warehouse_result.rack,
-    iot_url: warehouse_result.IotDevices.map((iot) => {
-      return iot.url;
-    }),
-    images: warehouse_result.WarehouseImages.map((img) => {
-      return img.url;
-    }),
+    iot_url: getIotUrl(warehouse_result.IotDevices),
+    images: getImages(warehouse_result.WarehouseImages),
   };
 };
