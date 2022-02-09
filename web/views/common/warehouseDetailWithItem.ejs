@@ -33,7 +33,12 @@
         <!-- Slides -->
         <% for(let i in images){ %>
         <div class="swiper-slide">
-          <img src="<%= images[i]%>" class="slider-image" />
+          <img id='warehouse_image_"<%= i%>"' class="slider-image" />
+          <script>
+            document
+              .getElementById('warehouse_image_"<%= i%>"')
+              .setAttribute('src', server_url + '<%=images[i]%>');
+          </script>
         </div>
         <% } %>
       </div>
