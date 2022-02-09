@@ -15,6 +15,12 @@
       <ul class="pager" style="list-style: none; width: 90%">
         <li style="display: flex; align-items: center">
           <h2 style="font-family: nanum-eb"><%= __('warehouse_title') %></h2>
+          <button
+            class="add_wh"
+            onclick="location.href='/admin/warehouse/enroll';"
+          >
+            +
+          </button>
           <input
             type="text"
             id="search"
@@ -29,21 +35,25 @@
         <!--창고 정보 카드-->
         <% for(var i = 0 ; i < warehouses.length; i++) { %>
         <li>
-          <div
-            class="warehouse_info"
-            onclick="location.href='/warehouse/'+'<%= warehouses[i].id %>';"
-          >
+          <div class="warehouse_info">
             <div class="container left">
-              <img class="image" src="http://192.168.0.16/"+"<%=
+              <img class="image" src="http://192.168.0.16/"+"<%
               warehouses[i].image %>"/>
             </div>
             <div class="container center">
               <ul>
                 <li style="display: flex; align-items: center">
-                  <p class="wh_title"><%= warehouses[i].name %></p>
+                  <p
+                    class="wh_title"
+                    onclick="location.href='/warehouse/'+'<%= warehouses[i].id %>';"
+                  >
+                    <%= warehouses[i].name %>
+                  </p>
+                  <% if(warehouses[i].is_verified) { %>
                   <span class="badge bg-primary"
                     ><%= __('warehousedetail_verified') %></span
                   >
+                  <% } %>
                 </li>
                 <li
                   style="display: flex; margin-top: 1.5rem; align-items: center"
@@ -66,6 +76,14 @@
                   </p>
                 </li>
               </ul>
+            </div>
+            <div class="container right">
+              <button
+                class="edit_wh"
+                onclick="location.href='/admin/warehouse/'+'<%= warehouses[i].id %>'+'/edit';"
+              >
+                수정하기
+              </button>
             </div>
           </div>
         </li>
