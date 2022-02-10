@@ -18,14 +18,16 @@ module.exports = (db) => {
     })
   );
 
-  router.get('/enroll', (req, res) => {
-    const user = {
-      type: 'admin',
-    };
-    res.render('admin/enrollWarehouse', {
-      user: user,
-    });
-  });
+  router.get(
+    '/enroll',
+    doAsync(async (req, res) => {
+      const categories = await getCategories(db);
+
+      res.render('admin/enrollWarehouse', {
+        categories,
+      });
+    })
+  );
 
   router.get(
     '/:id/edit',
