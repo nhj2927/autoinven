@@ -45,7 +45,7 @@
   "warehousedetail_contract_monetary_unit": "$",
   "warehousedetail_contract_pick_date": "Select Rental Period",
   "warehousedetail_contract_pick_area": "Desired Area",
-  "warehousedetail_contract_area_unit": "ft²",
+  "warehousedetail_contract_area_unit": "㎡",
   "warehousedetail_contract_max": "MAX",
   "warehousedetail_lease_area": "Rental Area",
   "warehousedetail_check_contract": "Estimate",
