@@ -5,6 +5,7 @@ const throwUnauthorizedError = (next) => {
 };
 
 const authorize = (req, next, type) => {
+  // 웹 요청 인가
   if (req.session.role) {
     if (req.session.role === type) {
       next();
@@ -13,13 +14,18 @@ const authorize = (req, next, type) => {
     }
   }
 
-  // 앱 요청
+  // 앱 요청 인가
   else if (req.user) {
     if (req.user.role === type) {
       next();
     } else {
       throwUnauthorizedError(next);
     }
+  }
+
+  // 인가 실패
+  else {
+    throwUnauthorizedError(next);
   }
 };
 
