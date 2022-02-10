@@ -17,7 +17,5 @@ module.exports = (db) => {
     })
   );
 
-  router.put('/:warehouse_id', (req, res) => {});
-
   return router;
 };
