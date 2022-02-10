@@ -118,8 +118,6 @@ module.exports = (db) => {
 
       const warehouse = await getWarehouseDetail(db, locale, warehouse_id);
 
-      console.log(warehouse);
-
       res.render('user/contractRequestDetail', {
         warehouse,
         lease_info: {
