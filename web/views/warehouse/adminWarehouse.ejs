@@ -15,12 +15,6 @@
       <ul class="pager" style="list-style: none; width: 90%">
         <li style="display: flex; align-items: center">
           <h2 style="font-family: nanum-eb"><%= __('warehouse_title') %></h2>
-          <button
-            class="add_wh"
-            onclick="location.href='/admin/warehouse/enroll';"
-          >
-            +
-          </button>
           <input
             type="text"
             id="search"
@@ -37,8 +31,7 @@
         <li>
           <div class="warehouse_info">
             <div class="container left">
-              <img class="image" src="http://192.168.0.16/"+"<%
-              warehouses[i].image %>"/>
+              <img class="image" src="#"+"<% warehouses[i].image %>"/>
             </div>
             <div class="container center">
               <ul>
