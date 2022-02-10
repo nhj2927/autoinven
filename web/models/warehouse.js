@@ -59,7 +59,7 @@ module.exports = (sequelize, DataTypes) => {
       height: DataTypes.DOUBLE,
       docking_station: DataTypes.BOOLEAN,
       rack: DataTypes.BOOLEAN,
-      is_bounded: DataTypes.BOOLEAN,
+      is_bonded: DataTypes.BOOLEAN,
       commercial_lift: DataTypes.BOOLEAN,
       is_verified: DataTypes.BOOLEAN,
       createdAt: {
