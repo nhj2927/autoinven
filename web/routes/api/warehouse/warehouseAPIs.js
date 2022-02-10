@@ -203,10 +203,58 @@ const searchWarehouse = async (req, db) => {
   }
 };
 
+const getAvailableArea = async (req, db) => {
+  const warehouse_id = req.params.warehouse_id;
+  let { startDate, endDate } = req.query;
+  if (!startDate || !endDate) {
+    const err = new Error('start date or end date is not proper.');
+    err.statusCode(400);
+    throw err;
+  }
+  const warehouse = await db.Warehouse.findOne({
+    attributes: [
+      'warehouse_id',
+      [
+        literal('(dedicated_area - IFNULL(SUM(lease_area),0))'),
+        'available_area',
+      ],
+    ],
+    include: [
+      {
+        model: db.LeaseContract,
+        required: false,
+        attributes: [],
+        where: {
+          [Op.or]: [
+            {
+              start_date: {
+                [Op.between]: [startDate, endDate],
+              },
+            },
+            {
+              end_date: {
+                [Op.between]: [startDate, endDate],
+              },
+            },
+          ],
+        },
+      },
+    ],
+    where: {
+      warehouse_id,
+    },
+    group: ['warehouse_id'],
+  });
+  //(3) 해당 창고들을 return
+  //  - 호출한 함수에서 지도에 찍고, 거리순으로 리스팅
+  return warehouses;
+};
+
 module.exports = {
   getAllWarehouses,
   getWarehouseInfo,
   registerWarehouse,
   editWarehouse,
   searchWarehouse,
+  getAvailableArea,
 };

@@ -31,7 +31,7 @@ include('../partial/ItemDetailModal') %>
       <script>
         document
           .getElementById("item_image_'<%=i%>")
-          .setAttribute('src', server_url + '<%=images[i]%>');
+          .setAttribute('src', server_url + '<%=items[i].image%>');
       </script>
       <div class="item-list-text-div">
         <div class="item-list-title"><%= items[i].name%></div>

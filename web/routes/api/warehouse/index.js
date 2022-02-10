@@ -56,11 +56,14 @@ module.exports = (db) => {
     })
   );
 
-  // 테스트임 나중에 지우기
-  router.post('/img', (req, res, next) => {
-    console.log(warehouseId);
-    res.send('good');
-  });
+  // 6) 해당 창고 가용공간 조회
+  router.put(
+    '/:warehouse_id/available',
+    doAsync(async (req, res, next) => {
+      const warehouse = await warehouseAPIs.getAvailableArea(req, db);
+      res.send(warehouse);
+    })
+  );
 
   return router;
 };
