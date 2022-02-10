@@ -83,8 +83,8 @@
     let formdata = new FormData();
 
     formdata.append('name', $('#name')[0].value);
-    formdata.append('user_email', 'jacob9404@gmail.com');
-    formdata.append('l_contract_id', 1);
+    formdata.append('user_email', '<%= user.email%>');
+    formdata.append('l_contract_id', '<%= user.l_contract_id%>');
     formdata.append('note', $('#note')[0].value);
 
     sel_files.forEach((file) => {

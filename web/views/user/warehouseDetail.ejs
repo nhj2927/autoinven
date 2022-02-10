@@ -42,10 +42,10 @@
       <p>
         <span class="badge-text-purple">
           <img src="/image/icon/map_mark_icon.svg" class="badge-svg" />
-          <%= address1%>
+          <%= warehouse.address1%>
         </span>
 
-        <% if(is_verified) { %>
+        <% if(warehouse.is_verified) { %>
         <span class="badge-text">
           <img
             src="/image/icon/verified_icon.svg"
@@ -55,7 +55,7 @@
         </span>
         <% } %>
       </p>
-      <h3 class="wh-detail-title"><%= name%></h3>
+      <h3 class="wh-detail-title"><%= warehouse.name%></h3>
       <p class="badge-text">
         <img src="/image/icon/phone-alt-solid.svg" class="badge-svg" />
         1644-1393
@@ -71,13 +71,15 @@
         <div id="wh-info-table-div" class="col">
           <h3 class="wh-detail-title"><%= __('warehousedetail_info')%></h3>
           <p class="badge-text">
-            <% if(docking_station){ %>
+            <% if(warehouse.docking_station){ %>
             <img src="/image/icon/truck-solid.svg" class="badge-svg" /> <%=
-            __('warehousedetail_is_docked')%> <% }%> <% if(rack){ %>
+            __('warehousedetail_is_docked')%> <% }%> <% if(warehouse.rack){ %>
             <img src="/image/icon/is_racked_icon.svg" class="badge-svg" /> <%=
-            __('warehousedetail_is_recked')%> <% }%> <% if(commercial_lift){ %>
+            __('warehousedetail_is_recked')%> <% }%> <%
+            if(warehouse.commercial_lift){ %>
             <img src="/image/icon/elevator_icon.svg" class="badge-svg" /> <%=
-            __('warehousedetail_elevator')%> <% }%> <% if(is_bonded){ %>
+            __('warehousedetail_elevator')%> <% }%> <% if(warehouse.is_bonded){
+            %>
             <img src="/image/icon/is_bonded_icon.svg" class="badge-svg" /> <%=
             __('warehousedetail_is_bonded')%> <% }%>
           </p>
@@ -86,13 +88,15 @@
               <td class="info-table-td-head">
                 <%= __('warehousedetail_warehouse_name')%>
               </td>
-              <td class="info-table-td" colspan="3"><%= name%></td>
+              <td class="info-table-td" colspan="3"><%= warehouse.name%></td>
             </tr>
             <tr>
               <td class="info-table-td-head">
                 <%= __('warehousedetail_warehouse_type')%>
               </td>
-              <td class="info-table-td" colspan="3"><%= category%></td>
+              <td class="info-table-td" colspan="3">
+                <%= warehouse.category%>
+              </td>
             </tr>
             <tr>
               <td class="info-table-td-head">
@@ -103,40 +107,44 @@
                 colspan="3"
                 style="color: #d00101; font-family: 'nanum-b'"
               >
-                ￦<%= rent%> ㎡/일
+                ￦<%= warehouse.rent%> ㎡/일
               </td>
             </tr>
             <tr>
               <td class="info-table-td-head">
                 <%= __('warehousedetail_address')%>
               </td>
-              <td class="info-table-td" colspan="3"><%= address1%></td>
+              <td class="info-table-td" colspan="3">
+                <%= warehouse.address1%>
+              </td>
             </tr>
             <tr>
               <td class="info-table-td-head">
                 <%= __('warehousedetail_detail_address')%>
               </td>
-              <td class="info-table-td" colspan="3"><%= address2%></td>
+              <td class="info-table-td" colspan="3">
+                <%= warehouse.address2%>
+              </td>
             </tr>
             <tr>
               <td class="info-table-td-head">
                 <%= __('warehousedetail_land_area')%>
               </td>
-              <td class="info-table-td"><%= land_area%>㎡</td>
+              <td class="info-table-td"><%= warehouse.land_area%>㎡</td>
               <td class="info-table-td-head">
                 <%= __('warehousedetail_total_ground_area')%>
               </td>
-              <td class="info-table-td"><%= total_ground_area%>㎡</td>
+              <td class="info-table-td"><%= warehouse.total_ground_area%>㎡</td>
             </tr>
             <tr>
               <td class="info-table-td-head">
                 <%= __('warehousedetail_common_area')%>
               </td>
-              <td class="info-table-td"><%= common_area%>㎡</td>
+              <td class="info-table-td"><%= warehouse.common_area%>㎡</td>
               <td class="info-table-td-head">
                 <%= __('warehousedetail_dedicated_area')%>
               </td>
-              <td class="info-table-td"><%= dedicated_area%>㎡</td>
+              <td class="info-table-td"><%= warehouse.dedicated_area%>㎡</td>
             </tr>
           </table>
         </div>
@@ -155,35 +163,37 @@
             <td class="info-table-td-head">
               <%= __('warehousedetail_floor_num')%>
             </td>
-            <td class="info-table-td"><%= story%>층</td>
+            <td class="info-table-td"><%= warehouse.story%>층</td>
             <td class="info-table-td-head">
               <%= __('warehousedetail_valid_floor_height')%>
             </td>
-            <td class="info-table-td"><%= height%>m</td>
+            <td class="info-table-td"><%= warehouse.height%>m</td>
             <td class="info-table-td-head">
               <%= __('warehousedetail_accessable_vehicle')%>
             </td>
-            <td class="info-table-td"><%= restriction%></td>
+            <td class="info-table-td"><%= warehouse.restriction%></td>
           </tr>
           <tr>
             <td class="info-table-td-head">
               <%= __('warehousedetail_completion_date')%>
             </td>
-            <td class="info-table-td"><%= completion_date%></td>
+            <td class="info-table-td"><%= warehouse.completion_date%></td>
             <td class="info-table-td-head">
               <%= __('warehousedetail_accessability')%>
             </td>
-            <td class="info-table-td" colspan="3"><%= access%></td>
+            <td class="info-table-td" colspan="3"><%= warehouse.access%></td>
           </tr>
           <tr>
             <td class="info-table-td-head">
               <%= __('warehousedetail_introduce')%>
             </td>
-            <td class="info-table-td" colspan="6"><%= description%></td>
+            <td class="info-table-td" colspan="6">
+              <%= warehouse.description%>
+            </td>
           </tr>
           <tr>
             <td class="info-table-td-head"><%= __('warehousedetail_note')%></td>
-            <td class="info-table-td" colspan="6"><%= note%></td>
+            <td class="info-table-td" colspan="6"><%= warehouse.note%></td>
           </tr>
         </table>
       </div>

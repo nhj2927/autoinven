@@ -187,50 +187,83 @@
           <tr>
             <td class="info-table-td-head">대지면적</td>
             <td class="info-table-td" colspan="2">
-              <input
-                id="land_area"
-                type="number"
-                class="form-control info-td-area"
-                min="0"
-              />
-              <span>㎡</span>
+              <span
+                ><input
+                  id="land_area"
+                  type="number"
+                  class="form-control info-td-area"
+                  min="0"
+                />㎡</span
+              >
             </td>
             <td class="info-table-td-head">연면적</td>
             <td class="info-table-td" colspan="2">
-              <input
-                id="total_ground_area"
-                type="number"
-                class="form-control info-td-area"
-                min="0"
-              />
-              <span>㎡</span>
+              <span
+                ><input
+                  id="total_ground_area"
+                  type="number"
+                  class="form-control info-td-area"
+                  min="0"
+                />㎡</span
+              >
             </td>
           </tr>
           <tr>
             <td class="info-table-td-head">공용면적</td>
             <td class="info-table-td" colspan="2">
-              <input
-                id="common_area"
-                type="number"
-                class="form-control info-td-area"
-                min="0"
-              />
-              <span>㎡</span>
+              <span
+                ><input
+                  id="common_area"
+                  type="number"
+                  class="form-control info-td-area"
+                  min="0"
+                />㎡</span
+              >
             </td>
             <td class="info-table-td-head">전용면적</td>
             <td class="info-table-td" colspan="2">
-              <input
-                id="dedicated_area"
-                type="number"
-                class="form-control info-td-area"
-                min="0"
-              />
-              <span>㎡</span>
+              <span
+                ><input
+                  id="dedicated_area"
+                  type="number"
+                  class="form-control info-td-area"
+                  min="0"
+                />㎡</span
+              >
             </td>
           </tr>
         </table>
       </div>
       <!--창고 정보-->
+
+      <!--IOT 디바이스 등록-->
+      <div>
+        <h4 class="enroll-warehouse-sub-title">
+          IOT 디바이스
+          <button id="add-device" class="btn" onclick="addDevice()">
+            <img
+              src="/image/icon/plus-solid-white.svg"
+              class="add-device-icon"
+            />
+          </button>
+        </h4>
+
+        <table id="iot-device-table" class="table info-table">
+          <tbody id="iot-device-table-body">
+            <tr>
+              <td class="info-table-td-head">디바이스ID</td>
+              <td class="info-table-td">
+                <input
+                  id="device-id"
+                  class="form-control"
+                  placeholder="ex) DEVICE-1"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!--IOT 디바이스 등록-->
 
       <!--창고 상세-->
       <div id="warehouse-detail-info-div">
@@ -247,23 +280,25 @@
           <tr>
             <td class="info-table-td-head">층수</td>
             <td class="info-table-td">
-              <input
-                id="story"
-                type="number"
-                class="form-control info-td-area"
-                min="0"
-              />
-              <span>층</span>
+              <span
+                ><input
+                  id="story"
+                  type="number"
+                  class="form-control info-td-area"
+                  min="0"
+                />층</span
+              >
             </td>
             <td class="info-table-td-head">유효층고</td>
             <td class="info-table-td">
-              <input
-                id="height"
-                type="number"
-                class="form-control info-td-area"
-                min="0"
-              />
-              <span>m</span>
+              <span
+                ><input
+                  id="height"
+                  type="number"
+                  class="form-control info-td-area"
+                  min="0"
+                />m</span
+              >
             </td>
             <td class="info-table-td-head">준공일</td>
             <td class="info-table-td">
@@ -400,10 +435,57 @@
       <%- include('../partial/footer') %>
     </footer>
   </body>
+
+  <!--Iot 디바이스 추가/삭제 버튼-->
+  <script>
+    let iot_table_row_num = 1;
+
+    subDevice = (row_num) => {
+      document.getElementById('tr-' + row_num).remove();
+    };
+    addDevice = () => {
+      iot_table_row_num++;
+
+      const iot_table_body = document.getElementById('iot-device-table-body');
+      const tr = document.createElement('tr');
+      const td_header = document.createElement('td');
+      const td = document.createElement('td');
+      const input = document.createElement('input');
+      const sub_btn = document.createElement('button');
+
+      tr.setAttribute('id', 'tr-' + iot_table_row_num);
+      td_header.setAttribute('class', 'info-table-td-head');
+      td_header.innerText = '디바이스ID';
+      td.setAttribute('class', 'info-table-td');
+      input.setAttribute('id', 'device-id');
+      input.setAttribute('class', 'form-control');
+      input.setAttribute('placeholder', 'ex) DEVICE-1');
+      sub_btn.setAttribute('class', 'btn btn-sub');
+      sub_btn.setAttribute('onclick', 'subDevice(' + iot_table_row_num + ')');
+      sub_btn.setAttribute('id', 'sub-device-' + iot_table_row_num);
+      sub_btn.innerHTML = '삭제';
+
+      td.appendChild(input);
+      td.appendChild(sub_btn);
+      tr.appendChild(td_header);
+      tr.appendChild(td);
+      iot_table_body.appendChild(tr);
+    };
+  </script>
+  <!--Iot 디바이스 추가 버튼-->
+
   <!--formdata 생성 및 post요청-->
   <script>
     clkSubmit = () => {
+      const iot_table_body = document.getElementById('iot-device-table-body');
       let formdata = new FormData();
+      let iot_device_ids = [];
+
+      document.querySelectorAll('#device-id').forEach((item) => {
+        if (item.value != '') {
+          iot_device_ids.push(item.value);
+        }
+      });
 
       formdata.append('name_ko', $('#name_ko')[0].value);
       formdata.append('name_en', $('#name_en')[0].value);
@@ -444,11 +526,17 @@
         formdata.append('images', file);
       });
 
+      iot_device_ids.forEach((id) => {
+        formdata.append('device_ids', id);
+      });
+
       for (var pair of formdata.entries()) {
         console.log(pair[0] + ', ' + pair[1]);
       }
+
       $.ajax({
-        url: server_url + 'api/warehouse',
+        //url: server_url + 'api/warehouse',
+        url: 'http://192.168.0.16:5000/' + 'api/warehouse',
         type: 'POST',
         enctype: 'multipart/form-data',
         data: formdata,
