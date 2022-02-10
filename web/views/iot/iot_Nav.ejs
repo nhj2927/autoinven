@@ -1,74 +1,81 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="/CSS/nav.css" />
+  </head>
 
-<head>
-    <link rel='stylesheet' href='/CSS/nav.css'>
-</head>
-
-<body>
-    <nav class='nav-bar'>
-        <div class='top'>
-            <img id='logo-img' src='/Image/inven_logo.png' alt='logo' />
-            <div class='items-wrapper'>
-                <div class='item-category'><%= __('iot_Nav_Main_Menu')%></div>
-                <ul>
-                    <li class='item dashboard'>
-                        <img class='icon-img' src='/Image/Chart_fill.png' alt="chart_fill">
-                        <div><%= __('iot_Nav_Dashboard')%></div>
-                    </li>
-                    <li class='item my-warehouse'>
-                        <img class='icon-img' src='/Image/User_box.png' alt="user_box">
-                        <div><%= __('iot_Nav_My_WareHouse')%></div>
-                    </li>
-                    <li class='item analytics'>
-                        <img class='icon-img' src='/Image/Chart_alt.png' alt="chart_alt">
-                        <div><%= __('iot_Nav_Analytics')%></div>
-                    </li>
-                </ul>
-            </div>
+  <body>
+    <nav class="nav-bar">
+      <div class="top">
+        <img id="logo-img" src="/Image/inven_logo.png" alt="logo" />
+        <div class="items-wrapper">
+          <div class="item-category"><%= __('iot_Nav_Main_Menu')%></div>
+          <ul>
+            <li class="item dashboard">
+              <img
+                class="icon-img"
+                src="/Image/Chart_fill.png"
+                alt="chart_fill"
+              />
+              <div><%= __('iot_Nav_Dashboard')%></div>
+            </li>
+            <li class="item my-warehouse">
+              <img class="icon-img" src="/Image/User_box.png" alt="user_box" />
+              <div><%= __('iot_Nav_My_WareHouse')%></div>
+            </li>
+            <li class="item analytics">
+              <img
+                class="icon-img"
+                src="/Image/Chart_alt.png"
+                alt="chart_alt"
+              />
+              <div><%= __('iot_Nav_Analytics')%></div>
+            </li>
+          </ul>
         </div>
-        <div class='bottom'>
-            <img id='help-img' src='/Image/help_logo.png' alt='help' />
-            <div class='help'><%= __('iot_Nav_help')%></div>
-            <div class='contact-btn'><%= __('iot_Nav_help2')%></div>
-        </div>
+      </div>
+      <div class="bottom">
+        <img id="help-img" src="/Image/help_logo.png" alt="help" />
+        <div class="help"><%= __('iot_Nav_help')%></div>
+        <div class="contact-btn"><%= __('iot_Nav_help2')%></div>
+      </div>
     </nav>
     <script>
-        $('#logo-img').click(() => {
-            location.href = '/';
-        })
-        $('.dashboard').click(() => {
-            location.href = '/Iot/Monitoring';
-        })
-        $('.my-warehouse').click(() => {
-            let url = null;
-            switch ('<%=user_type%>') {
-                case 'buyer':
-                    url = '/Buyer/RequestStatus';
-                    break;
-                case 'provider':
-                    url = '/Provider/MyWarehouse';
-                    break;
-                case 'admin':
-                    url = '/Admin/WarehouseList';
-                    break;
-            }
-            location.href = url;
-        })
-        $('.analytics').click(() => {
-            location.href = '/Iot/Statistic';
-        })
+      $('#logo-img').click(() => {
+        location.href = '/';
+      });
+      $('.dashboard').click(() => {
+        location.href = '/Iot/Monitoring';
+      });
+      $('.my-warehouse').click(() => {
+        let url = null;
+        switch ('<%=user_type%>') {
+          case 'buyer':
+            url = '/Buyer/RequestStatus';
+            break;
+          case 'provider':
+            url = '/Provider/MyWarehouse';
+            break;
+          case 'admin':
+            url = '/Admin/WarehouseList';
+            break;
+        }
+        location.href = url;
+      });
+      $('.analytics').click(() => {
+        location.href = '/Iot/Statistic';
+      });
     </script>
-</body>
-
+  </body>
 </html>
 <script>
-    $('.contact-btn').click(function() {
-        Swal.fire({
-            title: 'Contact Us',
-            html: `You can <b>Contact to AutoIN Group</b>., ` +
-                '<br>Click this <a href="http://autoingroup.com/contact/">Links</a>.',
-            icon: 'info'
-        })
-    })
+  $('.contact-btn').click(function () {
+    Swal.fire({
+      title: 'Contact Us',
+      html:
+        `You can <b>Contact to AutoIN Group</b>., ` +
+        '<br>Click this <a href="http://autoingroup.com/contact/">Links</a>.',
+      icon: 'info',
+    });
+  });
 </script>

@@ -121,9 +121,11 @@
             <td class="info-table-td-head">종류</td>
             <td class="info-table-td" colspan="2">
               <select name="category_id" class="form-select">
-                <option value="1">일반창고</option>
-                <option value="2">냉동/냉장창고</option>
-                <option value="3">야지</option>
+                <% for (var i = 0 ; i < categories.length ; i++) { %>
+                <option value="<%= categories[i].category_id %>">
+                  <%= categories[i].name %>
+                </option>
+                <% } %>
               </select>
             </td>
             <td class="info-table-td-head">시설유무</td>
