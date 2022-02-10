@@ -4,6 +4,7 @@ module.exports = (db) => {
   const { doAsync } = require('$base/utils/asyncWrapper');
   const qrcode = require('qrcode');
 
+  // QR코드
   router.get(
     '/:item_id/qr',
     doAsync(async (req, res) => {

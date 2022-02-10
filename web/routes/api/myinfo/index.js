@@ -3,8 +3,8 @@ module.exports = (db) => {
   const router = express.Router();
 
   const { doAsync } = require('$base/utils/asyncWrapper');
-  const editMyinfo = require('./editMyinfo');
-  const editPassword = require('./editPassword');
+  const editMyinfo = require('./function/editMyinfo');
+  const editPassword = require('./function/editPassword');
 
   //내정보 수정
   router.put(

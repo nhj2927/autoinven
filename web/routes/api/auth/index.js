@@ -4,8 +4,8 @@ module.exports = (db) => {
 
   const { doAsync } = require('$base/utils/asyncWrapper');
   const checkClientType = require('$base/utils/checkClientType');
-  const signout = require('./signout');
-  const signin = require('./signin');
+  const signout = require('./function/signout');
+  const signin = require('./function/signin');
 
   router.post(
     '/signin',
