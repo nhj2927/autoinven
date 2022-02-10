@@ -50,10 +50,10 @@ module.exports = (db) => {
   });
 
   // 창고
-  router.use('/warehouse', require('./warehouse_test')(db));
+  router.use('/warehouse', require('./warehouse')(db));
 
   // 계약
-  router.use('/contract', require('./contract_test')(db));
+  router.use('/contract', require('./contract')(db));
 
   // 아이템
   router.use('/item', require('./item')(db));
