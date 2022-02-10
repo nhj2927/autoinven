@@ -4,6 +4,8 @@ module.exports = (db) => {
 
   const { doAsync } = require('$base/utils/asyncWrapper');
   const getWarehouses = require('./getWarehouses');
+  const getWarehouseDetailForEdit = require('./getWarehouseDetailForEdit');
+  const getCategories = require('./getCategories');
 
   router.get(
     '/',
@@ -25,9 +27,19 @@ module.exports = (db) => {
     });
   });
 
-  router.get('/:warehouse_id/edit', (req, res) => {
-    res.render('admin/editWarehouse', {});
-  });
+  router.get(
+    '/:id/edit',
+    doAsync(async (req, res) => {
+      const {
+        params: { id: warehouse_id },
+      } = req;
+
+      const warehouse = await getWarehouseDetailForEdit(db, warehouse_id);
+      const categories = await getCategories(db);
+
+      res.render('admin/editWarehouse', { warehouse, categories });
+    })
+  );
 
   return router;
 };
