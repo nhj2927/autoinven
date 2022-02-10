@@ -159,13 +159,13 @@
         </table>
 
         <div class="centered-div">
-          <% if(role == 'user' && contract_info.c_state_id == 2) { %>
+          <% if(locals.role == 'user' && contract_info.c_state_id == 2) { %>
             <button class="btn btn-submit" data-bs-toggle="modal" data-bs-target="#paymentInfoModal">
               <%=__('contractDetail_payment')%>
             </button>
           <% } %>
 
-          <% if(role == 'admin') { 
+          <% if(locals.role == 'admin') { 
             if (contract_info.c_state_id == 1) { %>
             <button class="btn btn-submit" onclick="adminApproval('<%= contract_info.l_contract_id%>')">
               <%=__('contractDetail_approve')%>
