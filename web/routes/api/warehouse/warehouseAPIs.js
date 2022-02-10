@@ -83,7 +83,7 @@ const getWarehouseInfo = async (id, db) => {
 
 const registerWarehouse = async (req, db) => {
   const newWarehouse = getNewWarehouse(req.body); // 창고 가져오기
-  console.log(req.files);
+  const { device_ids } = req.body;
   if (newWarehouse.completion_date == '') {
     delete newWarehouse.completion_date;
   }
@@ -97,6 +97,11 @@ const registerWarehouse = async (req, db) => {
   }
   // 창고 등록
   const warehouse = await db.Warehouse.create(newWarehouse);
+  if (!warehouse) {
+    const err = new Error('warehouse register error');
+    err.statusCode(500);
+    throw err;
+  }
   // 이미지 등록
   for (index in whFiles) {
     const { path } = whFiles[index];
@@ -104,6 +109,19 @@ const registerWarehouse = async (req, db) => {
       url: path,
       warehouse_id: warehouse.warehouse_id,
     });
+  }
+  if (device_ids) {
+    for (i in device_ids) {
+      const iot_device = await db.IotDevice.create({
+        device_id: device_ids[i],
+        warehouse_id: warehouse.warehouse_id,
+      });
+      if (!iot_device) {
+        const err = new Error('iot device register error');
+        err.statusCode(500);
+        throw err;
+      }
+    }
   }
 
   return warehouse;
@@ -113,6 +131,7 @@ const editWarehouse = async (req, db) => {
   const { warehouse_id } = req.params;
   const newInfo = getNewWarehouse(req.body); // 새 창고정보 가져오기
   const addressInfo = getAddressInfo(req.body); // 주소 가져오기
+  const { iot_device_ids } = req.body; // iot 허브 디바이스 아이디들 가져오기
   const whFiles = req.files;
   // 주소가 기존에 존재하는지 검색(제약조건 때문)
   let address = await db.Address.findByPk(addressInfo.address);
@@ -122,8 +141,10 @@ const editWarehouse = async (req, db) => {
   }
   // 기존 창고 사진 모두 삭제
   const result = await db.WarehouseImage.destory({ where: { warehouse_id } });
+  // 기존 iot 디바이스 허브 아이디 모두 삭제
+  const result2 = await db.IotDevice.destory({ where: { warehouse_id } });
   // 창고 정보 업데이트
-  const result2 = await db.Warehouse.update(newInfo, {
+  const result3 = await db.Warehouse.update(newInfo, {
     where: { warehouse_id },
   });
   // 수정된 창고 사진 재등록
@@ -134,13 +155,25 @@ const editWarehouse = async (req, db) => {
       warehouse_id: warehouse.warehouse_id,
     });
   }
-  if (result2[0]) {
-    return result[0];
+  if (iot_device_ids) {
+    for (i in iot_device_ids) {
+      const iot_device = await db.IotDevice.create({
+        device_id: iot_device_ids[i],
+        warehouse_id: warehouse.warehouse_id,
+      });
+      if (!iot_device) {
+        const err = new Error('iot device register error');
+        err.statusCode(500);
+        throw err;
+      }
+    }
+  }
+  if (result3[0]) {
+    return result3[0];
   } else {
     const err = new Error('Warehouse Not found');
     err.statusCode = 404;
     throw err;
-    //res.status(404).send({ message: 'There is no such with the id!' });
   }
 };
 
@@ -193,6 +226,7 @@ const searchWarehouse = async (req, db) => {
       ],
       where: {
         category_id: type,
+        is_verified: true,
       },
       group: ['warehouse_id'],
       having: { available_area: { [Op.gte]: area } },
@@ -203,10 +237,58 @@ const searchWarehouse = async (req, db) => {
   }
 };
 
+const getAvailableArea = async (req, db) => {
+  const warehouse_id = req.params.warehouse_id;
+  let { startDate, endDate } = req.query;
+  if (!startDate || !endDate) {
+    const err = new Error('start date or end date is not proper.');
+    err.statusCode(400);
+    throw err;
+  }
+  const warehouse = await db.Warehouse.findOne({
+    attributes: [
+      'warehouse_id',
+      [
+        literal('(dedicated_area - IFNULL(SUM(lease_area),0))'),
+        'available_area',
+      ],
+    ],
+    include: [
+      {
+        model: db.LeaseContract,
+        required: false,
+        attributes: [],
+        where: {
+          [Op.or]: [
+            {
+              start_date: {
+                [Op.between]: [startDate, endDate],
+              },
+            },
+            {
+              end_date: {
+                [Op.between]: [startDate, endDate],
+              },
+            },
+          ],
+        },
+      },
+    ],
+    where: {
+      warehouse_id,
+    },
+    group: ['warehouse_id'],
+  });
+  //(3) 해당 창고들을 return
+  //  - 호출한 함수에서 지도에 찍고, 거리순으로 리스팅
+  return warehouse;
+};
+
 module.exports = {
   getAllWarehouses,
   getWarehouseInfo,
   registerWarehouse,
   editWarehouse,
   searchWarehouse,
+  getAvailableArea,
 };

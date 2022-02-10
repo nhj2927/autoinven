@@ -200,5 +200,7 @@
   "contract_state_waiting_for_payment": "PENDING PAYMENT",
   "contract_state_completed": "COMPLETED",
   "contract_state_rejected": "REJECTED",
-  "contract_state_expired": "EXPIRED"
+  "contract_state_expired": "EXPIRED",
+  "search_title" : "Search Warehouse",
+  "search_init" : "init"
 }
