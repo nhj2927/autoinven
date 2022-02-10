@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <%- include('../head') %>
+    <link rel="stylesheet" href="/css/warehouse.css" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <header style="z-index: 1000"><%- include('../partial/navbar') %></header>
+    <div class="inner img"></div>
+    <div class="inner main">
+      <!--페이징 기능 미구현-->
+      <ul class="pager" style="list-style: none; width: 90%">
+        <li style="display: flex; align-items: center">
+          <h2 style="font-family: nanum-eb"><%= __('warehouse_title') %></h2>
+          <% if(locals.role == 'admin') { %>
+          <button
+            class="add_wh"
+            onclick="location.href='/admin/warehouse/enroll';"
+          >
+            +
+          </button>
+          <% } %>
+          <input
+            type="text"
+            id="search"
+            class="input--text search"
+            style="margin-left: auto"
+          />
+          <button type = "submit" class="class="btn" id="search_button"
+          style="border: none; background: #FFF;"><img
+            src="/image/search.png"
+          />
+        </li>
+        <!--창고 정보 카드-->
+        <% for(var i = 0 ; i < warehouses.length; i++) { %>
+        <li>
+          <div class="warehouse_info">
+            <div class="container left">
+              <img class="image" src="#"+"<% warehouses[i].image %>"/>
+            </div>
+            <div class="container center">
+              <ul>
+                <li style="display: flex; align-items: center">
+                  <p
+                    class="wh_title"
+                    onclick="location.href='/warehouse/'+'<%= warehouses[i].id %>';"
+                  >
+                    <%= warehouses[i].name %>
+                  </p>
+                  <% if(warehouses[i].is_verified) { %>
+                  <span class="badge bg-primary"
+                    ><%= __('warehousedetail_verified') %></span
+                  >
+                  <% } %>
+                </li>
+                <li
+                  style="display: flex; margin-top: 1.5rem; align-items: center"
+                >
+                  <img
+                    class="img"
+                    src="/image/icon/map_mark_icon.svg"
+                    class="badge-svg"
+                  />
+                  <p class="wh_address"><%= warehouses[i].address %></p>
+                </li>
+                <li>
+                  <p class="wh_space">
+                    <%= __('warehouse_area') %>: <%= warehouses[i].area %>평
+                  </p>
+                </li>
+                <li>
+                  <p class="wh_term">
+                    <%= __('warehouse_period') %>: <%= warehouses[i].period %>
+                  </p>
+                </li>
+              </ul>
+            </div>
+            <div class="container right">
+              <% if(locals.role == 'admin') { %>}
+              <button
+                class="edit_wh"
+                onclick="location.href='/admin/warehouse/'+'<%= warehouses[i].id %>'+'/edit';"
+              >
+                수정하기
+              </button>
+              <% } %>
+            </div>
+          </div>
+        </li>
+        <% } %>
+      </ul>
+    </div>
+    <footer><%- include('../partial/footer') %></footer>
+  </body>
+</html>
