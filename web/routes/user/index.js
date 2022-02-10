@@ -60,11 +60,13 @@ module.exports = (db) => {
       const warehouse = await getWarehouseDetail(db, locale, warehouse_id);
 
       res.render('user/warehouseDetail', {
-        ...warehouse,
-        selected_start_date: start_date,
-        selected_end_date: end_date,
-        selected_area,
-        available_area,
+        warehouse,
+        lease_info: {
+          selected_start_date: start_date,
+          selected_end_date: end_date,
+          selected_area,
+          available_area,
+        },
       });
     })
   );
