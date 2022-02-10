@@ -2,6 +2,8 @@ module.exports = (db) => {
   const express = require('express');
   const router = express.Router();
 
+  const { doAsync } = require('$base/utils/asyncWrapper');
+
   // 메인페이지
   router.get('/', (req, res) => {
     res.render('main');
@@ -18,7 +20,23 @@ module.exports = (db) => {
   });
 
   // 창고 검색
-  router.get('/search', (req, res) => {});
+  router.get(
+    '/search',
+    doAsync(async (req, res) => {
+      const warehouses = await db.Warehouse.findAll({
+        include: [
+          {
+            model: db.Address,
+            attributes: ['latitude', 'longitude', 'zip_code'],
+          },
+          {
+            model: db.WarehouseImage,
+          },
+        ],
+      });
+      res.render('common/search', { warehouses, user });
+    })
+  );
 
   // 내 정보 수정
   router.get('/myinfo', (req, res) => {

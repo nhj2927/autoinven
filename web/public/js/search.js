@@ -92,7 +92,7 @@ const searchResultListing = (
                   <div class="text-sm font-bold sm:text-lg ">${lists[l].distance}km</div>
               </div>
               <div class="flex w-full flex-row-reverse">
-              <a href="/user/warehouse/${warehouses[index].warehouse_id}" class="text-base font-bold text-purple-600 sm:text-lg">${detail}</a>
+              <a href="/warehouse/${warehouses[index].warehouse_id}" class="text-base font-bold text-purple-600 sm:text-lg">${detail}</a>
               </div>
             </div>
           </div>
@@ -124,7 +124,7 @@ const searchResultListing = (
                   <div class="text-sm font-bold sm:text-lg">${lists[l].distance}km</div>
               </div>
               <div class="flex w-full flex-row-reverse justify-between">
-                <a href="/user/warehouse/${warehouses[index].warehouse_id}?start_date=${startDate}&end_date=${endDate}&selected_area=${leaseArea}&available_area=${lists[l].available_area}" class="text-base font-bold text-right text-purple-600 sm:text-lg">${detail}</a>
+                <a href="/warehouse/${warehouses[index].warehouse_id}?start_date=${startDate}&end_date=${endDate}&selected_area=${leaseArea}&available_area=${lists[l].available_area}" class="text-base font-bold text-right text-purple-600 sm:text-lg">${detail}</a>
                 <div class="text-sm font-bold sm:text-lg text-blue-600">${available_area}</div>
                 </div>
             </div>
@@ -194,7 +194,7 @@ const listing = (lists) => {
                   <div class="text-sm font-extrabold sm:text-lg">${price}</div>
               </div>
               <div class="flex w-full flex-row-reverse">
-                <a href="/user/warehouse/${warehouses[index].warehouse_id}" class="text-base font-bold text-purple-600 sm:text-lg">${detail}</a>
+                <a href="/warehouse/${warehouses[index].warehouse_id}" class="text-base font-bold text-purple-600 sm:text-lg">${detail}</a>
               </div>
             </div>
           </div>
