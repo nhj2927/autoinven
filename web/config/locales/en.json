@@ -106,6 +106,8 @@
   "warehousedetailwithitem_badge_before_in": "BEFORE",
   "warehouse_title": "Warehouse Management",
   "warehouse_verify": "verified",
+  "warehouse_area": "contract area",
+  "warehouse_period": "contract period",
   "leaseManagement_title": "Contract Management",
   "table_num": "Num",
   "table_state": "State",

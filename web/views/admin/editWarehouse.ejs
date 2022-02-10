@@ -36,12 +36,16 @@
           창고정보
         </h4>
         <div>
+          <% if(warehouses.is_verified) { %>
           <input
             id="is_verified"
             class="form-check-input"
             type="checkbox"
             checked="true"
           />
+          <%} else {%>
+          <input id="is_verified" class="form-check-input" type="checkbox" />
+          <% } %>
           <label class="form-check-label" for="is_verified"> 인증여부 </label>
         </div>
         <table class="table info-table">
@@ -61,6 +65,7 @@
                 type="text"
                 class="form-control"
                 style="display: lnline"
+                value="<%= warehouses.name %>"
               />
             </td>
           </tr>
@@ -73,6 +78,7 @@
                 class="form-control"
                 style="display: inline; width: 80%; text-align: right"
                 min="0"
+                value="<%= warehouses.rent %>"
               />
               <span>원 per Day per ㎡</span>
             </td>
@@ -80,15 +86,33 @@
           <tr>
             <td class="info-table-td-head">우편번호</td>
             <td class="info-table-td">
-              <input id="zip_code" type="text" class="form-control" disabled />
+              <input
+                id="zip_code"
+                type="text"
+                class="form-control"
+                value="<%= warehouses.zip_code %>"
+                disabled
+              />
             </td>
             <td class="info-table-td-head">위도</td>
             <td class="info-table-td">
-              <input id="latitude" type="text" class="form-control" disabled />
+              <input
+                id="latitude"
+                type="text"
+                class="form-control"
+                value="<%= warehouses.lattitude %>"
+                disabled
+              />
             </td>
             <td class="info-table-td-head">경도</td>
             <td class="info-table-td">
-              <input id="longitude" type="text" class="form-control" disabled />
+              <input
+                id="longitude"
+                type="text"
+                class="form-control"
+                value="<%= warehouses.longitude %>"
+                disabled
+              />
             </td>
           </tr>
           <tr>
@@ -99,6 +123,7 @@
                 type="text"
                 class="form-control"
                 style="display: inline; width: 85%"
+                value="<%= warehouses.address1 %>"
                 disabled
               />
               <button
@@ -113,26 +138,50 @@
           <tr>
             <td class="info-table-td-head">상세주소</td>
             <td class="info-table-td" colspan="5">
-              <input id="address2_ko" type="text" class="form-control" />
+              <input
+                id="address2_ko"
+                type="text"
+                class="form-control"
+                value="<%= warehouses.address2 %>"
+              />
             </td>
           </tr>
           <tr>
             <td class="info-table-td-head">종류</td>
             <td class="info-table-td" colspan="2">
               <select name="category_id" class="form-select">
-                <option value="1">일반창고</option>
-                <option value="2">냉동/냉장창고</option>
-                <option value="3">야지</option>
+                <% for (var i = 0 ; i < warehouses.categories.length ; i++) { %>
+                <% if(warehouses.categories[i].name == warehouses.category) { %>
+                <option
+                  value="<%= warehouses.categories[i].category_id %>"
+                  selected
+                >
+                  <%= warehouses.categories[i].name %>
+                </option>
+                <% } else { %>
+                <option value="<%= warehouses.categories[i].category_id %>">
+                  <%= warehouses.categories[i].name %>
+                </option>
+                <% } %> <% } %>
               </select>
             </td>
             <td class="info-table-td-head">시설유무</td>
             <td class="info-table-td" colspan="2">
               <div div class="form-check">
+                <% if(warehouses.docking_station) { %>
+                <input
+                  id="docking_station"
+                  class="form-check-input"
+                  type="checkbox"
+                  checked
+                />
+                <% } else { %>
                 <input
                   id="docking_station"
                   class="form-check-input"
                   type="checkbox"
                 />
+                <% } %>
                 <label
                   class="form-check-label"
                   for="docking_station"
@@ -141,12 +190,22 @@
                   도킹시설
                 </label>
 
+                <% if(warehouses.rack) { %>
+                <input
+                  id="rack"
+                  class="form-check-input"
+                  type="checkbox"
+                  style="margin-left: 1rem"
+                  checked
+                />
+                <% } else { %>
                 <input
                   id="rack"
                   class="form-check-input"
                   type="checkbox"
                   style="margin-left: 1rem"
                 />
+                <% } %>
                 <label
                   class="form-check-label"
                   for="rack"
@@ -154,12 +213,24 @@
                 >
                   파레트렉
                 </label>
+
+                <% if(warehouses.commercial_lift) { %>
                 <input
                   id="commercial_lift"
                   class="form-check-input"
                   type="checkbox"
                   style="margin-left: 1rem"
+                  checked
                 />
+                <% } else { %>
+                <input
+                  id="commercial_lift"
+                  class="form-check-input"
+                  type="checkbox"
+                  style="margin-left: 1rem"
+                  checked
+                />
+                <% } %>
                 <label
                   class="form-check-label"
                   for="commercial_lift"
@@ -167,12 +238,24 @@
                 >
                   엘리베이터
                 </label>
+
+                <% if(warehouses.is_bonded) { %>
                 <input
                   id="is_bonded"
                   class="form-check-input"
                   type="checkbox"
                   style="margin-left: 1rem"
+                  checked
                 />
+                <% } else { %>
+                <input
+                  id="is_bonded"
+                  class="form-check-input"
+                  type="checkbox"
+                  style="margin-left: 1rem"
+                  checked
+                />
+                <% } %>
                 <label
                   class="form-check-label"
                   for="is_bonded"
@@ -191,6 +274,7 @@
                 type="number"
                 class="form-control info-td-area"
                 min="0"
+                value="<%= warehouses.land_area %>"
               />
               <span>㎡</span>
             </td>
@@ -201,6 +285,7 @@
                 type="number"
                 class="form-control info-td-area"
                 min="0"
+                value="<%= warehouses.common_area %>"
               />
               <span>㎡</span>
             </td>
@@ -213,6 +298,7 @@
                 type="number"
                 class="form-control info-td-area"
                 min="0"
+                value="<%= warehouses.dedicated_area %>"
               />
               <span>㎡</span>
             </td>
@@ -223,6 +309,7 @@
                 type="number"
                 class="form-control info-td-area"
                 min="0"
+                value="<%= warehouses.total_ground_area %>"
               />
               <span>㎡</span>
             </td>
@@ -251,6 +338,7 @@
                 type="number"
                 class="form-control info-td-area"
                 min="0"
+                value="<%= warehouses.story %>"
               />
               <span>층</span>
             </td>
@@ -261,6 +349,7 @@
                 type="number"
                 class="form-control info-td-area"
                 min="0"
+                value="<%= warehouses.height %>"
               />
               <span>m</span>
             </td>
@@ -276,7 +365,7 @@
                 id="access_ko"
                 type="text"
                 class="form-control"
-                placeholder="ex)정왕IC 9km, 남안산IC 10km"
+                value="<%= warehouses.access %>"
               />
             </td>
           </tr>
@@ -287,7 +376,7 @@
                 id="restriction_ko"
                 type="text"
                 class="form-control"
-                placeholder="ex)전차종 출입가능"
+                value="<%= warehouses.restriction %>"
               />
             </td>
           </tr>
@@ -300,7 +389,9 @@
                 class="form-control enroll-text-area"
                 cols="40"
                 rows="5"
-              ></textarea>
+              >
+<%= warehouses.description %></textarea
+              >
             </td>
           </tr>
           <tr>
@@ -311,8 +402,9 @@
                 class="form-control enroll-text-area"
                 cols="40"
                 rows="5"
-                placeholder="ex) 물류장비/보안설비/화재설비 등"
-              ></textarea>
+              >
+<%= warehouses.note %></textarea
+              >
             </td>
           </tr>
         </table>
@@ -330,7 +422,12 @@
           <tr>
             <td class="info-table-td-head">창고명(영문)</td>
             <td class="info-table-td">
-              <input id="name_en" type="text" class="form-control" />
+              <input
+                id="name_en"
+                type="text"
+                class="form-control"
+                value="<%= warehouses.name_en %>"
+              />
             </td>
           </tr>
           <tr>
