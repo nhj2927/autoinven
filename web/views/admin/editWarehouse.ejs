@@ -19,7 +19,7 @@
             이미지를 첨부 하려면 이미지 업로드 버튼을 클릭하거나 파일을 드래그
             앤 드롭 하세요 (최대 5개)
           </p>
-          <% for(var i = 0; i < warehouse.image.length; i++) { %> <%
+          <% for(var i = 0; i < warehouse.images.length; i++) { %> <%
           imageLoader(warehouse.image[i].url) %> <% } %>
         </div>
         <label class="input-file-button" for="btnAtt"> 이미지 업로드 </label>
@@ -154,14 +154,11 @@
               <select name="category_id" class="form-select">
                 <% for (var i = 0 ; i < categories.length ; i++) { %> <%
                 if(categories[i].name == warehouse.category) { %>
-                <option
-                  value="<%= warehouse.categories[i].category_id %>"
-                  selected
-                >
+                <option value="<%= categories[i].category_id %>" selected>
                   <%= categories[i].name %>
                 </option>
                 <% } else { %>
-                <option value="<%= warehouse.categories[i].category_id %>">
+                <option value="<%= categories[i].category_id %>">
                   <%= categories[i].name %>
                 </option>
                 <% } %> <% } %>
@@ -319,6 +316,50 @@
         </table>
       </div>
       <!--창고 정보-->
+
+      <!--IOT 디바이스 등록-->
+      <div>
+        <h4 class="enroll-warehouse-sub-title">
+          IOT 디바이스
+          <button id="add-device" class="btn" onclick="addDevice()">
+            <img
+              src="/image/icon/plus-solid-white.svg"
+              class="add-device-icon"
+            />
+          </button>
+        </h4>
+
+        <table id="iot-device-table" class="table info-table">
+          <tbody id="iot-device-table-body">
+            <% if(warehouse.devices.length) { %> <% for(var i = 0 ; i <
+            warehouse.devices.length ; i++) { %>
+            <tr>
+              <td class="info-table-td-head">디바이스ID</td>
+              <td class="info-table-td">
+                <input
+                  id="device-id"
+                  class="form-control"
+                  value="<%= warehouse.devices[i].device_id %>"
+                />
+                <button id="btn btn-sub">삭제</button>
+              </td>
+            </tr>
+            <% } %> <% } else { %>
+            <tr>
+              <td class="info-table-td-head">디바이스ID</td>
+              <td class="info-table-td">
+                <input
+                  id="device-id"
+                  class="form-control"
+                  placeholder="ex) DEVICE-1"
+                />
+              </td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+      <!--IOT 디바이스 등록-->
 
       <!--창고 상세-->
       <div id="warehouse-detail-info-div">
@@ -518,6 +559,43 @@
       <%- include('../partial/footer') %>
     </footer>
   </body>
+  <!--Iot 디바이스 추가/삭제 버튼-->
+  <script>
+    let iot_table_row_num = warehouse.devices.length;
+
+    subDevice = (row_num) => {
+      document.getElementById('tr-' + row_num).remove();
+    };
+    addDevice = () => {
+      iot_table_row_num++;
+
+      const iot_table_body = document.getElementById('iot-device-table-body');
+      const tr = document.createElement('tr');
+      const td_header = document.createElement('td');
+      const td = document.createElement('td');
+      const input = document.createElement('input');
+      const sub_btn = document.createElement('button');
+
+      tr.setAttribute('id', 'tr-' + iot_table_row_num);
+      td_header.setAttribute('class', 'info-table-td-head');
+      td_header.innerText = '디바이스ID';
+      td.setAttribute('class', 'info-table-td');
+      input.setAttribute('id', 'device-id');
+      input.setAttribute('class', 'form-control');
+      input.setAttribute('placeholder', 'ex) DEVICE-1');
+      sub_btn.setAttribute('class', 'btn btn-sub');
+      sub_btn.setAttribute('onclick', 'subDevice(' + iot_table_row_num + ')');
+      sub_btn.setAttribute('id', 'sub-device-' + iot_table_row_num);
+      sub_btn.innerHTML = '삭제';
+
+      td.appendChild(input);
+      td.appendChild(sub_btn);
+      tr.appendChild(td_header);
+      tr.appendChild(td);
+      iot_table_body.appendChild(tr);
+    };
+  </script>
+  <!--Iot 디바이스 추가 버튼-->
   <!--formdata 생성 및 post요청-->
   <script>
     clkSubmit = () => {

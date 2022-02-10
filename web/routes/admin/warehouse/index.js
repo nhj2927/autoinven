@@ -73,14 +73,8 @@ module.exports = (db) => {
       is_verified: false,
       docking_station: true,
       rack: true,
-      images: [
-        {
-          url: efwfwefewfwef,
-        },
-        {
-          url: efwfwefewfwef,
-        },
-      ],
+      images: [],
+      devices: [{ device_id: 11 }],
     };
     const categories = [
       {
