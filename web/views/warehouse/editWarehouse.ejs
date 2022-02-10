@@ -19,6 +19,8 @@
             이미지를 첨부 하려면 이미지 업로드 버튼을 클릭하거나 파일을 드래그
             앤 드롭 하세요 (최대 5개)
           </p>
+          <% for(var i = 0; i < warehouse.images.length; i++) { %> <%
+          imageLoader(warehouse.image[i].url) %> <% } %>
         </div>
         <label class="input-file-button" for="btnAtt"> 이미지 업로드 </label>
         <input
@@ -26,7 +28,6 @@
           type="file"
           multiple="multiple"
           style="display: none"
-          accept="image/png, image/jpeg, image/jpg"
         />
       </div>
       <!--창고 사진-->
@@ -37,12 +38,16 @@
           창고정보
         </h4>
         <div>
+          <% if(warehouse.is_verified) { %>
           <input
             id="is_verified"
             class="form-check-input"
             type="checkbox"
             checked="true"
           />
+          <%} else {%>
+          <input id="is_verified" class="form-check-input" type="checkbox" />
+          <% } %>
           <label class="form-check-label" for="is_verified"> 인증여부 </label>
         </div>
         <table class="table info-table">
@@ -62,6 +67,7 @@
                 type="text"
                 class="form-control"
                 style="display: lnline"
+                value="<%= warehouse.name %>"
               />
             </td>
           </tr>
@@ -74,6 +80,7 @@
                 class="form-control"
                 style="display: inline; width: 80%; text-align: right"
                 min="0"
+                value="<%= warehouse.rent %>"
               />
               <span>원 per Day per ㎡</span>
             </td>
@@ -81,15 +88,33 @@
           <tr>
             <td class="info-table-td-head">우편번호</td>
             <td class="info-table-td">
-              <input id="zip_code" type="text" class="form-control" disabled />
+              <input
+                id="zip_code"
+                type="text"
+                class="form-control"
+                value="<%= warehouse.zip_code %>"
+                disabled
+              />
             </td>
             <td class="info-table-td-head">위도</td>
             <td class="info-table-td">
-              <input id="latitude" type="text" class="form-control" disabled />
+              <input
+                id="latitude"
+                type="text"
+                class="form-control"
+                value="<%= warehouse.latitude %>"
+                disabled
+              />
             </td>
             <td class="info-table-td-head">경도</td>
             <td class="info-table-td">
-              <input id="longitude" type="text" class="form-control" disabled />
+              <input
+                id="longitude"
+                type="text"
+                class="form-control"
+                value="<%= warehouse.longitude %>"
+                disabled
+              />
             </td>
           </tr>
           <tr>
@@ -100,6 +125,7 @@
                 type="text"
                 class="form-control"
                 style="display: inline; width: 85%"
+                value="<%= warehouse.address1 %>"
                 disabled
               />
               <button
@@ -114,26 +140,47 @@
           <tr>
             <td class="info-table-td-head">상세주소</td>
             <td class="info-table-td" colspan="5">
-              <input id="address2_ko" type="text" class="form-control" />
+              <input
+                id="address2_ko"
+                type="text"
+                class="form-control"
+                value="<%= warehouse.address2 %>"
+              />
             </td>
           </tr>
           <tr>
             <td class="info-table-td-head">종류</td>
             <td class="info-table-td" colspan="2">
               <select name="category_id" class="form-select">
-                <option value="1">일반창고</option>
-                <option value="2">냉동/냉장창고</option>
-                <option value="3">야지</option>
+                <% for (var i = 0 ; i < categories.length ; i++) { %> <%
+                if(categories[i].name == warehouse.category) { %>
+                <option value="<%= categories[i].category_id %>" selected>
+                  <%= categories[i].name %>
+                </option>
+                <% } else { %>
+                <option value="<%= categories[i].category_id %>">
+                  <%= categories[i].name %>
+                </option>
+                <% } %> <% } %>
               </select>
             </td>
             <td class="info-table-td-head">시설유무</td>
             <td class="info-table-td" colspan="2">
               <div div class="form-check">
+                <% if(warehouse.docking_station) { %>
+                <input
+                  id="docking_station"
+                  class="form-check-input"
+                  type="checkbox"
+                  checked
+                />
+                <% } else { %>
                 <input
                   id="docking_station"
                   class="form-check-input"
                   type="checkbox"
                 />
+                <% } %>
                 <label
                   class="form-check-label"
                   for="docking_station"
@@ -142,12 +189,22 @@
                   도킹시설
                 </label>
 
+                <% if(warehouse.rack) { %>
+                <input
+                  id="rack"
+                  class="form-check-input"
+                  type="checkbox"
+                  style="margin-left: 1rem"
+                  checked
+                />
+                <% } else { %>
                 <input
                   id="rack"
                   class="form-check-input"
                   type="checkbox"
                   style="margin-left: 1rem"
                 />
+                <% } %>
                 <label
                   class="form-check-label"
                   for="rack"
@@ -155,12 +212,24 @@
                 >
                   파레트렉
                 </label>
+
+                <% if(warehouse.commercial_lift) { %>
                 <input
                   id="commercial_lift"
                   class="form-check-input"
                   type="checkbox"
                   style="margin-left: 1rem"
+                  checked
                 />
+                <% } else { %>
+                <input
+                  id="commercial_lift"
+                  class="form-check-input"
+                  type="checkbox"
+                  style="margin-left: 1rem"
+                  checked
+                />
+                <% } %>
                 <label
                   class="form-check-label"
                   for="commercial_lift"
@@ -168,12 +237,24 @@
                 >
                   엘리베이터
                 </label>
+
+                <% if(warehouse.is_bonded) { %>
                 <input
                   id="is_bonded"
                   class="form-check-input"
                   type="checkbox"
                   style="margin-left: 1rem"
+                  checked
                 />
+                <% } else { %>
+                <input
+                  id="is_bonded"
+                  class="form-check-input"
+                  type="checkbox"
+                  style="margin-left: 1rem"
+                  checked
+                />
+                <% } %>
                 <label
                   class="form-check-label"
                   for="is_bonded"
@@ -192,6 +273,7 @@
                 type="number"
                 class="form-control info-td-area"
                 min="0"
+                value="<%= warehouse.land_area %>"
               />
               <span>㎡</span>
             </td>
@@ -202,6 +284,7 @@
                 type="number"
                 class="form-control info-td-area"
                 min="0"
+                value="<%= warehouse.common_area %>"
               />
               <span>㎡</span>
             </td>
@@ -214,6 +297,7 @@
                 type="number"
                 class="form-control info-td-area"
                 min="0"
+                value="<%= warehouse.dedicated_area %>"
               />
               <span>㎡</span>
             </td>
@@ -224,6 +308,7 @@
                 type="number"
                 class="form-control info-td-area"
                 min="0"
+                value="<%= warehouse.total_ground_area %>"
               />
               <span>㎡</span>
             </td>
@@ -231,6 +316,50 @@
         </table>
       </div>
       <!--창고 정보-->
+
+      <!--IOT 디바이스 등록-->
+      <div>
+        <h4 class="enroll-warehouse-sub-title">
+          IOT 디바이스
+          <button id="add-device" class="btn" onclick="addDevice()">
+            <img
+              src="/image/icon/plus-solid-white.svg"
+              class="add-device-icon"
+            />
+          </button>
+        </h4>
+
+        <table id="iot-device-table" class="table info-table">
+          <tbody id="iot-device-table-body">
+            <% if(warehouse.devices.length) { %> <% for(var i = 0 ; i <
+            warehouse.devices.length ; i++) { %>
+            <tr>
+              <td class="info-table-td-head">디바이스ID</td>
+              <td class="info-table-td">
+                <input
+                  id="device-id"
+                  class="form-control"
+                  value="<%= warehouse.devices[i].device_id %>"
+                />
+                <button id="btn btn-sub">삭제</button>
+              </td>
+            </tr>
+            <% } %> <% } else { %>
+            <tr>
+              <td class="info-table-td-head">디바이스ID</td>
+              <td class="info-table-td">
+                <input
+                  id="device-id"
+                  class="form-control"
+                  placeholder="ex) DEVICE-1"
+                />
+              </td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+      <!--IOT 디바이스 등록-->
 
       <!--창고 상세-->
       <div id="warehouse-detail-info-div">
@@ -252,6 +381,7 @@
                 type="number"
                 class="form-control info-td-area"
                 min="0"
+                value="<%= warehouse.story %>"
               />
               <span>층</span>
             </td>
@@ -262,6 +392,7 @@
                 type="number"
                 class="form-control info-td-area"
                 min="0"
+                value="<%= warehouse.height %>"
               />
               <span>m</span>
             </td>
@@ -277,7 +408,7 @@
                 id="access_ko"
                 type="text"
                 class="form-control"
-                placeholder="ex)정왕IC 9km, 남안산IC 10km"
+                value="<%= warehouse.access %>"
               />
             </td>
           </tr>
@@ -288,7 +419,7 @@
                 id="restriction_ko"
                 type="text"
                 class="form-control"
-                placeholder="ex)전차종 출입가능"
+                value="<%= warehouse.restriction %>"
               />
             </td>
           </tr>
@@ -301,7 +432,9 @@
                 class="form-control enroll-text-area"
                 cols="40"
                 rows="5"
-              ></textarea>
+              >
+<%= warehouse.description %></textarea
+              >
             </td>
           </tr>
           <tr>
@@ -312,8 +445,9 @@
                 class="form-control enroll-text-area"
                 cols="40"
                 rows="5"
-                placeholder="ex) 물류장비/보안설비/화재설비 등"
-              ></textarea>
+              >
+<%= warehouse.note %></textarea
+              >
             </td>
           </tr>
         </table>
@@ -331,7 +465,12 @@
           <tr>
             <td class="info-table-td-head">창고명(영문)</td>
             <td class="info-table-td">
-              <input id="name_en" type="text" class="form-control" />
+              <input
+                id="name_en"
+                type="text"
+                class="form-control"
+                value="<%= warehouse.name_en %>"
+              />
             </td>
           </tr>
           <tr>
@@ -341,6 +480,7 @@
                 id="address1_en"
                 type="text"
                 class="form-control"
+                value="<%= warehouse.address1_en %>"
                 disabled
               />
             </td>
@@ -348,19 +488,34 @@
           <tr>
             <td class="info-table-td-head">상세주소(영문)</td>
             <td class="info-table-td">
-              <input id="address2_en" type="text" class="form-control" />
+              <input
+                id="address2_en"
+                type="text"
+                class="form-control"
+                value="<%= warehouse.address2_en %>"
+              />
             </td>
           </tr>
           <tr>
             <td class="info-table-td-head">출입가능차량(영문)</td>
             <td class="info-table-td">
-              <input id="restriction_en" type="text" class="form-control" />
+              <input
+                id="restriction_en"
+                type="text"
+                class="form-control"
+                value="<%= warehouse.restriction_en %>"
+              />
             </td>
           </tr>
           <tr>
             <td class="info-table-td-head">접근성(영문)</td>
             <td class="info-table-td">
-              <input id="access_en" type="text" class="form-control" />
+              <input
+                id="access_en"
+                type="text"
+                class="form-control"
+                value="<%= warehouse.access_en %>"
+              />
             </td>
           </tr>
           <tr>
@@ -371,7 +526,9 @@
                 class="form-control enroll-text-area"
                 cols="40"
                 rows="5"
-              ></textarea>
+              >
+<%= warehouse.description_en %></textarea
+              >
             </td>
           </tr>
           <tr>
@@ -382,7 +539,9 @@
                 class="form-control enroll-text-area"
                 cols="40"
                 rows="5"
-              ></textarea>
+              >
+<%= warehouse.note_en %></textarea
+              >
             </td>
           </tr>
         </table>
@@ -390,7 +549,7 @@
       <!--영문 정보-->
       <div class="centered-div">
         <button id="submit" class="btn btn-submit" onclick="clkSubmit()">
-          등록하기
+          수정하기
         </button>
         <button class="btn btn-cancel" onclick="history.back()">취소</button>
       </div>
@@ -400,6 +559,43 @@
       <%- include('../partial/footer') %>
     </footer>
   </body>
+  <!--Iot 디바이스 추가/삭제 버튼-->
+  <script>
+    let iot_table_row_num = warehouse.devices.length;
+
+    subDevice = (row_num) => {
+      document.getElementById('tr-' + row_num).remove();
+    };
+    addDevice = () => {
+      iot_table_row_num++;
+
+      const iot_table_body = document.getElementById('iot-device-table-body');
+      const tr = document.createElement('tr');
+      const td_header = document.createElement('td');
+      const td = document.createElement('td');
+      const input = document.createElement('input');
+      const sub_btn = document.createElement('button');
+
+      tr.setAttribute('id', 'tr-' + iot_table_row_num);
+      td_header.setAttribute('class', 'info-table-td-head');
+      td_header.innerText = '디바이스ID';
+      td.setAttribute('class', 'info-table-td');
+      input.setAttribute('id', 'device-id');
+      input.setAttribute('class', 'form-control');
+      input.setAttribute('placeholder', 'ex) DEVICE-1');
+      sub_btn.setAttribute('class', 'btn btn-sub');
+      sub_btn.setAttribute('onclick', 'subDevice(' + iot_table_row_num + ')');
+      sub_btn.setAttribute('id', 'sub-device-' + iot_table_row_num);
+      sub_btn.innerHTML = '삭제';
+
+      td.appendChild(input);
+      td.appendChild(sub_btn);
+      tr.appendChild(td_header);
+      tr.appendChild(td);
+      iot_table_body.appendChild(tr);
+    };
+  </script>
+  <!--Iot 디바이스 추가 버튼-->
   <!--formdata 생성 및 post요청-->
   <script>
     clkSubmit = () => {
@@ -449,7 +645,7 @@
       }
       $.ajax({
         url: server_url + 'api/warehouse',
-        type: 'POST',
+        type: 'GET',
         enctype: 'multipart/form-data',
         data: formdata,
         processData: false,
@@ -561,22 +757,13 @@
     attZone.addEventListener(
       'drop',
       (e) => {
+        var files = {};
         e.preventDefault();
         e.stopPropagation();
-        const dt = e.dataTransfer;
-        let files = {};
-        let extension;
-        let isSuccess;
+        var dt = e.dataTransfer;
         files = dt.files;
-        fileTypes = ['jpg', 'jpeg', 'png'];
         for (f of files) {
-          if (sel_files.length < max_images) {
-            extension = f.name.split('.').pop().toLowerCase();
-            isSuccess = fileTypes.indexOf(extension) > -1;
-            if (isSuccess) {
-              imageLoader(f);
-            }
-          }
+          if (sel_files.length < max_images) imageLoader(f);
         }
       },
       false
