@@ -85,9 +85,6 @@ app.use(i18n);
 
 // 10) 각 라우터에 인자값을 넘겨주는 것
 app.use('/', require('./routes')(db));
-app.use('/auth', require('./routes/auth')(db));
-app.use('/user', require('./routes/user')(db));
-app.use('/admin', require('./routes/admin')(db));
 app.use('/api', require('./routes/api')(db));
 
 // 11) 다국어 지원
