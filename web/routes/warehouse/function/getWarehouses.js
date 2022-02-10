@@ -8,7 +8,7 @@ const getImages = (images) => {
   }
 };
 
-module.exports = async (db, user_email, locale) => {
+module.exports = async (db, locale, user_email) => {
   const { fn, col } = require('sequelize');
   const getFullAddress = require('$base/utils/getFullAddress');
   const getLocaleLanguageValue = require('$base/utils/getLocaleLanguageValue');
@@ -40,7 +40,6 @@ module.exports = async (db, user_email, locale) => {
       ],
       include: {
         model: db.WarehouseImage,
-        required: true,
         attributes: ['url'],
       },
     },

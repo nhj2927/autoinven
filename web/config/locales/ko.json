@@ -200,5 +200,7 @@
   "contract_state_waiting_for_payment": "결제대기중",
   "contract_state_completed": "계약완료",
   "contract_state_rejected": "승인거절",
-  "contract_state_expired": "기간만료"
+  "contract_state_expired": "기간만료",
+  "search_title" : "창고 검색",
+  "search_init" : "초기화"
 }

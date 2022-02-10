@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <%- include('../head') %>
     <link rel="stylesheet" href="/css/qrPopup.css" />
+    <link href="/dist/output.css" rel="stylesheet" />
   </head>
   <body>
     <div class="container">
@@ -13,8 +14,8 @@
         >
       </div>
 
-      <div id="qr_div">
-        <img id="qr_code" src="<%= qr_code%>" />
+      <div class="flex justify-center" id="qr_div">
+        <img class="w-80 lg:w-60" id="qr_code" src="<%= qr_code%>" />
       </div>
     </div>
 

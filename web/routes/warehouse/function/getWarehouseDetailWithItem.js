@@ -63,10 +63,11 @@ const getItemsOfWarehouse = (contracts) => {
   }
 };
 
-module.exports = async (db, locale, warehouse_id) => {
+module.exports = async (db, locale, warehouse_id, user_email) => {
   const { fn, col } = require('sequelize');
 
   const getLocaleLanguageValue = require('$base/utils/getLocaleLanguageValue');
+  const where_clause = user_email ? { user_email } : null;
 
   const warehouse_result = await db.Warehouse.findOne({
     attributes: {
@@ -94,6 +95,7 @@ module.exports = async (db, locale, warehouse_id) => {
       },
       {
         model: db.LeaseContract,
+        where: where_clause,
         include: {
           model: db.Item,
           attributes: {

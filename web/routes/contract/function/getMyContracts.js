@@ -1,4 +1,5 @@
-module.exports = async (db, locale) => {
+// 자신의 계약목록
+module.exports = async (db, user_email, locale) => {
   const { fn, col } = require('sequelize');
   const getLocaleLanguageValue = require('$base/utils/getLocaleLanguageValue');
 
@@ -21,18 +22,12 @@ module.exports = async (db, locale) => {
         'createdAt',
       ],
     ],
-    include: [
-      {
-        model: db.Warehouse,
-        required: true,
-        attributes: ['name_ko', 'name_en'],
-      },
-      {
-        model: db.User,
-        required: true,
-        attributes: ['name'],
-      },
-    ],
+    where: { user_email },
+    include: {
+      model: db.Warehouse,
+      required: true,
+      attributes: ['name_ko', 'name_en'],
+    },
   });
 
   const contracts = contracts_result.map((contract) => {
@@ -48,7 +43,6 @@ module.exports = async (db, locale) => {
       area: contract.lease_area,
       price: contract.amount,
       created_date: contract.createdAt,
-      contractor_name: contract.User.name,
     };
   });
 

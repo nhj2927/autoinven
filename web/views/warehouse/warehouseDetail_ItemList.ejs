@@ -30,7 +30,11 @@
       <script>
         document
           .getElementById("item_image_'<%=i%>")
+<<<<<<< HEAD:web/views/partial/warehouseItemList.ejs
+          .setAttribute('src', server_url + '<%=items[i].image%>');
+=======
           .setAttribute('src', server_url + '<%= items[i].image%>');
+>>>>>>> 32b6c73e59b6123fd53ff157f86c476fe5d90cf2:web/views/warehouse/warehouseDetail_ItemList.ejs
       </script>
       <div class="item-list-text-div">
         <div class="item-list-title"><%= items[i].name%></div>

@@ -26,7 +26,16 @@ module.exports = (db) => {
     })
   );
 
-  // 3) 특정 id 창고 조회
+  // 3) 해당 창고 가용공간 조회
+  router.get(
+    '/:warehouse_id/available',
+    doAsync(async (req, res, next) => {
+      const warehouse = await warehouseAPIs.getAvailableArea(req, db);
+      res.send(warehouse);
+    })
+  );
+
+  // 4) 특정 id 창고 조회
   router.get(
     '/:id',
     doAsync(async (req, res, next) => {
@@ -36,7 +45,7 @@ module.exports = (db) => {
     })
   );
 
-  // 4) 창고 등록
+  // 5) 창고 등록
   router.post(
     '/',
     upload.array('images', 6),
@@ -47,7 +56,7 @@ module.exports = (db) => {
     })
   );
 
-  // 5) 창고 수정
+  // 6) 창고 수정
   router.put(
     '/:warehouse_id',
     doAsync(async (req, res, next) => {
@@ -55,12 +64,6 @@ module.exports = (db) => {
       res.send({ message: `${result} row(s) affected` });
     })
   );
-
-  // 테스트임 나중에 지우기
-  router.post('/img', (req, res, next) => {
-    console.log(warehouseId);
-    res.send('good');
-  });
 
   return router;
 };

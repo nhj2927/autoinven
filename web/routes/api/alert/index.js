@@ -3,7 +3,7 @@ module.exports = (db) => {
   const router = express.Router();
 
   const { doAsync } = require('$base/utils/asyncWrapper');
-  const alert = require('./alert');
+  const alert = require('./function/alert');
 
   // 센서값 비정상일때 문자메세지 알림
   router.get(
@@ -16,8 +16,6 @@ module.exports = (db) => {
       });
     })
   );
-
-  router.put('/:warehouse_id', (req, res) => {});
 
   return router;
 };
