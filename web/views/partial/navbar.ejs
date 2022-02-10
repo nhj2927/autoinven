@@ -1,3 +1,4 @@
+<script src="/js/signout.js"></script>
 <div class="nav_inner">
   <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #FFF; position: fixed;;">
     <div class="container-fluid">
@@ -52,11 +53,11 @@
           </li>
           <li class="nav-item">
             <% if(locals.role) { %>
-              <a id="login" class="nav-link" href="/" style="color: rgba(124,19,154,1); font-size: 1.2rem;">
+              <a id="signout" class="nav-link" href="/" style="color: rgba(124,19,154,1); font-size: 1.2rem;">
                 <%= __('navbar_signout')%>
               </a>
             <% } else { %>
-              <a id="login" class="nav-link" href="/auth/signin" style="color: rgba(124,19,154,1); font-size: 1.2rem;">
+              <a id="signin" class="nav-link" href="/auth/signin" style="color: rgba(124,19,154,1); font-size: 1.2rem;">
                 <%= __('navbar_signin')%>
               </a>
             <% } %>
@@ -64,7 +65,7 @@
           <li>
             <div class="btn-group">
               <button type="button" id="img_btn" data-bs-toggle="dropdown" aria-expanded="false"
-                style="border: none; background: #FFF;"><img src="/image/select_language.png"></button>
+                style="border: none; background: #FFF;"><i class="fas fa-globe-asia fa-2x"></i></button>
               </button>
               <ul class="dropdown-menu" style="width: 4rem; min-width: 4rem">
                 <li><a class="dropdown-item" href="/ko">kor</a></li>
