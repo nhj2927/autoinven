@@ -561,7 +561,7 @@
   </body>
   <!--Iot 디바이스 추가/삭제 버튼-->
   <script>
-    let iot_table_row_num = warehouse.devices.length;
+    let iot_table_row_num = '<%= warehouse.devices.length %>';
 
     subDevice = (row_num) => {
       document.getElementById('tr-' + row_num).remove();
