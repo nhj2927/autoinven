@@ -6,7 +6,7 @@
 
 <!--창고 상세 페이지의 물품목록-->
 <h3 class="wh-detail-title"><%= __('warehousedetailwithitem_itemlist')%></h3>
-<% if(locals.role == 'user') { %>
+<% if( locals.role == 'user' ) { %>
 <div style="text-align: right">
   <button
     class="add_item"
@@ -20,38 +20,38 @@
 <% } %>
 <div id="item-list-card" class="info-card" style="overflow-y: auto">
   <ul class="list-group list-group-flush">
-    <% for(let i in items) { %>
+    <% for(let i in warehouse.items) { %>
     <li
       class="list-group-item d-flex justify-content-between align-items-center"
       data-bs-toggle="modal"
       data-bs-target="#ItemDetailModal"
       style="cursor: pointer"
-      onclick="openItemDetailModal('<%= items[i].item_id%>')"
+      onclick="openItemDetailModal('<%= warehouse.items[i].item_id%>')"
     >
       <img id="item_image_'<%=i%>" class="item-list-image" />
       <script>
         document
           .getElementById("item_image_'<%=i%>")
-          .setAttribute('src', server_url + '<%= items[i].image%>');
+          .setAttribute('src', server_url + '<%= warehouse.items[i].image%>');
       </script>
       <div class="item-list-text-div">
-        <div class="item-list-title"><%= items[i].name%></div>
+        <div class="item-list-title"><%= warehouse.items[i].name%></div>
 
         <div class="item-list-body">
           <span><%= __('warehousedetailwithitem_owner')%> : </span>
-          <span><%= items[i].owner_name%></span>
+          <span><%= warehouse.items[i].owner_name%></span>
           <br />
           <span><%= __('warehousedetailwithitem_date_in')%> : </span>
-          <span><%= items[i].date %></span>
+          <span><%= warehouse.items[i].date %></span>
         </div>
       </div>
-      <% if(items[i].status == 1) { %>
+      <% if(warehouse.items[i].status == 1) { %>
       <div class="badge-div">
         <span class="badge bg-secondary"
           ><%= __('warehousedetailwithitem_badge_before_in')%></span
         >
       </div>
-      <% } else if(items[i].status == 2) { %>
+      <% } else if(warehouse.items[i].status == 2) { %>
       <span class="badge bg-success"
         ><%= __('warehousedetailwithitem_badge_in')%></span
       >
