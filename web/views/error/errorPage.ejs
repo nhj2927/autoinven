@@ -10,7 +10,7 @@
     <script>
       Swal.fire({
         title: '<%= status_code %> <%= __("error") %>',
-        html: "<span class='text-sm'><%= msg %></span><br><h3><%= __('error_any_msg') %></h3><br><%= __('error_any_msg2') %><br><%= __('error_any_msg3') %>",
+        html: "<h3><%= __('error_any_msg') %></h3><br><%= __('error_any_msg2') %><br><%= __('error_any_msg3') %>",
         icon: 'error',
       }).then(() => history.back());
     </script>
