@@ -48,6 +48,12 @@ const searchResultListing = (
     let type;
     let price;
     let detail;
+    let warehouseImage;
+    if (warehouses[index].WarehouseImages.length !== 0) {
+      warehouseImage = warehouses[index].WarehouseImages[0].url;
+    } else {
+      warehouseImage = '/image/default-image.jpg';
+    }
     if (locale === 'ko') {
       name = warehouses[index].name_ko;
       address = warehouses[index].address1_ko;
@@ -73,14 +79,12 @@ const searchResultListing = (
         type = 'not verified';
       }
     }
-    console.log(name, address, addressDetail, dedicated_area);
-    console.log(warehouses[index].WarehouseImages[0].url);
     // 지도만 검색
     if (searchType === 1) {
       $('.marker_list').append(
         ` 
           <div class="flex sm:flex p-3 hover:bg-slate-100" id="marker${warehouses[index].warehouse_id}">
-            <img class="w-40 h-30 sm:w-60 sm:h-48 rounded" src="${warehouses[index].WarehouseImages[0].url}">
+            <img class="w-40 h-30 sm:w-60 sm:h-48 rounded" src="${warehouseImage}">
             <div class="pl-3 pt-2 pb-2 w-full text-left flex flex-col sm:flex sm:flex-col justify-between">
               <div class="frow">
                   <div class="text-lg font-bold sm:text-xl">${name}</div>
@@ -112,7 +116,7 @@ const searchResultListing = (
       $('.marker_list').append(
         ` 
           <div class="flex sm:flex p-3 hover:bg-slate-100" id="marker${warehouses[index].warehouse_id}">
-            <img class="w-40 h-30 sm:w-60 sm:h-48 rounded" src="${warehouses[index].WarehouseImages[0].url}">
+            <img class="w-40 h-30 sm:w-60 sm:h-48 rounded" src="${warehouseImage}">
             <div class="pl-3 pt-2 pb-2 w-full text-left flex flex-col sm:flex sm:flex-col justify-between">
               <div class="frow">
                   <div class="text-lg font-bold sm:text-xl">${name}</div>
@@ -153,6 +157,12 @@ const listing = (lists) => {
     let type;
     let price;
     let detail;
+    let warehouseImage;
+    if (warehouses[index].WarehouseImages.length !== 0) {
+      warehouseImage = warehouses[index].WarehouseImages[0].url;
+    } else {
+      warehouseImage = '/image/default-image.jpg';
+    }
     if (locale === 'ko') {
       name = warehouses[index].name_ko;
       address = warehouses[index].address1_ko;
@@ -178,12 +188,10 @@ const listing = (lists) => {
         type = 'not verified';
       }
     }
-    console.log(name, address, addressDetail, dedicated_area);
-    console.log(warehouses[index].WarehouseImages[0].url);
     $('.marker_list').append(
       ` 
           <div class="flex sm:flex p-3 hover:bg-slate-100" id="marker${warehouses[index].warehouse_id}">
-            <img class="w-40 h-30 sm:w-60 sm:h-48 rounded" src="${warehouses[index].WarehouseImages[0].url}">
+            <img class="w-40 h-30 sm:w-60 sm:h-48 rounded" src="${warehouseImage}">
             <div class="pl-3 pt-2 pb-2 w-full text-left flex flex-col sm:flex sm:flex-col justify-between">
               <div class="frow">
                   <div class="text-lg font-bold sm:text-xl">${name}</div>
@@ -286,6 +294,7 @@ async function initMap() {
 
   // 검색 엔터 쳤을 때
   searchBox.addListener('places_changed', async () => {
+    console.log($('#pac-input').val());
     const startDate = $('#startDate')[0].value;
     const endDate = $('#endDate')[0].value;
     let whType = [$('#whType option:selected').val()];
