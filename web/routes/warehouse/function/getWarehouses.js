@@ -105,8 +105,8 @@ const getAllWarehouses = async (db, locale) => {
         getFullAddress(warehouse.address1_ko, warehouse.address2_ko),
         getFullAddress(warehouse.address1_en, warehouse.address2_en)
       ),
-      is_verified: contract.Warehouse.is_verified,
-      images: getImage(warehouse.WarehouseImages),
+      is_verified: warehouse.is_verified,
+      image: getImage(warehouse.WarehouseImages),
     };
   });
 };
