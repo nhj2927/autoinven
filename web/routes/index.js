@@ -3,6 +3,7 @@ module.exports = (db) => {
   const router = express.Router();
 
   const { doAsync } = require('$base/utils/asyncWrapper');
+  const authenticate = require('$base/middlewares/authenticate');
 
   // 메인페이지
   router.get('/', (req, res) => {
@@ -34,12 +35,12 @@ module.exports = (db) => {
           },
         ],
       });
-      res.render('common/search', { warehouses, user });
+      res.render('search', { warehouses });
     })
   );
 
   // 내 정보 수정
-  router.get('/myinfo', (req, res) => {
+  router.get('/myinfo', authenticate, (req, res) => {
     const { email, name, phone } = req.session;
     const user = {
       email,
@@ -53,10 +54,10 @@ module.exports = (db) => {
   router.use('/warehouse', require('./warehouse')(db));
 
   // 계약
-  router.use('/contract', require('./contract')(db));
+  router.use('/contract', authenticate, require('./contract')(db));
 
   // 아이템
-  router.use('/item', require('./item')(db));
+  router.use('/item', authenticate, require('./item')(db));
 
   return router;
 };
