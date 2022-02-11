@@ -12,9 +12,9 @@ module.exports = async (db, locale, user_email) => {
   const { fn, col } = require('sequelize');
   const getFullAddress = require('$base/utils/getFullAddress');
   const getLocaleLanguageValue = require('$base/utils/getLocaleLanguageValue');
-  const where_clause = user_email ? { user_email } : null;
+  const where_clause = user_email ? { user_email, c_state_id: 3 } : null;
 
-  const warehouses_result = await db.LeaseContract.findAll({
+  const contracts_result = await db.LeaseContract.findAll({
     attributes: [
       [
         fn('date_format', col('LeaseContract.start_date'), '%Y-%m-%d'),
@@ -31,6 +31,7 @@ module.exports = async (db, locale, user_email) => {
       model: db.Warehouse,
       required: true,
       attributes: [
+        'warehouse_id',
         'name_ko',
         'name_en',
         'address1_ko',
@@ -46,27 +47,30 @@ module.exports = async (db, locale, user_email) => {
     },
   });
 
-  const warehouses = warehouses_result.map((warehouse) => {
+  const warehouses = contracts_result.map((contract) => {
     return {
+      warehouse_id: contract.Warehouse.warehouse_id,
+      start_date: contract.start_date,
+      end_date: contract.end_date,
       name: getLocaleLanguageValue(
         locale,
-        warehouse.Warehouse.name_ko,
-        warehouse.Warehouse.name_en
+        contract.Warehouse.name_ko,
+        contract.Warehouse.name_en
       ),
       address: getLocaleLanguageValue(
         locale,
         getFullAddress(
-          warehouse.Warehouse.address1_ko,
-          warehouse.Warehouse.address2_ko
+          contract.Warehouse.address1_ko,
+          contract.Warehouse.address2_ko
         ),
         getFullAddress(
-          warehouse.Warehouse.address1_en,
-          warehouse.Warehouse.address2_en
+          contract.Warehouse.address1_en,
+          contract.Warehouse.address2_en
         )
       ),
-      area: warehouse.lease_area,
-      is_verified: warehouse.Warehouse.is_verified,
-      image_url: getImages(warehouse.Warehouse.WarehouseImages),
+      area: contract.lease_area,
+      is_verified: contract.Warehouse.is_verified,
+      image_url: getImages(contract.Warehouse.WarehouseImages),
     };
   });
 
