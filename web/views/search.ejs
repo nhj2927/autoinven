@@ -130,7 +130,6 @@
   _warehouses = _warehouses.replaceAll(/\n/gi, '\\r\\n');
 
   _warehouses = JSON.parse(_warehouses);
-  console.log(_warehouses);
   let _locale = "<%= __('locale') %>";
   setWarehouses(_warehouses, _locale);
   //초기화
