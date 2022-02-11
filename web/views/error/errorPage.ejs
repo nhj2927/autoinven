@@ -3,13 +3,14 @@
   <head>
     <title>Autoinven</title>
     <link rel="icon" type="image/x-icon" href="/image/autoin_icon.ico" />
+    <link href="/dist/output.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
   <body>
     <script>
       Swal.fire({
         title: '<%= status_code %> <%= __("error") %>',
-        html: "<h3><%= __('error_any_msg') %></h3><br><%= __('error_any_msg2') %><br><%= __('error_any_msg3') %><br><%= msg %>",
+        html: "<span class='text-sm'><%= msg %></span><br><h3><%= __('error_any_msg') %></h3><br><%= __('error_any_msg2') %><br><%= __('error_any_msg3') %>",
         icon: 'error',
       }).then(() => history.back());
     </script>
