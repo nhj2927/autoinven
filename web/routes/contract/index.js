@@ -36,6 +36,52 @@ module.exports = (db) => {
     })
   );
 
+  // 견적요청 상세
+  router.get(
+    '/request',
+    authorizeUser,
+    doAsync(async (req, res) => {
+      const locale = res.locale;
+      const {
+        session: { email },
+      } = req;
+      const {
+        query: {
+          warehouse_id,
+          start_date,
+          end_date,
+          req_area,
+          available_area,
+          total_cost,
+        },
+      } = req;
+
+      // 파라미터 확인
+      checkEstimateParameter(
+        warehouse_id,
+        start_date,
+        end_date,
+        req_area,
+        available_area,
+        total_cost
+      );
+
+      const warehouse = await getWarehouseDetail(db, locale, warehouse_id);
+
+      res.render('contract/estimateDetail', {
+        warehouse,
+        user: { email },
+        lease_info: {
+          start_date,
+          end_date,
+          available_area,
+          req_area,
+          total_cost,
+        },
+      });
+    })
+  );
+
   // 계약 상세
   router.get(
     '/:id',
@@ -65,48 +111,6 @@ module.exports = (db) => {
         user,
         warehouse,
         contract_info: contract,
-      });
-    })
-  );
-
-  // 견적요청 상세
-  router.get(
-    '/contract/request',
-    authorizeUser,
-    doAsync(async (req, res) => {
-      const locale = res.locale;
-      const {
-        query: {
-          warehouse_id,
-          start_date,
-          end_date,
-          req_area,
-          available_area,
-          total_cost,
-        },
-      } = req;
-
-      // 파라미터 확인
-      checkEstimateParameter(
-        warehouse_id,
-        start_date,
-        end_date,
-        req_area,
-        available_area,
-        total_cost
-      );
-
-      const warehouse = await getWarehouseDetail(db, locale, warehouse_id);
-
-      res.render('contract/estimateDetail', {
-        warehouse,
-        lease_info: {
-          start_date,
-          end_date,
-          available_area,
-          req_area,
-          total_cost,
-        },
       });
     })
   );

@@ -106,7 +106,7 @@ const registerWarehouse = async (req, db) => {
   for (index in whFiles) {
     const { path } = whFiles[index];
     await db.WarehouseImage.create({
-      url: path,
+      url: `/${path}`,
       warehouse_id: warehouse.warehouse_id,
     });
   }
@@ -152,15 +152,15 @@ const editWarehouse = async (req, db) => {
   for (index in whFiles) {
     const { path } = whFiles[index];
     await db.WarehouseImage.create({
-      url: path,
-      warehouse_id: warehouse.warehouse_id,
+      url: `/${path}`,
+      warehouse_id: warehouse_id,
     });
   }
   if (iot_device_ids) {
     for (i in iot_device_ids) {
       const iot_device = await db.IotDevice.create({
         device_id: iot_device_ids[i],
-        warehouse_id: warehouse.warehouse_id,
+        warehouse_id: warehouse_id,
       });
       if (!iot_device) {
         const err = new Error('iot device register error');

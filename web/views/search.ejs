@@ -127,7 +127,7 @@
   let _warehouses = '<%= JSON.stringify(warehouses) %>';
 
   _warehouses = _warehouses.replaceAll(`&#34;`, '"');
-  _warehouses = _warehouses.replaceAll(/\n/gi, '\\r\\n');
+  _warehouses = _warehouses.replaceAll(/\n|\r\n/gi, '\\r\\n');
 
   _warehouses = JSON.parse(_warehouses);
   let _locale = "<%= __('locale') %>";

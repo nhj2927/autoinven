@@ -29,7 +29,6 @@ const throwUnauthenticatedError = (next) => {
 
 module.exports = (req, res, next) => {
   const request_type = checkClientType(req.headers['user-agent']);
-
   // 웹 요청
   if (request_type === 'web') {
     // 인증 성공

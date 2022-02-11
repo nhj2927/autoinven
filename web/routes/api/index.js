@@ -1,8 +1,8 @@
-const authenticate = require('$base/middlewares/authenticate');
-
 module.exports = (db) => {
   const express = require('express');
   const router = express.Router();
+
+  const authenticate = require('$base/middlewares/authenticate');
 
   router.use('/auth', require('./auth')(db));
   router.use('/myinfo', authenticate, require('./myinfo')(db));

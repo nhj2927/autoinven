@@ -4,7 +4,7 @@ module.exports = async (db, user_email, warehouse_id) => {
 
   const contract_result = await db.LeaseContract.findOne({
     attributes: ['l_contract_id'],
-    where: { [Op.and]: [{ user_email, warehouse_id }] },
+    where: { [Op.and]: [{ user_email, warehouse_id, c_state_id: 3 }] },
   });
 
   if (contract_result) {

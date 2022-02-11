@@ -12,7 +12,7 @@ module.exports = (db) => {
     doAsync(async (req, res) => {
       const user_info = req.body;
 
-      await signup(user_info, db);
+      await signup(user_info, db, req.session);
 
       res.status(200).json({
         message: 'success',

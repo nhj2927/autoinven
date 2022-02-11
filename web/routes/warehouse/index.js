@@ -88,12 +88,19 @@ module.exports = (db) => {
       // 유저일 경우 창고와 계약되어있는지 확인
       else if (role === 'user') {
         l_contract_id = await authorizeContractor(db, email, warehouse_id);
-        warehouse = await getWarehouseDetailWithItem(
-          db,
-          locale,
-          warehouse_id,
-          email
-        );
+        // 창고와 계약되어있는 경우
+        if (l_contract_id) {
+          warehouse = await getWarehouseDetailWithItem(
+            db,
+            locale,
+            warehouse_id,
+            email
+          );
+        }
+        // 창고와 계약되어있지 않은 경우
+        else {
+          warehouse = await getWarehouseDetail(db, locale, warehouse_id);
+        }
       }
 
       // 로그인 안돼있는 경우

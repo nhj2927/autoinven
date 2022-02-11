@@ -1,4 +1,4 @@
-module.exports = async (user_info, db) => {
+module.exports = async (user_info, db, session) => {
   const getEncryptedPasswordInfo = require('./getEncryptedPasswordInfo');
 
   const { email, password, name, phone } = user_info;
@@ -15,8 +15,8 @@ module.exports = async (user_info, db) => {
     // 세션에 데이터 저장
     session.email = email;
     session.role = 'user';
-    session.name = member.name;
-    session.phone = member.phone;
+    session.name = name;
+    session.phone = phone;
   } catch (err) {
     throw err;
   }
