@@ -1,57 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <%- include('../head') %>
+  <head>
+    <meta charset="UTF-8" />
+    <%- include('../head') %>
     <script src="/js/signin.js"></script>
-    <link rel="stylesheet" href="/css/signin.css">
+    <link rel="stylesheet" href="/css/signin.css" />
     <title>로그인</title>
-</head>
+  </head>
 
-<body>
-  <header>
-    <%- include('../partial/navbar') %>
-  </header>
-  <div class="inner">
-    <div class="left">
-      <form id="sign-form" action="/api/auth/signin" method="post" onsubmit="return false">
-        <a class="logo" href="signin">Autoinven</a>
-        <div class="textdiv">
-          <h1>
-            <p class="main_color">
-              <%= __('signin_sign')%>
+  <body>
+    <header><%- include('../partial/navbar') %></header>
+    <div class="inner">
+      <div class="left">
+        <form
+          id="sign-form"
+          action="/api/auth/signin"
+          method="post"
+          onsubmit="return false"
+        >
+          <a class="logo" href="signin"><img src="/image/small_logo.png" /></a>
+          <div class="textdiv">
+            <h1>
+              <p class="main_color"><%= __('signin_sign')%></p>
+            </h1>
+            <h1>
+              <p class="black_color"><%= __('signin_in')%></p>
+            </h1>
+          </div>
+          <ul>
+            <li>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                class="input--text"
+                placeholder="<%= __('signin_email')%>"
+              />
+            </li>
+            <li>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                class="input--text"
+                placeholder="<%= __('signin_pw')%>"
+              />
+            </li>
+          </ul>
+          <button
+            type="submit"
+            id="signin_button"
+            name="signin_button"
+            class="btn btn-main"
+          >
+            <%= __('signin_signin')%>
+          </button>
+          <div class="signin">
+            <p style="color: #000; margin-right: 10px">
+              <%= __('signin_content1')%>
             </p>
-          </h1>
-          <h1>
-            <p class="black_color">
-              <%= __('signin_in')%>
-            </p>
-          </h1>
-        </div>
-        <ul>
-          <li><input type="email" name="email" id="email" class="input--text" placeholder="<%= __('signin_email')%>">
-          </li>
-          <li><input type="password" name="password" id="password" class="input--text"
-              placeholder="<%= __('signin_pw')%>"></li>
-        </ul>
-        <button type="submit" id="signin_button" name="signin_button" class="btn btn-main">
-          <%= __('signin_signin')%>
-        </button>
-        <div class=signin>
-          <p style="color: #000; margin-right: 10px;">
-            <%= __('signin_content1')%>
-          </p>
-          <a style="color: rgb(124,19,154); font-size: 15px;" href="signup">
-            <%= __('signin_signup')%>
-          </a>
-        </div>
-      </form>
+            <a style="color: rgb(124, 19, 154); font-size: 15px" href="signup">
+              <%= __('signin_signup')%>
+            </a>
+          </div>
+        </form>
+      </div>
+      <div class="right">
+        <section class="section section--visual"></section>
+      </div>
     </div>
-    <div class="right">
-      <section class="section section--visual"></section>
-    </div>
-  </div>
-</body>
-
+  </body>
 </html>

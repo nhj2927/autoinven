@@ -106,7 +106,7 @@ const registerWarehouse = async (req, db) => {
   for (index in whFiles) {
     const { path } = whFiles[index];
     await db.WarehouseImage.create({
-      url: path,
+      url: `/${path}`,
       warehouse_id: warehouse.warehouse_id,
     });
   }
@@ -152,7 +152,7 @@ const editWarehouse = async (req, db) => {
   for (index in whFiles) {
     const { path } = whFiles[index];
     await db.WarehouseImage.create({
-      url: path,
+      url: `/${path}`,
       warehouse_id: warehouse.warehouse_id,
     });
   }

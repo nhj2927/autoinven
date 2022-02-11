@@ -108,6 +108,14 @@ app.use((err, req, res, next) => {
   } else {
     if (err.statusCode === 404) {
       next();
+    } else if (err.statusCode === 401) {
+      res.redirect('/signin');
+    } else if (err.statusCode === 403) {
+      res.statusCode = err.statusCode;
+      res.render('error/authError', {
+        msg: err.message,
+        status_code: err.statusCode,
+      });
     } else {
       res.statusCode = err.statusCode || 500;
       res.render('error/errorPage', {
@@ -121,7 +129,7 @@ app.use((err, req, res, next) => {
 // 없는페이지 에러메세지
 app.get('*', (req, res) => {
   console.log(`${req.path}: not found`);
-  res.render('error/cannotAccess', { path: req.path });
+  res.render('error/couldNotFind', { path: req.path });
 });
 
 app.listen(PORT, (req, res) => {
