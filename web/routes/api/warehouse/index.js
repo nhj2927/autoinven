@@ -19,7 +19,7 @@ module.exports = (db) => {
     doAsync(async (req, res, next) => {
       console.log('IN');
       const warehoues = await warehouseAPIs.getAllWarehouses(db);
-      res.send(warehoues);
+      res.send(warehouse);
     })
   );
 

@@ -168,6 +168,14 @@
       <div style="margin-top: 2rem">
         <h3 class="wh-detail-title"><%= __('warehousedetail_detail_info')%></h3>
         <table class="table info-table">
+          <colgroup>
+            <col width="15%" />
+            <col width="15%" />
+            <col width="15%" />
+            <col width="15%" />
+            <col width="15%" />
+            <col width="15%" />
+          </colgroup>
           <tr>
             <td class="info-table-td-head">
               <%= __('warehousedetail_floor_num')%>
@@ -178,7 +186,7 @@
             </td>
             <td class="info-table-td"><%= warehouse.height%>m</td>
             <td class="info-table-td-head">
-              <%= __('warehousedetail_accessable_vehicle')%>
+              <%= __('warehousedetail_accessable_vehicle') %>
             </td>
             <td class="info-table-td"><%= warehouse.restriction%></td>
           </tr>
@@ -197,12 +205,18 @@
               <%= __('warehousedetail_introduce')%>
             </td>
             <td class="info-table-td" colspan="6">
-              <%= warehouse.description%>
+              <textarea class="form-control" cols="40" rows="5" disabled="true">
+<%= warehouse.description%>
+              </textarea>
             </td>
           </tr>
           <tr>
             <td class="info-table-td-head"><%= __('warehousedetail_note')%></td>
-            <td class="info-table-td" colspan="6"><%= warehouse.note%></td>
+            <td class="info-table-td" colspan="6">
+              <textarea class="form-control" cols="40" rows="5" disabled="true">
+<%= warehouse.note%>
+              </textarea>
+            </td>
           </tr>
         </table>
       </div>
