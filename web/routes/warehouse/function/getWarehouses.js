@@ -12,6 +12,7 @@ module.exports = async (db, locale, user_email) => {
   const { fn, col } = require('sequelize');
   const getFullAddress = require('$base/utils/getFullAddress');
   const getLocaleLanguageValue = require('$base/utils/getLocaleLanguageValue');
+  const where_clause = user_email ? { user_email } : null;
 
   const warehouses_result = await db.LeaseContract.findAll({
     attributes: [
@@ -25,7 +26,7 @@ module.exports = async (db, locale, user_email) => {
       ],
       'lease_area',
     ],
-    where: { user_email },
+    where: where_clause,
     include: {
       model: db.Warehouse,
       required: true,

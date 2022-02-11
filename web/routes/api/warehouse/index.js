@@ -6,9 +6,16 @@ module.exports = (db) => {
   const multer = require('multer');
   const upload = multer({ dest: 'uploads/' });
 
+  const authenticate = require('$base/middlewares/authenticate');
+  const {
+    authorizeUser,
+    authorizeAdmin,
+  } = require('$base/middlewares/authorize');
+
   // 1) 창고 전체 조회
   router.get(
     '/',
+    authenticate,
     doAsync(async (req, res, next) => {
       console.log('IN');
       const warehoues = await warehouseAPIs.getAllWarehouses(db);
@@ -26,9 +33,11 @@ module.exports = (db) => {
     })
   );
 
-  // 3) 해당 창고 가용공간 조회
+  // 3) 해당 창고 가용공간 조회 유저
   router.get(
     '/:warehouse_id/available',
+    authenticate,
+    authorizeUser,
     doAsync(async (req, res, next) => {
       const warehouse = await warehouseAPIs.getAvailableArea(req, db);
       res.send(warehouse);
@@ -38,6 +47,7 @@ module.exports = (db) => {
   // 4) 특정 id 창고 조회
   router.get(
     '/:id',
+    authenticate,
     doAsync(async (req, res, next) => {
       const warehouse_id = req.params.id;
       const warehoues = await warehouseAPIs.getWarehouseInfo(warehouse_id, db);
@@ -45,9 +55,11 @@ module.exports = (db) => {
     })
   );
 
-  // 5) 창고 등록
+  // 5) 창고 등록 관리자
   router.post(
     '/',
+    authenticate,
+    authorizeAdmin,
     upload.array('images', 6),
     doAsync(async (req, res, next) => {
       console.log('창고 등록 요청됨');
@@ -56,9 +68,11 @@ module.exports = (db) => {
     })
   );
 
-  // 6) 창고 수정
+  // 6) 창고 수정 관리자
   router.put(
     '/:warehouse_id',
+    authenticate,
+    authorizeAdmin,
     upload.array('images', 6),
     doAsync(async (req, res, next) => {
       const result = await warehouseAPIs.editWarehouse(req, db);

@@ -1,5 +1,3 @@
-const getContractDetail = require('./function/getContractDetail');
-
 module.exports = (db) => {
   const express = require('express');
   const router = express.Router();
@@ -8,6 +6,8 @@ module.exports = (db) => {
   const getWarehouseDetail = require('../warehouse/function/getWarehouseDetail');
   const getMyContracts = require('./function/getMyContracts');
   const getContracts = require('./function/getContracts');
+  const getContractDetail = require('./function/getContractDetail');
+  const { authorizeUser } = require('$base/middlewares/authorize');
 
   // 계약 목록
   router.get(
@@ -69,6 +69,7 @@ module.exports = (db) => {
   // 견적요청 상세
   router.get(
     '/contract/request',
+    authorizeUser,
     doAsync(async (req, res) => {
       const locale = res.locale;
       const {
