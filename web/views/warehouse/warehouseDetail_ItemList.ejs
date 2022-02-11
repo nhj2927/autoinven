@@ -32,7 +32,7 @@
       <script>
         document
           .getElementById("item_image_'<%=i%>")
-          .setAttribute('src', server_url + '<%= warehouse.items[i].image%>');
+          .setAttribute('src', '<%= warehouse.items[i].image%>');
       </script>
       <div class="item-list-text-div">
         <div class="item-list-title"><%= warehouse.items[i].name%></div>

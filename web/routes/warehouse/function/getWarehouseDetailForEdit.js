@@ -63,6 +63,7 @@ module.exports = async (db, warehouse_id) => {
   }
 
   return {
+    warehouse_id: warehouse_result.warehouse_id,
     name: warehouse_result.name_ko,
     name_en: warehouse_result.name_en,
     category: warehouse_result.Category.name,
