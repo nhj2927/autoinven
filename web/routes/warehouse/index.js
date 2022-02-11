@@ -9,6 +9,7 @@ module.exports = (db) => {
   const getWarehouseDetail = require('./function/getWarehouseDetail');
   const getWarehouseDetailWithItem = require('./function/getWarehouseDetailWithItem');
   const getWarehouses = require('./function/getWarehouses');
+  const checkWarehouseDetailParameter = require('./function/checkWarehouseDetailParameter');
 
   const authorizeContractor = require('./function/authorizeContractor');
   const authenticate = require('$base/middlewares/authenticate');
@@ -63,8 +64,21 @@ module.exports = (db) => {
       const {
         params: { id: warehouse_id },
       } = req;
+      const {
+        query: { start_date, end_date, selected_area, available_area },
+      } = req;
+
       let l_contract_id = null;
       let warehouse = null;
+
+      // 파라미터 확인
+      checkWarehouseDetailParameter(
+        warehouse_id,
+        start_date,
+        end_date,
+        selected_area,
+        available_area
+      );
 
       // 관리자일 경우
       if (role === 'admin') {
@@ -93,6 +107,12 @@ module.exports = (db) => {
           is_contracted: l_contract_id ? true : false,
           email,
           l_contract_id,
+        },
+        lease_info: {
+          start_date,
+          end_date,
+          selected_area,
+          available_area,
         },
       });
     })
