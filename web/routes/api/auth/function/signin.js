@@ -1,5 +1,5 @@
 module.exports = async (email, password, db, session, client_type) => {
-  const getEncryptedPasswordInfo = require('./signup/getEncryptedPasswordInfo');
+  const getEncryptedPasswordInfo = require('../signup/function/getEncryptedPasswordInfo');
 
   // 멤버 확인
   let role = 'user';
