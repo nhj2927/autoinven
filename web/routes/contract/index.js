@@ -67,6 +67,7 @@ module.exports = (db) => {
 
       res.render('contract/estimateDetail', {
         warehouse,
+        user: { email },
         lease_info: {
           start_date,
           end_date,
