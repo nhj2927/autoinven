@@ -36,42 +36,9 @@ module.exports = (db) => {
     })
   );
 
-  // 계약 상세
-  router.get(
-    '/:id',
-    doAsync(async (req, res) => {
-      const locale = res.locale;
-      const {
-        params: { id: contract_id },
-      } = req;
-      const {
-        session: { name, email, phone },
-      } = req;
-
-      const user = {
-        name,
-        email,
-        phone,
-      };
-
-      const contract = await getContractDetail(db, contract_id);
-      const warehouse = await getWarehouseDetail(
-        db,
-        locale,
-        contract.warehouse_id
-      );
-
-      res.render('contract/contractDetail', {
-        user,
-        warehouse,
-        contract_info: contract,
-      });
-    })
-  );
-
   // 견적요청 상세
   router.get(
-    '/contract/request',
+    '/request',
     authorizeUser,
     doAsync(async (req, res) => {
       const locale = res.locale;
@@ -107,6 +74,39 @@ module.exports = (db) => {
           req_area,
           total_cost,
         },
+      });
+    })
+  );
+
+  // 계약 상세
+  router.get(
+    '/:id',
+    doAsync(async (req, res) => {
+      const locale = res.locale;
+      const {
+        params: { id: contract_id },
+      } = req;
+      const {
+        session: { name, email, phone },
+      } = req;
+
+      const user = {
+        name,
+        email,
+        phone,
+      };
+
+      const contract = await getContractDetail(db, contract_id);
+      const warehouse = await getWarehouseDetail(
+        db,
+        locale,
+        contract.warehouse_id
+      );
+
+      res.render('contract/contractDetail', {
+        user,
+        warehouse,
+        contract_info: contract,
       });
     })
   );
