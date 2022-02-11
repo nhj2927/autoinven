@@ -36,8 +36,6 @@ module.exports = (db) => {
   // 3) 해당 창고 가용공간 조회 유저
   router.get(
     '/:warehouse_id/available',
-    authenticate,
-    authorizeUser,
     doAsync(async (req, res, next) => {
       const warehouse = await warehouseAPIs.getAvailableArea(req, db);
       res.send(warehouse);

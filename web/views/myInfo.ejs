@@ -1,81 +1,119 @@
 <!DOCTYPE html>
 <html lang="ko">
-
-<head>
-  <meta charset="UTF-8">
-  <%- include('../head') %>
-  <script src="/js/myinfo.js"></script>
-    <link rel="stylesheet" href="/css/myInfo.css">
+  <head>
+    <meta charset="UTF-8" />
+    <%- include('head') %>
+    <script src="/js/myinfo.js"></script>
+    <link rel="stylesheet" href="/css/myInfo.css" />
     <title>Document</title>
-</head>
+  </head>
 
-<body>
-  <header style="z-index: 1000;">
-    <%- include('../partial/navbar') %>
-  </header>
-  <div class="inner img">
-
-  </div>
-  <div class="inner main">
-    <ul style="list-style: none;">
-      <li>
-        <h2 style=" font-family: nanum-eb; margin-bottom: 10%;">
-          <%= __('myInfo_title')%>
-        </h2>
-      </li>
-      <li>
-        <p class="tag">E-mail</p>
-        <p class="input--text"><%= user.email %></p>
-      </li>
-      <li>
-        <p class="tag">
-          <%= __('myInfo_name')%>
-        </p><input type="text" id="name" class="input--text" value="<%= user.name %>">
-      </li>
-      <li>
-        <p class="tag">
-          <%= __('myInfo_pw')%>
-        </p>
-        <button type="button" class="btn btn-main" id="edit_pw_button" data-bs-toggle="modal" data-bs-target="#edit_pw">
-          <%= __('myInfo_change_pw')%>
-        </button>
-        <div class="modal fade" id="edit_pw" tabindex="-1" role="dialog" aria-labelledby="eith_pwTitle" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title"><%= __('myInfo_change_pw')%></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                style="background: white; border: none;">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <input type="password" id="current_pw" class="input--text short" placeholder="<%= __('myInfo_text1')%>">
-                <input type="password" id="new_pw" class="input--text short" placeholder="<%= __('myInfo_text2')%>">
-                <input type="password" id="new_pw_check" class="input--text short" placeholder="<%= __('myInfo_text3')%>">
-              </div>
-              <div class="modal-footer">
-                <button type="submit" id="edit_pw_btn" name="edit_pw_btn" class="btn-main small"><%= __('myInfo_change_myinfo')%></button>
+  <body>
+    <header style="z-index: 1000"><%- include('partial/navbar') %></header>
+    <div class="inner img"></div>
+    <div class="inner main">
+      <ul style="list-style: none">
+        <li>
+          <h2 style="font-family: nanum-eb; margin-bottom: 10%">
+            <%= __('myInfo_title')%>
+          </h2>
+        </li>
+        <li>
+          <p class="tag">E-mail</p>
+          <p class="input--text"><%= user.email %></p>
+        </li>
+        <li>
+          <p class="tag"><%= __('myInfo_name')%></p>
+          <input
+            type="text"
+            id="name"
+            class="input--text"
+            value="<%= user.name %>"
+          />
+        </li>
+        <li>
+          <p class="tag"><%= __('myInfo_pw')%></p>
+          <button
+            type="button"
+            class="btn btn-main"
+            id="edit_pw_button"
+            data-bs-toggle="modal"
+            data-bs-target="#edit_pw"
+          >
+            <%= __('myInfo_change_pw')%>
+          </button>
+          <div
+            class="modal fade"
+            id="edit_pw"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="eith_pwTitle"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title"><%= __('myInfo_change_pw')%></h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                    style="background: white; border: none"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <input
+                    type="password"
+                    id="current_pw"
+                    class="input--text short"
+                    placeholder="<%= __('myInfo_text1')%>"
+                  />
+                  <input
+                    type="password"
+                    id="new_pw"
+                    class="input--text short"
+                    placeholder="<%= __('myInfo_text2')%>"
+                  />
+                  <input
+                    type="password"
+                    id="new_pw_check"
+                    class="input--text short"
+                    placeholder="<%= __('myInfo_text3')%>"
+                  />
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="submit"
+                    id="edit_pw_btn"
+                    name="edit_pw_btn"
+                    class="btn-main small"
+                  >
+                    <%= __('myInfo_change_myinfo')%>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </li>
-      <li>
-        <p class="tag">
-          <%= __('myInfo_phone')%>
-        </p><input type="tel" id="phone" class="input--text" value="<%= user.phone %>">
-      </li>
-      <li class="align_center">
-        <button class="btn-main small" type="submit" id="change_myinfo">
-          <%= __('myInfo_change_myinfo')%>
-        </button>
-      </li>
-    </ul>
-  </div>
-  <footer>
-    <%- include('../partial/footer') %>
-  </footer>
-</body>
-
+        </li>
+        <li>
+          <p class="tag"><%= __('myInfo_phone')%></p>
+          <input
+            type="tel"
+            id="phone"
+            class="input--text"
+            value="<%= user.phone %>"
+          />
+        </li>
+        <li class="align_center">
+          <button class="btn-main small" type="submit" id="change_myinfo">
+            <%= __('myInfo_change_myinfo')%>
+          </button>
+        </li>
+      </ul>
+    </div>
+    <footer><%- include('partial/footer') %></footer>
+  </body>
 </html>

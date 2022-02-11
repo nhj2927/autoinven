@@ -53,11 +53,11 @@
           </li>
           <li class="nav-item">
             <% if(locals.role) { %>
-              <a id="signout" class="nav-link" href="/" style="color: rgba(124,19,154,1); font-size: 1.2rem;">
+              <a id="signout" class="nav-link" href="/" style="color: rgba(124,19,154,1); font-size: 1.2rem; ">
                 <%= __('navbar_signout')%>
               </a>
             <% } else { %>
-              <a id="signin" class="nav-link" href="/auth/signin" style="color: rgba(124,19,154,1); font-size: 1.2rem;">
+              <a id="signin" class="nav-link" href="/signin" style="color: rgba(124,19,154,1); font-size: 1.2rem;">
                 <%= __('navbar_signin')%>
               </a>
             <% } %>
@@ -78,3 +78,4 @@
     </div>
   </nav>
 </div>
+<script src="/js/signout.js"></script>
