@@ -73,6 +73,7 @@ module.exports = (db) => {
     '/:warehouse_id',
     authenticate,
     authorizeAdmin,
+    upload.array('images', 6),
     doAsync(async (req, res, next) => {
       const result = await warehouseAPIs.editWarehouse(req, db);
       res.send({ message: `${result} row(s) affected` });

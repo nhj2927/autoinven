@@ -8,8 +8,8 @@
   <body>
     <script>
       Swal.fire({
-        title: '404 <%= __("error") %>',
-        html: "<h3><%= __('error_404_msg') %></h3><%= __('error_404_msg2') %><br><%= __('error_404_msg3') %>",
+        title: '<%= status_code %> <%= __("error") %>',
+        html: "<h3><%= __('error_any_msg') %></h3><br><%= __('error_any_msg2') %><br><%= __('error_any_msg3') %><br><%= msg %>",
         icon: 'error',
       }).then(() => history.back());
     </script>

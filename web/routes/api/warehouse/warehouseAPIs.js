@@ -128,6 +128,7 @@ const registerWarehouse = async (req, db) => {
 };
 
 const editWarehouse = async (req, db) => {
+  console.log(req.body);
   const { warehouse_id } = req.params;
   const newInfo = getNewWarehouse(req.body); // 새 창고정보 가져오기
   const addressInfo = getAddressInfo(req.body); // 주소 가져오기
@@ -140,9 +141,9 @@ const editWarehouse = async (req, db) => {
     address = await db.Address.create(addressInfo);
   }
   // 기존 창고 사진 모두 삭제
-  const result = await db.WarehouseImage.destory({ where: { warehouse_id } });
+  const result = await db.WarehouseImage.destroy({ where: { warehouse_id } });
   // 기존 iot 디바이스 허브 아이디 모두 삭제
-  const result2 = await db.IotDevice.destory({ where: { warehouse_id } });
+  const result2 = await db.IotDevice.destroy({ where: { warehouse_id } });
   // 창고 정보 업데이트
   const result3 = await db.Warehouse.update(newInfo, {
     where: { warehouse_id },
