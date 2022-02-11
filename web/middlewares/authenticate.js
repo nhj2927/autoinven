@@ -37,6 +37,7 @@ module.exports = (req, res, next) => {
       res.locals.role = req.session.role;
       next();
     } else {
+      res.locals.role = 'anonymous';
       throwUnauthenticatedError(next);
     }
   }
