@@ -13,7 +13,7 @@
   </head>
 
   <body>
-    <!-- <header><%- include('../partial/navbar') %></header> -->
+    <header><%- include('../partial/navbar') %></header>
     <!-- Slider main container -->
     <div class="swiper" style="margin-top: 1rem">
       <!-- Additional required wrapper -->
@@ -25,7 +25,7 @@
           <script>
             document
               .getElementById('warehouse_image_"<%= i%>"')
-              .setAttribute('src', server_url + '<%=warehouse.images[i]%>');
+              .setAttribute('src', '/<%=warehouse.images[i]%>');
           </script>
         </div>
         <% } %>
