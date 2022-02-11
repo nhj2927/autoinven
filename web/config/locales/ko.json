@@ -202,5 +202,12 @@
   "contract_state_rejected": "승인거절",
   "contract_state_expired": "기간만료",
   "search_title" : "창고 검색",
-  "search_init" : "초기화"
+  "search_init" : "초기화",
+  "error" : "에러",
+  "error_404_msg" : "현재 페이지를 찾을 수 없습니다.",
+  "error_404_msg2" : "페이지가 사라졌거나, 존재하지 않는 페이지입니다.",
+  "error_404_msg3" : "주소를 다시 한 번 확인해주세요.",
+  "error_any_msg" : "예기치 못한 문제로 서버에 에러가 발생하였습니다.",
+  "error_any_msg2" : "조속한 해결을 위해 현재 열심히 노력 중입니다.",
+  "error_any_msg3" : "잠시 후 다시 시도해주세요."
 }

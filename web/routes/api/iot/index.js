@@ -1,8 +1,9 @@
 module.exports = (db) => {
   const express = require('express');
   const router = express.Router();
+  const authenticate = require('$base/middlewares/authenticate');
 
-  router.use('/stat', require('./stat')(db));
+  router.use('/stat', authenticate, require('./stat')(db));
 
   router.use('/device', require('./stat')(db));
 

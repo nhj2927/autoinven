@@ -91,7 +91,7 @@ const editItem = async (req, db) => {
   const itFiles = req.files;
 
   // 기존 아이템 사진 모두 삭제
-  const result = await db.ItemImage.destory({ where: { item_id } });
+  const result = await db.ItemImage.destroy({ where: { item_id } });
   // 아이템 정보 업데이트
   const result2 = await db.Item.update(newInfo, {
     where: { item_id },

@@ -99,16 +99,29 @@ app.get('/ko', (req, res) => {
 
 app.use((err, req, res, next) => {
   console.log(err);
-  res.statusCode = err.statusCode || 500;
-  res.json({
-    message: err.message,
-  });
+  console.log();
+  if (req.path.slice(1, 4) === 'api') {
+    res.statusCode = err.statusCode || 500;
+    res.json({
+      message: err.message,
+    });
+  } else {
+    if (err.statusCode === 404) {
+      next();
+    } else {
+      res.statusCode = err.statusCode || 500;
+      res.render('error/errorPage', {
+        msg: err.message,
+        status_code: err.statusCode,
+      });
+    }
+  }
 });
 
 // 없는페이지 에러메세지
 app.get('*', (req, res) => {
   console.log(`${req.path}: not found`);
-  res.render('error/cannotAccess');
+  res.render('error/cannotAccess', { path: req.path });
 });
 
 app.listen(PORT, (req, res) => {

@@ -1,13 +1,16 @@
-const getContractDetail = require('./function/getContractDetail');
-
 module.exports = (db) => {
   const express = require('express');
   const router = express.Router();
 
   const { doAsync } = require('$base/utils/asyncWrapper');
+
   const getWarehouseDetail = require('../warehouse/function/getWarehouseDetail');
   const getMyContracts = require('./function/getMyContracts');
   const getContracts = require('./function/getContracts');
+  const getContractDetail = require('./function/getContractDetail');
+  const checkEstimateParameter = require('./function/checkEstimateParameter');
+
+  const { authorizeUser } = require('$base/middlewares/authorize');
 
   // 계약 목록
   router.get(
@@ -69,6 +72,7 @@ module.exports = (db) => {
   // 견적요청 상세
   router.get(
     '/contract/request',
+    authorizeUser,
     doAsync(async (req, res) => {
       const locale = res.locale;
       const {
@@ -82,45 +86,15 @@ module.exports = (db) => {
         },
       } = req;
 
-      // 모든 파라미터가 있을때만 통과
-      const checkParameter = (
+      // 파라미터 확인
+      checkEstimateParameter(
         warehouse_id,
         start_date,
         end_date,
         req_area,
         available_area,
         total_cost
-      ) => {
-        return (
-          warehouse_id &&
-          start_date &&
-          end_date &&
-          req_area &&
-          available_area &&
-          total_cost
-        );
-      };
-
-      // 파라미터 조건 통과 못할시 에러
-      const throwInsufficientParameterError = () => {
-        const error = new Error('Insufficient parameter');
-        error.statusCode = 400;
-
-        throw error;
-      };
-
-      if (
-        !checkParameter(
-          warehouse_id,
-          start_date,
-          end_date,
-          req_area,
-          available_area,
-          total_cost
-        )
-      ) {
-        throwInsufficientParameterError();
-      }
+      );
 
       const warehouse = await getWarehouseDetail(db, locale, warehouse_id);
 
