@@ -8,9 +8,8 @@
         text: text,
       }).then(callback);
     $(signout).on('click', function () {
-      var baseUrl = server_url + 'api/auth/signout';
       $.ajax({
-        url: baseUrl,
+        url: '/api/auth/signout',
         type: 'GET',
         datatype: 'application/json',
         success: (data) => {
