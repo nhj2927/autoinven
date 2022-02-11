@@ -68,7 +68,7 @@
             <th><%= __('table_price') %></th>
             <th><%= __('table_contractor') %></th>
             <th><%= __('table_created_date') %></th>
-            <% for(int i = 0 ; i < contracts.length ; i++ ) { %>
+            <% for(var i = 0 ; i < contracts.length ; i++ ) { %>
               <tr onclick="location.href='/contract/'+'<%=1%>';">
                 <td><%= i+1 %></td>
                   <% if(contracts[i].state == 1) {  %>
@@ -85,7 +85,7 @@
                 <td><%= contracts[i].id %></td>
                 <td><%= contracts[i].name %></td>
                 <td><%= contracts[i].area %></td>
-                <td><%= >ontracts[i].period %></td>
+                <td><%= contracts[i].period %></td>
                 <td><%= contracts[i].price %></td>
                 <td><%= contracts[i].contractor_name %></td>
                 <td><%= contracts[i].created_date %></td>
