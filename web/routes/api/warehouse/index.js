@@ -59,6 +59,7 @@ module.exports = (db) => {
   // 6) 창고 수정
   router.put(
     '/:warehouse_id',
+    upload.array('images', 6),
     doAsync(async (req, res, next) => {
       const result = await warehouseAPIs.editWarehouse(req, db);
       res.send({ message: `${result} row(s) affected` });

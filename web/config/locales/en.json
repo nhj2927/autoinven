@@ -202,5 +202,12 @@
   "contract_state_rejected": "REJECTED",
   "contract_state_expired": "EXPIRED",
   "search_title" : "Search Warehouse",
-  "search_init" : "init"
+  "search_init" : "init",
+  "error" : "Error",
+  "error_404_msg" : "Could not find this page.",
+  "error_404_msg2" : "The page is either missing or does not exist.",
+  "error_404_msg3" : "Please check your address again.",
+  "error_any_msg" : "An error occurred on the server due to an unexpected problem.",
+  "error_any_msg2" : "We are currently working hard to resolve this as soon as possible.",
+  "error_any_msg3" : "Please try again in a few minutes"
 }
