@@ -36,14 +36,14 @@
         <li>
           <div class="warehouse_info">
             <div class="container left">
-              <img class="image" src="#"+"<% warehouses[i].image %>"/>
+              <img class="image" src="<%= warehouses[i].image_url[0] %>" />
             </div>
             <div class="container center">
               <ul>
                 <li style="display: flex; align-items: center">
                   <p
                     class="wh_title"
-                    onclick="location.href='/warehouse/'+'<%= warehouses[i].id %>';"
+                    onclick="location.href='/warehouse/'+'<%= warehouses[i].warehouse_id %>';"
                   >
                     <%= warehouses[i].name %>
                   </p>
@@ -70,7 +70,8 @@
                 </li>
                 <li>
                   <p class="wh_term">
-                    <%= __('warehouse_period') %>: <%= warehouses[i].period %>
+                    <%= __('warehouse_period') %>: <%= warehouses[i].start_date
+                    %> ~ <%= warehouses[i].end_date %>
                   </p>
                 </li>
               </ul>

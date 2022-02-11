@@ -204,7 +204,13 @@
       accepts: 'application/json',
       contentType: 'application/json; charset=utf-8',
       success: function (data) {
-        console.log(data);
+        Swal.fire({
+          title: 'SUCCESS',
+          html: `계약 승인을 성공적으로 완료하였습니다.`,
+          icon: 'success',
+        }).then(() => {
+          location.reload();
+        });
       },
       error: function (e) {
           console.log("ERROR : ", e);
@@ -220,7 +226,13 @@
       accepts: 'application/json',
       contentType: 'application/json; charset=utf-8',
       success: function (data) {
-        console.log(data);
+        Swal.fire({
+          title: 'SUCCESS',
+          html: `계약을 성공적으로 완료하였습니다.`,
+          icon: 'success',
+        }).then(() => {
+          location.reload();
+        });
       },
       error: function (e) {
           console.log("ERROR : ", e);
@@ -237,7 +249,13 @@
       accepts: 'application/json',
       contentType: 'application/json; charset=utf-8',
       success: function (data) {
-        console.log(data);
+        Swal.fire({
+          title: 'WARNING',
+          html: `계약을 거절하였습니다.`,
+          icon: 'warning',
+        }).then(() => {
+          location.reload();
+        });
       },
       error: function (e) {
           console.log("ERROR : ", e);
