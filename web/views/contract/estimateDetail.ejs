@@ -120,15 +120,16 @@
     })
 
     clkSubmit =() => {
+      if('<%= locals.role %>' =='user') {
         let formdata ={
-          'warehouse_id':"1",
-          'start_date':$('#start_date')[0].value,
-          'end_date':$('#end_date')[0].value,
-          'lease_area':$('#lease_area').text(),
-          'amount':$('#amount').text(),
+          'warehouse_id':"<%= warehouse.warehouse_id%>",
+          'start_date':'<%= lease_info.start_date%>',
+          'end_date':'<%= lease_info.end_date%>',
+          'lease_area':'<%= lease_info.req_area%>',
+          'amount':'<%= lease_info.amount%>',
           'purpose':$('#purpose')[0].value,
           'note':$('#note')[0].value,
-          'user_email': 'jacob9404@gmail.com'
+          'user_email': '<%= user.email %>'
         }
 
         for (var key in formdata) {
@@ -148,6 +149,14 @@
                 console.log("ERROR : ", e);
             }
         });
+      }else{
+        Swal.fire({
+          title: 'WARNING',
+          html: `로그인이 필요합니다.`,
+          icon: 'warning',
+          showCancelButton: true,
+        });
+      }
     }
 </script>
 

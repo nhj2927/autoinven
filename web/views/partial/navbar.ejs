@@ -1,4 +1,5 @@
 <script src="/js/signout.js"></script>
+
 <div class="nav_inner">
   <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #FFF; position: fixed;;">
     <div class="container-fluid">
@@ -14,8 +15,8 @@
               <%= __('navbar_search_warehouse')%>
             </a>
           </li>
-          <% if(locals.role) { %>
-            <% if(locals.role == 'user') { %>
+          
+            <% if( locals.role == 'user') { %>
               <li class="nav-item">
                 <a class="nav-link" href="/warehouse" style="font-size: 1.2rem;">
                   <%= __('navbar_my_warehouse')%>
@@ -38,7 +39,7 @@
                 </a>
               </li>
             <% } %>
-          <% } %>
+          
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
               data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 1.2rem;">
@@ -52,13 +53,13 @@
             </ul>
           </li>
           <li class="nav-item">
-            <% if(locals.role) { %>
-              <a id="signout" class="nav-link" href="/" style="color: rgba(124,19,154,1); font-size: 1.2rem; ">
-                <%= __('navbar_signout')%>
-              </a>
-            <% } else { %>
+            <% if( locals.role == 'anonymous' ) { %>
               <a id="signin" class="nav-link" href="/signin" style="color: rgba(124,19,154,1); font-size: 1.2rem;">
                 <%= __('navbar_signin')%>
+              </a>
+            <% } else { %>
+              <a id="signout" class="nav-link" href="/" style="color: rgba(124,19,154,1); font-size: 1.2rem; ">
+                <%= __('navbar_signout')%>
               </a>
             <% } %>
           </li>
