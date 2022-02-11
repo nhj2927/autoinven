@@ -14,14 +14,14 @@
           id="info-card-start-date"
           type="date"
           class="input-contract-info"
-          value="<%= lease_info.selected_start_date%>"
+          value="<%= lease_info.start_date%>"
         />
         <img id="info-card-arrow" src="/image/icon/arrow-right-solid.svg" />
         <input
           id="info-card-end-date"
           type="date"
           class="input-contract-info"
-          value="<%= lease_info.selected_end_date%>"
+          value="<%= lease_info.end_date%>"
         />
       </div>
 
@@ -84,8 +84,7 @@
       //선택된 날짜에 사용가능한 공간 구하기
       $.ajax({
         url:
-          server_url +
-          'api/warehouse/<%= warehouse.warehouse_id%>/available?startDate=' +
+          '/api/warehouse/<%= warehouse.warehouse_id%>/available?startDate=' +
           input_start.value +
           '&endDate=' +
           input_end.value,

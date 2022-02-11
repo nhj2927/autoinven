@@ -1,3 +1,5 @@
+<!--warehouseDetail_ItemList.ejs에서 사용되는 물품 상세정보 모달-->
+
 <link rel="stylesheet" href="/css/modal_ItemDetail.css" />
 <div
   class="modal fade"
@@ -139,7 +141,7 @@
       document.getElementById('item-modal-in-date'),
       document.getElementById('item-modal-out-date'),
     ];
-    let baseUrl = server_url + 'api/item/' + item_id;
+    let baseUrl = '/api/item/' + item_id;
 
     console.log(baseUrl);
     $.ajax({

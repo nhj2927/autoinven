@@ -198,7 +198,7 @@
   adminApproval= (item_id)=>{
     let formdata ={"c_state_id": 2 } // 계약을 결제 대기중 상태로 변경
     $.ajax({
-      url: server_url + 'api/contract/'+item_id,
+      url: '/api/contract/'+item_id,
       type: 'PUT',
       data: JSON.stringify(formdata),
       accepts: 'application/json',
@@ -214,7 +214,7 @@
   adminCompletion= (item_id)=>{
     let formdata ={"c_state_id": 3} // 계약을 완료 상태로 변경
     $.ajax({
-      url: server_url + 'api/contract/'+item_id,
+      url: '/api/contract/'+item_id,
       type: 'PUT',
       data: JSON.stringify(formdata),
       accepts: 'application/json',
@@ -231,7 +231,7 @@
   adminReject= (item_id)=>{
     let formdata ={"c_state_id": 4} // 계약을 거절 상태로 변경
     $.ajax({
-      url: server_url + 'api/contract/' + item_id,
+      url: '/api/contract/' + item_id,
       type: 'PUT',
       data: JSON.stringify(formdata),
       accepts: 'application/json',

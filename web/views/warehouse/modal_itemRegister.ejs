@@ -1,4 +1,5 @@
-<!--아이템 등록 모달-->
+<!--warehouseDetail_ItemList.ejs에서 사용되는 물품 등록 모달-->
+
 <div
   class="modal fade"
   id="ItemRegisterModal"
@@ -75,7 +76,6 @@
     </div>
   </div>
 </div>
-<!--아이템 등록 모달-->
 
 <!--아이템 등록 버튼-->
 <script>
@@ -96,7 +96,7 @@
     }
 
     $.ajax({
-      url: server_url + 'api/item',
+      url: '/api/item',
       type: 'POST',
       enctype: 'multipart/form-data',
       processData: false,
