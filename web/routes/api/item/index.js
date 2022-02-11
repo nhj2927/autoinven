@@ -5,6 +5,10 @@ module.exports = (db) => {
   const { doAsync } = require('$base/utils/asyncWrapper');
   const multer = require('multer');
   const upload = multer({ dest: 'uploads/' });
+  const {
+    authorizeAdmin,
+    authorizeUser,
+  } = require('$base/middlewares/authorize');
   // To-Do
   // 1. 모바일 관련 API 추가해야함
   router.get(
@@ -25,6 +29,7 @@ module.exports = (db) => {
 
   router.post(
     '/',
+    authorizeUser,
     upload.array('images', 6),
     doAsync(async (req, res) => {
       const item = await itemAPIs.registerItem(req, db);
@@ -43,6 +48,7 @@ module.exports = (db) => {
   //입고
   router.put(
     '/:item_id/in',
+    authorizeAdmin,
     doAsync(async (req, res) => {
       const { item_id } = req.params;
       const result = await itemAPIs.itemStateChange(item_id, 2, db);
@@ -52,26 +58,13 @@ module.exports = (db) => {
   //출고
   router.put(
     '/:item_id/out',
+    authorizeAdmin,
     doAsync(async (req, res) => {
       const { item_id } = req.params;
       const result = await itemAPIs.itemStateChange(item_id, 3, db);
       res.send(result);
     })
   );
-
-  /*
-  //QR 출력
-  router.get(
-    '/:item_id/qr',
-    doAsync(async (req, res) => {
-      const { item_id } = req.params;
-      const qrcode = await itemAPIs.sendQR(item_id, db);
-      console.log(qrcode);
-      //res.writeHead(200, { 'Content-Type': 'image/png' });
-      res.send(qrcode);
-    })
-  );
-  */
 
   return router;
 };
