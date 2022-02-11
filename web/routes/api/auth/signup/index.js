@@ -3,8 +3,8 @@ module.exports = (db) => {
   const router = express.Router();
 
   const { doAsync } = require('$base/utils/asyncWrapper');
-  const signup = require('./signup');
-  const verifyEmail = require('./verifyEmail');
+  const signup = require('./function/signup');
+  const verifyEmail = require('./function/verifyEmail');
 
   //회원가입
   router.post(

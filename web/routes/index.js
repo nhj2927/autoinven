@@ -1,16 +1,25 @@
 module.exports = (db) => {
   const express = require('express');
   const router = express.Router();
+
   const { doAsync } = require('$base/utils/asyncWrapper');
 
+  // 메인페이지
   router.get('/', (req, res) => {
-    res.render('main', {});
+    res.render('main');
   });
 
-  const user = {
-    type: 'admin',
-  };
+  // 로그인
+  router.get('/signin', (req, res) => {
+    res.render('auth/signin');
+  });
 
+  // 회원가입
+  router.get('/signup', (req, res) => {
+    res.render('auth/signup');
+  });
+
+  // 창고 검색
   router.get(
     '/search',
     doAsync(async (req, res) => {
@@ -25,11 +34,11 @@ module.exports = (db) => {
           },
         ],
       });
-      console.log(warehouses[0]);
-      res.render('common/search', { warehouses: warehouses, user });
+      res.render('common/search', { warehouses, user });
     })
   );
 
+  // 내 정보 수정
   router.get('/myinfo', (req, res) => {
     const { email, name, phone } = req.session;
     const user = {
@@ -37,11 +46,16 @@ module.exports = (db) => {
       name,
       phone,
     };
-    res.render('common/myInfo', { user });
+    res.render('myInfo', { user });
   });
 
+  // 창고
   router.use('/warehouse', require('./warehouse')(db));
+
+  // 계약
   router.use('/contract', require('./contract')(db));
+
+  // 아이템
   router.use('/item', require('./item')(db));
 
   return router;

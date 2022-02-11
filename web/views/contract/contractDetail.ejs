@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <%- include('../head') %>
+  <link rel="stylesheet" href="/css/contractDetail.css"/>
+</head>
+
+<body>
+  <header>
+    <%- include('../partial/navbar') %>
+  </header>
+    <div class="container">
+      <!--타이틀 & 뱃지-->
+        <h3 class="contract-request-detail-title" style="display: inline;"><%=__('contractDetail_title')%></h3>
+        <% switch(contract_info.c_state_id) { 
+          case 1: %>
+        <span class="badge bg-secondary">
+          <%= __('contract_state_waiting_for_approval') %>
+        </span>
+        <% break; %>
+        <% case 2: %>
+        <span class="badge bg-warning">
+          <%= __('contract_state_waiting_for_payment') %>
+        </span>
+        <% break; %>
+        <% case 3: %>
+        <span class="badge bg-primary">
+          <%= __('contract_state_completed') %>
+        </span>
+        <% break; %>
+        <% case 4: %>
+        <span class="badge bg-danger">
+          <%= __('contract_state_rejected') %>
+        </span>
+        <% break; %>
+        <% case 5: %>
+        <span class="badge bg-secondary">
+          <%= __('contract_state_expired') %>
+        </span>
+        <% break; %>
+        <% } %>
+      <!--타이틀 & 뱃지-->
+
+        <div class="row align-items-start">
+            <div class="col">
+                <h4 class="contract-sub-title"><%=__('contractDetail_req_detail')%></h4>
+                <table id="contract-info-table" class="table info-table" style="height: 30rem;">
+                    <tr>
+                      <td class=info-table-td-head><%=__('contractDetail_start_date')%></td>
+                      <td class="info-table-td">
+                          <input id="start_date"type="date" class="form-control" disabled="true"
+                          value="<%= contract_info.start_date%>"></input>
+                      </td>
+                      <td class=info-table-td-head><%=__('contractDetail_end_date')%></td>
+                      <td class="info-table-td">
+                        <input id="end_date" type="date" class="form-control" disabled="true"
+                        value="<%= contract_info.end_date%>"></input>
+                      </td>
+                    </tr>
+
+                    <tr>
+                        <td class=info-table-td-head><%=__('contractDetail_available_area')%></td>
+                        <td class="info-table-td" colspan="3">
+                          <%= contract_info.available_area%>㎡
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class=info-table-td-head><%=__('contractDetail_req_area')%></td>
+                        <td id="lease_area" class="info-table-td contract-table-td-red" colspan="3">
+                          <%= contract_info.req_area%>㎡
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class=info-table-td-head><%=__('contractDetail_cost')%></td>
+                        <td class="info-table-td" colspan="3">￦ <%= warehouse.rent%>㎡/일</td>
+                    </tr>
+                    <tr>
+                        <td class=info-table-td-head><%=__('contractDetail_total_cost')%></td>
+                        <td id="amount" class="info-table-td contract-table-td-red" colspan="3">
+                          <%= contract_info.total_cost%>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class=info-table-td-head><%=__('contractDetail_purpose')%></td>
+                        <td class="info-table-td" colspan="3">
+                          <%= contract_info.purpose%>
+                        </td>
+                    </tr>
+                    
+                </table>
+            </div>
+            <div class="col-5">
+              <h4 class="contract-sub-title"><%=__('contractDetail_lender_info')%></h4>
+              <table class="table info-table" style="height: 30rem;">
+                <tr>
+                    <td class=info-table-td-head><%=__('contractDetail_lender_name')%></td>
+                    <td class="info-table-td"><%= user.name%></td>
+                </tr>
+                <tr>
+                  <td class=info-table-td-head><%=__('contractDetail_lender_email')%></td>
+                  <td class="info-table-td"><%= user.email%></td>
+                </tr>
+                <tr>
+                  <td class=info-table-td-head><%=__('contractDetail_lender_phone')%></td>
+                  <td class="info-table-td"><%= user.phone%></td>
+                </tr>
+                <tr>
+                  <td class=info-table-td-head><%=__('contractDetail_mean_of_payment')%></td>
+                  <td class="info-table-td"><%= contract_info.payment%></td>
+                </tr>
+                <tr>
+                  <td class=info-table-td-head><%=__('contractDetail_note')%></td>
+                  <td class="info-table-td" colspan="3">
+                    <textarea id="note" class="form-control" cols="40" rows="5" disabled='true'><%= contract_info.note%>
+                    </textarea>
+                  </td>
+              </tr>
+            </table>
+            </div>
+        </div>
+        
+        <h4 class="contract-sub-title" style="display: inline;"><%=__('contractDetail_wh_info')%></h4>
+        <button type="button" class="btn btn-detail" href='#' style="margin-bottom: 0.5rem;"><%=__('contractDetail_wh_name')%></button>
+        <table id="wh-info-table" class="table info-table" style="height: 25rem;">
+          <tr>
+              <td class="info-table-td-head"><%=__('contractDetail_wh_name')%></td>
+              <td class="info-table-td" colspan="3"><%= warehouse.name%></td>
+          </tr>
+          <tr>
+              <td class=info-table-td-head><%=__('contractDetail_wh_type')%></td>
+              <td class="info-table-td" colspan="3"><%= warehouse.type%></td>
+          </tr>
+          <tr>
+              <td class=info-table-td-head><%=__('contractDetail_wh_address')%></td>
+              <td class="info-table-td" colspan="3"><%= warehouse.address1%></td>
+          </tr>
+          <tr>
+              <td class=info-table-td-head><%=__('contractDetail_wh_address_detail')%></td>
+              <td class="info-table-td" colspan="3"><%= warehouse.address2%></td>
+          </tr>
+          <tr>
+              <td class=info-table-td-head><%=__('contractDetail_wh_intro')%></td>
+              <td class="info-table-td" colspan="3"><%= warehouse.description%></td>
+          </tr>
+          <tr>
+              <td class=info-table-td-head><%=__('contractDetail_land_area')%></td>
+              <td class="info-table-td"><%= warehouse.land_area%>㎡</td>
+              <td class=info-table-td-head><%=__('contractDetail_total_ground_area')%></td>
+              <td class="info-table-td"><%= warehouse.total_ground_area%>㎡</td>
+          </tr>
+          <tr>
+              <td class=info-table-td-head><%=__('contractDetail_common_area')%></td>
+              <td class="info-table-td"><%= warehouse.common_area%>㎡</td>
+              <td class=info-table-td-head><%=__('contractDetail_dedicated_area')%></td>
+              <td class="info-table-td"><%= warehouse.dedicated_area%>㎡</td>
+          </tr>
+        </table>
+
+        <div class="centered-div">
+          <% if(locals.role == 'user' && contract_info.c_state_id == 2) { %>
+            <button class="btn btn-submit" data-bs-toggle="modal" data-bs-target="#paymentInfoModal">
+              <%=__('contractDetail_payment')%>
+            </button>
+          <% } %>
+
+          <% if(locals.role == 'admin') { 
+            if (contract_info.c_state_id == 1) { %>
+            <button class="btn btn-submit" onclick="adminApproval('<%= contract_info.l_contract_id%>')">
+              <%=__('contractDetail_approve')%>
+            </button>
+            <button class="btn btn-reject" onclick="adminReject('<%= contract_info.l_contract_id%>')">
+              <%=__('contractDetail_reject')%>
+            </button>
+              <% } else if (contract_info.c_state_id == 2) { %>
+            <button class="btn btn-submit" onclick="adminCompletion('<%= contract_info.l_contract_id%>')">
+              <%=__('contractDetail_complete')%>
+            </button>
+            <% } %>
+          <% } %>
+            <button class="btn btn-cancel" onclick="history.back()">
+              <%=__('contractDetail_back')%>
+            </button>
+        </div>
+    </div>
+
+    <footer style="margin-top: 3rem;">
+        <%- include('../partial/footer') %>
+    </footer>
+</body>
+<script>
+  $(document).ready(function() {
+    const amount = document.getElementById('amount')
+    amount.innerText = parseInt('<%= contract_info.total_cost%>').toLocaleString('ko-KR') + '원'
+  })
+  
+  adminApproval= (item_id)=>{
+    let formdata ={"c_state_id": 2 } // 계약을 결제 대기중 상태로 변경
+    $.ajax({
+      url: server_url + 'api/contract/'+item_id,
+      type: 'PUT',
+      data: JSON.stringify(formdata),
+      accepts: 'application/json',
+      contentType: 'application/json; charset=utf-8',
+      success: function (data) {
+        console.log(data);
+      },
+      error: function (e) {
+          console.log("ERROR : ", e);
+      }
+    })
+  }
+  adminCompletion= (item_id)=>{
+    let formdata ={"c_state_id": 3} // 계약을 완료 상태로 변경
+    $.ajax({
+      url: server_url + 'api/contract/'+item_id,
+      type: 'PUT',
+      data: JSON.stringify(formdata),
+      accepts: 'application/json',
+      contentType: 'application/json; charset=utf-8',
+      success: function (data) {
+        console.log(data);
+      },
+      error: function (e) {
+          console.log("ERROR : ", e);
+      }
+    })
+
+  }
+  adminReject= (item_id)=>{
+    let formdata ={"c_state_id": 4} // 계약을 거절 상태로 변경
+    $.ajax({
+      url: server_url + 'api/contract/' + item_id,
+      type: 'PUT',
+      data: JSON.stringify(formdata),
+      accepts: 'application/json',
+      contentType: 'application/json; charset=utf-8',
+      success: function (data) {
+        console.log(data);
+      },
+      error: function (e) {
+          console.log("ERROR : ", e);
+      }
+    })
+
+  }
+</script>
+</html>
+
+<!--계좌정보 모달-->
+<div class="modal fade" id="paymentInfoModal" tabindex="-1"aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="paymentInfoModalTitle" style="font-family: 'nanum-eb'; font-size: 1.5rem;">결제정보</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>은행명  : 현준은행</p>
+        <p>계좌번호 : 111-222-33333-44</p>
+        <p>수령인 : (주)오토인</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--계좌정보 모달-->

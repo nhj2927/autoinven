@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <%- include('../head') %>
+    <link rel="stylesheet" href="/css/enrollWarehouse.css" />
+  </head>
+
+  <body>
+    <header><%- include('../partial/navbar') %></header>
+    <div class="container">
+      <h3 class="enroll-warehouse-title">창고 정보 등록</h3>
+      <!--창고 사진-->
+
+      <div class="image-preview">
+        <h4 class="enroll-warehouse-sub-title">창고사진</h4>
+        <div id="att_zone">
+          <p id="image-placeholder">
+            이미지를 첨부 하려면 이미지 업로드 버튼을 클릭하거나 파일을 드래그
+            앤 드롭 하세요 (최대 5개)
+          </p>
+          <% for(var i = 0; i < warehouse.images.length; i++) { %> <%
+          imageLoader(warehouse.image[i].url) %> <% } %>
+        </div>
+        <label class="input-file-button" for="btnAtt"> 이미지 업로드 </label>
+        <input
+          id="btnAtt"
+          type="file"
+          multiple="multiple"
+          style="display: none"
+        />
+      </div>
+      <!--창고 사진-->
+
+      <!--창고 정보-->
+      <div id="warehouse-info-div" style="margin-top: 2rem">
+        <h4 class="enroll-warehouse-sub-title" style="display: inline">
+          창고정보
+        </h4>
+        <div>
+          <% if(warehouse.is_verified) { %>
+          <input
+            id="is_verified"
+            class="form-check-input"
+            type="checkbox"
+            checked="true"
+          />
+          <%} else {%>
+          <input id="is_verified" class="form-check-input" type="checkbox" />
+          <% } %>
+          <label class="form-check-label" for="is_verified"> 인증여부 </label>
+        </div>
+        <table class="table info-table">
+          <colgroup>
+            <col width="15%" />
+            <col width="15%" />
+            <col width="15%" />
+            <col width="15%" />
+            <col width="15%" />
+            <col width="15%" />
+          </colgroup>
+          <tr>
+            <td class="info-table-td-head">창고명*</td>
+            <td class="info-table-td" colspan="5">
+              <input
+                id="name_ko"
+                type="text"
+                class="form-control"
+                style="display: lnline"
+                value="<%= warehouse.name %>"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td class="info-table-td-head">임대료*</td>
+            <td class="info-table-td" colspan="5">
+              <input
+                id="rent"
+                type="number"
+                class="form-control"
+                style="display: inline; width: 80%; text-align: right"
+                min="0"
+                value="<%= warehouse.rent %>"
+              />
+              <span>원 per Day per ㎡</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="info-table-td-head">우편번호</td>
+            <td class="info-table-td">
+              <input
+                id="zip_code"
+                type="text"
+                class="form-control"
+                value="<%= warehouse.zip_code %>"
+                disabled
+              />
+            </td>
+            <td class="info-table-td-head">위도</td>
+            <td class="info-table-td">
+              <input
+                id="latitude"
+                type="text"
+                class="form-control"
+                value="<%= warehouse.latitude %>"
+                disabled
+              />
+            </td>
+            <td class="info-table-td-head">경도</td>
+            <td class="info-table-td">
+              <input
+                id="longitude"
+                type="text"
+                class="form-control"
+                value="<%= warehouse.longitude %>"
+                disabled
+              />
+            </td>
+          </tr>
+          <tr>
+            <td class="info-table-td-head">주소</td>
+            <td class="info-table-td" colspan="5">
+              <input
+                id="address1_ko"
+                type="text"
+                class="form-control"
+                style="display: inline; width: 85%"
+                value="<%= warehouse.address1 %>"
+                disabled
+              />
+              <button
+                class="btn btn-primary"
+                style="font-size: 1rem"
+                onclick="execDaumPostCode()"
+              >
+                검색
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td class="info-table-td-head">상세주소</td>
+            <td class="info-table-td" colspan="5">
+              <input
+                id="address2_ko"
+                type="text"
+                class="form-control"
+                value="<%= warehouse.address2 %>"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td class="info-table-td-head">종류</td>
+            <td class="info-table-td" colspan="2">
+              <select name="category_id" class="form-select">
+                <% for (var i = 0 ; i < categories.length ; i++) { %> <%
+                if(categories[i].name == warehouse.category) { %>
+                <option value="<%= categories[i].category_id %>" selected>
+                  <%= categories[i].name %>
+                </option>
+                <% } else { %>
+                <option value="<%= categories[i].category_id %>">
+                  <%= categories[i].name %>
+                </option>
+                <% } %> <% } %>
+              </select>
+            </td>
+            <td class="info-table-td-head">시설유무</td>
+            <td class="info-table-td" colspan="2">
+              <div div class="form-check">
+                <% if(warehouse.docking_station) { %>
+                <input
+                  id="docking_station"
+                  class="form-check-input"
+                  type="checkbox"
+                  checked
+                />
+                <% } else { %>
+                <input
+                  id="docking_station"
+                  class="form-check-input"
+                  type="checkbox"
+                />
+                <% } %>
+                <label
+                  class="form-check-label"
+                  for="docking_station"
+                  style="margin-left: 0.5rem"
+                >
+                  도킹시설
+                </label>
+
+                <% if(warehouse.rack) { %>
+                <input
+                  id="rack"
+                  class="form-check-input"
+                  type="checkbox"
+                  style="margin-left: 1rem"
+                  checked
+                />
+                <% } else { %>
+                <input
+                  id="rack"
+                  class="form-check-input"
+                  type="checkbox"
+                  style="margin-left: 1rem"
+                />
+                <% } %>
+                <label
+                  class="form-check-label"
+                  for="rack"
+                  style="margin-left: 0.5rem"
+                >
+                  파레트렉
+                </label>
+
+                <% if(warehouse.commercial_lift) { %>
+                <input
+                  id="commercial_lift"
+                  class="form-check-input"
+                  type="checkbox"
+                  style="margin-left: 1rem"
+                  checked
+                />
+                <% } else { %>
+                <input
+                  id="commercial_lift"
+                  class="form-check-input"
+                  type="checkbox"
+                  style="margin-left: 1rem"
+                  checked
+                />
+                <% } %>
+                <label
+                  class="form-check-label"
+                  for="commercial_lift"
+                  style="margin-left: 0.5rem"
+                >
+                  엘리베이터
+                </label>
+
+                <% if(warehouse.is_bonded) { %>
+                <input
+                  id="is_bonded"
+                  class="form-check-input"
+                  type="checkbox"
+                  style="margin-left: 1rem"
+                  checked
+                />
+                <% } else { %>
+                <input
+                  id="is_bonded"
+                  class="form-check-input"
+                  type="checkbox"
+                  style="margin-left: 1rem"
+                  checked
+                />
+                <% } %>
+                <label
+                  class="form-check-label"
+                  for="is_bonded"
+                  style="margin-left: 0.5rem"
+                >
+                  보세
+                </label>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="info-table-td-head">대지면적</td>
+            <td class="info-table-td" colspan="2">
+              <input
+                id="land_area"
+                type="number"
+                class="form-control info-td-area"
+                min="0"
+                value="<%= warehouse.land_area %>"
+              />
+              <span>㎡</span>
+            </td>
+            <td class="info-table-td-head">연면적</td>
+            <td class="info-table-td" colspan="2">
+              <input
+                id="total_ground_area"
+                type="number"
+                class="form-control info-td-area"
+                min="0"
+                value="<%= warehouse.common_area %>"
+              />
+              <span>㎡</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="info-table-td-head">공용면적</td>
+            <td class="info-table-td" colspan="2">
+              <input
+                id="common_area"
+                type="number"
+                class="form-control info-td-area"
+                min="0"
+                value="<%= warehouse.dedicated_area %>"
+              />
+              <span>㎡</span>
+            </td>
+            <td class="info-table-td-head">전용면적</td>
+            <td class="info-table-td" colspan="2">
+              <input
+                id="dedicated_area"
+                type="number"
+                class="form-control info-td-area"
+                min="0"
+                value="<%= warehouse.total_ground_area %>"
+              />
+              <span>㎡</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <!--창고 정보-->
+
+      <!--IOT 디바이스 등록-->
+      <div>
+        <h4 class="enroll-warehouse-sub-title">
+          IOT 디바이스
+          <button id="add-device" class="btn" onclick="addDevice()">
+            <img
+              src="/image/icon/plus-solid-white.svg"
+              class="add-device-icon"
+            />
+          </button>
+        </h4>
+
+        <table id="iot-device-table" class="table info-table">
+          <tbody id="iot-device-table-body">
+            <% if(warehouse.devices.length) { %> <% for(var i = 0 ; i <
+            warehouse.devices.length ; i++) { %>
+            <tr>
+              <td class="info-table-td-head">디바이스ID</td>
+              <td class="info-table-td">
+                <input
+                  id="device-id"
+                  class="form-control"
+                  value="<%= warehouse.devices[i].device_id %>"
+                />
+                <button id="btn btn-sub">삭제</button>
+              </td>
+            </tr>
+            <% } %> <% } else { %>
+            <tr>
+              <td class="info-table-td-head">디바이스ID</td>
+              <td class="info-table-td">
+                <input
+                  id="device-id"
+                  class="form-control"
+                  placeholder="ex) DEVICE-1"
+                />
+              </td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+      <!--IOT 디바이스 등록-->
+
+      <!--창고 상세-->
+      <div id="warehouse-detail-info-div">
+        <h4 class="enroll-warehouse-sub-title">상세정보</h4>
+        <table class="table info-table">
+          <colgroup>
+            <col width="8%" />
+            <col width="22%" />
+            <col width="8%" />
+            <col width="22%" />
+            <col width="8%" />
+            <col width="22%" />
+          </colgroup>
+          <tr>
+            <td class="info-table-td-head">층수</td>
+            <td class="info-table-td">
+              <input
+                id="story"
+                type="number"
+                class="form-control info-td-area"
+                min="0"
+                value="<%= warehouse.story %>"
+              />
+              <span>층</span>
+            </td>
+            <td class="info-table-td-head">유효층고</td>
+            <td class="info-table-td">
+              <input
+                id="height"
+                type="number"
+                class="form-control info-td-area"
+                min="0"
+                value="<%= warehouse.height %>"
+              />
+              <span>m</span>
+            </td>
+            <td class="info-table-td-head">준공일</td>
+            <td class="info-table-td">
+              <input id="completion_date" type="date" class="form-control" />
+            </td>
+          </tr>
+          <tr>
+            <td class="info-table-td-head">접근성</td>
+            <td class="info-table-td" colspan="5">
+              <input
+                id="access_ko"
+                type="text"
+                class="form-control"
+                value="<%= warehouse.access %>"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td class="info-table-td-head">출입가능차랑</td>
+            <td class="info-table-td" colspan="5">
+              <input
+                id="restriction_ko"
+                type="text"
+                class="form-control"
+                value="<%= warehouse.restriction %>"
+              />
+            </td>
+          </tr>
+
+          <tr>
+            <td class="info-table-td-head">창고소개</td>
+            <td class="info-table-td" colspan="5">
+              <textarea
+                id="description_ko"
+                class="form-control enroll-text-area"
+                cols="40"
+                rows="5"
+              >
+<%= warehouse.description %></textarea
+              >
+            </td>
+          </tr>
+          <tr>
+            <td class="info-table-td-head">보유장비현황 및 특이사항</td>
+            <td class="info-table-td" colspan="5">
+              <textarea
+                id="note_ko"
+                class="form-control enroll-text-area"
+                cols="40"
+                rows="5"
+              >
+<%= warehouse.note %></textarea
+              >
+            </td>
+          </tr>
+        </table>
+      </div>
+      <!--창고 상세-->
+
+      <!--영문 정보-->
+      <div id="warehouse-eng-info-div">
+        <h4 class="enroll-warehouse-sub-title">영문정보</h4>
+        <table class="table info-table">
+          <colgroup>
+            <col width="20%" />
+            <col width="80%" />
+          </colgroup>
+          <tr>
+            <td class="info-table-td-head">창고명(영문)</td>
+            <td class="info-table-td">
+              <input
+                id="name_en"
+                type="text"
+                class="form-control"
+                value="<%= warehouse.name_en %>"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td class="info-table-td-head">주소(영문)</td>
+            <td class="info-table-td">
+              <input
+                id="address1_en"
+                type="text"
+                class="form-control"
+                value="<%= warehouse.address1_en %>"
+                disabled
+              />
+            </td>
+          </tr>
+          <tr>
+            <td class="info-table-td-head">상세주소(영문)</td>
+            <td class="info-table-td">
+              <input
+                id="address2_en"
+                type="text"
+                class="form-control"
+                value="<%= warehouse.address2_en %>"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td class="info-table-td-head">출입가능차량(영문)</td>
+            <td class="info-table-td">
+              <input
+                id="restriction_en"
+                type="text"
+                class="form-control"
+                value="<%= warehouse.restriction_en %>"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td class="info-table-td-head">접근성(영문)</td>
+            <td class="info-table-td">
+              <input
+                id="access_en"
+                type="text"
+                class="form-control"
+                value="<%= warehouse.access_en %>"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td class="info-table-td-head">창고소개(영문)</td>
+            <td class="info-table-td">
+              <textarea
+                id="description_en"
+                class="form-control enroll-text-area"
+                cols="40"
+                rows="5"
+              >
+<%= warehouse.description_en %></textarea
+              >
+            </td>
+          </tr>
+          <tr>
+            <td class="info-table-td-head">보유장비현황 및 특이사항(영문)</td>
+            <td class="info-table-td">
+              <textarea
+                id="note_en"
+                class="form-control enroll-text-area"
+                cols="40"
+                rows="5"
+              >
+<%= warehouse.note_en %></textarea
+              >
+            </td>
+          </tr>
+        </table>
+      </div>
+      <!--영문 정보-->
+      <div class="centered-div">
+        <button id="submit" class="btn btn-submit" onclick="clkSubmit()">
+          수정하기
+        </button>
+        <button class="btn btn-cancel" onclick="history.back()">취소</button>
+      </div>
+    </div>
+
+    <footer style="margin-top: 3rem">
+      <%- include('../partial/footer') %>
+    </footer>
+  </body>
+  <!--Iot 디바이스 추가/삭제 버튼-->
+  <script>
+    let iot_table_row_num = warehouse.devices.length;
+
+    subDevice = (row_num) => {
+      document.getElementById('tr-' + row_num).remove();
+    };
+    addDevice = () => {
+      iot_table_row_num++;
+
+      const iot_table_body = document.getElementById('iot-device-table-body');
+      const tr = document.createElement('tr');
+      const td_header = document.createElement('td');
+      const td = document.createElement('td');
+      const input = document.createElement('input');
+      const sub_btn = document.createElement('button');
+
+      tr.setAttribute('id', 'tr-' + iot_table_row_num);
+      td_header.setAttribute('class', 'info-table-td-head');
+      td_header.innerText = '디바이스ID';
+      td.setAttribute('class', 'info-table-td');
+      input.setAttribute('id', 'device-id');
+      input.setAttribute('class', 'form-control');
+      input.setAttribute('placeholder', 'ex) DEVICE-1');
+      sub_btn.setAttribute('class', 'btn btn-sub');
+      sub_btn.setAttribute('onclick', 'subDevice(' + iot_table_row_num + ')');
+      sub_btn.setAttribute('id', 'sub-device-' + iot_table_row_num);
+      sub_btn.innerHTML = '삭제';
+
+      td.appendChild(input);
+      td.appendChild(sub_btn);
+      tr.appendChild(td_header);
+      tr.appendChild(td);
+      iot_table_body.appendChild(tr);
+    };
+  </script>
+  <!--Iot 디바이스 추가 버튼-->
+  <!--formdata 생성 및 post요청-->
+  <script>
+    clkSubmit = () => {
+      let formdata = new FormData();
+
+      formdata.append('name_ko', $('#name_ko')[0].value);
+      formdata.append('name_en', $('#name_en')[0].value);
+      formdata.append(
+        'category_id',
+        $('select[name=category_id] option:selected')[0].value
+      );
+      formdata.append('rent', $('#rent')[0].value);
+      formdata.append('address1_ko', $('#address1_ko')[0].value);
+      formdata.append('address1_en', $('#address1_en')[0].value);
+      formdata.append('address2_ko', $('#address2_ko')[0].value);
+      formdata.append('address2_en', $('#address2_en')[0].value);
+      formdata.append('latitude', $('#latitude')[0].value);
+      formdata.append('longitude', $('#longitude')[0].value);
+      formdata.append('zip_code', $('#zip_code')[0].value);
+      formdata.append('land_area', $('#land_area')[0].value);
+      formdata.append('total_ground_area', $('#total_ground_area')[0].value);
+      formdata.append('common_area', $('#common_area')[0].value);
+      formdata.append('dedicated_area', $('#dedicated_area')[0].value);
+      formdata.append('completion_date', $('#completion_date')[0].value);
+      formdata.append('description_ko', $('#description_ko')[0].value);
+      formdata.append('description_en', $('#description_en')[0].value);
+      formdata.append('note_ko', $('#note_ko')[0].value);
+      formdata.append('note_en', $('#note_en')[0].value);
+      formdata.append('story', $('#story')[0].value);
+      formdata.append('restriction_ko', $('#restriction_ko')[0].value);
+      formdata.append('restriction_en', $('#restriction_en')[0].value);
+      formdata.append('access_ko', $('#access_ko')[0].value);
+      formdata.append('access_en', $('#access_en')[0].value);
+      formdata.append('height', $('#height')[0].value);
+      formdata.append('docking_station', $('#docking_station')[0].checked);
+      formdata.append('rack', $('#rack')[0].checked);
+      formdata.append('is_bonded', $('#is_bonded')[0].checked);
+      formdata.append('commercial_lift', $('#commercial_lift')[0].checked);
+      formdata.append('is_verified', $('#is_verified')[0].checked);
+
+      sel_files.forEach((file) => {
+        formdata.append('images', file);
+      });
+
+      for (var pair of formdata.entries()) {
+        console.log(pair[0] + ', ' + pair[1]);
+      }
+      $.ajax({
+        url: server_url + 'api/warehouse',
+        type: 'GET',
+        enctype: 'multipart/form-data',
+        data: formdata,
+        processData: false,
+        contentType: false,
+        cache: false,
+        success: function (data) {
+          // 전송 후 성공 시 실행 코드
+          console.log(data);
+        },
+        error: function (e) {
+          // 전송 후 에러 발생 시 실행 코드
+          console.log('ERROR : ', e);
+        },
+      });
+    };
+  </script>
+  <!--formdata 생성 및 post요청-->
+
+  <!--주소 및 위경도 API-->
+  <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script>
+    function execDaumPostCode() {
+      new daum.Postcode({
+        oncomplete: function (data) {
+          const zipcode = document.getElementById('zip_code');
+          const latitude = document.getElementById('latitude');
+          const longitude = document.getElementById('longitude');
+          const address1_ko = document.getElementById('address1_ko');
+          const address1_en = document.getElementById('address1_en');
+
+          zipcode.value = data.zonecode;
+          address1_ko.value = data.roadAddress;
+          address1_en.value = data.roadAddressEnglish;
+          console.log(data.zonecode);
+          console.log(data.roadAddress);
+          console.log(data.roadAddressEnglish);
+
+          let baseAPIUrl =
+            'https://maps.googleapis.com/maps/api/geocode/json?address=';
+          baseAPIUrl =
+            baseAPIUrl +
+            address1_ko.value +
+            '&key=' +
+            '<%= process.env.GOOGLE_MAP_GEOCODING_KEY %>';
+          $.ajax({
+            url: baseAPIUrl,
+            type: 'GET',
+            success: function (data) {
+              console.log('in geocode success');
+              latitude.value = data.results[0].geometry.location.lat;
+              longitude.value = data.results[0].geometry.location.lng;
+            },
+            error: function (e) {
+              console.log('ERROR : ', e);
+            },
+          });
+        },
+      }).open();
+    }
+  </script>
+  <!--주소 및 위경도 API-->
+
+  <!--이미지 업로드 및 미리보기-->
+  <script>
+    /* att_zone : 이미지들이 들어갈 위치 id, btn : file tag id */
+    const attZone = document.getElementById('att_zone');
+    const btnAtt = document.getElementById('btnAtt');
+    let sel_files = [];
+    const max_images = 5;
+
+    // 이미지와 체크 박스를 감싸고 있는 div 속성
+    const div_style =
+      'display:inline-block;position:relative;' +
+      'width:15rem;height:15rem;margin:5px;border:1px solid #f0f0f0; z-index:1';
+    // 미리보기 이미지 속성
+    const img_style = 'width:100%;height:100%;z-index:none';
+    // 이미지안에 표시되는 체크박스의 속성
+    const chk_style =
+      'position:absolute; padding: 3px 5px 0.5px 5px; border-radius: 3px;' +
+      'right:0px;top:0px;z-index:999;';
+
+    btnAtt.onchange = (e) => {
+      const files = e.target.files;
+      const fileArr = Array.prototype.slice.call(files);
+      for (f of fileArr) {
+        imageLoader(f);
+      }
+    };
+
+    // 탐색기에서 드래그앤 드롭 사용
+    attZone.addEventListener(
+      'dragenter',
+      (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      },
+      false
+    );
+
+    attZone.addEventListener(
+      'dragover',
+      (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      },
+      false
+    );
+
+    attZone.addEventListener(
+      'drop',
+      (e) => {
+        var files = {};
+        e.preventDefault();
+        e.stopPropagation();
+        var dt = e.dataTransfer;
+        files = dt.files;
+        for (f of files) {
+          if (sel_files.length < max_images) imageLoader(f);
+        }
+      },
+      false
+    );
+
+    /*이미지 미리보기 상자가 비어있으면 텍스트 노출*/
+    placeholerObserver = () => {
+      if (sel_files.length <= 0) {
+        $('#image-placeholder')[0].setAttribute('style', 'diplay: block;');
+      } else {
+        $('#image-placeholder')[0].setAttribute('style', 'display: none;');
+      }
+    };
+
+    /*첨부된 이미지들을 배열에 넣고 미리보기 */
+    imageLoader = (file) => {
+      sel_files.push(file);
+      var reader = new FileReader();
+      reader.onload = (e) => {
+        let img = document.createElement('img');
+        img.setAttribute('style', img_style);
+        img.src = e.target.result;
+        attZone.appendChild(makeDiv(img, file));
+      };
+
+      reader.readAsDataURL(file);
+
+      placeholerObserver();
+    };
+
+    /*첨부된 파일이 있는 경우 checkbox와 함께 attZone에 추가할 div를 만들어 반환 */
+    makeDiv = (img, file) => {
+      const div = document.createElement('div');
+      div.setAttribute('style', div_style);
+      const icon = document.createElement('img');
+      const btn = document.createElement('input');
+      btn.setAttribute('type', 'button');
+      btn.setAttribute('value', 'X');
+      btn.setAttribute('class', 'btn btn-danger');
+      btn.setAttribute('delFile', file.name);
+      btn.setAttribute('style', chk_style);
+      btn.onclick = (ev) => {
+        var ele = ev.srcElement;
+        var delFile = ele.getAttribute('delFile');
+        for (var i = 0; i < sel_files.length; i++) {
+          if (delFile == sel_files[i].name) {
+            sel_files.splice(i, 1);
+          }
+        }
+
+        dt = new DataTransfer();
+        for (f in sel_files) {
+          var file = sel_files[f];
+          dt.items.add(file);
+        }
+        btnAtt.files = dt.files;
+        var p = ele.parentNode;
+        attZone.removeChild(p);
+        placeholerObserver();
+      };
+      div.appendChild(img);
+      div.appendChild(btn);
+      return div;
+    };
+  </script>
+  <!--이미지 업로드 및 미리보기-->
+</html>
