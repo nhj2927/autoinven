@@ -71,7 +71,7 @@ module.exports = (db) => {
         warehouse = await getWarehouseDetailWithItem(db, locale, warehouse_id);
       }
 
-      // 유저일 경우 창고와 계약되어있는지 호가인
+      // 유저일 경우 창고와 계약되어있는지 확인
       else if (role === 'user') {
         l_contract_id = await authorizeContractor(db, email, warehouse_id);
         warehouse = await getWarehouseDetailWithItem(
