@@ -27,6 +27,7 @@
             email,
             password,
           };
+          console.log(locals.role);
           $.ajax({
             url: '/api/auth/signin',
             type: 'POST',
