@@ -84,8 +84,7 @@
       //선택된 날짜에 사용가능한 공간 구하기
       $.ajax({
         url:
-          server_url +
-          'api/warehouse/<%= warehouse.warehouse_id%>/available?startDate=' +
+          '/api/warehouse/<%= warehouse.warehouse_id%>/available?startDate=' +
           input_start.value +
           '&endDate=' +
           input_end.value,

@@ -19,13 +19,13 @@
       <!-- Additional required wrapper -->
       <div class="swiper-wrapper">
         <!-- Slides -->
-        <% for(let i in images){ %>
+        <% for(let i in warehouse.images){ %>
         <div class="swiper-slide">
           <img id='warehouse_image_"<%= i%>"' class="slider-image" />
           <script>
             document
               .getElementById('warehouse_image_"<%= i%>"')
-              .setAttribute('src', server_url + '<%=images[i]%>');
+              .setAttribute('src', server_url + '<%=warehouse.images[i]%>');
           </script>
         </div>
         <% } %>
