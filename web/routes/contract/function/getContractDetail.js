@@ -35,6 +35,7 @@ module.exports = async (db, l_contract_id) => {
   return {
     warehouse_id: contract_result.warehouse_id,
     l_contract_id: contract_result.l_contract_id,
+    c_state_id: contract_result.c_state_id,
     start_date: contract_result.start_date,
     end_date: contract_result.end_date,
     req_area: contract_result.lease_area,
