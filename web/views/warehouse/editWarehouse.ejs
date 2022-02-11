@@ -617,7 +617,9 @@
       formdata.append('total_ground_area', $('#total_ground_area')[0].value);
       formdata.append('common_area', $('#common_area')[0].value);
       formdata.append('dedicated_area', $('#dedicated_area')[0].value);
-      formdata.append('completion_date', $('#completion_date')[0].value);
+      if ($('#completion_date')[0].value !== '') {
+        formdata.append('completion_date', $('#completion_date')[0].value);
+      }
       formdata.append('description_ko', $('#description_ko')[0].value);
       formdata.append('description_en', $('#description_en')[0].value);
       formdata.append('note_ko', $('#note_ko')[0].value);
@@ -642,7 +644,7 @@
         console.log(pair[0] + ', ' + pair[1]);
       }
       $.ajax({
-        url: '/api/warehouse/2',
+        url: '/api/warehouse/' + '<%= warehouse.warehouse_id %>',
         type: 'PUT',
         enctype: 'multipart/form-data',
         data: formdata,
@@ -833,10 +835,9 @@
       image_url = JSON.parse(image_url);
       for (f of image_url) {
         console.log(f);
-        let a = await fetch(`/${f}`);
+        let a = await fetch(f);
         a = await a.blob();
         console.log(a);
-
         var file = new File([a], 'foo.txt', { type: 'text/plain' });
         imageLoader(file);
       }
