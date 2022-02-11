@@ -16,10 +16,7 @@
         <li style="display: flex; align-items: center">
           <h2 style="font-family: nanum-eb"><%= __('warehouse_title') %></h2>
           <% if(locals.role == 'admin') { %>
-          <button
-            class="add_wh"
-            onclick="location.href='/admin/warehouse/enroll';"
-          >
+          <button class="add_wh" onclick="location.href='/warehouse/enroll';">
             +
           </button>
           <% } %>
@@ -82,7 +79,7 @@
               <% if(locals.role == 'admin') { %>}
               <button
                 class="edit_wh"
-                onclick="location.href='/admin/warehouse/'+'<%= warehouses[i].id %>'+'/edit';"
+                onclick="location.href='/warehouse/'+'<%= warehouses[i].id %>'+'/edit';"
               >
                 수정하기
               </button>
