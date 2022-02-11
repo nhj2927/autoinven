@@ -6,6 +6,7 @@
 
 <!--창고 상세 페이지의 물품목록-->
 <h3 class="wh-detail-title"><%= __('warehousedetailwithitem_itemlist')%></h3>
+<% if(locals.role == 'user') { %>
 <div style="text-align: right">
   <button
     class="add_item"
@@ -16,6 +17,7 @@
     <%=__('warehousedetailwithitem_add_item')%>
   </button>
 </div>
+<% } %>
 <div id="item-list-card" class="info-card" style="overflow-y: auto">
   <ul class="list-group list-group-flush">
     <% for(let i in items) { %>
