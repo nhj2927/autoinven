@@ -43,6 +43,9 @@ module.exports = (db) => {
     doAsync(async (req, res) => {
       const locale = res.locale;
       const {
+        session: { email },
+      } = req;
+      const {
         query: {
           warehouse_id,
           start_date,
@@ -67,6 +70,7 @@ module.exports = (db) => {
 
       res.render('contract/estimateDetail', {
         warehouse,
+        user: { email },
         lease_info: {
           start_date,
           end_date,

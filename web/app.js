@@ -49,6 +49,7 @@ app.engine('html', ejs.renderFile);
 // 3) Session 설정(생성)
 const session = require('express-session');
 const { info } = require('./config/db');
+const { application } = require('express');
 const MySQLStore = require('express-mysql-session')(session);
 const connection = mysql2.createPool(info);
 const sessionStore = new MySQLStore({}, connection);
@@ -82,6 +83,7 @@ app.use(
 
 // 9) i18n - 다국어 모듈 설정
 app.use(i18n);
+app.use(require('./middlewares/roleIdentifier'));
 
 // 10) 각 라우터에 인자값을 넘겨주는 것
 app.use('/', require('./routes')(db));

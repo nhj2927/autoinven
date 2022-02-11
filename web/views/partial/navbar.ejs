@@ -1,4 +1,3 @@
-<script src="/js/signout.js"></script>
 <script>
   console.log("<%= locals.role %>");
 </script>
@@ -17,8 +16,7 @@
               <%= __('navbar_search_warehouse')%>
             </a>
           </li>
-          <% if(locals.role) { %>
-            <% if(locals.role == 'user') { %>
+            <% if( locals.role === 'user') { %>
               <li class="nav-item">
                 <a class="nav-link" href="/warehouse" style="font-size: 1.2rem;">
                   <%= __('navbar_my_warehouse')%>
@@ -29,7 +27,7 @@
                   <%= __('navbar_my_contract')%>
                 </a>
               </li>
-            <% } else if(locals.role == 'admin') { %>
+            <% } else if(locals.role === 'admin') { %>
               <li class="nav-item">
                 <a class="nav-link" href="/warehouse" style="font-size: 1.2rem;">
                   <%= __('navbar_manage_warehouse')%>
@@ -41,7 +39,7 @@
                 </a>
               </li>
             <% } %>
-          <% } %>
+          
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
               data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 1.2rem;">
@@ -55,13 +53,13 @@
             </ul>
           </li>
           <li class="nav-item">
-            <% if(locals.role) { %>
-              <a id="signout" class="nav-link" href="/" style="color: rgba(124,19,154,1); font-size: 1.2rem; ">
-                <%= __('navbar_signout')%>
-              </a>
-            <% } else { %>
+            <% if( locals.role === '' ) { %>
               <a id="signin" class="nav-link" href="/signin" style="color: rgba(124,19,154,1); font-size: 1.2rem;">
                 <%= __('navbar_signin')%>
+              </a>
+            <% } else { %>
+              <a id="signout" class="nav-link" style="color: rgba(124,19,154,1); font-size: 1.2rem; ">
+                <%= __('navbar_signout')%>
               </a>
             <% } %>
           </li>
@@ -81,3 +79,4 @@
     </div>
   </nav>
 </div>
+<script src="/js/signout.js"></script>

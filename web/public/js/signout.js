@@ -7,10 +7,10 @@
         title: 'Fail',
         text: text,
       }).then(callback);
-    $(signout).on('click', function () {
-      var baseUrl = 'api/auth/signout';
+    $('#signout').on('click', function () {
+      console.log('clicked');
       $.ajax({
-        url: baseUrl,
+        url: '/api/auth/signout',
         type: 'GET',
         datatype: 'application/json',
         success: (data) => {
