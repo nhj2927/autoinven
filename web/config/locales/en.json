@@ -211,5 +211,7 @@
   "error_404_msg3" : "Please check your address again.",
   "error_any_msg" : "An error occurred on the server due to an unexpected problem.",
   "error_any_msg2" : "We are currently working hard to resolve this as soon as possible.",
-  "error_any_msg3" : "Please try again in a few minutes"
+  "error_any_msg3" : "Please try again in a few minutes",
+  "error_403_msg" : "You do not have permission to access the page."
+
 }

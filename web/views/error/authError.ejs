@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Autoinven</title>
+    <link rel="icon" type="image/x-icon" href="/image/autoin_icon.ico" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+  <body>
+    <script>
+      Swal.fire({
+        title: '<%= status_code %> <%= __("error") %>',
+        html: "<h3><%= __('error_403_msg') %></h3>",
+        icon: 'error',
+      }).then(() => history.back());
+    </script>
+  </body>
+</html>

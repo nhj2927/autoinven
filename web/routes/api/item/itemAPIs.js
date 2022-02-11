@@ -48,7 +48,7 @@ const registerItem = async (req, db) => {
     for (index in itFiles) {
       const { path } = itFiles[index];
       await db.ItemImage.create({
-        url: path,
+        url: `/${path}`,
         item_id: item.item_id,
       });
     }
@@ -100,7 +100,7 @@ const editItem = async (req, db) => {
   for (index in itFiles) {
     const { path } = itFiles[index];
     await db.ItemImage.create({
-      url: path,
+      url: `/${path}`,
       item_id: item.item_id,
     });
   }
