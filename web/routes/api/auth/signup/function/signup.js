@@ -1,4 +1,4 @@
-module.exports = async (user_info, db) => {
+module.exports = async (user_info, db, session) => {
   const getEncryptedPasswordInfo = require('./getEncryptedPasswordInfo');
 
   const { email, password, name, phone } = user_info;
