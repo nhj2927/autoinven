@@ -82,6 +82,7 @@
   input_area.addEventListener('change', check_and_calc_total_cost);
 
   function check_and_calc_total_cost() {
+
     // 기간 + 임대 공간에 따른 비용 계산
     if (input_start.value != '' && input_end.value != '') {
       if (input_start.value > input_end.value) {

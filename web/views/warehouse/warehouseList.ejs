@@ -10,7 +10,7 @@
   <body>
     <header style="z-index: 1000"><%- include('../partial/navbar') %></header>
     <div class="inner img"></div>
-    <div class="inner main">
+    <div class="inner main container">
       <!--페이징 기능 미구현-->
       <ul class="pager" style="list-style: none; width: 90%">
         <li style="display: flex; align-items: center">
@@ -36,14 +36,14 @@
         <li>
           <div class="warehouse_info">
             <div class="container left">
-              <img class="image" src='#'+'<%= warehouses[i].image %>'/>
+              <img class="image" src="<%= warehouses[i].image %>" />
             </div>
             <div class="container center">
               <ul>
                 <li style="display: flex; align-items: center">
                   <p
                     class="wh_title"
-                    onclick="location.href='/warehouse/'+'<%= warehouses[i].id %>';"
+                    onclick="location.href='/warehouse/'+'<%= warehouses[i].warehouse_id %>';"
                   >
                     <%= warehouses[i].name %>
                   </p>
@@ -70,13 +70,14 @@
                 </li>
                 <li>
                   <p class="wh_term">
-                    <%= __('warehouse_period') %>: <%= warehouses[i].period %>
+                    <%= __('warehouse_period') %>: <%= warehouses[i].start_date
+                    %> ~ <%= warehouses[i].end_date %>
                   </p>
                 </li>
               </ul>
             </div>
             <div class="container right">
-              <% if(locals.role == 'admin') { %>}
+              <% if(locals.role == 'admin') { %>
               <button
                 class="edit_wh"
                 onclick="location.href='/warehouse/'+'<%= warehouses[i].id %>'+'/edit';"

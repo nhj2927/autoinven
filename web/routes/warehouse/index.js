@@ -143,7 +143,7 @@ module.exports = (db) => {
   );
 
   // Iot
-  router.use('/:id/iot', authenticate, require('./iot')(db));
+  router.use('/:id/iot', require('./iot')(db));
 
   return router;
 };
