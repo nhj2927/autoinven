@@ -9,6 +9,7 @@ module.exports = (db) => {
 
   // 창고 통계
   router.get('/statistics', (req, res) => {
+    const warehouse_id = req.params.id;
     res.render('/iot/statistics');
   });
 
