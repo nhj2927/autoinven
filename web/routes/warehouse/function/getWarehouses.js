@@ -75,7 +75,7 @@ const getMyWarehouses = async (db, locale, user_email) => {
 
 // 모든 창고목록
 const getAllWarehouses = async (db, locale) => {
-  const warehouses_result = await db.Wareshouse.findAll({
+  const warehouses_result = await db.Warehouse.findAll({
     attributes: [
       'warehouse_id',
       'name_ko',
