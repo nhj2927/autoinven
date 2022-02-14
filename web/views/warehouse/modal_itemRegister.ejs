@@ -105,7 +105,13 @@
       data: formdata,
       success: function (data) {
         // 전송 후 성공 시 실행 코드
-        console.log(data);
+        Swal.fire({
+          title: 'SUCCESS',
+          html: `물품을 성공적으로 등록하였습니다.`,
+          icon: 'success',
+        }).then(() => {
+          location.reload();
+        });
       },
       error: function (e) {
         // 전송 후 에러 발생 시 실행 코드

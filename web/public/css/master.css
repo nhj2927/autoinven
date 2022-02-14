@@ -63,8 +63,8 @@ section {
 .container-lg,
 .container-md,
 .container-sm {
-  padding-right: 1rem;
-  padding-left: 1rem;
+  padding-right: 5rem;
+  padding-left: 5rem;
   background: white;
 }
 

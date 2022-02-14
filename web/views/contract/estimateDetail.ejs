@@ -126,7 +126,7 @@
           'start_date':'<%= lease_info.start_date%>',
           'end_date':'<%= lease_info.end_date%>',
           'lease_area':'<%= lease_info.req_area%>',
-          'amount':'<%= lease_info.amount%>',
+          'amount':'<%= lease_info.total_cost%>',
           'purpose':$('#purpose')[0].value,
           'note':$('#note')[0].value,
           'user_email': '<%= user.email %>'
@@ -143,7 +143,13 @@
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(formdata),
             success: function (data) {
-                console.log(data);
+              Swal.fire({
+                title: 'SUCCESS',
+                html: `계약 요청을 성공적으로 완료하였습니다.`,
+                icon: 'success',
+              }).then(() => {
+                history.back()
+              });
             },
             error: function (e) {
                 console.log("ERROR : ", e);
