@@ -19,11 +19,15 @@
       placeholder="시작일"
     />
     <input class="searchInput" id="endDate" type="date" placeholder="종료일" />
-    <select class="searchInput" id="whType" name="cars">
-      <option selected><%= __('search_whtype') %></option>
-      <option value="1"><%= __('search_whtype1') %></option>
-      <option value="2"><%= __('search_whtype2') %></option>
-      <option value="3"><%= __('search_whtype3') %></option>
+    <select id="whType" name="cars" class="searchInput">
+      <option selected style="color: rgba(0, 0, 0, 0.5)">
+        <%= __('search_whtype') %>
+      </option>
+      <% for (var i = 0 ; i < categories.length ; i++) { %>
+      <option value="<%= categories[i].category_id %>">
+        <%= categories[i].name %>
+      </option>
+      <% } %>
     </select>
     <input
       class="searchInput"
