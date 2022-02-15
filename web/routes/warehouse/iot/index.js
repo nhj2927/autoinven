@@ -19,7 +19,12 @@ module.exports = (db) => {
 
       const warehouse = await getWarehouseDetailForIot(db, warehouse_id);
 
-      res.send(warehouse);
+      res.render('/iot/monitoring', {
+        user: {
+          name,
+        },
+        warehouse,
+      });
     })
   );
 

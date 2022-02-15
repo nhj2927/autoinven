@@ -16,9 +16,7 @@
         <li style="display: flex; align-items: center">
           <h2 style="font-family: nanum-eb"><%= __('warehouse_title') %></h2>
           <% if(locals.role == 'admin') { %>
-          <button class="add_wh" onclick="location.href='/warehouse/enroll';">
-            +
-          </button>
+          <button class="add_wh">+</button>
           <% } %>
           <input
             type="text"
@@ -34,19 +32,17 @@
         <!--창고 정보 카드-->
         <% for(var i = 0 ; i < warehouses.length; i++) { %>
         <li>
-          <div class="warehouse_info">
+          <div
+            class="warehouse_info"
+            onclick="location.href='/warehouse/'+'<%= warehouses[i].warehouse_id %>';"
+          >
             <div class="container left">
-              <img class="image" src="<%= warehouses[i].image %>" />
+              <img class="image" src="<%= warehouses[i].image_url %>" />
             </div>
             <div class="container center">
               <ul>
                 <li style="display: flex; align-items: center">
-                  <p
-                    class="wh_title"
-                    onclick="location.href='/warehouse/'+'<%= warehouses[i].warehouse_id %>';"
-                  >
-                    <%= warehouses[i].name %>
-                  </p>
+                  <p class="wh_title"><%= warehouses[i].name %></p>
                   <% if(warehouses[i].is_verified) { %>
                   <span class="badge bg-primary"
                     ><%= __('warehousedetail_verified') %></span
@@ -76,11 +72,11 @@
                 </li>
               </ul>
             </div>
-            <div class="container right">
+            <div class="container right" onclick="event.stopPropagation()">
               <% if(locals.role == 'admin') { %>
               <button
                 class="edit_wh"
-                onclick="location.href='/warehouse/'+'<%= warehouses[i].id %>'+'/edit';"
+                onclick="location.href='/warehouse/'+'<%= warehouses[i].warehouse_id %>'+'/edit';"
               >
                 수정하기
               </button>
@@ -93,4 +89,5 @@
     </div>
     <footer><%- include('../partial/footer') %></footer>
   </body>
+  <script></script>
 </html>

@@ -9,18 +9,16 @@ require('dotenv').config();
 require('better-module-alias')(__dirname);
 // 6) EJS Module 불러오기
 const ejs = require('ejs');
-// 7) fs core moduel 불러오기
-const fs = require('fs').promises;
-// 8) 다국어 지원 Module 불러오기
+// 7) 다국어 지원 Module 불러오기
 const i18n = require('./config/i18n');
-// 9) cookieParser Module 불러오기
+// 8) cookieParser Module 불러오기
 const cookieParser = require('cookie-parser');
 
-// 10) mysql2 Module 불러오기
+// 9) mysql2 Module 불러오기
 const mysql2 = require('mysql2/promise');
-// 11) PORT
+// 10) PORT
 const PORT = process.env.PORT || 5000;
-// 12) DB 테이블 생성(없으면 생성해줌)
+// 11) DB 테이블 생성(없으면 생성해줌)
 db.sequelize.sync().then((response) => {
   console.log('DB sync is completed.');
 });
