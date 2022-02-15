@@ -7,6 +7,8 @@ module.exports = (db) => {
   router.put(
     '/:device_id',
     doAsync(async (req, res) => {
+      console.log(req.body);
+      
       const result = await deviceAPIs.updateDeviceUrl(req, db);
       res.send({ message: `${result} row(s) affected` });
     })
