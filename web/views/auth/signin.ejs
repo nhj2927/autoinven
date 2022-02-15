@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <%- include('../head') %>
-    <script src="/js/signin.js"></script>
+
     <link rel="stylesheet" href="/css/signin.css" />
     <title>로그인</title>
   </head>
@@ -70,4 +70,61 @@
       </div>
     </div>
   </body>
+  <script>
+    $(document).ready(function () {
+      var email_check =
+        /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+      //send sign up data to server
+      $('#signin_button')
+        .off('click')
+        .on('click', function () {
+          var email = $('#email').val();
+          var password = $('#password').val();
+          console.log(email, password);
+
+          var swalError = (text) =>
+            Swal.fire({
+              icon: 'error',
+              title: 'Fail',
+              text: text,
+            });
+          if (!email) swalError("<%= __('error_email') %>");
+          else if (!password) swalError("<%= __('error_pw') %>");
+          else if (email_check.test(email) == false)
+            swalError("<%= __('error_info_form') %>");
+          else {
+            var data = {
+              email,
+              password,
+            };
+            $.ajax({
+              url: '/api/auth/signin',
+              type: 'POST',
+              accepts: 'application/json',
+              contentType: 'application/json',
+              data: JSON.stringify(data),
+              success: function (data) {
+                console.log(data);
+                if (data.message == 'success') window.location.href = '/';
+              },
+              error: function (request, status, error) {
+                if (request.status == 401) {
+                  Swal.fire({
+                    title: '401 ' + "<%= __('error') %>",
+                    html: "<h3><%= __('error_any_msg') %></h3><br><%= __('error_any_msg2') %><br><%= __('error_any_msg3') %>",
+                    icon: 'error',
+                  });
+                } else {
+                  Swal.fire({
+                    title: "500 <%= __('error') %>",
+                    html: "<h3><%= __('error_any_msg') %></h3><br><%= __('error_any_msg2') %><br><%= __('error_any_msg3') %>",
+                    icon: 'error',
+                  });
+                }
+              },
+            });
+          }
+        });
+    });
+  </script>
 </html>
