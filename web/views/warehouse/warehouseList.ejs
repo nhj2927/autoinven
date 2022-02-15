@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <%- include('../head') %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js"></script>
     <link rel="stylesheet" href="/css/warehouse.css" />
     <title>Document</title>
   </head>
@@ -12,7 +13,11 @@
     <div class="inner img"></div>
     <div class="inner main container">
       <!--페이징 기능 미구현-->
-      <ul class="pager" style="list-style: none; width: 90%">
+      <ul
+        id="pagination"
+        class="pagination-sm"
+        style="list-style: none; width: 90%"
+      >
         <li style="display: flex; align-items: center">
           <h2 style="font-family: nanum-eb"><%= __('warehouse_title') %></h2>
           <% if(locals.role == 'admin') { %>
@@ -73,7 +78,13 @@
             </div>
             <div class="container center">
               <ul>
-                <li style="display: flex; align-items: center">
+                <li
+                  style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                  "
+                >
                   <p class="wh_title"><%= warehouses[i].name %></p>
                   <% if(warehouses[i].is_verified) { %>
                   <span class="badge bg-primary"
@@ -93,7 +104,7 @@
                 </li>
                 <li>
                   <p class="wh_space">
-                    <%= __('warehouse_area') %>: <%= warehouses[i].area %>평
+                    <%= __('warehouse_area') %>: <%= warehouses[i].area %>㎡
                   </p>
                 </li>
                 <li>
@@ -127,5 +138,17 @@
     </div>
     <footer><%- include('../partial/footer') %></footer>
   </body>
-  <script></script>
+  <script>
+    $(document).ready(function () {
+      $('#pagination').twbsPagination({
+        totalPages: 7,
+        visiblePages: 5,
+        prev: '이전',
+        next: '다음',
+        first: '«',
+        last: '»',
+        onPageClick: function (event, page) {},
+      });
+    });
+  </script>
 </html>
