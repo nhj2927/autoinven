@@ -52,6 +52,10 @@ module.exports = async (db, warehouse_id) => {
       {
         model: db.LeaseContract,
         attributes: [],
+        required: false,
+        where: {
+          c_state_id: 3,
+        },
       },
     ],
   });
@@ -66,7 +70,7 @@ module.exports = async (db, warehouse_id) => {
   return {
     warehouse_id: warehouse_result.warehouse_id,
     dedicated_area: warehouse_result.dedicated_area,
-    user_area: warehouse_result.used_area,
+    used_area: warehouse_result.get('used_area'),
     latitude: warehouse_result.Address.latitude,
     longitude: warehouse_result.Address.longitude,
     iot_url: getIotUrl(warehouse_result.IotDevices),
