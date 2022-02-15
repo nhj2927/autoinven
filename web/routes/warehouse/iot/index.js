@@ -9,6 +9,7 @@ module.exports = (db) => {
   router.get(
     '/monitoring',
     doAsync(async (req, res) => {
+      const locale = res.locale;
       const {
         params: { id: warehouse_id },
       } = req;
@@ -18,7 +19,8 @@ module.exports = (db) => {
 
       const warehouse = await getWarehouseDetailForIot(db, warehouse_id);
 
-      res.render('/iot/monitoring', {
+      res.render('iot/monitoring', {
+        locale,
         user: {
           name,
         },
