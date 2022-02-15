@@ -1,4 +1,4 @@
-const { fn, col } = require('sequelize');
+const { fn, col, Op } = require('sequelize');
 const getFullAddress = require('$base/utils/getFullAddress');
 const getLocaleLanguageValue = require('$base/utils/getLocaleLanguageValue');
 
@@ -11,7 +11,20 @@ const getImage = (images) => {
 };
 
 // 유저와 계약된 창고목록
-const getMyWarehouses = async (db, locale, user_email) => {
+const getMyWarehouses = async (
+  db,
+  locale,
+  user_email,
+  offset,
+  limit,
+  conditions
+) => {
+  let where_clause;
+  if (conditions.length === 0) {
+    where_clause = {};
+  } else {
+    where_clause = { [Op.or]: conditions };
+  }
   const contracts_result = await db.LeaseContract.findAll({
     attributes: [
       [
@@ -24,7 +37,7 @@ const getMyWarehouses = async (db, locale, user_email) => {
       ],
       'lease_area',
     ],
-    where: { user_email, c_state_id: 3 },
+    where: { user_email, c_state_id: 3, where_clause },
     include: {
       model: db.Warehouse,
       required: true,
@@ -43,6 +56,8 @@ const getMyWarehouses = async (db, locale, user_email) => {
         attributes: ['url'],
       },
     },
+    offset,
+    limit,
   });
 
   return contracts_result.map((contract) => {
@@ -74,7 +89,14 @@ const getMyWarehouses = async (db, locale, user_email) => {
 };
 
 // 모든 창고목록
-const getAllWarehouses = async (db, locale) => {
+const getAllWarehouses = async (db, locale, offset, limit, conditions) => {
+  let where_clause;
+  if (conditions.length === 0) {
+    where_clause = {};
+  } else {
+    where_clause = { [Op.or]: conditions };
+  }
+  console.log(where_clause);
   const warehouses_result = await db.Warehouse.findAll({
     attributes: [
       'warehouse_id',
@@ -86,10 +108,13 @@ const getAllWarehouses = async (db, locale) => {
       'address2_en',
       'is_verified',
     ],
+    where: where_clause,
     include: {
       model: db.WarehouseImage,
       attributes: ['url'],
     },
+    offset,
+    limit,
   });
 
   return warehouses_result.map((warehouse) => {
@@ -111,17 +136,73 @@ const getAllWarehouses = async (db, locale) => {
   });
 };
 
-module.exports = async (db, locale, user_email) => {
+const getConditions = (keyword) => {
+  const regex = / /gi;
+  let keywords;
+  if (keyword) {
+    keywords = [keyword.replace(regex, ''), keyword.trim()];
+  } else {
+    return [];
+  }
+  let conditions = [];
+  for (x in keywords) {
+    conditions.push({
+      name_ko: {
+        [Op.like]: `%${keywords[x]}%`,
+      },
+    });
+    conditions.push({
+      name_en: {
+        [Op.like]: `%${keywords[x]}%`,
+      },
+    });
+    conditions.push({
+      address1_ko: {
+        [Op.like]: `%${keywords[x]}%`,
+      },
+    });
+    conditions.push({
+      address1_en: {
+        [Op.like]: `%${keywords[x]}%`,
+      },
+    });
+    conditions.push({
+      warehouse_id: {
+        [Op.like]: `%${keywords[x]}%`,
+      },
+    });
+  }
+  return conditions;
+};
+
+module.exports = async (db, locale, page_num, keyword, user_email) => {
   let warehouses = [];
+  let offset = 0;
+  const limit = 10;
+  if (!page_num) {
+    page_num = 1;
+  } else if (page_num > 1) {
+    offset = limit * (page_num - 1);
+  }
+  console.log(offset, page_num);
+
+  const conditions = getConditions(keyword);
 
   // 유저일 경우
   if (user_email) {
-    warehouses = getMyWarehouses(db, locale, user_email);
+    warehouses = getMyWarehouses(
+      db,
+      locale,
+      user_email,
+      offset,
+      limit,
+      conditions
+    );
   }
 
   // 관리자일 경우
   else {
-    warehouses = getAllWarehouses(db, locale);
+    warehouses = getAllWarehouses(db, locale, offset, limit, conditions);
   }
 
   return warehouses;

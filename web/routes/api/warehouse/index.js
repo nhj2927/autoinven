@@ -33,6 +33,16 @@ module.exports = (db) => {
     })
   );
 
+  // 2-1) 창고 키워드로 검색
+  router.get(
+    '/searchbykeyword',
+    doAsync(async (req, res, next) => {
+      console.log(req.path);
+      const result = await warehouseAPIs.searchWarehouseByKeyword(req, db);
+      res.send(result);
+    })
+  );
+
   // 3) 해당 창고 가용공간 조회 유저
   router.get(
     '/:warehouse_id/available',

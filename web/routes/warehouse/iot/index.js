@@ -4,6 +4,7 @@ module.exports = (db) => {
 
   const { doAsync } = require('$base/utils/asyncWrapper');
   const getWarehouseDetailForIot = require('./function/getWarehouseDetailForIot');
+  const { getIotUrl } = require('./function/getIotUrl');
 
   // 창고 모니터링
   router.get(
@@ -30,9 +31,22 @@ module.exports = (db) => {
   );
 
   // 창고 통계
-  router.get('/statistics', (req, res) => {
-    res.render('/iot/statistics');
-  });
+  router.get(
+    '/statistics',
+    doAsync(async (req, res) => {
+      const urls = await getIotUrl(db, req);
+      const {
+        session: { name },
+      } = req;
+
+      res.render('iot/statistics', {
+        user: {
+          name,
+        },
+        urls,
+      });
+    })
+  );
 
   return router;
 };

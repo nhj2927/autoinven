@@ -220,7 +220,7 @@ const listing = (lists) => {
 async function initMap() {
   center = { lat: 35.95, lng: 128.25 };
   map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 7.5,
+    zoom: 7,
     center: center,
     mapTypeContorl: false,
   });
@@ -229,15 +229,19 @@ async function initMap() {
     '/image/warehouse_pin_not_available.png'
   );
   let lists;
+  let markers_for_clustering = [];
   for (index in warehouses) {
-    markers[warehouses[index].warehouse_id] = new google.maps.Marker({
+    const mk = new google.maps.Marker({
       position: {
         lat: warehouses[index].Address.latitude,
         lng: warehouses[index].Address.longitude,
       },
-      map: map,
+      map,
       icon: notAvailableIcon,
     });
+    markers_for_clustering.push(mk);
+    markers[warehouses[index].warehouse_id] = mk;
+
     markers[warehouses[index].warehouse_id].index = index;
     let name;
     let address;
@@ -266,6 +270,15 @@ async function initMap() {
       }, 500);
     });
   }
+
+  const markerCluster = new MarkerClusterer(map, markers_for_clustering, {
+    imagePath:
+      'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
+    gridSize: 100,
+    maxZoom: 15,
+    minimumClusterSize: 1,
+  });
+
   // 초기 리스팅
   listing(markers);
 

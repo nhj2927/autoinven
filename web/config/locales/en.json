@@ -177,7 +177,7 @@
   "contractDetail_cancel": "CANCEL",
   "search_searchPlace": "Search location",
   "search_leaseArea": "Lease Area",
-  "search_whtype": "Warehouse Type",
+  "search_whtype": "total",
   "search_whtype1": "general",
   "search_whtype2": "frozen",
   "search_whtype3": "refrigeration",

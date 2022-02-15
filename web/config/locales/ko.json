@@ -177,7 +177,7 @@
   "contractDetail_cancel": "취소",
   "search_searchPlace": "위치를 검색하세요",
   "search_leaseArea": "계약 면적",
-  "search_whtype": "창고 종류",
+  "search_whtype": "전체",
   "search_whtype1": "일반",
   "search_whtype2": "냉장",
   "search_whtype3": "냉동",
@@ -211,5 +211,5 @@
   "error_any_msg": "예기치 못한 문제로 서버에 에러가 발생하였습니다.",
   "error_any_msg2": "조속한 해결을 위해 현재 열심히 노력 중입니다.",
   "error_any_msg3": "잠시 후 다시 시도해주세요.",
-  "error_403_msg": "권한이 없습니다."
+  "error_403_msg": "페이지에 접근할 권한이 없습니다."
 }
