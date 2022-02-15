@@ -1,7 +1,48 @@
+const { fn, col, Op } = require('sequelize');
+
+const getConditions = (keyword) => {
+  const regex = / /gi;
+  let keywords;
+  if (keyword) {
+    keywords = [keyword.replace(regex, ''), keyword.trim()];
+  } else {
+    return [];
+  }
+  let conditions = [];
+  for (x in keywords) {
+    conditions.push({
+      name_ko: {
+        [Op.like]: `%${keywords[x]}%`,
+      },
+    });
+    conditions.push({
+      name_en: {
+        [Op.like]: `%${keywords[x]}%`,
+      },
+    });
+  }
+  return conditions;
+};
+
 // 모든 계약 목록
-module.exports = async (db, locale) => {
-  const { fn, col } = require('sequelize');
+module.exports = async (db, locale, page_num, keyword) => {
   const getLocaleLanguageValue = require('$base/utils/getLocaleLanguageValue');
+
+  let offset = 0;
+  const limit = 10;
+  if (!page_num) {
+    page_num = 1;
+  } else if (page_num > 1) {
+    offset = limit * (page_num - 1);
+  }
+
+  const conditions = getConditions(keyword);
+  let where_clause;
+  if (!conditions.length) {
+    where_clause = {};
+  } else {
+    where_clause = { [Op.or]: conditions };
+  }
 
   const contracts_result = await db.LeaseContract.findAll({
     attributes: [
@@ -27,6 +68,7 @@ module.exports = async (db, locale) => {
         model: db.Warehouse,
         required: true,
         attributes: ['name_ko', 'name_en'],
+        where: where_clause,
       },
       {
         model: db.User,
@@ -35,22 +77,29 @@ module.exports = async (db, locale) => {
       },
     ],
     order: [['createdAt', 'DESC']],
+    offset,
+    limit,
   });
 
-  return contracts_result.map((contract) => {
-    return {
-      id: contract.l_contract_id,
-      state: contract.c_state_id,
-      name: getLocaleLanguageValue(
-        locale,
-        contract.Warehouse.name_ko,
-        contract.Warehouse.name_en
-      ),
-      period: `${contract.start_date} ~ ${contract.end_date}`,
-      area: contract.lease_area,
-      price: contract.amount,
-      created_date: contract.createdAt,
-      contractor_name: contract.User.name,
-    };
-  });
+  const count = await db.LeaseContract.count();
+
+  return {
+    total_page: !count ? 1 : Math.floor((count - 1) / limit) + 1,
+    contracts: contracts_result.map((contract) => {
+      return {
+        id: contract.l_contract_id,
+        state: contract.c_state_id,
+        name: getLocaleLanguageValue(
+          locale,
+          contract.Warehouse.name_ko,
+          contract.Warehouse.name_en
+        ),
+        period: `${contract.start_date} ~ ${contract.end_date}`,
+        area: contract.lease_area,
+        price: contract.amount,
+        created_date: contract.createdAt,
+        contractor_name: contract.User.name,
+      };
+    }),
+  };
 };
