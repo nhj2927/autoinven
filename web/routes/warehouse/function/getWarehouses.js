@@ -1,4 +1,4 @@
-const { fn, col } = require('sequelize');
+const { fn, col, Op } = require('sequelize');
 const getFullAddress = require('$base/utils/getFullAddress');
 const getLocaleLanguageValue = require('$base/utils/getLocaleLanguageValue');
 
@@ -19,6 +19,12 @@ const getMyWarehouses = async (
   limit,
   conditions
 ) => {
+  let where_clause;
+  if (conditions.length === 0) {
+    where_clause = {};
+  } else {
+    where_clause = { [Op.or]: conditions };
+  }
   const contracts_result = await db.LeaseContract.findAll({
     attributes: [
       [
@@ -31,7 +37,7 @@ const getMyWarehouses = async (
       ],
       'lease_area',
     ],
-    where: { user_email, c_state_id: 3, [Op.or]: conditions },
+    where: { user_email, c_state_id: 3, where_clause },
     include: {
       model: db.Warehouse,
       required: true,
@@ -84,6 +90,13 @@ const getMyWarehouses = async (
 
 // 모든 창고목록
 const getAllWarehouses = async (db, locale, offset, limit, conditions) => {
+  let where_clause;
+  if (conditions.length === 0) {
+    where_clause = {};
+  } else {
+    where_clause = { [Op.or]: conditions };
+  }
+  console.log(where_clause);
   const warehouses_result = await db.Warehouse.findAll({
     attributes: [
       'warehouse_id',
@@ -95,7 +108,7 @@ const getAllWarehouses = async (db, locale, offset, limit, conditions) => {
       'address2_en',
       'is_verified',
     ],
-    where: { [Op.or]: conditions },
+    where: where_clause,
     include: {
       model: db.WarehouseImage,
       attributes: ['url'],
@@ -126,7 +139,7 @@ const getAllWarehouses = async (db, locale, offset, limit, conditions) => {
 const getConditions = (keyword) => {
   const regex = / /gi;
   let keywords;
-  if (!keyword) {
+  if (keyword) {
     keywords = [keyword.replace(regex, ''), keyword.trim()];
   } else {
     return [];
@@ -162,13 +175,17 @@ const getConditions = (keyword) => {
   return conditions;
 };
 
-module.exports = async (db, locale, user_email, page_num, keyword) => {
+module.exports = async (db, locale, page_num, keyword, user_email) => {
   let warehouses = [];
   let offset = 0;
-  if (page_num > 1) {
-    offset = 10 * (page_num - 1);
-  }
   const limit = 10;
+  if (!page_num) {
+    page_num = 1;
+  } else if (page_num > 1) {
+    offset = limit * (page_num - 1);
+  }
+  console.log(offset, page_num);
+
   const conditions = getConditions(keyword);
 
   // 유저일 경우

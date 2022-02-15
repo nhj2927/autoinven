@@ -26,13 +26,10 @@ module.exports = (db) => {
       } = req;
       let { keyword, page_num } = req.query;
       let warehouses = [];
-      if (!page_num) {
-        page_num = 1;
-      }
-
+      console.log(role);
       // 유저일 경우
       if (role === 'user') {
-        warehouses = await getWarehouses(db, locale, email, page_num, keyword);
+        warehouses = await getWarehouses(db, locale, page_num, keyword, email);
       }
       // 관리자일 경우
       else if (role === 'admin') {
