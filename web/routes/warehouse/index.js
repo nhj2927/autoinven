@@ -24,7 +24,7 @@ module.exports = (db) => {
       const {
         session: { role, email },
       } = req;
-      let { page_num } = req.query;
+      let { keyword, page_num } = req.query;
       let warehouses = [];
       if (!page_num) {
         page_num = 1;
@@ -32,11 +32,11 @@ module.exports = (db) => {
 
       // 유저일 경우
       if (role === 'user') {
-        warehouses = await getWarehouses(db, locale, email, page_num);
+        warehouses = await getWarehouses(db, locale, email, page_num, keyword);
       }
       // 관리자일 경우
       else if (role === 'admin') {
-        warehouses = await getWarehouses(db, locale, page_num);
+        warehouses = await getWarehouses(db, locale, page_num, keyword);
       }
 
       res.render('warehouse/warehouseList', { warehouses });

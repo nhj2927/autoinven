@@ -11,7 +11,14 @@ const getImage = (images) => {
 };
 
 // 유저와 계약된 창고목록
-const getMyWarehouses = async (db, locale, user_email, offset, limit) => {
+const getMyWarehouses = async (
+  db,
+  locale,
+  user_email,
+  offset,
+  limit,
+  conditions
+) => {
   const contracts_result = await db.LeaseContract.findAll({
     attributes: [
       [
@@ -24,7 +31,7 @@ const getMyWarehouses = async (db, locale, user_email, offset, limit) => {
       ],
       'lease_area',
     ],
-    where: { user_email, c_state_id: 3 },
+    where: { user_email, c_state_id: 3, [Op.or]: conditions },
     include: {
       model: db.Warehouse,
       required: true,
@@ -76,7 +83,7 @@ const getMyWarehouses = async (db, locale, user_email, offset, limit) => {
 };
 
 // 모든 창고목록
-const getAllWarehouses = async (db, locale, offset, limit) => {
+const getAllWarehouses = async (db, locale, offset, limit, conditions) => {
   const warehouses_result = await db.Warehouse.findAll({
     attributes: [
       'warehouse_id',
@@ -88,6 +95,7 @@ const getAllWarehouses = async (db, locale, offset, limit) => {
       'address2_en',
       'is_verified',
     ],
+    where: { [Op.or]: conditions },
     include: {
       model: db.WarehouseImage,
       attributes: ['url'],
@@ -115,22 +123,69 @@ const getAllWarehouses = async (db, locale, offset, limit) => {
   });
 };
 
-module.exports = async (db, locale, user_email, page_num) => {
+const getConditions = (keyword) => {
+  const regex = / /gi;
+  let keywords;
+  if (!keyword) {
+    keywords = [keyword.replace(regex, ''), keyword.trim()];
+  } else {
+    return [];
+  }
+  let conditions = [];
+  for (x in keywords) {
+    conditions.push({
+      name_ko: {
+        [Op.like]: `%${keywords[x]}%`,
+      },
+    });
+    conditions.push({
+      name_en: {
+        [Op.like]: `%${keywords[x]}%`,
+      },
+    });
+    conditions.push({
+      address1_ko: {
+        [Op.like]: `%${keywords[x]}%`,
+      },
+    });
+    conditions.push({
+      address1_en: {
+        [Op.like]: `%${keywords[x]}%`,
+      },
+    });
+    conditions.push({
+      warehouse_id: {
+        [Op.like]: `%${keywords[x]}%`,
+      },
+    });
+  }
+  return conditions;
+};
+
+module.exports = async (db, locale, user_email, page_num, keyword) => {
   let warehouses = [];
   let offset = 0;
   if (page_num > 1) {
     offset = 10 * (page_num - 1);
   }
   const limit = 10;
+  const conditions = getConditions(keyword);
 
   // 유저일 경우
   if (user_email) {
-    warehouses = getMyWarehouses(db, locale, user_email, offset, limit);
+    warehouses = getMyWarehouses(
+      db,
+      locale,
+      user_email,
+      offset,
+      limit,
+      conditions
+    );
   }
 
   // 관리자일 경우
   else {
-    warehouses = getAllWarehouses(db, locale, offset, limit);
+    warehouses = getAllWarehouses(db, locale, offset, limit, conditions);
   }
 
   return warehouses;
