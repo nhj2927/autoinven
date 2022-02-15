@@ -11,7 +11,7 @@ const getImage = (images) => {
 };
 
 // 유저와 계약된 창고목록
-const getMyWarehouses = async (db, locale, user_email) => {
+const getMyWarehouses = async (db, locale, user_email, offset, limit) => {
   const contracts_result = await db.LeaseContract.findAll({
     attributes: [
       [
@@ -43,6 +43,8 @@ const getMyWarehouses = async (db, locale, user_email) => {
         attributes: ['url'],
       },
     },
+    offset,
+    limit,
   });
 
   return contracts_result.map((contract) => {
@@ -74,7 +76,7 @@ const getMyWarehouses = async (db, locale, user_email) => {
 };
 
 // 모든 창고목록
-const getAllWarehouses = async (db, locale) => {
+const getAllWarehouses = async (db, locale, offset, limit) => {
   const warehouses_result = await db.Warehouse.findAll({
     attributes: [
       'warehouse_id',
@@ -90,6 +92,8 @@ const getAllWarehouses = async (db, locale) => {
       model: db.WarehouseImage,
       attributes: ['url'],
     },
+    offset,
+    limit,
   });
 
   return warehouses_result.map((warehouse) => {
@@ -111,17 +115,22 @@ const getAllWarehouses = async (db, locale) => {
   });
 };
 
-module.exports = async (db, locale, user_email) => {
+module.exports = async (db, locale, user_email, page_num) => {
   let warehouses = [];
+  let offset = 0;
+  if (page_num > 1) {
+    offset = 10 * (page_num - 1);
+  }
+  const limit = 10;
 
   // 유저일 경우
   if (user_email) {
-    warehouses = getMyWarehouses(db, locale, user_email);
+    warehouses = getMyWarehouses(db, locale, user_email, offset, limit);
   }
 
   // 관리자일 경우
   else {
-    warehouses = getAllWarehouses(db, locale);
+    warehouses = getAllWarehouses(db, locale, offset, limit);
   }
 
   return warehouses;
