@@ -34,9 +34,10 @@ module.exports = async (db, locale) => {
         attributes: ['name'],
       },
     ],
+    order: [['createdAt', 'DESC']],
   });
 
-  const contracts = contracts_result.map((contract) => {
+  return contracts_result.map((contract) => {
     return {
       id: contract.l_contract_id,
       state: contract.c_state_id,
@@ -52,6 +53,4 @@ module.exports = async (db, locale) => {
       contractor_name: contract.User.name,
     };
   });
-
-  return contracts;
 };

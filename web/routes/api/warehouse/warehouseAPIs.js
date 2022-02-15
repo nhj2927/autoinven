@@ -285,6 +285,67 @@ const getAvailableArea = async (req, db) => {
   return warehouse;
 };
 
+const getQueryString = (condition, keywords) => {
+  let conditions = [];
+  for (x in keywords) {
+    conditions.push({
+      condition: {
+        [Op.like]: `%${keywords[x]}%`,
+      },
+    });
+  }
+  return conditions;
+};
+
+const searchWarehouseByKeyword = async (req, db) => {
+  const { keyword, page_num } = req.query;
+  let offset = 0;
+  const re = /[ .:;?!~,`"&|()<>{}\[\]\r\n/\\]+/;
+  const keywords = keyword.split(re);
+  console.log(keywords);
+
+  let conditions = [];
+  for (x in keywords) {
+    conditions.push({
+      name_ko: {
+        [Op.like]: `%${keywords[x]}%`,
+      },
+    });
+    conditions.push({
+      name_en: {
+        [Op.like]: `%${keywords[x]}%`,
+      },
+    });
+    conditions.push({
+      address1_ko: {
+        [Op.like]: `%${keywords[x]}%`,
+      },
+    });
+    conditions.push({
+      address1_en: {
+        [Op.like]: `%${keywords[x]}%`,
+      },
+    });
+    conditions.push({
+      warehouse_id: {
+        [Op.like]: `%${keywords[x]}%`,
+      },
+    });
+  }
+  if (page_num > 1) {
+    offset = 10 * (page_num - 1);
+  }
+
+  const warehouses = await db.Warehouse.findAll({
+    where: {
+      [Op.or]: conditions,
+    },
+    offset,
+    limit: 10,
+  });
+  return warehouses;
+};
+
 module.exports = {
   getAllWarehouses,
   getWarehouseInfo,
@@ -292,4 +353,5 @@ module.exports = {
   editWarehouse,
   searchWarehouse,
   getAvailableArea,
+  searchWarehouseByKeyword,
 };

@@ -760,6 +760,10 @@ h6,
   max-width: 880px;
 }
 
+.pager {
+  width: 80%;
+}
+
 .h1-seo {
   font-size: 3.5em;
   text-transform: uppercase;

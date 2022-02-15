@@ -17,6 +17,7 @@
 .warehouse_info:hover {
   opacity: 1;
   transform: translateY(-1px);
+  cursor: pointer;
 }
 .container.left {
   width: 11rem;
@@ -61,10 +62,6 @@ p {
 .wh_title {
   font-size: 2rem;
   font-family: nanum-eb;
-}
-.wh_title:hover {
-  cursor: pointer;
-  text-decoration: underline;
 }
 .badge {
   display: flex;

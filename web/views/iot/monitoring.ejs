@@ -2,8 +2,8 @@
 <html lang="en" dir="ltr">
   <head>
     <%- include('../head') %>
-    <link rel="stylesheet" href="/css/nav.css" />
-    <link rel="stylesheet" href="/css/dashboard.css" />
+    <link rel="stylesheet" href="/css/iot/nav.css" />
+    <link rel="stylesheet" href="/css/iot/dashboard.css" />
     <link rel="stylesheet" href="/css/weather-icons.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.socket.io/4.3.2/socket.io.js"></script>
@@ -42,9 +42,9 @@
               <div><%= __('iot_Monitoring_co')%></div>
               <div class="value">100ppm</div>
             </div>
-            <div class="value-wrapper propane numerical">
+            <div class="value-wrapper lpg numerical">
               <i class="fas fa-burn sensor-icon1"></i>
-              <div><%= __('iot_Monitoring_propane')%></div>
+              <div><%= __('iot_Monitoring_lpg')%></div>
               <div class="value">35ppm</div>
             </div>
             <div class="value-wrapper fine">
@@ -58,15 +58,14 @@
               <div class="value"><%= __('iot_Monitoring_fine') %></div>
             </div>
           </div>
-          <div class="cctv card">
+          <div class="image card">
             <div class="title">
-              <div><i class="fas fa-video"></i> CCTV</div>
-              <div class="wd-screen">Wide Screen</div>
+              <div>
+                <i class="far fa-image"></i> <%= __('iot_Monitoring_image')%>
+              </div>
             </div>
             <div class="content">
-              <i class="fas fa-chevron-left left"></i>
-              <iframe src="#" frameborder="0" scrolling="no"></iframe>
-              <i class="fas fa-chevron-right right"></i>
+              <img id="warehouse-img" src="#" />
             </div>
           </div>
           <div class="capability card">
@@ -81,21 +80,23 @@
         </div>
       </div>
     </div>
-    <script src="/JS/monitoring.js"></script>
+    <script src="/js/monitoring.js"></script>
     <script>
-      let warehouse_info = '<%=warehouse_info%>';
-      warehouse_info = warehouse_info.replaceAll('&#34;', '"');
-      const result = JSON.parse(warehouse_info);
-      const status_text = {
+      let warehouse = '<%= JSON.stringify(warehouse) %>';
+      warehouse = warehouse.replaceAll(`&#34;`, '"');
+      warehouse = JSON.parse(warehouse);
+
+      const state_text = {
         fine: "<%= __('iot_Monitoring_fine') %>",
         bad: "<%= __('iot_Monitoring_bad') %>",
       };
 
-      $('iframe').attr('src', result.cctvServer);
+      $('#warehouse-img').attr('src', warehouse.image);
       initMonitoringDashboard(
         '<%=process.env.WEATHER_API_KEY%>',
-        result,
-        status_text
+        '<%=locale%>',
+        warehouse,
+        state_text
       );
     </script>
   </body>
