@@ -24,9 +24,11 @@ module.exports = (db) => {
       const {
         session: { role, email },
       } = req;
-      let { keyword, page_num } = req.query;
+      const {
+        query: { keyword, page_num },
+      } = req;
       let warehouses = [];
-      console.log(role);
+
       // 유저일 경우
       if (role === 'user') {
         warehouses = await getWarehouses(db, locale, page_num, keyword, email);

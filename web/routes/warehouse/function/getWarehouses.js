@@ -20,7 +20,7 @@ const getMyWarehouses = async (
   conditions
 ) => {
   let where_clause;
-  if (conditions.length === 0) {
+  if (!conditions.length) {
     where_clause = {};
   } else {
     where_clause = { [Op.or]: conditions };
@@ -36,8 +36,9 @@ const getMyWarehouses = async (
         'end_date',
       ],
       'lease_area',
+      'createdAt',
     ],
-    where: { user_email, c_state_id: 3, where_clause },
+    where: { user_email, c_state_id: 3 },
     include: {
       model: db.Warehouse,
       required: true,
@@ -55,7 +56,9 @@ const getMyWarehouses = async (
         model: db.WarehouseImage,
         attributes: ['url'],
       },
+      where: where_clause,
     },
+    order: [['createdAt', 'DESC']],
     offset,
     limit,
   });
@@ -91,12 +94,12 @@ const getMyWarehouses = async (
 // 모든 창고목록
 const getAllWarehouses = async (db, locale, offset, limit, conditions) => {
   let where_clause;
-  if (conditions.length === 0) {
+  if (!conditions.length) {
     where_clause = {};
   } else {
     where_clause = { [Op.or]: conditions };
   }
-  console.log(where_clause);
+
   const warehouses_result = await db.Warehouse.findAll({
     attributes: [
       'warehouse_id',
@@ -184,7 +187,6 @@ module.exports = async (db, locale, page_num, keyword, user_email) => {
   } else if (page_num > 1) {
     offset = limit * (page_num - 1);
   }
-  console.log(offset, page_num);
 
   const conditions = getConditions(keyword);
 
