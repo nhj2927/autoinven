@@ -79,4 +79,33 @@
     </div>
   </nav>
 </div>
-<script src="/js/signout.js"></script>
+<script>
+$(document).ready(function () {
+  const swalError = (text, callback) =>
+    Swal.fire({
+      icon: 'error',
+      title: 'Fail',
+      text: text,
+    }).then(callback);
+  $('#signout').on('click', () => {
+    console.log('clicked');
+    $.ajax({
+      url: '/api/auth/signout',
+      type: 'GET',
+      datatype: 'application/json',
+      success: (data) => {
+        if (data.message == 'success') {
+          window.location.href = '/';
+        }
+      },
+      error: function (request, status, error) {
+        Swal.fire({
+          title: "<%= __('error')%>",
+          html: "<h3><%= __('error_any_msg') %></h3><br><%= __('error_any_msg2') %><br><%= __('error_any_msg3') %>",
+          icon: 'error',
+        });
+      },
+    });
+  });
+});
+</script>
