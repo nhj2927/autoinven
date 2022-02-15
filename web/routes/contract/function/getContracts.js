@@ -2,25 +2,23 @@ const { fn, col, Op } = require('sequelize');
 
 const getConditions = (keyword) => {
   const regex = / /gi;
-  let keywords;
+  let search_keyword;
   if (keyword) {
-    keywords = [keyword.replace(regex, ''), keyword.trim()];
+    search_keyword = keyword.trim().replace(regex, '%');
   } else {
     return [];
   }
   let conditions = [];
-  for (x in keywords) {
-    conditions.push({
-      name_ko: {
-        [Op.like]: `%${keywords[x]}%`,
-      },
-    });
-    conditions.push({
-      name_en: {
-        [Op.like]: `%${keywords[x]}%`,
-      },
-    });
-  }
+  conditions.push({
+    name_ko: {
+      [Op.like]: `%${search_keyword[x]}%`,
+    },
+  });
+  conditions.push({
+    name_en: {
+      [Op.like]: `%${search_keyword[x]}%`,
+    },
+  });
   return conditions;
 };
 
