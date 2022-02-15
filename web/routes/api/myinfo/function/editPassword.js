@@ -1,7 +1,9 @@
 module.exports = async (current_password, new_password, db) => {
-  //임시 이메일 => 세션에서 가져와야됨
-  const email = 'nhj2927@naver.com';
-  const getEncryptedPasswordInfo = require('../auth/signup/getEncryptedPasswordInfo');
+  const getEncryptedPasswordInfo = require('../../auth/signup/function/getEncryptedPasswordInfo');
+
+  const {
+    session: { email },
+  } = req;
 
   // 유저 확인
   user = await db.User.findByPk(email);
