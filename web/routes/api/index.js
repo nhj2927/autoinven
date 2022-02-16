@@ -10,6 +10,7 @@ module.exports = (db) => {
   router.use('/warehouse', require('./warehouse')(db));
   router.use('/item', authenticate, require('./item')(db));
   router.use('/alert', require('./alert')(db));
+  router.use('/iot', require('./iot')(db));
 
   return router;
 };

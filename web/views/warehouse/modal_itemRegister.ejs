@@ -27,8 +27,9 @@
         <div class="image-preview">
           <div id="att_zone">
             <p id="image-placeholder">
-              이미지를 첨부 하려면 최대 5개의 이미지 업로드 버튼을 클릭하거나
-              파일을 드래그 앤 드롭 하세요 (JPG, PNG, JPEG)
+              이미지를 첨부 하려면 업로드 버튼을 클릭하거나 파일을 드래그 앤
+              드롭 하세요. 최대 5개의 이미지가 업로드 가능합니다. (JPG, PNG,
+              JPEG)
             </p>
           </div>
           <label class="input-file-button" for="btnAtt"> 이미지 업로드 </label>
@@ -106,8 +107,8 @@
       success: function (data) {
         // 전송 후 성공 시 실행 코드
         Swal.fire({
-          title: 'SUCCESS',
-          html: `물품을 성공적으로 등록하였습니다.`,
+          title: "<%= __('success') %>",
+          html: "<%= __('success_itemregister') %>",
           icon: 'success',
         }).then(() => {
           location.reload();

@@ -4,40 +4,38 @@ const getLocaleLanguageValue = require('$base/utils/getLocaleLanguageValue');
 
 const getConditions = (keyword) => {
   const regex = / /gi;
-  let keywords;
+  let search_keyword;
   if (keyword) {
-    keywords = [keyword.replace(regex, ''), keyword.trim()];
+    search_keyword = keyword.trim().replace(regex, '%');
   } else {
     return [];
   }
   let conditions = [];
-  for (x in keywords) {
-    conditions.push({
-      name_ko: {
-        [Op.like]: `%${keywords[x]}%`,
-      },
-    });
-    conditions.push({
-      name_en: {
-        [Op.like]: `%${keywords[x]}%`,
-      },
-    });
-    conditions.push({
-      address1_ko: {
-        [Op.like]: `%${keywords[x]}%`,
-      },
-    });
-    conditions.push({
-      address1_en: {
-        [Op.like]: `%${keywords[x]}%`,
-      },
-    });
-    conditions.push({
-      warehouse_id: {
-        [Op.like]: `%${keywords[x]}%`,
-      },
-    });
-  }
+  conditions.push({
+    name_ko: {
+      [Op.like]: `%${search_keyword}%`,
+    },
+  });
+  conditions.push({
+    name_en: {
+      [Op.like]: `%${search_keyword}%`,
+    },
+  });
+  conditions.push({
+    address1_ko: {
+      [Op.like]: `%${search_keyword}%`,
+    },
+  });
+  conditions.push({
+    address1_en: {
+      [Op.like]: `%${search_keyword}%`,
+    },
+  });
+  conditions.push({
+    warehouse_id: {
+      [Op.like]: `%${search_keyword}%`,
+    },
+  });
   return conditions;
 };
 

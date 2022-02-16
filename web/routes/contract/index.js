@@ -47,7 +47,7 @@ module.exports = (db) => {
         ));
       }
 
-      res.render('contract/leaseManagement', { contracts });
+      res.render('contract/leaseManagement', { total_page, contracts });
     })
   );
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= __('locale') %>">
   <head>
     <meta charset="UTF-8" />
     <%- include('../head') %>
@@ -225,7 +225,6 @@
                   class="form-check-input"
                   type="checkbox"
                   style="margin-left: 1rem"
-                  checked
                 />
                 <% } %>
                 <label
@@ -250,7 +249,6 @@
                   class="form-check-input"
                   type="checkbox"
                   style="margin-left: 1rem"
-                  checked
                 />
                 <% } %>
                 <label
@@ -282,7 +280,7 @@
                 type="number"
                 class="form-control info-td-area"
                 min="0"
-                value="<%= warehouse.common_area %>"
+                value="<%= warehouse.total_ground_area %>"
               />
               <span>㎡</span>
             </td>
@@ -295,7 +293,7 @@
                 type="number"
                 class="form-control info-td-area"
                 min="0"
-                value="<%= warehouse.dedicated_area %>"
+                value="<%= warehouse.common_area %>"
               />
               <span>㎡</span>
             </td>
@@ -306,7 +304,7 @@
                 type="number"
                 class="form-control info-td-area"
                 min="0"
-                value="<%= warehouse.total_ground_area %>"
+                value="<%= warehouse.dedicated_area %>"
               />
               <span>㎡</span>
             </td>
@@ -658,11 +656,21 @@
         cache: false,
         success: function (data) {
           // 전송 후 성공 시 실행 코드
-          console.log(data);
+          Swal.fire({
+            icon: 'success',
+            title: '<%= __("success") %>',
+            text: '창고 정보가 변경 되었습니다.',
+          }).then(function () {
+            window.location.href = '/warehouse/<%= warehouse.warehouse_id %>';
+          });
         },
         error: function (e) {
           // 전송 후 에러 발생 시 실행 코드
-          console.log('ERROR : ', e);
+          Swal.fire({
+            title: "500 <%= __('error') %>",
+            html: "<h3><%= __('error_any_msg') %></h3><br><%= __('error_any_msg2') %><br><%= __('error_any_msg3') %>",
+            icon: 'error',
+          });
         },
       });
     };
@@ -762,13 +770,23 @@
     attZone.addEventListener(
       'drop',
       (e) => {
-        var files = {};
         e.preventDefault();
         e.stopPropagation();
         var dt = e.dataTransfer;
+        let files = {};
+        let extension;
+        let isSuccess;
         files = dt.files;
+        fileTypes = ['jpg', 'jpeg', 'png'];
+        //업로드 가능한 사진파일의 개수와 확장자 제한
         for (f of files) {
-          if (sel_files.length < max_images) imageLoader(f);
+          if (sel_files.length < max_images) {
+            extension = f.name.split('.').pop().toLowerCase();
+            isSuccess = fileTypes.indexOf(extension) > -1;
+            if (isSuccess) {
+              imageLoader(f);
+            }
+          }
         }
       },
       false

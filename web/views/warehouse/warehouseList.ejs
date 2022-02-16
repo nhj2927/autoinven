@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= __('locale') %>">
   <head>
     <meta charset="UTF-8" />
     <%- include('../head') %>
@@ -12,15 +12,17 @@
     <div class="inner img"></div>
     <div class="inner main container">
       <!--페이징 기능 미구현-->
-      <ul class="pager" style="list-style: none; width: 90%">
+      <ul style="list-style: none; width: 90%">
         <li style="display: flex; align-items: center">
           <h2 style="font-family: nanum-eb"><%= __('warehouse_title') %></h2>
           <% if(locals.role == 'admin') { %>
-          <button class="add_wh">+</button>
+          <button class="add_wh" , onclick="location.href='/warehouse/enroll';">
+            +
+          </button>
           <% } %>
           <div class="searchbar" style="margin-left: auto">
             <div class="search">
-              <input class="bar" type="text" placeholder="search" />
+              <input id="search" class="bar" type="text" placeholder="search" />
               <div class="symbol">
                 <svg class="cloud">
                   <use xlink:href="#cloud" />
@@ -69,7 +71,11 @@
             onclick="location.href='/warehouse/'+'<%= warehouses[i].warehouse_id %>';"
           >
             <div class="container left">
-              <img class="image" src="<%= warehouses[i].image_url %>" />
+              <% if(warehouses[i].image) { %>
+              <img class="image" src="<%= warehouses[i].image %>" />
+              <% } else { %>
+              <img class="image" src="/image/default-image.jpg" />
+              <% } %>
             </div>
             <div class="container center">
               <ul>
@@ -91,9 +97,10 @@
                   />
                   <p class="wh_address"><%= warehouses[i].address %></p>
                 </li>
+                <% if(locals.role == 'user') { %>
                 <li>
                   <p class="wh_space">
-                    <%= __('warehouse_area') %>: <%= warehouses[i].area %>평
+                    <%= __('warehouse_area') %>: <%= warehouses[i].area %>㎡
                   </p>
                 </li>
                 <li>
@@ -102,6 +109,7 @@
                     %> ~ <%= warehouses[i].end_date %>
                   </p>
                 </li>
+                <% } %>
               </ul>
             </div>
             <div class="container right" onclick="event.stopPropagation()">
@@ -110,7 +118,7 @@
                 class="edit_wh"
                 onclick="location.href='/warehouse/'+'<%= warehouses[i].warehouse_id %>'+'/edit';"
               >
-                수정하기
+                <%= __('warehouse_edit') %>
               </button>
               <% } %>
             </div>
@@ -119,13 +127,58 @@
         <% } %> <% } else { %>
         <li>
           <h3 style="color: rgba(0, 0, 0, 0.5)">
-            계약한 창고가 존재하지 않습니다.
+            <%= __('warehouse_text1') %>
           </h3>
         </li>
         <% } %>
       </ul>
     </div>
+    <div style="display: flex; justify-content: center">
+      <ul id="pagination" class="pagination-sm" style="padding-bottom: 3%"></ul>
+    </div>
     <footer><%- include('../partial/footer') %></footer>
   </body>
-  <script></script>
+  <script>
+    $(document).ready(function () {
+      let page_num;
+      location.search.split('&').forEach((query) => {
+        if (query.includes('page_num')) {
+          if (query.split('=').length < 2) {
+            page_num = 1;
+          } else {
+            page_num = query.split('=')[1];
+          }
+        } else {
+          page_num = 1;
+        }
+      });
+
+      $('#pagination').twbsPagination({
+        totalPages: parseInt('<%= total_page %>'),
+        visiblePages: 5,
+        initiateStartPageClick: false,
+        prev: '<',
+        next: '>',
+        first: '«',
+        last: '»',
+        startPage: parseInt(page_num),
+        onPageClick: function (event, page) {
+          let keyword = '';
+          location.search.split('&').forEach((query) => {
+            if (query.includes('keyword')) {
+              keyword = query.split('=')[1];
+            }
+          });
+          console.log(parseInt('<%= total_page %>'));
+          window.location.href = `/warehouse?keyword=${keyword}&page_num=${page}`;
+        },
+      });
+      $('#search').on('keyup', function (key) {
+        if (key.keyCode == 13) {
+          const keyword = $('#search').val();
+          window.location.href = `/warehouse?keyword=${keyword}`;
+        }
+      });
+    });
+  </script>
 </html>

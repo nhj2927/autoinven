@@ -5,7 +5,7 @@ module.exports = (db) => {
 
   router.use('/stat', authenticate, require('./stat')(db));
 
-  router.use('/device', require('./stat')(db));
+  router.use('/device', require('./device')(db));
 
   return router;
 };

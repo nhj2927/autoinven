@@ -1,12 +1,13 @@
 <!DOCTYPE html>
+<html lang="<%= __('locale') %>" dir="ltr"></html>
 <html lang="en" dir="ltr">
   <head>
     <%- include('../head') %>
-    <link rel="stylesheet" href="/CSS/nav.css" />
-    <link rel="stylesheet" href="/CSS/dashboard.css" />
-    <link rel="stylesheet" href="/CSS/iot_statistic.css" />
+    <link rel="stylesheet" href="/css/iot/nav.css" />
+    <link rel="stylesheet" href="/css/iot/dashboard.css" />
+    <link rel="stylesheet" href="/css/iot/iot_statistic.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="/JS/iot_statistic.js"></script>
+    <script src="/js/iot_statistic.js"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"
@@ -79,7 +80,8 @@
                   <div class="s_temp colflex">
                     <div class="rowflex">
                       <h3 class="summaryName" style="color: #36a2eb">
-                        <img src="/Image/temp.png" />Temperature
+                        <img src="/image/icon/temp.png" />
+                        <%= __('iot_Monitoring_temp') %>
                       </h3>
                     </div>
                     <div class="rowflex">
@@ -99,7 +101,8 @@
                   <div class="s_humi colflex">
                     <div class="rowflex">
                       <h3 class="summaryName" style="color: #8fbe96">
-                        <img src="/Image/humi.png" />Humidity
+                        <img src="/image/icon/humi.png" />
+                        <%= __('iot_Monitoring_humi') %>
                       </h3>
                     </div>
                     <div class="rowflex">
@@ -119,7 +122,8 @@
                   <div class="s_co colflex">
                     <div class="rowflex">
                       <h3 class="summaryName" style="color: #e04006">
-                        <img src="/Image/co.png" />CO
+                        <img src="/image/icon/co.png" />
+                        <%= __('iot_Monitoring_co') %>
                       </h3>
                     </div>
                     <div class="rowflex">
@@ -139,7 +143,8 @@
                   <div class="s_lpg colflex">
                     <div class="rowflex">
                       <h3 class="summaryName" style="color: #f29d00">
-                        <img src="/Image/lpg.png" style="width: 12px" />LPG
+                        <img src="/image/icon/lpg.png" style="width: 12px" />
+                        LPG
                       </h3>
                     </div>
                     <div class="rowflex">
@@ -148,9 +153,9 @@
                       <span>AVG</span>
                     </div>
                     <div class="rowflex realdata">
-                      <span id="maxlpg">0.0</span>
-                      <span id="minlpg">0.0</span>
-                      <span id="avglpg">0.0</span>
+                      <span id="maxLpg">0.0</span>
+                      <span id="minLpg">0.0</span>
+                      <span id="avgLpg">0.0</span>
                     </div>
                   </div>
                   <br />
@@ -166,8 +171,17 @@
 <script>
   let type = 1; //day, 2: month, 3:year
   // render를 통해 받아온 iotIP 할당
+  let urls = '<%= JSON.stringify(urls) %>';
+  urls = urls.replaceAll(`&#34;`, '"');
+  urls = urls.replaceAll(/\n|\r\n/gi, '\\r\\n');
+  urls = JSON.parse(urls);
   // 일단 기기 하나만 한다고 가정하여, 0번 인덱스 가져옴
-  iotIPAd = '<%= urls[0]%>';
+  const iotIPAd = urls[0].url;
+  console.log(iotIPAd);
+
+  // locale 할당
+  let _locale = "<%= __('locale') %>";
+
   $(dayButton).css('background-color', '#ECEFF6');
   const today = new Date(); //오늘 날짜 받기
   //Years 선택 시 오늘 날짜는 입력이 안되는 문제 때문에 하루를 더해줌
@@ -201,16 +215,16 @@
     .on('changeDate', async function (e) {
       //값이 변경되면 Canvas 초기화 후에 데이터를 다시 받아와 그래프 그림
       clearCanvas();
-      charts = await getSensorData(type, iotIPAd);
+      charts = await getSensorData(type, iotIPAd, _locale);
     });
   // 비동기로 첫 센서 데이터 받아오기 실행
   (async function () {
-    charts = await getSensorData(type, iotIPAd);
+    charts = await getSensorData(type, iotIPAd, _locale);
   })();
   // 현재 날짜가 바뀌게 되면 Canvas 초기화 후에 데이터를 다시 받아와 그래프 그림
   $(currentDate).on('change', async function () {
     clearCanvas();
-    charts = await getSensorData(type, iotIPAd);
+    charts = await getSensorData(type, iotIPAd, _locale);
   });
   // dayButton이 클릭되면, 특정 날짜를 기준으로 데이터 가져옴
   $(dayButton).on('click', async function () {
@@ -228,7 +242,7 @@
       }
       type = 1;
       clearCanvas();
-      charts = await getSensorData(type, iotIPAd);
+      charts = await getSensorData(type, iotIPAd, _locale);
     }
   });
   // monthButton이 클릭되면, 특정 월을 기준으로 데이터 가져옴
@@ -247,7 +261,7 @@
       }
       type = 2;
       clearCanvas();
-      charts = await getSensorData(type, iotIPAd);
+      charts = await getSensorData(type, iotIPAd, _locale);
     }
   });
   // yearButton이 클릭되면, 특정 년을 기준으로 데이터 가져옴

@@ -35,7 +35,6 @@
   padding-right: 20%;
   min-width: 10vh;
   width: 50rem;
-  font-size: 18px;
   height: 100%;
   border-width: 0;
 }
@@ -120,9 +119,12 @@
 }
 
 input[type='date']:valid {
-  color: #c9c9c9;
+  color: rgba(0, 0, 0, 0.5);
+  font-family: 'nanum-r';
 }
-input[type='date']::-webkit-calendar-picker-indicator {
+input[type='date']:invalid {
+  color: rgba(0, 0, 0, 0.7);
+  font-family: 'nanum-r';
 }
 
 .marker_list {

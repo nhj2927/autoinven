@@ -1,129 +1,144 @@
-<head>
-  <meta charset="UTF-8" />
-  <%- include('./head') %>
-  <link href="/dist/output.css" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/search.css" />
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-  <script src="https://unpkg.com/@googlemaps/markerclustererplus/dist/index.min.js"></script>
-  <script src="/js/search.js"></script>
-  <title><%= __('search_title') %></title>
-</head>
+<!DOCTYPE html>
+<html lang="<%= __('locale') %>">
+  <head>
+    <meta charset="UTF-8" />
+    <%- include('./head') %>
+    <link href="/dist/output.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/search.css" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="https://unpkg.com/@googlemaps/markerclustererplus/dist/index.min.js"></script>
+    <script src="/js/search.js"></script>
+    <title><%= __('search_title') %></title>
+  </head>
 
-<body>
-  <header><%- include('./partial/navbar') %></header>
-  <div class="searchBox">
-    <input
-      class="searchInput"
-      id="startDate"
-      type="date"
-      placeholder="시작일"
-    />
-    <input class="searchInput" id="endDate" type="date" placeholder="종료일" />
-    <select class="searchInput" id="whType" name="cars">
-      <option selected><%= __('search_whtype') %></option>
-      <option value="1"><%= __('search_whtype1') %></option>
-      <option value="2"><%= __('search_whtype2') %></option>
-      <option value="3"><%= __('search_whtype3') %></option>
-    </select>
-    <input
-      class="searchInput"
-      id="leaseArea"
-      type="number"
-      oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-      placeholder="<%= __('search_leaseArea') %> (㎡)"
-    />
-    <div
-      class="searchInput search-card"
-      id="search-card"
-      style="position: relative"
-    >
+  <body>
+    <header><%- include('./partial/navbar') %></header>
+    <div class="searchBox">
       <input
-        id="pac-input"
-        type="text"
-        placeholder="<%= __('search_searchPlace') %>"
+        class="searchInput"
+        id="startDate"
+        type="date"
+        placeholder="시작일"
       />
-      <svg
-        id="backicon"
-        style="
-          position: absolute;
-          display: none;
-          margin-top: 1vh;
-          margin-left: 1vh;
-        "
-        xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
-        version="1.1"
-        id="mdi-arrow-left"
-        width="28"
-        height="28"
-        viewBox="0 0 24 24"
-        fill="#cccccc"
+      <input
+        class="searchInput"
+        id="endDate"
+        type="date"
+        placeholder="종료일"
+      />
+      <select id="whType" name="cars" class="searchInput">
+        <option selected style="color: rgba(0, 0, 0, 0.5)">
+          <%= __('search_whtype') %>
+        </option>
+        <% for (var i = 0 ; i < categories.length ; i++) { %>
+        <option value="<%= categories[i].category_id %>">
+          <%= categories[i].name %>
+        </option>
+        <% } %>
+      </select>
+      <input
+        class="searchInput"
+        id="leaseArea"
+        type="number"
+        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+        placeholder="<%= __('search_leaseArea') %> (㎡)"
+      />
+      <div
+        class="searchInput search-card"
+        id="search-card"
+        style="position: relative"
       >
-        <path
-          d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"
+        <input
+          id="pac-input"
+          type="text"
+          placeholder="<%= __('search_searchPlace') %>"
         />
-      </svg>
-      <img
-        id="autoinIcon"
-        src="/Image/autoin_logo.png"
-        width="24"
-        height="24"
-        style="position: absolute; margin-top: 1.2vh; margin-left: 1vh"
-      />
-      <svg
-        id="searchBtn"
-        xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
-        viewBox="0 0 20 20"
-        id="entypo-magnifying-glass"
-        height="28"
-        width="28"
-        fill="#cccccc"
-      >
-        <g>
+        <svg
+          id="backicon"
+          style="
+            position: absolute;
+            display: none;
+            margin-top: 1vh;
+            margin-left: 1vh;
+          "
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          version="1.1"
+          id="mdi-arrow-left"
+          width="28"
+          height="28"
+          viewBox="0 0 24 24"
+          fill="#cccccc"
+        >
           <path
-            d="M17.545 15.467l-3.779-3.779a6.15 6.15 0 0 0 .898-3.21c0-3.417-2.961-6.377-6.378-6.377A6.185 6.185 0 0 0 2.1 8.287c0 3.416 2.961 6.377 6.377 6.377a6.15 6.15 0 0 0 3.115-.844l3.799 3.801a.953.953 0 0 0 1.346 0l.943-.943c.371-.371.236-.84-.135-1.211zM4.004 8.287a4.282 4.282 0 0 1 4.282-4.283c2.366 0 4.474 2.107 4.474 4.474a4.284 4.284 0 0 1-4.283 4.283c-2.366-.001-4.473-2.109-4.473-4.474z"
+            d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"
           />
-        </g>
-      </svg>
-      <div id="midbar">|</div>
-      <svg
-        id="clearSearchBox"
-        xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
-        version="1.1"
-        id="mdi-close"
-        width="32"
-        height="32"
-        viewBox="0 0 24 24"
-        fill="#cccccc"
-      >
-        <path
-          d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+        </svg>
+        <img
+          id="autoinIcon"
+          src="/Image/autoin_logo.png"
+          width="24"
+          height="24"
+          style="position: absolute; margin-top: 1.2vh; margin-left: 1vh"
         />
-      </svg>
+        <svg
+          id="searchBtn"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          viewBox="0 0 20 20"
+          id="entypo-magnifying-glass"
+          height="28"
+          width="28"
+          fill="#cccccc"
+        >
+          <g>
+            <path
+              d="M17.545 15.467l-3.779-3.779a6.15 6.15 0 0 0 .898-3.21c0-3.417-2.961-6.377-6.378-6.377A6.185 6.185 0 0 0 2.1 8.287c0 3.416 2.961 6.377 6.377 6.377a6.15 6.15 0 0 0 3.115-.844l3.799 3.801a.953.953 0 0 0 1.346 0l.943-.943c.371-.371.236-.84-.135-1.211zM4.004 8.287a4.282 4.282 0 0 1 4.282-4.283c2.366 0 4.474 2.107 4.474 4.474a4.284 4.284 0 0 1-4.283 4.283c-2.366-.001-4.473-2.109-4.473-4.474z"
+            />
+          </g>
+        </svg>
+        <div id="midbar">|</div>
+        <svg
+          id="clearSearchBox"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          version="1.1"
+          id="mdi-close"
+          width="32"
+          height="32"
+          viewBox="0 0 24 24"
+          fill="#cccccc"
+        >
+          <path
+            d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+          />
+        </svg>
+      </div>
+      <button
+        class="searchInput min-w-min w-16"
+        id="initializeLists"
+        style="background-color: #7c13a2; color: white"
+      >
+        <%= __('search_init') %>
+      </button>
     </div>
-    <button
-      class="searchInput min-w-min w-16"
-      id="initializeLists"
-      style="background-color: #7c13a2; color: white"
-    >
-      <%= __('search_init') %>
-    </button>
-  </div>
-  <div class="searchContainer flex">
-    <!-- 지도 -->
-    <div class="hidden md:inline-block md:w-2/3">
-      <div id="map" style="width: 100%; height: 100%"></div>
-      <div id="infowindow-content" style="display: none">
-        <span id="place-name" class="title"></span><br />
-        <span id="place-address"></span>
+    <div class="searchContainer flex">
+      <!-- 지도 -->
+      <div class="hidden md:inline-block md:w-2/3">
+        <div id="map" style="width: 100%; height: 100%"></div>
+        <div id="infowindow-content" style="display: none">
+          <span id="place-name" class="title"></span><br />
+          <span id="place-address"></span>
+        </div>
+      </div>
+      <!-- 목록 -->
+      <div class="marker_list w-full md:w-1/3">
+        <div class="marker_list_items"></div>
+        <button class="w-full h-10 btn-grey" id="more_button">더보기</button>
       </div>
     </div>
-    <!-- 목록 -->
-    <div class="marker_list w-full md:w-1/3"></div>
-  </div>
-</body>
+  </body>
+</html>
 <script type="text/javascript">
   // 창고 정보 가져오기
   let _warehouses = '<%= JSON.stringify(warehouses) %>';
@@ -136,13 +151,35 @@
   setWarehouses(_warehouses, _locale);
   //초기화
   $('#initializeLists').click(() => {
+    $('.marker_list_items').text('');
     $('.searchInput').val('');
     $('#pac-input').val('');
     map.setCenter(center);
-    map.setZoom(7.5);
-    listing(markers);
+    map.setZoom(7);
+    more_type = 1;
+    list_last_index = 0;
+    listing(initial_lists);
     infowindow.close();
     infowindowContent.style.display = 'none';
+  });
+  $('#more_button').click(() => {
+    if (more_type === 1) {
+      if (list_last_index >= initial_lists.length) {
+        alert('더 이상 데이터가 없습니다.');
+        return;
+      }
+      listing(initial_lists);
+    } else if (more_type === 2) {
+      if (list_last_index >= lists.length) {
+        alert('더 이상 데이터가 없습니다.');
+        return;
+      }
+      const startDate = $('#startDate')[0].value;
+      const endDate = $('#endDate')[0].value;
+      let whType = [$('#whType option:selected').val()];
+      let leaseArea = $('#leaseArea')[0].value;
+      searchResultListing(lists, search_type, startDate, endDate, leaseArea);
+    }
   });
 </script>
 <script
