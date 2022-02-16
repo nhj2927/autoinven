@@ -22,10 +22,12 @@
   align-items: center;
 }
 .swiper-button-prev {
-  color: white;
+  color: #808080;
+  text-shadow: -0.1rem 0 #999999, 0 1px #999999, 1px 0 #999999, 0 -1px #999999;
 }
 .swiper-button-next {
-  color: white;
+  color: #808080;
+  text-shadow: -0.1rem 0 #999999, 0 1px #999999, 1px 0 #999999, 0 -1px #999999;
 }
 .badge-svg {
   width: 20px;
@@ -46,7 +48,7 @@
   border-style: hidden;
   margin: 0 0 5px;
 }
-.add_item_disable{
+.add_item_disable {
   font-size: 1rem;
   font-weight: bold;
   color: #929292;
