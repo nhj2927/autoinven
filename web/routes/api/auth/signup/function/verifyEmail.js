@@ -11,7 +11,7 @@ const checkEmailDuplicate = async (email, db) => {
   }
 };
 
-module.exports = async (email, db) => {
+module.exports = async (email, db, res) => {
   const ejs = require('ejs');
   const nodemailer = require('nodemailer');
 
@@ -28,7 +28,11 @@ module.exports = async (email, db) => {
     // 메일 전송시 보낼 화면
     const email_template = await ejs.renderFile(
       'views/auth/emailTemplate.ejs',
-      { auth_code, year },
+      {
+        auth_code,
+        __: res.__,
+        year,
+      },
       { async: true }
     );
     // 메일 설정

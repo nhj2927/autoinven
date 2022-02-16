@@ -21,9 +21,9 @@ const PORT = process.env.PORT || 5000;
 // 11) DB 테이블 생성(없으면 생성해줌)
 db.sequelize.sync().then((response) => {
   console.log('DB sync is completed.');
+  // 환율 하루에 한번 갱신
+  require('./initExchangeRate')(db);
 });
-// 12) 환율 하루에 한번 갱신
-require('./initExchangeRate')(db);
 
 // 1. 설정
 // 1) View 경로 설정

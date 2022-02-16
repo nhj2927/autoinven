@@ -15,11 +15,11 @@ module.exports = (sequelize, DataTypes) => {
     {
       cur_unit: {
         primaryKey: true,
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
       },
       deal_bas_r: {
         allowNull: false,
-        type: DataTypes.STRING,
+        type: DataTypes.DOUBLE,
       },
       createdAt: {
         allowNull: false,
