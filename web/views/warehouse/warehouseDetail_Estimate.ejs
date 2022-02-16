@@ -163,8 +163,8 @@
         total_cost_value;
     } else {
       Swal.fire({
-        title: '오류',
-        html: `양식을 모두 입력해주세요`,
+        title: "<%= __('error') %>",
+        html: "<%= __('error_estimate') %>",
         icon: 'error',
       });
     }

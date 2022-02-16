@@ -109,6 +109,8 @@
   "warehouse_verify": "인증",
   "warehouse_area": "계약공간",
   "warehouse_period": "계약기간",
+  "warehouse_text1": "계약한 창고가 존재하지 않습니다.",
+  "warehouse_edit": "수정하기",
   "leaseManagement_title": "계약 관리",
   "table_num": "번호",
   "table_state": "상태",
@@ -202,6 +204,12 @@
   "contract_state_completed": "계약완료",
   "contract_state_rejected": "승인거절",
   "contract_state_expired": "기간만료",
+
+  "qrPopup_text1": "1. QR 코드를 AUTOINVEN 어플리케이션으로 스캔하시면",
+  "qrPopup_text2": "물품의 입출고 상태가 변경됩니다.",
+  "qrPopup_text3": "2. QR 코드를 프린트하여 물품에 부착 후",
+  "qrPopup_text4": "물품을 발송해주시기 바랍니다.",
+  "qrPopup_text5": "프린트하기",
   "search_title": "창고 검색",
   "search_init": "초기화",
   "error": "에러",
@@ -230,9 +238,11 @@
   "error_info_form": "올바른 이메일 형식이 아닙니다.",
   "error_auth_check": "인증번호를 다시 확인해주세요",
   "error_auth": "인증번호를 입력해주세요.",
+  "error_estimate": "양식을 모두 입력해주세요.",
   "success_myinfo": "회원정보를 변경하였습니다.",
   "success_pw": "비밀번호를 변경하였습니다.",
   "success_send_authcode": "인증번호를 전송하였습니다.",
   "success_auth": "인증 되었습니다.",
+  "success_itemregister": "물품을 성공적으로 등록하였습니다.",
   "success_signup": "회원가입이 완료되었습니다."
 }
