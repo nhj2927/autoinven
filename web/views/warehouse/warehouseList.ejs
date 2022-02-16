@@ -16,7 +16,9 @@
         <li style="display: flex; align-items: center">
           <h2 style="font-family: nanum-eb"><%= __('warehouse_title') %></h2>
           <% if(locals.role == 'admin') { %>
-          <button class="add_wh">+</button>
+          <button class="add_wh" , onclick="location.href='/warehouse/enroll';">
+            +
+          </button>
           <% } %>
           <div class="searchbar" style="margin-left: auto">
             <div class="search">
