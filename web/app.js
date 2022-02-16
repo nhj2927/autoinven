@@ -22,21 +22,8 @@ const PORT = process.env.PORT || 5000;
 db.sequelize.sync().then((response) => {
   console.log('DB sync is completed.');
 });
-
-/*
-// 창고번호 한달 마다 초기화
-let warehouseId = 0;
-global.wdId = warehouseId;
-const warehouseIdSchedule = require('./utils/warehouseIdSchedule');
-warehouseIdSchedule.job();
-
-console.log(new Date());
-const job = schedule.scheduleJob('0 0 0 1 * *', () => {
-  console.log(`before warehouse id : ${wdId}`);
-  wdId += 1;
-  console.log(`after warehouse id : ${wdId}`);
-});
-*/
+// 12) 환율 하루에 한번 갱신
+require('./initExchangeRate')(db);
 
 // 1. 설정
 // 1) View 경로 설정
@@ -47,7 +34,6 @@ app.engine('html', ejs.renderFile);
 // 3) Session 설정(생성)
 const session = require('express-session');
 const { info } = require('./config/db');
-const { application } = require('express');
 const MySQLStore = require('express-mysql-session')(session);
 const connection = mysql2.createPool(info);
 const sessionStore = new MySQLStore({}, connection);
@@ -97,6 +83,7 @@ app.get('/ko', (req, res) => {
   res.redirect('back');
 });
 
+// 에러 처리
 app.use((err, req, res, next) => {
   console.log(err);
   console.log();
