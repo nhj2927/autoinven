@@ -3,6 +3,7 @@ module.exports = (db) => {
   const router = express.Router();
 
   const { doAsync } = require('$base/utils/asyncWrapper');
+  const getLocalePrice = require('$base/utils/getLocalePrice');
   const authenticate = require('$base/middlewares/authenticate');
 
   // 메인페이지
@@ -24,6 +25,7 @@ module.exports = (db) => {
   router.get(
     '/search',
     doAsync(async (req, res) => {
+      const locale = res.locale;
       const warehouses = await db.Warehouse.findAll({
         include: [
           {
@@ -35,6 +37,11 @@ module.exports = (db) => {
           },
         ],
       });
+
+      warehouses.forEach((warehouse) => {
+        warehouse.rent = getLocalePrice(locale, warehouse.rent);
+      });
+
       res.render('search', { warehouses });
     })
   );

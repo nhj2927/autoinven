@@ -26,6 +26,7 @@ const getConditions = (keyword) => {
 
 // 모든 계약 목록
 module.exports = async (db, locale, page_num, keyword) => {
+  const getLocalePrice = require('$base/utils/getLocalePrice');
   const getLocaleLanguageValue = require('$base/utils/getLocaleLanguageValue');
 
   let offset = 0;
@@ -96,7 +97,7 @@ module.exports = async (db, locale, page_num, keyword) => {
         ),
         period: `${contract.start_date} ~ ${contract.end_date}`,
         area: contract.lease_area,
-        price: contract.amount,
+        price: getLocalePrice(locale, contract.amount),
         created_date: contract.createdAt,
         contractor_name: contract.User.name,
       };
