@@ -60,7 +60,7 @@ const searchResultListing = (
     if (warehouses[index].WarehouseImages.length !== 0) {
       warehouseImage = warehouses[index].WarehouseImages[0].url;
     } else {
-      warehouseImage = '/image/default-image.jpg';
+      warehouseImage = '/image/default-image_43.png';
     }
     if (locale === 'ko') {
       name = warehouses[index].name_ko;
@@ -197,7 +197,7 @@ const listing = (lists) => {
     if (warehouses[index].WarehouseImages.length !== 0) {
       warehouseImage = warehouses[index].WarehouseImages[0].url;
     } else {
-      warehouseImage = '/image/default-image.jpg';
+      warehouseImage = '/image/default-image_43.png';
     }
     if (locale === 'ko') {
       name = warehouses[index].name_ko;
