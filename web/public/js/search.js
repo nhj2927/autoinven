@@ -45,7 +45,9 @@ const searchResultListing = (
 ) => {
   let l;
   for (l = list_last_index; l < list_last_index + 10; l++) {
-    console.log(l);
+    if (l >= lists.length) {
+      break;
+    }
     let index = lists[l].marker.index;
     let name;
     let address;
@@ -115,7 +117,7 @@ const searchResultListing = (
           ` 
             <div class="flex sm:flex p-3 hover:bg-slate-100" id="marker${warehouses[index].warehouse_id}">
               <img class="w-40 h-30 sm:w-60 sm:h-48 rounded" src="${warehouseImage}">
-              <div class="pl-3 pt-2 pb-2 w-full text-left flex flex-col sm:flex sm:flex-col justify-between">
+              <div class="pl-3 pt-2 pb-2 flex-1 text-left flex flex-col sm:flex sm:flex-col justify-between">
                 <div class="frow">
                     <div class="text-lg font-bold sm:text-xl">${name}</div>
                     <div class="rounded w-12 h-6 text-sm p-0.5 font-bold sm:text-base sm:w-16 sm:h-8 sm:p-1 text-center bg-slate-400 text-white">${type}</div>
@@ -147,7 +149,7 @@ const searchResultListing = (
         ` 
           <div class="flex sm:flex p-3 hover:bg-slate-100" id="marker${warehouses[index].warehouse_id}">
             <img class="w-40 h-30 sm:w-60 sm:h-48 rounded" src="${warehouseImage}">
-            <div class="pl-3 pt-2 pb-2 w-full text-left flex flex-col sm:flex sm:flex-col justify-between">
+            <div class="pl-3 pt-2 pb-2 flex-1 text-left flex flex-col sm:flex sm:flex-col justify-between">
               <div class="frow">
                   <div class="text-lg font-bold sm:text-xl">${name}</div>
                   <div class="rounded w-12 h-6 text-sm p-0.5 font-bold sm:text-base sm:w-16 sm:h-8 sm:p-1 text-center bg-sky-500 text-white">${type}</div>
@@ -180,6 +182,9 @@ const searchResultListing = (
 const listing = (lists) => {
   let l;
   for (l = list_last_index; l < list_last_index + 10; l++) {
+    if (l >= lists.length) {
+      break;
+    }
     let index = lists[l].index;
     let name;
     let address;
@@ -224,7 +229,7 @@ const listing = (lists) => {
         ` 
           <div class="flex sm:flex p-3 hover:bg-slate-100" id="marker${warehouses[index].warehouse_id}">
             <img class="w-40 h-30 sm:w-60 sm:h-48 rounded" src="${warehouseImage}">
-            <div class="pl-3 pt-2 pb-2 w-full text-left flex flex-col sm:flex sm:flex-col justify-between">
+            <div class="pl-3 pt-2 pb-2 flex-1 text-left flex flex-col sm:flex sm:flex-col justify-between">
               <div class="frow">
                   <div class="text-lg font-bold sm:text-xl">${name}</div>
                   <div class="rounded w-12 h-6 text-sm p-0.5 font-bold sm:text-base sm:w-16 sm:h-8 sm:p-1 text-center bg-sky-500 text-white">${type}</div>
@@ -246,7 +251,7 @@ const listing = (lists) => {
         ` 
           <div class="flex sm:flex p-3 hover:bg-slate-100" id="marker${warehouses[index].warehouse_id}">
             <img class="w-40 h-30 sm:w-60 sm:h-48 rounded" src="${warehouseImage}">
-            <div class="pl-3 pt-2 pb-2 w-full text-left flex flex-col sm:flex sm:flex-col justify-between">
+            <div class="pl-3 pt-2 pb-2 flex-1 text-left flex flex-col sm:flex sm:flex-col justify-between">
               <div class="frow">
                   <div class="text-lg font-bold sm:text-xl">${name}</div>
                   <div class="rounded w-12 h-6 text-sm p-0.5 font-bold sm:text-base sm:w-16 sm:h-8 sm:p-1 text-center bg-slate-400 text-white">${type}</div>
@@ -314,7 +319,7 @@ async function initMap() {
       infowindowContent.style.display = 'block';
       infowindowContent.children['place-name'].textContent = name;
       infowindowContent.children['place-address'].textContent = address;
-      map.setZoom(15);
+      map.setZoom(16);
       infowindow.open(map, m);
       clickedMarker = document.querySelector(`#marker${wid}`);
       clickedMarker.focus();
