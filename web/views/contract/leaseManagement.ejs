@@ -221,9 +221,9 @@
       prices = prices.replace(/&#34;/gi, '"');
       prices = JSON.parse(prices);
       for (let i = 0; i < prices.length; i++) {
-        document.getElementById('contracted_cost' + i).innerText = parseInt(
-          prices[i].price
-        ).toLocaleString();
+        document.getElementById('contracted_cost' + i).innerText =
+          parseInt(prices[i].price).toLocaleString() +
+          "<%= __('warehousedetail_contract_monetary_unit')%>";
       }
       location.search.split('&').forEach((query) => {
         if (query.includes('page_num')) {
@@ -254,7 +254,7 @@
               console.log(keyword);
             }
           });
-          window.location.href = `/contract?page_num=${page}&keyword=${keyword}`;
+          window.location.href = `/contract?keyword=${keyword}&page_num=${page}`;
         },
       });
       $('#search').on('keyup', function (key) {
