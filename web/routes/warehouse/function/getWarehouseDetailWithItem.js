@@ -161,7 +161,7 @@ module.exports = async (db, locale, warehouse_id, user_email) => {
       warehouse_result.Category.name_ko,
       warehouse_result.Category.name_en
     ),
-    rent: getLocalePrice(locale, warehouse_result.rent),
+    rent: await getLocalePrice(locale, warehouse_result.rent),
     address1: getLocaleLanguageValue(
       locale,
       warehouse_result.address1_ko,

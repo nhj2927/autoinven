@@ -41,7 +41,7 @@ module.exports = async (db, locale, l_contract_id) => {
     start_date: contract_result.start_date,
     end_date: contract_result.end_date,
     req_area: contract_result.lease_area,
-    total_cost: getLocalePrice(locale, contract_result.amount),
+    total_cost: await getLocalePrice(locale, contract_result.amount),
     purpose: contract_result.purpose,
     note: contract_result.note,
     payment: getPaymentType(contract_result.Payment),

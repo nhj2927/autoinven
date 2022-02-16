@@ -81,22 +81,25 @@ module.exports = async (db, user_email, locale, page_num, keyword) => {
     where: { user_email },
   });
 
+  const contracts = [];
+  for (const contract of contracts_result) {
+    contracts.push({
+      id: contract.l_contract_id,
+      state: contract.c_state_id,
+      name: getLocaleLanguageValue(
+        locale,
+        contract.Warehouse.name_ko,
+        contract.Warehouse.name_en
+      ),
+      period: `${contract.start_date} ~ ${contract.end_date}`,
+      area: contract.lease_area,
+      price: await getLocalePrice(locale, contract.amount),
+      created_date: contract.createdAt,
+    });
+  }
+
   return {
     total_page: !count ? 1 : Math.floor((count - 1) / limit) + 1,
-    contracts: contracts_result.map((contract) => {
-      return {
-        id: contract.l_contract_id,
-        state: contract.c_state_id,
-        name: getLocaleLanguageValue(
-          locale,
-          contract.Warehouse.name_ko,
-          contract.Warehouse.name_en
-        ),
-        period: `${contract.start_date} ~ ${contract.end_date}`,
-        area: contract.lease_area,
-        price: getLocalePrice(locale, contract.amount),
-        created_date: contract.createdAt,
-      };
-    }),
+    contracts,
   };
 };

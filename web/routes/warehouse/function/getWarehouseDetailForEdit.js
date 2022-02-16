@@ -69,7 +69,7 @@ module.exports = async (db, locale, warehouse_id) => {
     name: warehouse_result.name_ko,
     name_en: warehouse_result.name_en,
     category: warehouse_result.Category.name,
-    rent: getLocalePrice(locale, warehouse_result.rent),
+    rent: await getLocalePrice(locale, warehouse_result.rent),
     zip_code: warehouse_result.Address.zip_code,
     latitude: warehouse_result.Address.latitude,
     longitude: warehouse_result.Address.longitude,
