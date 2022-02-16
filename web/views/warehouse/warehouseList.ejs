@@ -12,7 +12,7 @@
     <div class="inner img"></div>
     <div class="inner main container">
       <!--페이징 기능 미구현-->
-      <ul class="pager" style="list-style: none; width: 90%">
+      <ul style="list-style: none; width: 90%">
         <li style="display: flex; align-items: center">
           <h2 style="font-family: nanum-eb"><%= __('warehouse_title') %></h2>
           <% if(locals.role == 'admin') { %>
@@ -20,7 +20,7 @@
           <% } %>
           <div class="searchbar" style="margin-left: auto">
             <div class="search">
-              <input class="bar" type="text" placeholder="search" />
+              <input id="search" class="bar" type="text" placeholder="search" />
               <div class="symbol">
                 <svg class="cloud">
                   <use xlink:href="#cloud" />
@@ -93,7 +93,7 @@
                 </li>
                 <li>
                   <p class="wh_space">
-                    <%= __('warehouse_area') %>: <%= warehouses[i].area %>평
+                    <%= __('warehouse_area') %>: <%= warehouses[i].area %>㎡
                   </p>
                 </li>
                 <li>
@@ -125,7 +125,54 @@
         <% } %>
       </ul>
     </div>
+    <div style="display: flex; justify-content: center">
+      <ul id="pagination" class="pagination-sm" style="padding-bottom: 3%"></ul>
+    </div>
     <footer><%- include('../partial/footer') %></footer>
   </body>
-  <script></script>
+  <script>
+    $(document).ready(function () {
+      let page_num;
+      console.log(location);
+      location.search.split('&').forEach((query) => {
+        if (query.includes('page_num')) {
+          if (query.split('=').length < 2) {
+            page_num = 1;
+          } else {
+            page_num = query.split('=')[1];
+          }
+        } else {
+          page_num = 1;
+        }
+      });
+
+      $('#pagination').twbsPagination({
+        totalPages: parseInt('<%= total_page %>'),
+        visiblePages: 5,
+        initiateStartPageClick: false,
+        prev: '<',
+        next: '>',
+        first: '«',
+        last: '»',
+        startPage: parseInt(page_num),
+        onPageClick: function (event, page) {
+          let keyword = '';
+          location.search.split('&').forEach((query) => {
+            if (query.includes('keyword')) {
+              keyword = query.split('=')[1];
+              console.log(keyword);
+            }
+          });
+
+          window.location.href = `/warehouse?page_num=${page}&keyword=${keyword}`;
+        },
+      });
+      $('#search').on('keyup', function (key) {
+        if (key.keyCode == 13) {
+          const keyword = $('#search').val();
+          window.location.href = `/warehouse?keyword=${keyword}`;
+        }
+      });
+    });
+  </script>
 </html>
