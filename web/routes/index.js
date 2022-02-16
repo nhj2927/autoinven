@@ -35,7 +35,20 @@ module.exports = (db) => {
           },
         ],
       });
-      res.render('search', { warehouses });
+      const categories_result = await db.Category.findAll();
+      const categories = categories_result.map((category) => {
+        let name;
+        if (res.locale === 'ko') {
+          name = category.name_ko;
+        } else if (res.locale === 'en') {
+          name = category.name_en;
+        }
+        return {
+          category_id: category.category_id,
+          name,
+        };
+      });
+      res.render('search', { warehouses, categories });
     })
   );
 

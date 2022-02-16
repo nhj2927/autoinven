@@ -2,6 +2,43 @@ const { fn, col, Op } = require('sequelize');
 const getFullAddress = require('$base/utils/getFullAddress');
 const getLocaleLanguageValue = require('$base/utils/getLocaleLanguageValue');
 
+const getConditions = (keyword) => {
+  const regex = / /gi;
+  let search_keyword;
+  if (keyword) {
+    search_keyword = keyword.trim().replace(regex, '%');
+  } else {
+    return [];
+  }
+  let conditions = [];
+  conditions.push({
+    name_ko: {
+      [Op.like]: `%${search_keyword}%`,
+    },
+  });
+  conditions.push({
+    name_en: {
+      [Op.like]: `%${search_keyword}%`,
+    },
+  });
+  conditions.push({
+    address1_ko: {
+      [Op.like]: `%${search_keyword}%`,
+    },
+  });
+  conditions.push({
+    address1_en: {
+      [Op.like]: `%${search_keyword}%`,
+    },
+  });
+  conditions.push({
+    warehouse_id: {
+      [Op.like]: `%${search_keyword}%`,
+    },
+  });
+  return conditions;
+};
+
 const getImage = (images) => {
   if (!images || !images.length) {
     return null;
@@ -25,6 +62,7 @@ const getMyWarehouses = async (
   } else {
     where_clause = { [Op.or]: conditions };
   }
+
   const contracts_result = await db.LeaseContract.findAll({
     attributes: [
       [
@@ -63,32 +101,39 @@ const getMyWarehouses = async (
     limit,
   });
 
-  return contracts_result.map((contract) => {
-    return {
-      warehouse_id: contract.Warehouse.warehouse_id,
-      start_date: contract.start_date,
-      end_date: contract.end_date,
-      name: getLocaleLanguageValue(
-        locale,
-        contract.Warehouse.name_ko,
-        contract.Warehouse.name_en
-      ),
-      address: getLocaleLanguageValue(
-        locale,
-        getFullAddress(
-          contract.Warehouse.address1_ko,
-          contract.Warehouse.address2_ko
-        ),
-        getFullAddress(
-          contract.Warehouse.address1_en,
-          contract.Warehouse.address2_en
-        )
-      ),
-      area: contract.lease_area,
-      is_verified: contract.Warehouse.is_verified,
-      image: getImage(contract.Warehouse.WarehouseImages),
-    };
+  const count = await db.LeaseContract.count({
+    where: { user_email, c_state_id: 3 },
   });
+
+  return {
+    count,
+    warehouses: contracts_result.map((contract) => {
+      return {
+        warehouse_id: contract.Warehouse.warehouse_id,
+        start_date: contract.start_date,
+        end_date: contract.end_date,
+        name: getLocaleLanguageValue(
+          locale,
+          contract.Warehouse.name_ko,
+          contract.Warehouse.name_en
+        ),
+        address: getLocaleLanguageValue(
+          locale,
+          getFullAddress(
+            contract.Warehouse.address1_ko,
+            contract.Warehouse.address2_ko
+          ),
+          getFullAddress(
+            contract.Warehouse.address1_en,
+            contract.Warehouse.address2_en
+          )
+        ),
+        area: contract.lease_area,
+        is_verified: contract.Warehouse.is_verified,
+        image: getImage(contract.Warehouse.WarehouseImages),
+      };
+    }),
+  };
 };
 
 // 모든 창고목록
@@ -120,65 +165,32 @@ const getAllWarehouses = async (db, locale, offset, limit, conditions) => {
     limit,
   });
 
-  return warehouses_result.map((warehouse) => {
-    return {
-      warehouse_id: warehouse.warehouse_id,
-      name: getLocaleLanguageValue(
-        locale,
-        warehouse.name_ko,
-        warehouse.name_en
-      ),
-      address: getLocaleLanguageValue(
-        locale,
-        getFullAddress(warehouse.address1_ko, warehouse.address2_ko),
-        getFullAddress(warehouse.address1_en, warehouse.address2_en)
-      ),
-      is_verified: warehouse.is_verified,
-      image: getImage(warehouse.WarehouseImages),
-    };
-  });
-};
+  const count = await db.Warehouse.count();
 
-const getConditions = (keyword) => {
-  const regex = / /gi;
-  let keywords;
-  if (keyword) {
-    keywords = [keyword.replace(regex, ''), keyword.trim()];
-  } else {
-    return [];
-  }
-  let conditions = [];
-  for (x in keywords) {
-    conditions.push({
-      name_ko: {
-        [Op.like]: `%${keywords[x]}%`,
-      },
-    });
-    conditions.push({
-      name_en: {
-        [Op.like]: `%${keywords[x]}%`,
-      },
-    });
-    conditions.push({
-      address1_ko: {
-        [Op.like]: `%${keywords[x]}%`,
-      },
-    });
-    conditions.push({
-      address1_en: {
-        [Op.like]: `%${keywords[x]}%`,
-      },
-    });
-    conditions.push({
-      warehouse_id: {
-        [Op.like]: `%${keywords[x]}%`,
-      },
-    });
-  }
-  return conditions;
+  return {
+    count,
+    warehouses: warehouses_result.map((warehouse) => {
+      return {
+        warehouse_id: warehouse.warehouse_id,
+        name: getLocaleLanguageValue(
+          locale,
+          warehouse.name_ko,
+          warehouse.name_en
+        ),
+        address: getLocaleLanguageValue(
+          locale,
+          getFullAddress(warehouse.address1_ko, warehouse.address2_ko),
+          getFullAddress(warehouse.address1_en, warehouse.address2_en)
+        ),
+        is_verified: warehouse.is_verified,
+        image: getImage(warehouse.WarehouseImages),
+      };
+    }),
+  };
 };
 
 module.exports = async (db, locale, page_num, keyword, user_email) => {
+  let count = 0;
   let warehouses = [];
   let offset = 0;
   const limit = 10;
@@ -192,20 +204,29 @@ module.exports = async (db, locale, page_num, keyword, user_email) => {
 
   // 유저일 경우
   if (user_email) {
-    warehouses = getMyWarehouses(
+    ({ count, warehouses } = await getMyWarehouses(
       db,
       locale,
       user_email,
       offset,
       limit,
       conditions
-    );
+    ));
   }
 
   // 관리자일 경우
   else {
-    warehouses = getAllWarehouses(db, locale, offset, limit, conditions);
+    ({ count, warehouses } = await getAllWarehouses(
+      db,
+      locale,
+      offset,
+      limit,
+      conditions
+    ));
   }
 
-  return warehouses;
+  return {
+    total_page: !count ? 1 : Math.floor((count - 1) / limit) + 1,
+    warehouses,
+  };
 };

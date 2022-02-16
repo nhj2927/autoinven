@@ -1,63 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <%- include('../head') %>
-    <link rel="stylesheet" href="/css/leaseManagement.css">
+  <head>
+    <meta charset="UTF-8" />
+    <%- include('../head') %>
+    <link rel="stylesheet" href="/css/leaseManagement.css" />
     <title>Document</title>
-</head>
+  </head>
 
-<body>
-  <header style="z-index: 1000;">
-    <%- include('../partial/navbar') %>
-  </header>
-  <div class="inner img">
-  </div>
-  <div class="inner main">
-    <ul class="pager" style="list-style: none;">
-      <li style="display: flex; align-items: center;">
-        <h2 style=" font-family: nanum-eb;">
-          <%= __('leaseManagement_title') %>
-        </h2>
-        <input type="text" id="search" class="input--text search" style="margin-left: auto">
-        <button type = "submit" class="class="btn" id="search_button" style="border: none; background: #FFF;"><img src="/image/search.png"></button>
-      </li>
-      <li>
-        <% if(locals.role == 'user') { %>
-        <table class="table table-hover">
-          <th><%= __('table_num') %></th>
-          <th><%= __('table_state') %></th>
-          <th><%= __('table_reg_num') %></th>
-          <th><%= __('table_wh_name') %></th>
-          <th><%= __('table_lease_area') %></th>
-          <th><%= __('table_contract_period') %></th>
-          <th><%= __('table_price') %></th>
-          <th><%= __('table_created_date') %></th>
-          <% for(var i = 0 ; i < contracts.length ; i++ ) { %>
-              <tr onclick="location.href='/contract/'+'<%=contracts[i].id%>';">
-                <td><%= i+1 %></td>
-                <% if(contracts[i].state == 1) {  %>
-                  <td><span class="badge" style="background: rgb(196,196,196);"><%= __('badge_pending_approval') %></span></td>
-                <% } else if(contracts[i].state == 2) { %>
-                  <td><span class="badge" style="background: rgb(143,207,104);"><%= __('badge_pending_payment') %></span></td>
-                <% } else if(contracts[i].state == 3) { %>
-                  <td><span class="badge" style="background: rgb(89,166,237);"><%= __('badge_approved') %></span></td>
-                <% } else if(contracts[i].state == 4) { %>
-                  <td><span class="badge bg-danger"><%= __('badge_reject') %></span></td>
-                <% } else if(contracts[i].state == 5) { %>
-                  <td><span class="badge" style="background: rgb(230, 230, 230);"><%= __('badge_expired') %></span></td>
-                <% } %>
-                <td><%= contracts[i].id %></td>
-                <td><%= contracts[i].name %></td>
-                <td><%= contracts[i].area %>㎡</td>
-                <td><%= contracts[i].period %></td>
-                <td><%= contracts[i].price %>원</td>
-                <td><%= contracts[i].created_date %></td>
-              </tr>
+  <body>
+    <header style="z-index: 1000"><%- include('../partial/navbar') %></header>
+    <div class="inner img"></div>
+    <div class="inner main">
+      <ul class="pager" style="list-style: none">
+        <li style="display: flex; align-items: center">
+          <h2 style="font-family: nanum-eb">
+            <%= __('leaseManagement_title') %>
+          </h2>
+          <div class="searchbar" style="margin-left: auto">
+            <div class="search">
+              <input id="search" class="bar" type="text" placeholder="search" />
+              <div class="symbol">
+                <svg class="cloud">
+                  <use xlink:href="#cloud" />
+                </svg>
+                <svg class="lens">
+                  <use xlink:href="#lens" />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- SVG -->
+          <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+            <symbol
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 35 35"
+              id="cloud"
+            >
+              <path
+                d="M31.714,25.543c3.335-2.17,4.27-6.612,2.084-9.922c-1.247-1.884-3.31-3.077-5.575-3.223h-0.021
+          C27.148,6.68,21.624,2.89,15.862,3.931c-3.308,0.597-6.134,2.715-7.618,5.708c-4.763,0.2-8.46,4.194-8.257,8.919
+          c0.202,4.726,4.227,8.392,8.991,8.192h4.873h13.934C27.784,26.751,30.252,26.54,31.714,25.543z"
+              />
+            </symbol>
+            <symbol
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+              id="lens"
+            >
+              <path
+                d="M15.656,13.692l-3.257-3.229c2.087-3.079,1.261-7.252-1.845-9.321c-3.106-2.068-7.315-1.25-9.402,1.83
+          s-1.261,7.252,1.845,9.32c1.123,0.748,2.446,1.146,3.799,1.142c1.273-0.016,2.515-0.39,3.583-1.076l3.257,3.229
+          c0.531,0.541,1.404,0.553,1.95,0.025c0.009-0.008,0.018-0.017,0.026-0.025C16.112,15.059,16.131,14.242,15.656,13.692z M2.845,6.631
+          c0.023-2.188,1.832-3.942,4.039-3.918c2.206,0.024,3.976,1.816,3.951,4.004c-0.023,2.171-1.805,3.918-3.995,3.918
+          C4.622,10.623,2.833,8.831,2.845,6.631L2.845,6.631z"
+              />
+            </symbol>
+          </svg>
+        </li>
+        <li>
+          <% if(locals.role == 'user') { %>
+          <table class="table table-hover">
+            <th><%= __('table_num') %></th>
+            <th><%= __('table_state') %></th>
+            <th><%= __('table_reg_num') %></th>
+            <th><%= __('table_wh_name') %></th>
+            <th><%= __('table_lease_area') %></th>
+            <th><%= __('table_contract_period') %></th>
+            <th><%= __('table_price') %></th>
+            <th><%= __('table_created_date') %></th>
+            <% for(var i = 0 ; i < contracts.length ; i++ ) { %>
+            <tr onclick="location.href='/contract/'+'<%=contracts[i].id%>';">
+              <td><%= i+1 %></td>
+              <% if(contracts[i].state == 1) { %>
+              <td style="text-align: center">
+                <div style="display: flex; justify-content: center">
+                  <span class="badge" style="background: rgb(196, 196, 196)"
+                    ><%= __('badge_pending_approval') %></span
+                  >
+                </div>
+              </td>
+              <% } else if(contracts[i].state == 2) { %>
+              <td style="text-align: center">
+                <div style="display: flex; justify-content: center">
+                  <span class="badge" style="background: rgb(143, 207, 104)"
+                    ><%= __('badge_pending_payment') %></span
+                  >
+                </div>
+              </td>
+              <% } else if(contracts[i].state == 3) { %>
+              <td style="text-align: center">
+                <div style="display: flex; justify-content: center">
+                  <span class="badge" style="background: rgb(89, 166, 237)"
+                    ><%= __('badge_approved') %></span
+                  >
+                </div>
+              </td>
+              <% } else if(contracts[i].state == 4) { %>
+              <td style="text-align: center">
+                <div style="display: flex; justify-content: center">
+                  <span class="badge bg-danger"><%= __('badge_reject') %></span>
+                </div>
+              </td>
+              <% } else if(contracts[i].state == 5) { %>
+              <td style="text-align: center">
+                <div style="display: flex; justify-content: center">
+                  <span class="badge" style="background: rgb(230, 230, 230)"
+                    ><%= __('badge_expired') %></span
+                  >
+                </div>
+              </td>
+              <% } %>
+              <td><%= contracts[i].id %></td>
+              <td><%= contracts[i].name %></td>
+              <td><%= contracts[i].area %>㎡</td>
+              <td><%= contracts[i].period %></td>
+              <td id="contracted_cost<%=i%>"></td>
+              <td><%= contracts[i].created_date %></td>
+            </tr>
             <% } %>
-        </table>
-        <% } else { %>
+          </table>
+          <% } else { %>
           <table class="table table-hover">
             <th><%= __('table_num') %></th>
             <th><%= __('table_state') %></th>
@@ -69,35 +132,137 @@
             <th><%= __('table_contractor') %></th>
             <th><%= __('table_created_date') %></th>
             <% for(var i = 0 ; i < contracts.length ; i++ ) { %>
-              <tr onclick="location.href='/contract/'+'<%=contracts[i].id%>';">
-                <td><%= i+1 %></td>
-                  <% if(contracts[i].state == 1) {  %>
-                    <td><span class="badge" style="background: rgb(196,196,196);"><%= __('badge_pending_approval') %></span></td>
-                  <% } else if(contracts[i].state == 2) { %>
-                    <td><span class="badge" style="background: rgb(143,207,104);"><%= __('badge_pending_payment') %></span></td>
-                  <% } else if(contracts[i].state == 3) { %>
-                    <td><span class="badge" style="background: rgb(89,166,237);"><%= __('badge_approved') %></span></td>
-                  <% } else if(contracts[i].state == 4) { %>
-                    <td><span class="badge bg-danger"><%= __('badge_reject') %></span></td>
-                  <% } else if(contracts[i].state == 5) { %>
-                    <td><span class="badge" style="background: rgb(230, 230, 230);"><%= __('badge_expired') %></span></td>
-                  <% } %>
-                <td><%= contracts[i].id %></td>
-                <td><%= contracts[i].name %></td>
-                <td><%= contracts[i].area %>㎡</td>
-                <td><%= contracts[i].period %></td>
-                <td><%= contracts[i].price %>원</td>
-                <td><%= contracts[i].contractor_name %></td>
-                <td><%= contracts[i].created_date %></td>
-              </tr>
+            <tr onclick="location.href='/contract/'+'<%=contracts[i].id%>';">
+              <td><%= i+1 %></td>
+              <% if(contracts[i].state == 1) { %>
+              <td style="text-align: center">
+                <div style="display: flex; justify-content: center">
+                  <span
+                    class="badge"
+                    style="
+                      background: rgb(196, 196, 196);
+                      display: flex;
+                      justify-content: center;
+                    "
+                    ><%= __('badge_pending_approval') %></span
+                  >
+                </div>
+              </td>
+              <% } else if(contracts[i].state == 2) { %>
+              <td style="text-align: center">
+                <div style="display: flex; justify-content: center">
+                  <span
+                    class="badge"
+                    style="
+                      background: rgb(143, 207, 104);
+                      display: flex;
+                      justify-content: center;
+                    "
+                    ><%= __('badge_pending_payment') %></span
+                  >
+                </div>
+              </td>
+              <% } else if(contracts[i].state == 3) { %>
+              <td style="text-align: center">
+                <div style="display: flex; justify-content: center">
+                  <span
+                    class="badge"
+                    style="
+                      background: rgb(89, 166, 237);
+                      display: flex;
+                      justify-content: center;
+                    "
+                    ><%= __('badge_approved') %></span
+                  >
+                </div>
+              </td>
+              <% } else if(contracts[i].state == 4) { %>
+              <td style="text-align: center">
+                <div style="display: flex; justify-content: center">
+                  <span
+                    class="badge bg-danger"
+                    style="display: flex; justify-content: center"
+                    ><%= __('badge_reject') %></span
+                  >
+                </div>
+              </td>
+              <% } else if(contracts[i].state == 5) { %>
+              <td style="display: flex">
+                <div style="display: flex; justify-content: center">
+                  <span class="badge" style="background: rgb(230, 230, 230)"
+                    ><%= __('badge_expired') %></span
+                  >
+                </div>
+              </td>
+              <% } %>
+              <td><%= contracts[i].id %></td>
+              <td><%= contracts[i].name %></td>
+              <td><%= contracts[i].area %>㎡</td>
+              <td><%= contracts[i].period %></td>
+              <td id="contracted_cost<%=i%>"></td>
+              <td><%= contracts[i].contractor_name %></td>
+              <td><%= contracts[i].created_date %></td>
+            </tr>
             <% } %>
           </table>
           <% } %>
-      </li>
-    </ul>
-  </div>
-  <footer>
-    <%- include('../partial/footer') %>
-  </footer>
-</body>
+        </li>
+      </ul>
+    </div>
+    <div style="display: flex; justify-content: center">
+      <ul id="pagination" class="pagination-sm" style="padding-bottom: 3%"></ul>
+    </div>
+    <footer><%- include('../partial/footer') %></footer>
+  </body>
+  <script>
+    $(document).ready(function () {
+      let page_num;
+      let prices = '<%= JSON.stringify(contracts) %>';
+      prices = prices.replace(/&#34;/gi, '"');
+      prices = JSON.parse(prices);
+      for (let i = 0; i < prices.length; i++) {
+        document.getElementById('contracted_cost' + i).innerText = parseInt(
+          prices[i].price
+        ).toLocaleString();
+      }
+      location.search.split('&').forEach((query) => {
+        if (query.includes('page_num')) {
+          if (query.split('=').length < 2) {
+            page_num = 1;
+          } else {
+            page_num = query.split('=')[1];
+          }
+        } else {
+          page_num = 1;
+        }
+      });
+
+      $('#pagination').twbsPagination({
+        totalPages: parseInt('<%= total_page %>'),
+        visiblePages: 5,
+        initiateStartPageClick: false,
+        prev: '<',
+        next: '>',
+        first: '«',
+        last: '»',
+        startPage: parseInt(page_num),
+        onPageClick: function (event, page) {
+          let keyword = '';
+          location.search.split('&').forEach((query) => {
+            if (query.includes('keyword')) {
+              keyword = query.split('=')[1];
+              console.log(keyword);
+            }
+          });
+          window.location.href = `/contract?page_num=${page}&keyword=${keyword}`;
+        },
+      });
+      $('#search').on('keyup', function (key) {
+        if (key.keyCode == 13) {
+          const keyword = $('#search').val();
+          window.location.href = `/contract?keyword=${keyword}`;
+        }
+      });
+    });
+  </script>
 </html>

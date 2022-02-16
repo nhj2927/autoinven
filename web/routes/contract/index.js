@@ -20,19 +20,34 @@ module.exports = (db) => {
       const {
         session: { role, email },
       } = req;
-      let contracts = null;
+      const {
+        query: { keyword, page_num },
+      } = req;
+      let contracts = [];
+      let total_page = 0;
 
       // 유저일 경우
       if (role === 'user') {
-        contracts = await getMyContracts(db, email, locale);
+        ({ total_page, contracts } = await getMyContracts(
+          db,
+          email,
+          locale,
+          page_num,
+          keyword
+        ));
       }
 
       // 관리자일 경우
       else if (role === 'admin') {
-        contracts = await getContracts(db, locale);
+        ({ total_page, contracts } = await getContracts(
+          db,
+          locale,
+          page_num,
+          keyword
+        ));
       }
 
-      res.render('contract/leaseManagement', { contracts });
+      res.render('contract/leaseManagement', { total_page, contracts });
     })
   );
 

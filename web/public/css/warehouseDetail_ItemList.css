@@ -20,15 +20,18 @@
   font-family: 'nanum-eb';
   margin-top: 0.5rem;
 }
-#name{
-  width: 100%;
-  padding: 10px;
-  margin : 1rem 0 1rem 0;
+.list-group-item:hover {
+  background: rgba(0, 0, 0, 0.1);
 }
-#note{
+#name {
   width: 100%;
   padding: 10px;
-  margin : 1rem 0 1rem 0;
+  margin: 1rem 0 1rem 0;
+}
+#note {
+  width: 100%;
+  padding: 10px;
+  margin: 1rem 0 1rem 0;
 }
 .badge-svg {
   width: 20px;
@@ -36,16 +39,16 @@
   background: no-repeat;
 }
 .modal-title {
-  font-family: 'nanum-eb'; 
+  font-family: 'nanum-eb';
   font-size: 2rem;
 }
-.btn-submit{
+.btn-submit {
   font-size: 1.2rem;
   padding: 0.5rem;
   background-color: #7c139a;
   border: 1px solid #7c139a;
 }
-.btn-secondary{
+.btn-secondary {
   font-size: 1.2rem;
   padding: 0.5rem;
 }

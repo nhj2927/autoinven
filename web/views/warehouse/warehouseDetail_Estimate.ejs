@@ -1,4 +1,4 @@
-<div class="info-card" id="contract-card">
+<div class="info-card" id="contract-card" style="min-width: 450px">
   <div class="card-body">
     <div>
       <span id="wh-detail-contract-card-title"
@@ -82,7 +82,6 @@
   input_area.addEventListener('change', check_and_calc_total_cost);
 
   function check_and_calc_total_cost() {
-
     // 기간 + 임대 공간에 따른 비용 계산
     if (input_start.value != '' && input_end.value != '') {
       if (input_start.value > input_end.value) {
@@ -164,8 +163,8 @@
         total_cost_value;
     } else {
       Swal.fire({
-        title: '오류',
-        html: `양식을 모두 입력해주세요`,
+        title: "<%= __('error') %>",
+        html: "<%= __('error_estimate') %>",
         icon: 'error',
       });
     }
