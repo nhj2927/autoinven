@@ -16,18 +16,30 @@
     <header><%- include('../partial/navbar') %></header>
     <!-- Slider main container -->
     <div class="swiper" style="margin-top: 1rem">
-      <!-- Additional required wrapper -->
+      <!-- Slides -->
       <div class="swiper-wrapper">
-        <!-- Slides -->
-        <% for(let i in warehouse.images){ %>
-        <div class="swiper-slide">
-          <img id="warehouse_image_<%= i%>" class="slider-image" />
-          <script>
-            document
-              .getElementById('warehouse_image_<%= i%>')
-              .setAttribute('src', '<%=warehouse.images[i]%>');
-          </script>
-        </div>
+        <% if(warehouse.images.length > 0) { %> 
+          <% for(let i in warehouse.images) { %>
+          <div class="swiper-slide">
+            <img id="warehouse_image_<%= i%>" class="slider-image" />
+            <script>
+              document
+                .getElementById('warehouse_image_<%= i%>')
+                .setAttribute('src', '<%=warehouse.images[i]%>');
+            </script>
+          </div>
+          <% } %>  
+        <% } else { %> 
+          <% for(let i=0 ; i < 3; i++) { %>
+          <div class="swiper-slide">
+            <img id="warehouse_image_<%= i%>" class="slider-image"/>
+            <script>
+              document
+                .getElementById('warehouse_image_<%= i%>')
+                .setAttribute('src', '/image/default-image.jpg');
+            </script>
+          </div>
+          <% } %> 
         <% } %>
       </div>
       <!-- Slides -->
@@ -150,18 +162,20 @@
         </div>
         <!--창고 정보 테이블-->
 
-        <!--창고과 유저가 계약된 상태이거나 관리자일 경우 등록된 물품 목록이 노출됨-->
-        <% if(user.is_contracted) { %>
-        <div id="wh-info-table-div" class="col">
-          <%- include('./warehouseDetail_ItemList')%>
-        </div>
-        <!--창고과 유저가 계약된 상태이거나 관리자일 경우 등록된 물품 목록이 노출됨-->
+        <% if(warehouse.is_verified) { %>
+          <!--창고과 유저가 계약된 상태이거나 관리자일 경우 등록된 물품 목록이 노출됨-->
+          <% if(user.is_contracted || locals.role == 'admin') { %>
+          <div id="wh-info-table-div" class="col">
+            <%- include('./warehouseDetail_ItemList')%>
+          </div>
+          <!--창고과 유저가 계약된 상태이거나 관리자일 경우 등록된 물품 목록이 노출됨-->
 
-        <!--창고와 계약되지 않은 유저일 경우 견적확인 할 수 있는 카드뷰가 노출됨-->
-        <% }else { %>
-        <div class="col-5"><%- include('./warehouseDetail_Estimate')%></div>
+          <!--창고와 계약되지 않은 유저일 경우 견적확인 할 수 있는 카드뷰가 노출됨-->
+          <% }else { %>
+          <div class="col-5"><%- include('./warehouseDetail_Estimate')%></div>
+          <% } %>
+          <!--창고와 계약되지 않은 유저일 경우 견적확인 할 수 있는 카드뷰가 노출됨-->
         <% } %>
-        <!--창고와 계약되지 않은 유저일 경우 견적확인 할 수 있는 카드뷰가 노출됨-->
       </div>
 
       <!--창고 상세정보-->

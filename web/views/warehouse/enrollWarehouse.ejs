@@ -668,6 +668,7 @@
         let isSuccess;
         files = dt.files;
         fileTypes = ['jpg', 'jpeg', 'png'];
+        //업로드 가능한 사진파일의 개수와 확장자 제한
         for (f of files) {
           if (sel_files.length < max_images) {
             extension = f.name.split('.').pop().toLowerCase();

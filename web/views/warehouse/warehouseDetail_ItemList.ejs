@@ -17,6 +17,13 @@
     <%=__('warehousedetailwithitem_add_item')%>
   </button>
 </div>
+<% } else { %>
+<div style="text-align: right">
+  <p class="add_item_disable" >
+    <img src="/image/icon/plus-solid-gray.svg" class="badge-svg" />
+    <%=__('warehousedetailwithitem_add_item')%>
+  </p>
+</div>
 <% } %>
 <div id="item-list-card" class="info-card" style="overflow-y: auto">
   <ul class="list-group list-group-flush">

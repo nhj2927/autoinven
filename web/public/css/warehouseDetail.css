@@ -46,6 +46,15 @@
   border-style: hidden;
   margin: 0 0 5px;
 }
+.add_item_disable{
+  font-size: 1rem;
+  font-weight: bold;
+  color: #929292;
+  background-color: white;
+  border-style: hidden;
+  margin: 0 0 5px;
+  cursor: not;
+}
 
 .badge-text-purple {
   font-size: 1rem;
