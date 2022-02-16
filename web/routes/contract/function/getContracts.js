@@ -82,7 +82,9 @@ module.exports = async (db, locale, page_num, keyword) => {
     limit,
   });
 
-  const count = await db.LeaseContract.count();
+  const count = await db.LeaseContract.count({
+    where: where_clause,
+  });
 
   return {
     total_page: !count ? 1 : Math.floor((count - 1) / limit) + 1,

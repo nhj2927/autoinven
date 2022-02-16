@@ -104,6 +104,7 @@ const getMyWarehouses = async (
   });
 
   const count = await db.LeaseContract.count({
+    include: { model: db.Warehouse, required: true, where: where_clause },
     where: { user_email, c_state_id: 3 },
   });
 
@@ -167,7 +168,9 @@ const getAllWarehouses = async (db, locale, offset, limit, conditions) => {
     limit,
   });
 
-  const count = await db.Warehouse.count();
+  const count = await db.Warehouse.count({
+    where: where_clause,
+  });
 
   return {
     count,

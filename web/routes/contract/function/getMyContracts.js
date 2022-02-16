@@ -77,6 +77,7 @@ module.exports = async (db, user_email, locale, page_num, keyword) => {
   });
 
   const count = await db.LeaseContract.count({
+    include: { model: db.Warehouse, required: true, where: where_clause },
     where: { user_email },
   });
 
