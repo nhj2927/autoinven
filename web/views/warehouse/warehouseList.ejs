@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <%- include('../head') %>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js"></script>
     <link rel="stylesheet" href="/css/warehouse.css" />
     <title>Document</title>
   </head>
@@ -13,11 +12,7 @@
     <div class="inner img"></div>
     <div class="inner main container">
       <!--페이징 기능 미구현-->
-      <ul
-        id="pagination"
-        class="pagination-sm"
-        style="list-style: none; width: 90%"
-      >
+      <ul style="list-style: none; width: 90%">
         <li style="display: flex; align-items: center">
           <h2 style="font-family: nanum-eb"><%= __('warehouse_title') %></h2>
           <% if(locals.role == 'admin') { %>
@@ -25,7 +20,7 @@
           <% } %>
           <div class="searchbar" style="margin-left: auto">
             <div class="search">
-              <input class="bar" type="text" placeholder="search" />
+              <input id="search" class="bar" type="text" placeholder="search" />
               <div class="symbol">
                 <svg class="cloud">
                   <use xlink:href="#cloud" />
@@ -78,13 +73,7 @@
             </div>
             <div class="container center">
               <ul>
-                <li
-                  style="
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                  "
-                >
+                <li style="display: flex; align-items: center">
                   <p class="wh_title"><%= warehouses[i].name %></p>
                   <% if(warehouses[i].is_verified) { %>
                   <span class="badge bg-primary"
@@ -136,18 +125,53 @@
         <% } %>
       </ul>
     </div>
+    <div style="display: flex; justify-content: center">
+      <ul id="pagination" class="pagination-sm" style="padding-bottom: 3%"></ul>
+    </div>
     <footer><%- include('../partial/footer') %></footer>
   </body>
   <script>
     $(document).ready(function () {
+      let page_num;
+      console.log(location);
+      location.search.split('&').forEach((query) => {
+        if (query.includes('page_num')) {
+          if (query.split('=').length < 2) {
+            page_num = 1;
+          } else {
+            page_num = query.split('=')[1];
+          }
+        } else {
+          page_num = 1;
+        }
+      });
+
       $('#pagination').twbsPagination({
-        totalPages: 7,
+        totalPages: parseInt('<%= total_page %>'),
         visiblePages: 5,
-        prev: '이전',
-        next: '다음',
+        initiateStartPageClick: false,
+        prev: '<',
+        next: '>',
         first: '«',
         last: '»',
-        onPageClick: function (event, page) {},
+        startPage: parseInt(page_num),
+        onPageClick: function (event, page) {
+          let keyword = '';
+          location.search.split('&').forEach((query) => {
+            if (query.includes('keyword')) {
+              keyword = query.split('=')[1];
+              console.log(keyword);
+            }
+          });
+
+          window.location.href = `/warehouse?page_num=${page}&keyword=${keyword}`;
+        },
+      });
+      $('#search').on('keyup', function (key) {
+        if (key.keyCode == 13) {
+          const keyword = $('#search').val();
+          window.location.href = `/warehouse?keyword=${keyword}`;
+        }
       });
     });
   </script>
