@@ -73,7 +73,7 @@
                 type="text"
                 id="name"
                 class="input--text"
-                placeholder="<%=__('signup_name')%>"
+                placeholder="<%=__('signup_name') %>"
               />
             </li>
             <li>
@@ -81,7 +81,7 @@
                 type="password"
                 id="pw"
                 class="input--text"
-                placeholder="<%=__('signup_pw')%>"
+                placeholder="<%=__('signup_pw') %>"
               />
             </li>
             <li>
@@ -89,7 +89,7 @@
                 type="password"
                 id="pwcheck"
                 class="input--text"
-                placeholder="<%=__('signup_pwcheck')%>"
+                placeholder="<%=__('signup_pwcheck') %>"
               />
             </li>
             <li>
@@ -97,7 +97,7 @@
                 type="tel"
                 id="tel"
                 class="input--text"
-                placeholder="<%=__('signup_tel')%>"
+                placeholder="<%=__('signup_tel') %>"
               />
             </li>
           </ul>
@@ -212,7 +212,6 @@
         var name = $('#name').val();
         var phone = $('#tel').val();
         phone = phone.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
-        console.log(phone);
         var data = {
           email,
           password,
@@ -228,7 +227,7 @@
         else if (pw_check.test(password) == false)
           swalError('<%= __("error_pw_form") %>');
         else if (password != pwcheck) swalError('<%= __("error_pw_check") %>');
-        else if (!phone) swalError('<%= __("error_phone) %>');
+        else if (!phone) swalError('<%= __("error_phone") %>');
         else if (phone_check.test(phone) == false)
           swalError('<%= __("error_phone_form") %>');
         else {

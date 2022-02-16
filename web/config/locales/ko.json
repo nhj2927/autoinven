@@ -27,6 +27,10 @@
   "iot_Statistic_YEARLY": "년간",
   "Approve": "승인",
   "Reject": "거부",
+  "user_auth": "인증 번호",
+  "user_auth_ment1": "안녕하세요!",
+  "user_auth_ment2": "Autoinven 가입 인증 메일입니다. 아래 인증번호를 사이트에 입력하고 가입을 완료해주세요.",
+  "user_auth_ment3": "이용해주셔서 감사합니다.",
   "warehousedetail_verified": "인증창고",
   "warehousedetail_info": "창고정보",
   "warehousedetail_is_docked": "도킹시설",
@@ -96,6 +100,7 @@
   "navbar_signin": "로그인",
   "navbar_help2": "도움말",
   "navbar_signout": "로그아웃",
+  "navbar_myinfo": "내 정보",
   "myInfo_title": "회원정보 수정",
   "myInfo_name": "이름",
   "myInfo_pw": "비밀번호",
@@ -183,17 +188,12 @@
   "search_whtype1": "일반",
   "search_whtype2": "냉장",
   "search_whtype3": "냉동",
-
   "warehousedetail_total_ground_area": "연면적",
   "warehousedetail_dedicated_area": "전용면적",
-
   "contractRequestDetail_total_ground_area": "연면적",
   "contractRequestDetail_dedicated_area": "전용면적",
-
   "contractDetail_mean_of_payment": "지불수단",
-
   "contractDetail_total_ground_area": "연면적",
-
   "contractDetail_dedicated_area": "전용면적",
   "contractDetail_approve": "승인하기",
   "contractDetail_reject": "거절하기",
@@ -204,7 +204,6 @@
   "contract_state_completed": "계약완료",
   "contract_state_rejected": "승인거절",
   "contract_state_expired": "기간만료",
-
   "qrPopup_text1": "1. QR 코드를 AUTOINVEN 어플리케이션으로 스캔하시면",
   "qrPopup_text2": "물품의 입출고 상태가 변경됩니다.",
   "qrPopup_text3": "2. QR 코드를 프린트하여 물품에 부착 후",
@@ -244,5 +243,6 @@
   "success_send_authcode": "인증번호를 전송하였습니다.",
   "success_auth": "인증 되었습니다.",
   "success_itemregister": "물품을 성공적으로 등록하였습니다.",
-  "success_signup": "회원가입이 완료되었습니다."
+  "success_signup": "회원가입이 완료되었습니다.",
+  "error_name": "error_name"
 }

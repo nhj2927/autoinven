@@ -551,8 +551,9 @@
             icon: 'success',
             title: '<%= __("success") %>',
             text: '창고가 등록 되었습니다..',
+          }).then(function () {
+            window.location.href = '/warehouse';
           });
-          window.location.href = '/warehouse';
         },
         error: function (e) {
           // 전송 후 에러 발생 시 실행 코드

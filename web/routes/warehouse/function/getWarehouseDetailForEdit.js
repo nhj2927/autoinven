@@ -24,6 +24,8 @@ const getImages = (images) => {
 module.exports = async (db, warehouse_id) => {
   const { fn, col } = require('sequelize');
 
+  const getLocalePrice = require('$base/utils/getLocalePrice');
+
   const warehouse_result = await db.Warehouse.findOne({
     attributes: {
       include: [
@@ -67,7 +69,7 @@ module.exports = async (db, warehouse_id) => {
     name: warehouse_result.name_ko,
     name_en: warehouse_result.name_en,
     category: warehouse_result.Category.name,
-    rent: warehouse_result.rent,
+    rent: getLocalePrice(locale, warehouse_result.rent),
     zip_code: warehouse_result.Address.zip_code,
     latitude: warehouse_result.Address.latitude,
     longitude: warehouse_result.Address.longitude,
