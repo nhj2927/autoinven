@@ -19,7 +19,7 @@
 </div>
 <% } else { %>
 <div style="text-align: right">
-  <p class="add_item_disable" >
+  <p class="add_item_disable">
     <img src="/image/icon/plus-solid-gray.svg" class="badge-svg" />
     <%=__('warehousedetailwithitem_add_item')%>
   </p>
@@ -27,47 +27,62 @@
 <% } %>
 <div id="item-list-card" class="info-card" style="overflow-y: auto">
   <ul class="list-group list-group-flush">
-    <% for(let i in warehouse.items) { %>
-    <li
-      class="list-group-item d-flex justify-content-between align-items-center"
-      data-bs-toggle="modal"
-      data-bs-target="#ItemDetailModal"
-      style="cursor: pointer; border-bottom: 1px solid rgba(0, 0, 0, 0.125)"
-      onclick="openItemDetailModal('<%= warehouse.items[i].item_id%>')"
-    >
-      <img id="item_image_'<%=i%>" class="item-list-image" />
-      <script>
-        document
-          .getElementById("item_image_'<%=i%>")
-          .setAttribute('src', '<%= warehouse.items[i].image%>');
-      </script>
-      <div class="item-list-text-div">
-        <div class="item-list-title"><%= warehouse.items[i].name%></div>
+    <% if(warehouse.items.length == 0) { %>
+      <p class="item-list-placeholder">
+        등록된 물품이 없습니다.
+      </p>
+    <% } else { %>
+      <% for(let i in warehouse.items) { %>
+      <li
+        class="list-group-item d-flex justify-content-between align-items-center"
+        data-bs-toggle="modal"
+        data-bs-target="#ItemDetailModal"
+        style="cursor: pointer; border-bottom: 1px solid rgba(0, 0, 0, 0.125)"
+        onclick="openItemDetailModal('<%= warehouse.items[i].item_id%>')"
+      >
+        <img id="item_image_<%=i%>" class="item-list-image" />
+        <% if(warehouse.items[i].image) { %>
+        <script>
+          document
+            .getElementById("item_image_<%=i%>")
+            .setAttribute('src', '<%= warehouse.items[i].image%>');
+        </script>
+        <% } else { %>
+        <script>
+          document
+            .getElementById("item_image_<%= i%>")
+            .setAttribute('src', '/image/default-image.png')
+            .setAttribute('style', 'border: 1px solid black;');
+        </script>
+        <% } %>
+        <div class="item-list-text-div">
+          <div class="item-list-title"><%= warehouse.items[i].name%></div>
 
-        <div class="item-list-body">
-          <span><%= __('warehousedetailwithitem_owner')%> : </span>
-          <span><%= warehouse.items[i].owner_name%></span>
-          <br />
-          <span><%= __('warehousedetailwithitem_date_in')%> : </span>
-          <span><%= warehouse.items[i].date %></span>
+          <div class="item-list-body">
+            <span><%= __('warehousedetailwithitem_owner')%> : </span>
+            <span><%= warehouse.items[i].owner_name%></span>
+            <br />
+            <span><%= __('warehousedetailwithitem_date_in')%> : </span>
+            <span><%= warehouse.items[i].date %></span>
+          </div>
         </div>
-      </div>
-      <% if(warehouse.items[i].status == 1) { %>
-      <div class="badge-div">
-        <span class="badge bg-secondary"
-          ><%= __('warehousedetailwithitem_badge_before_in')%></span
+        <% if(warehouse.items[i].state == 1) { %>
+        <div class="badge-div">
+          <span class="badge bg-secondary"
+            ><%= __('warehousedetailwithitem_badge_before_in')%></span
+          >
+        </div>
+        <% } else if(warehouse.items[i].state == 2) { %>
+        <span class="badge bg-success"
+          ><%= __('warehousedetailwithitem_badge_in')%></span
         >
-      </div>
-      <% } else if(warehouse.items[i].status == 2) { %>
-      <span class="badge bg-success"
-        ><%= __('warehousedetailwithitem_badge_in')%></span
-      >
-      <% } else { %>
-      <span class="badge bg-danger"
-        ><%= __('warehousedetailwithitem_badge_out')%></span
-      >
+        <% } else { %>
+        <span class="badge bg-danger"
+          ><%= __('warehousedetailwithitem_badge_out')%></span
+        >
+        <% } %>
+      </li>
       <% } %>
-    </li>
     <% } %>
   </ul>
 </div>
