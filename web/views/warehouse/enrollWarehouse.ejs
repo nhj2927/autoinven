@@ -547,11 +547,20 @@
         cache: false,
         success: function (data) {
           // 전송 후 성공 시 실행 코드
-          console.log(data);
+          Swal.fire({
+            icon: 'success',
+            title: '<%= __("success") %>',
+            text: '창고가 등록 되었습니다..',
+          });
+          window.location.href = '/warehouse';
         },
         error: function (e) {
           // 전송 후 에러 발생 시 실행 코드
-          console.log('ERROR : ', e);
+          Swal.fire({
+            title: "500 <%= __('error') %>",
+            html: "<h3><%= __('error_any_msg') %></h3><br><%= __('error_any_msg2') %><br><%= __('error_any_msg3') %>",
+            icon: 'error',
+          });
         },
       });
     };

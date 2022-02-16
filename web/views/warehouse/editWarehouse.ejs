@@ -225,7 +225,6 @@
                   class="form-check-input"
                   type="checkbox"
                   style="margin-left: 1rem"
-                  checked
                 />
                 <% } %>
                 <label
@@ -250,7 +249,6 @@
                   class="form-check-input"
                   type="checkbox"
                   style="margin-left: 1rem"
-                  checked
                 />
                 <% } %>
                 <label
@@ -282,7 +280,7 @@
                 type="number"
                 class="form-control info-td-area"
                 min="0"
-                value="<%= warehouse.common_area %>"
+                value="<%= warehouse.total_ground_area %>"
               />
               <span>㎡</span>
             </td>
@@ -295,7 +293,7 @@
                 type="number"
                 class="form-control info-td-area"
                 min="0"
-                value="<%= warehouse.dedicated_area %>"
+                value="<%= warehouse.common_area %>"
               />
               <span>㎡</span>
             </td>
@@ -306,7 +304,7 @@
                 type="number"
                 class="form-control info-td-area"
                 min="0"
-                value="<%= warehouse.total_ground_area %>"
+                value="<%= warehouse.dedicated_area %>"
               />
               <span>㎡</span>
             </td>
