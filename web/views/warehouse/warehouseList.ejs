@@ -91,6 +91,7 @@
                   />
                   <p class="wh_address"><%= warehouses[i].address %></p>
                 </li>
+                <% if(locals.role == 'user') { %>
                 <li>
                   <p class="wh_space">
                     <%= __('warehouse_area') %>: <%= warehouses[i].area %>㎡
@@ -102,6 +103,7 @@
                     %> ~ <%= warehouses[i].end_date %>
                   </p>
                 </li>
+                <% } %>
               </ul>
             </div>
             <div class="container right" onclick="event.stopPropagation()">
@@ -110,13 +112,12 @@
                 class="edit_wh"
                 onclick="location.href='/warehouse/'+'<%= warehouses[i].warehouse_id %>'+'/edit';"
               >
-                <%= __('warehouse_edit' %)>
+                <%= __('warehouse_edit') %>
               </button>
               <% } %>
             </div>
           </div>
         </li>
-
         <% } %> <% } else { %>
         <li>
           <h3 style="color: rgba(0, 0, 0, 0.5)">
@@ -134,7 +135,6 @@
   <script>
     $(document).ready(function () {
       let page_num;
-      console.log(location);
       location.search.split('&').forEach((query) => {
         if (query.includes('page_num')) {
           if (query.split('=').length < 2) {
