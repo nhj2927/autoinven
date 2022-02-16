@@ -12,7 +12,7 @@ module.exports = (db) => {
       const item = await db.Item.findOne({ where: { item_id } });
       console.log(item.qrcode);
       const qr_code = await qrcode.toDataURL(item.qrcode);
-      res.render('partial/qrPopup', { qr_code });
+      res.render('warehouse/qrPopup', { qr_code });
     })
   );
 
