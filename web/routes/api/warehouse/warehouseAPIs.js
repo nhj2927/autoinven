@@ -112,6 +112,8 @@ const checkEmptyWarehouseAttribute = (warehouse) => {
   warehouse.rack = checkEmpty(warehouse.rack);
   warehouse.is_bounded = checkEmpty(warehouse.is_bounded);
   warehouse.commercial_lift = checkEmpty(warehouse.commercial_lift);
+
+  return warehouse;
 };
 
 const registerWarehouse = async (req, db) => {

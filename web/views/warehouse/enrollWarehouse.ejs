@@ -93,7 +93,7 @@
             </td>
           </tr>
           <tr>
-            <td class="info-table-td-head">주소</td>
+            <td class="info-table-td-head">주소*</td>
             <td class="info-table-td" colspan="5">
               <input
                 id="address1_ko"
@@ -118,9 +118,10 @@
             </td>
           </tr>
           <tr>
-            <td class="info-table-td-head">종류</td>
+            <td class="info-table-td-head">종류*</td>
             <td class="info-table-td" colspan="2">
               <select name="category_id" class="form-select">
+                <option value="0">선택안함</option>
                 <% for (var i = 0 ; i < categories.length ; i++) { %>
                 <option value="<%= categories[i].category_id %>">
                   <%= categories[i].name %>
@@ -366,13 +367,13 @@
             <col width="80%" />
           </colgroup>
           <tr>
-            <td class="info-table-td-head">창고명(영문)</td>
+            <td class="info-table-td-head">창고명(영문)*</td>
             <td class="info-table-td">
               <input id="name_en" type="text" class="form-control" />
             </td>
           </tr>
           <tr>
-            <td class="info-table-td-head">주소(영문)</td>
+            <td class="info-table-td-head">주소(영문)*</td>
             <td class="info-table-td">
               <input
                 id="address1_en"
@@ -479,91 +480,105 @@
   <!--formdata 생성 및 post요청-->
   <script>
     clkSubmit = () => {
-      const iot_table_body = document.getElementById('iot-device-table-body');
-      let formdata = new FormData();
-      let iot_device_ids = [];
+      if (
+        $('#name_ko')[0].value == '' ||
+        $('#address1_ko')[0].value == '' ||
+        $('#rent')[0].value == '' ||
+        $('#note_en')[0].value == '' ||
+        $('select[name=category_id] option:selected')[0].value == 0
+      ) {
+        Swal.fire({
+          icon: 'error',
+          title: '실패',
+          text: '필수 정보를 모두 입력해주세요',
+        });
+      } else {
+        const iot_table_body = document.getElementById('iot-device-table-body');
+        let formdata = new FormData();
+        let iot_device_ids = [];
 
-      document.querySelectorAll('#device-id').forEach((item) => {
-        if (item.value != '') {
-          iot_device_ids.push(item.value);
+        document.querySelectorAll('#device-id').forEach((item) => {
+          if (item.value != '') {
+            iot_device_ids.push(item.value);
+          }
+        });
+
+        formdata.append('name_ko', $('#name_ko')[0].value);
+        formdata.append('name_en', $('#name_en')[0].value);
+        formdata.append(
+          'category_id',
+          $('select[name=category_id] option:selected')[0].value
+        );
+        formdata.append('rent', $('#rent')[0].value);
+        formdata.append('address1_ko', $('#address1_ko')[0].value);
+        formdata.append('address1_en', $('#address1_en')[0].value);
+        formdata.append('address2_ko', $('#address2_ko')[0].value);
+        formdata.append('address2_en', $('#address2_en')[0].value);
+        formdata.append('latitude', $('#latitude')[0].value);
+        formdata.append('longitude', $('#longitude')[0].value);
+        formdata.append('zip_code', $('#zip_code')[0].value);
+        formdata.append('land_area', $('#land_area')[0].value);
+        formdata.append('total_ground_area', $('#total_ground_area')[0].value);
+        formdata.append('common_area', $('#common_area')[0].value);
+        formdata.append('dedicated_area', $('#dedicated_area')[0].value);
+        formdata.append('completion_date', $('#completion_date')[0].value);
+        formdata.append('description_ko', $('#description_ko')[0].value);
+        formdata.append('description_en', $('#description_en')[0].value);
+        formdata.append('note_ko', $('#note_ko')[0].value);
+        formdata.append('note_en', $('#note_en')[0].value);
+        formdata.append('story', $('#story')[0].value);
+        formdata.append('restriction_ko', $('#restriction_ko')[0].value);
+        formdata.append('restriction_en', $('#restriction_en')[0].value);
+        formdata.append('access_ko', $('#access_ko')[0].value);
+        formdata.append('access_en', $('#access_en')[0].value);
+        formdata.append('height', $('#height')[0].value);
+        formdata.append('docking_station', $('#docking_station')[0].checked);
+        formdata.append('rack', $('#rack')[0].checked);
+        formdata.append('is_bonded', $('#is_bonded')[0].checked);
+        formdata.append('commercial_lift', $('#commercial_lift')[0].checked);
+        formdata.append('is_verified', $('#is_verified')[0].checked);
+
+        sel_files.forEach((file) => {
+          formdata.append('images', file);
+        });
+
+        iot_device_ids.forEach((id) => {
+          formdata.append('device_ids', id);
+        });
+
+        for (var pair of formdata.entries()) {
+          console.log(pair[0] + ', ' + pair[1]);
         }
-      });
-
-      formdata.append('name_ko', $('#name_ko')[0].value);
-      formdata.append('name_en', $('#name_en')[0].value);
-      formdata.append(
-        'category_id',
-        $('select[name=category_id] option:selected')[0].value
-      );
-      formdata.append('rent', $('#rent')[0].value);
-      formdata.append('address1_ko', $('#address1_ko')[0].value);
-      formdata.append('address1_en', $('#address1_en')[0].value);
-      formdata.append('address2_ko', $('#address2_ko')[0].value);
-      formdata.append('address2_en', $('#address2_en')[0].value);
-      formdata.append('latitude', $('#latitude')[0].value);
-      formdata.append('longitude', $('#longitude')[0].value);
-      formdata.append('zip_code', $('#zip_code')[0].value);
-      formdata.append('land_area', $('#land_area')[0].value);
-      formdata.append('total_ground_area', $('#total_ground_area')[0].value);
-      formdata.append('common_area', $('#common_area')[0].value);
-      formdata.append('dedicated_area', $('#dedicated_area')[0].value);
-      formdata.append('completion_date', $('#completion_date')[0].value);
-      formdata.append('description_ko', $('#description_ko')[0].value);
-      formdata.append('description_en', $('#description_en')[0].value);
-      formdata.append('note_ko', $('#note_ko')[0].value);
-      formdata.append('note_en', $('#note_en')[0].value);
-      formdata.append('story', $('#story')[0].value);
-      formdata.append('restriction_ko', $('#restriction_ko')[0].value);
-      formdata.append('restriction_en', $('#restriction_en')[0].value);
-      formdata.append('access_ko', $('#access_ko')[0].value);
-      formdata.append('access_en', $('#access_en')[0].value);
-      formdata.append('height', $('#height')[0].value);
-      formdata.append('docking_station', $('#docking_station')[0].checked);
-      formdata.append('rack', $('#rack')[0].checked);
-      formdata.append('is_bonded', $('#is_bonded')[0].checked);
-      formdata.append('commercial_lift', $('#commercial_lift')[0].checked);
-      formdata.append('is_verified', $('#is_verified')[0].checked);
-
-      sel_files.forEach((file) => {
-        formdata.append('images', file);
-      });
-
-      iot_device_ids.forEach((id) => {
-        formdata.append('device_ids', id);
-      });
-
-      for (var pair of formdata.entries()) {
-        console.log(pair[0] + ', ' + pair[1]);
+        $.ajax({
+          //url: server_url + 'api/warehouse',
+          url: '/api/warehouse',
+          type: 'POST',
+          enctype: 'multipart/form-data',
+          data: formdata,
+          processData: false,
+          contentType: false,
+          cache: false,
+          success: function (data) {
+            // 전송 후 성공 시 실행 코드
+            Swal.fire({
+              icon: 'success',
+              title: '<%= __("success") %>',
+              text: '창고가 등록 되었습니다..',
+            }).then(function () {
+              window.location.href = '/warehouse';
+            });
+          },
+          error: function (e) {
+            // 전송 후 에러 발생 시 실행 코드
+            Swal.fire({
+              title: "500 <%= __('error') %>",
+              html: "<h3><%= __('error_any_msg') %></h3><br><%= __('error_any_msg2') %><br><%= __('error_any_msg3') %>",
+              icon: 'error',
+            });
+          },
+        });
       }
 
-      $.ajax({
-        //url: server_url + 'api/warehouse',
-        url: '/api/warehouse',
-        type: 'POST',
-        enctype: 'multipart/form-data',
-        data: formdata,
-        processData: false,
-        contentType: false,
-        cache: false,
-        success: function (data) {
-          // 전송 후 성공 시 실행 코드
-          Swal.fire({
-            icon: 'success',
-            title: '<%= __("success") %>',
-            text: '창고가 등록 되었습니다..',
-          }).then(function () {
-            window.location.href = '/warehouse';
-          });
-        },
-        error: function (e) {
-          // 전송 후 에러 발생 시 실행 코드
-          Swal.fire({
-            title: "500 <%= __('error') %>",
-            html: "<h3><%= __('error_any_msg') %></h3><br><%= __('error_any_msg2') %><br><%= __('error_any_msg3') %>",
-            icon: 'error',
-          });
-        },
-      });
     };
   </script>
   <!--formdata 생성 및 post요청-->

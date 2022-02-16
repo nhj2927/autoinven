@@ -23,7 +23,7 @@
         <div class="s_temp colflex">
           <div class="rowflex">
             <h3 class="summaryName" style="color: #36a2eb">
-              <img src="/image/icon/temp.png" />Temperature
+              <img src="/image/icon/temp.png" /><%= __('iot_Monitoring_temp') %>
             </h3>
           </div>
           <div class="rowflex">
@@ -41,7 +41,7 @@
         <div class="s_humi colflex">
           <div class="rowflex">
             <h3 class="summaryName" style="color: #8fbe96">
-              <img src="/image/icon/humi.png" />Humidity
+              <img src="/image/icon/humi.png" /><%= __('iot_Monitoring_humi') %>
             </h3>
           </div>
           <div class="rowflex">
@@ -59,7 +59,7 @@
         <div class="s_co colflex">
           <div class="rowflex">
             <h3 class="summaryName" style="color: #e04006">
-              <img src="/image/icon/co.png" />CO
+              <img src="/image/icon/co.png" /><%= __('iot_Monitoring_co') %>
             </h3>
           </div>
           <div class="rowflex">
@@ -99,6 +99,7 @@
 
 <script>
   let type = 1; //day, 2: month, 3:year
+  let _locale = "<%= __('locale') %>";
   // render를 통해 받아온 iotIP 할당
 
   //iotIPAd = '<%= warehouse.iot_url[0]%>';
@@ -136,16 +137,16 @@
     .on('changeDate', async function (e) {
       //값이 변경되면 Canvas 초기화 후에 데이터를 다시 받아와 그래프 그림
       clearCanvas();
-      charts = await getSensorData(type, iotIPAd);
+      charts = await getSensorData(type, iotIPAd, _locale);
     });
   // 비동기로 첫 센서 데이터 받아오기 실행
   (async function () {
-    charts = await getSensorData(type, iotIPAd);
+    charts = await getSensorData(type, iotIPAd, _locale);
   })();
   // 현재 날짜가 바뀌게 되면 Canvas 초기화 후에 데이터를 다시 받아와 그래프 그림
   $(currentDate).on('change', async function () {
     clearCanvas();
-    charts = await getSensorData(type, iotIPAd);
+    charts = await getSensorData(type, iotIPAd, _locale);
   });
   // dayButton이 클릭되면, 특정 날짜를 기준으로 데이터 가져옴
   $(dayButton).on('click', async function () {
@@ -163,7 +164,7 @@
       }
       type = 1;
       clearCanvas();
-      charts = await getSensorData(type, iotIPAd);
+      charts = await getSensorData(type, iotIPAd, _locale);
     }
   });
   // monthButton이 클릭되면, 특정 월을 기준으로 데이터 가져옴
@@ -182,7 +183,7 @@
       }
       type = 2;
       clearCanvas();
-      charts = await getSensorData(type, iotIPAd);
+      charts = await getSensorData(type, iotIPAd, _locale);
     }
   });
   // yearButton이 클릭되면, 특정 년을 기준으로 데이터 가져옴
