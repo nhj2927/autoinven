@@ -333,13 +333,22 @@ async function initMap() {
     initial_lists.push(markers[warehouses[index].warehouse_id]);
   }
 
-  const markerCluster = new MarkerClusterer(map, markers_for_clustering, {
-    imagePath:
-      'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
-    gridSize: 100,
+  mcOptions = {
     maxZoom: 15,
     minimumClusterSize: 1,
-  });
+    imagePath: '/image/map/m',
+  };
+
+  const markerCluster = new MarkerClusterer(
+    map,
+    markers_for_clustering,
+    mcOptions
+  );
+
+  const styles = markerCluster.getStyles();
+  for (let i = 0; i < styles.length; i++) {
+    styles[i].textColor = 'white';
+  }
 
   // 초기 리스팅
   //listing(markers);
