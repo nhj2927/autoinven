@@ -15,10 +15,7 @@ const getUSDExchangeRate = () => {
   return rate_result.deal_bas_r;
 };
 
-/*let rate = null;
-(async () => {
-  rate = await getUSDExchangeRate();
-})();*/
+let rate = null;
 
 // 언어에 맞는 임대료 반환
 module.exports = (locale, rent) => {
@@ -26,7 +23,9 @@ module.exports = (locale, rent) => {
     return null;
   } else {
     if (locale === 'en') {
-      const rate = getUSDExchangeRate();
+      if (!rate) {
+        rate = getUSDExchangeRate();
+      }
       return parseFloat((rent / rate).toFixed(2));
     } else {
       return rent;
