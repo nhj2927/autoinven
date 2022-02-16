@@ -22,13 +22,13 @@
     <div class="row align-items-start print_footer">
       <div class="col" style="text-align: start;">
         <span>
-          1. QR 코드를 AUTOINVEN 어플리케이션으로 스캔하시면 
+          <%= __('qrPopup_text1') %>
         </br>
-          물품의 입출고 상태가 변경됩니다.
+          <%= __('qrPopup_text2') %>
         </br>
-          2. QR 코드를 프린트하여 물품에 부착 후 
+          <%= __('qrPopup_text3') %> 
         </br>
-          물품을 발송해주시기 바랍니다.
+          <%= __('qrPopup_text4') %>
         </span>
       </div>
 
@@ -36,7 +36,7 @@
         <button type="button" class="btn btn-print" onclick="printPage()">
           <img src="/image/icon/print_white.svg" class='print_icon'/>
           </br>
-          프린트하기
+          <%= __('qrPopup_text5') %>
         </button>
       </div>
     </div>

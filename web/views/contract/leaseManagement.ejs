@@ -115,7 +115,7 @@
               <td><%= contracts[i].name %></td>
               <td><%= contracts[i].area %>㎡</td>
               <td><%= contracts[i].period %></td>
-              <td><%= contracts[i].price %>원</td>
+              <td id="contracted_cost<%=i%>"></td>
               <td><%= contracts[i].created_date %></td>
             </tr>
             <% } %>
@@ -199,7 +199,7 @@
               <td><%= contracts[i].name %></td>
               <td><%= contracts[i].area %>㎡</td>
               <td><%= contracts[i].period %></td>
-              <td><%= contracts[i].price %>원</td>
+              <td id="contracted_cost<%=i%>"></td>
               <td><%= contracts[i].contractor_name %></td>
               <td><%= contracts[i].created_date %></td>
             </tr>
@@ -217,7 +217,14 @@
   <script>
     $(document).ready(function () {
       let page_num;
-      console.log(location);
+      let prices = '<%= JSON.stringify(contracts) %>';
+      prices = prices.replace(/&#34;/gi, '"');
+      prices = JSON.parse(prices);
+      for (let i = 0; i < prices.length; i++) {
+        document.getElementById('contracted_cost' + i).innerText = parseInt(
+          prices[i].price
+        ).toLocaleString();
+      }
       location.search.split('&').forEach((query) => {
         if (query.includes('page_num')) {
           if (query.split('=').length < 2) {
