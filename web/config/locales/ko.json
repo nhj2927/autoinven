@@ -122,7 +122,7 @@
   "table_price": "금액",
   "table_contractor": "계약자",
   "table_created_date": "생성일",
-  "badge_approved": "승인 완료",
+  "badge_approved": "계약 완료",
   "badge_pending_payment": "결제 대기중",
   "badge_pending_approval": "승인 대기중",
   "badge_reject": "승인 거절",

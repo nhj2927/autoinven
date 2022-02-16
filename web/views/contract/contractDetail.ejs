@@ -53,18 +53,13 @@
                           <input id="start_date"type="date" class="form-control" disabled="true"
                           value="<%= contract_info.start_date%>"></input>
                       </td>
+                    </tr>
+                    <tr>
                       <td class=info-table-td-head><%=__('contractDetail_end_date')%></td>
                       <td class="info-table-td">
                         <input id="end_date" type="date" class="form-control" disabled="true"
                         value="<%= contract_info.end_date%>"></input>
                       </td>
-                    </tr>
-
-                    <tr>
-                        <td class=info-table-td-head><%=__('contractDetail_available_area')%></td>
-                        <td class="info-table-td" colspan="3">
-                          <%= contract_info.available_area%>㎡
-                        </td>
                     </tr>
                     <tr>
                         <td class=info-table-td-head><%=__('contractDetail_req_area')%></td>
@@ -85,7 +80,7 @@
                     <tr>
                         <td class=info-table-td-head><%=__('contractDetail_purpose')%></td>
                         <td class="info-table-td" colspan="3">
-                          <%= contract_info.purpose%>
+                          <%= contract_info.purpose == null ? "-" : contract_info.purpose%>
                         </td>
                     </tr>
                     

@@ -58,8 +58,8 @@ module.exports = (db) => {
     authenticate,
     doAsync(async (req, res, next) => {
       const warehouse_id = req.params.id;
-      const warehoues = await warehouseAPIs.getWarehouseInfo(warehouse_id, db);
-      res.send(warehoues);
+      const warehouse = await warehouseAPIs.getWarehouseInfo(warehouse_id, db);
+      res.send(warehouse);
     })
   );
 
