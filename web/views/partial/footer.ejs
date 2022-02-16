@@ -4,7 +4,7 @@
     <a
       href="http://Autoinven.com/"
       style="text-decoration: none; font-family: 'nanum-r'; color: white"
-      >© 2022 Copyright: Autoinven</a
+      >Copyright © <span id="copyright_year"></span> Autoinven</a
     >
 
     <div style="margin-top: 11px">
@@ -30,3 +30,6 @@
   </div>
   <!-- Copyright -->
 </footer>
+<script>
+  $('#copyright_year').html(new Date().getFullYear());
+</script>
