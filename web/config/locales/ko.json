@@ -96,6 +96,7 @@
   "navbar_signin": "로그인",
   "navbar_help2": "도움말",
   "navbar_signout": "로그아웃",
+  "navbar_myinfo": "내 정보",
   "myInfo_title": "회원정보 수정",
   "myInfo_name": "이름",
   "myInfo_pw": "비밀번호",

@@ -52,6 +52,13 @@
               <li><a class="dropdown-item" href="#">FAQ</a></li>
             </ul>
           </li>
+          <% if(locals.role) { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/myinfo" style="font-size: 1.2rem;">
+                <%= __('navbar_myinfo')%>
+              </a>
+            </li>
+            <% } %>
           <li class="nav-item">
             <% if( !locals.role ) { %>
               <a id="signin" class="nav-link" href="/signin" style="color: rgba(124,19,154,1); font-size: 1.2rem;">
