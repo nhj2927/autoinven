@@ -21,7 +21,7 @@
   margin-top: 0.5rem;
 }
 .list-group-item:hover {
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(189, 189, 189, 0.1);
 }
 #name {
   width: 100%;
@@ -42,13 +42,9 @@
   font-family: 'nanum-eb';
   font-size: 2rem;
 }
-.btn-submit {
+
+.item-list-placeholder {
+  font-family: 'nanum-r';
   font-size: 1.2rem;
-  padding: 0.5rem;
-  background-color: #7c139a;
-  border: 1px solid #7c139a;
-}
-.btn-secondary {
-  font-size: 1.2rem;
-  padding: 0.5rem;
+  color : #a8a8a8
 }

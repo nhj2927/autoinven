@@ -146,11 +146,16 @@ module.exports = (db) => {
     authenticate,
     authorizeAdmin,
     doAsync(async (req, res) => {
+      const locale = res.locale;
       const {
         params: { id: warehouse_id },
       } = req;
 
-      const warehouse = await getWarehouseDetailForEdit(db, warehouse_id);
+      const warehouse = await getWarehouseDetailForEdit(
+        db,
+        locale,
+        warehouse_id
+      );
       const categories = await getCategories(db);
 
       res.render('warehouse/editWarehouse', { warehouse, categories });

@@ -81,8 +81,44 @@ const getWarehouseInfo = async (id, db) => {
   return warehouse;
 };
 
+const checkEmpty = (data) => {
+  if (data === '') {
+    return null;
+  } else {
+    return data;
+  }
+};
+
+const checkEmptyWarehouseAttribute = (warehouse) => {
+  warehouse.land_area = checkEmpty(warehouse.land_area);
+  warehouse.common_area = checkEmpty(warehouse.common_area);
+  warehouse.total_ground_area = checkEmpty(warehouse.total_ground_area);
+  warehouse.dedicated_area = checkEmpty(warehouse.dedicated_area);
+  warehouse.completion_date = checkEmpty(warehouse.completion_date);
+  warehouse.address2_ko = checkEmpty(warehouse.address2_ko);
+  warehouse.address2_en = checkEmpty(warehouse.address2_en);
+  warehouse.description_ko = checkEmpty(warehouse.description_ko);
+  warehouse.description_en = checkEmpty(warehouse.description_en);
+  warehouse.note_ko = checkEmpty(warehouse.note_ko);
+  warehouse.note_en = checkEmpty(warehouse.note_en);
+  warehouse.story = checkEmpty(warehouse.story);
+  warehouse.rent = checkEmpty(warehouse.rent);
+  warehouse.restriction_ko = checkEmpty(warehouse.restriction_ko);
+  warehouse.restriction_en = checkEmpty(warehouse.restriction_en);
+  warehouse.access_ko = checkEmpty(warehouse.access_ko);
+  warehouse.access_en = checkEmpty(warehouse.access_en);
+  warehouse.height = checkEmpty(warehouse.height);
+  warehouse.docking_station = checkEmpty(warehouse.docking_station);
+  warehouse.rack = checkEmpty(warehouse.rack);
+  warehouse.is_bounded = checkEmpty(warehouse.is_bounded);
+  warehouse.commercial_lift = checkEmpty(warehouse.commercial_lift);
+
+  return warehouse;
+};
+
 const registerWarehouse = async (req, db) => {
-  const newWarehouse = getNewWarehouse(req.body); // 창고 가져오기
+  const newWarehouse = checkEmptyWarehouseAttribute(getNewWarehouse(req.body)); // 창고 가져오기
+
   const { device_ids } = req.body;
   if (newWarehouse.completion_date == '') {
     delete newWarehouse.completion_date;
@@ -130,7 +166,7 @@ const registerWarehouse = async (req, db) => {
 const editWarehouse = async (req, db) => {
   console.log(req.body);
   const { warehouse_id } = req.params;
-  const newInfo = getNewWarehouse(req.body); // 새 창고정보 가져오기
+  const newInfo = checkEmptyWarehouseAttribute(getNewWarehouse(req.body)); // 새 창고정보 가져오기
   const addressInfo = getAddressInfo(req.body); // 주소 가져오기
   const { iot_device_ids } = req.body; // iot 허브 디바이스 아이디들 가져오기
   const whFiles = req.files;

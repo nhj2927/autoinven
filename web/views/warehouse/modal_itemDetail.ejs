@@ -27,7 +27,7 @@
       <div class="modal-body">
         <div id="item-images-div">
           <div class="image-wrapper-div">
-            <img src="/image/default-image.jpg" class="item-image" />
+            <img src="/image/default-image.png" class="item-image" />
           </div>
         </div>
 
@@ -64,6 +64,9 @@
         </table>
 
         <table class="table info-table table-bordered">
+          <col width="33%" />
+          <col width="33%" />
+          <col width="33%" />
           <tr>
             <td class="info-table-td-head">등록일</td>
             <td class="info-table-td-head">입고일</td>
@@ -74,7 +77,7 @@
               id="item-modal-before-in-date"
               class="info-table-td table-td-modal"
             >
-              2021-10-21 14:13
+              -
             </td>
             <td id="item-modal-in-date" class="info-table-td table-td-modal">
               -
@@ -87,12 +90,17 @@
       </div>
 
       <div class="modal-footer">
+        <% if(locals.role == 'admin') { %>
         <button
+          id="change-item-state"
           type="button"
-          class="btn btn-submit"
-          onclick="printQR()"
-          style="margin-right: 1rem"
+          onclick="changeItemState()"
         >
+          입고처리
+        </button>
+        <% } %>
+
+        <button type="button" class="btn btn-submit" onclick="printQR()">
           QR코드
         </button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -104,12 +112,13 @@
 </div>
 
 <div id="Qrdiv" style="display: none">
-  <img src="/image/default-image.jpg" />
+  <img src="/image/default-image.png" />
 </div>
 
 <script>
-  let item_id_for_qr = -1;
-  function printQR() {
+  let item_id_for_api = -1;
+  let item_state = -1;
+  printQR = () => {
     let width = 900;
     let height = 550;
     let left = window.screen.width / 2 - width / 2;
@@ -125,25 +134,63 @@
       ', left = ' +
       left +
       ', location = no';
-    if (item_id_for_qr != -1) {
-      let win = window.open('/item/' + item_id_for_qr + '/qr', 'QR', option);
+    if (item_id_for_api != -1) {
+      let win = window.open('/item/' + item_id_for_api + '/qr', 'QR', option);
     }
-  }
+  };
+
+  changeItemState = () => {
+    if (item_id_for_api != -1) {
+      let baseUrl = '/api/item/' + item_id_for_api;
+      let message = '';
+
+      if (item_state == 1) {
+        baseUrl += '/in';
+        message = '입고 처리 완료';
+      } else if (item_state == 2) {
+        baseUrl += '/out';
+        message = '출고 처리 완료';
+      }
+
+      $.ajax({
+        url: baseUrl,
+        type: 'PUT',
+        datatype: 'application/json',
+        success: (data) => {
+          Swal.fire({
+            title: '성공',
+            html: message,
+            icon: 'success',
+          }).then(() => {
+            location.reload();
+          });
+        },
+        error: (e) => {
+          Swal.fire({
+            title: '실패',
+            html: '다시 시도해 주세요',
+            icon: 'error',
+          }).then(() => {
+            location.reload();
+          });
+        },
+      });
+    }
+  };
 
   openItemDetailModal = (item_id) => {
-    item_id_for_qr = item_id;
+    item_id_for_api = item_id;
     const itemImagesDiv = document.getElementById('item-images-div');
     const itemName = document.getElementById('item-modal-name');
     const itemStatus = document.getElementById('item-modal-status');
     const itemNote = document.getElementById('item-modal-note');
+    const itemStateChangeBtn = document.getElementById('change-item-state');
     let itemTimeStampElement = [
       document.getElementById('item-modal-before-in-date'),
       document.getElementById('item-modal-in-date'),
       document.getElementById('item-modal-out-date'),
     ];
     let baseUrl = '/api/item/' + item_id;
-
-    console.log(baseUrl);
     $.ajax({
       url: baseUrl,
       type: 'GET',
@@ -151,19 +198,40 @@
       success: (data) => {
         itemName.innerText = data.name;
         itemNote.innerText = data.note;
+        item_state = data.i_state_id;
         switch (data.i_state_id) {
           case 1 /*before in*/:
             itemStatus.innerText = '입고전';
             itemStatus.setAttribute('class', 'badge bg-secondary bg-modal');
+            if (itemStateChangeBtn != null) {
+              itemStateChangeBtn.innerText = '입고처리';
+              itemStateChangeBtn.setAttribute(
+                'class', 'btn btn-item-state-change-in'
+              );
+            }
             break;
           case 2 /*in*/:
             itemStatus.innerText = '입고';
             itemStatus.setAttribute('class', 'badge bg-success bg-modal');
+            if (itemStateChangeBtn != null) {
+              itemStateChangeBtn.innerText = '출고처리';
+              itemStateChangeBtn.setAttribute(
+                'class', 'btn btn-item-state-change-out'
+              );
+            }
             break;
           case 3 /*out*/:
             itemStatus.innerText = '출고';
             itemStatus.setAttribute('class', 'badge bg-danger bg-modal');
             break;
+        }
+
+        if (itemStateChangeBtn != null) {
+          if (data.i_state_id == 1 || data.i_state_id == 2) {
+            itemStateChangeBtn.setAttribute('style', 'display:inline;');
+          } else {
+            itemStateChangeBtn.setAttribute('style', 'display:none;');
+          }
         }
 
         for (let i in itemTimeStampElement) {
@@ -179,11 +247,11 @@
         itemImagesDiv.innerHTML = '';
 
         /*image url이 없으면 기본이미지 추가*/
-        if (data.ItemImages.length < 0) {
+        if (data.ItemImages.length == 0) {
           const div = document.createElement('div');
           const img = document.createElement('img');
           div.setAttribute('class', 'image-wrapper-div');
-          img.src = '/image/default-image.jpg';
+          img.src = '/image/default-image.png';
           img.setAttribute('class', 'item-image');
           div.appendChild(img);
           itemImagesDiv.appendChild(div);

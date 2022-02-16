@@ -127,7 +127,7 @@
   "table_price": "금액",
   "table_contractor": "계약자",
   "table_created_date": "생성일",
-  "badge_approved": "승인 완료",
+  "badge_approved": "계약 완료",
   "badge_pending_payment": "결제 대기중",
   "badge_pending_approval": "승인 대기중",
   "badge_reject": "승인 거절",
@@ -244,5 +244,6 @@
   "success_auth": "인증 되었습니다.",
   "success_itemregister": "물품을 성공적으로 등록하였습니다.",
   "success_signup": "회원가입이 완료되었습니다.",
-  "error_name": "error_name"
+  "error_name": "error_name",
+  "cost_unit": "￦"
 }

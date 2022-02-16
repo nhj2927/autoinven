@@ -22,3 +22,27 @@ td.table-td-modal {
 .bg-modal {
   font-size: 1.3rem;
 }
+.btn-submit {
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  background-color: #7c139a;
+  border: 1px solid #7c139a;
+  width: 8rem;
+}
+.btn-secondary {
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  width: 8rem;
+}
+.btn-item-state-change-in{
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  background-color: #70c568; 
+  width: 8rem;
+}
+.btn-item-state-change-out{
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  background-color: #b83939; 
+  width: 8rem;
+}

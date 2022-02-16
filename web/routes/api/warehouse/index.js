@@ -17,9 +17,8 @@ module.exports = (db) => {
     '/',
     authenticate,
     doAsync(async (req, res, next) => {
-      console.log('IN');
-      const warehoues = await warehouseAPIs.getAllWarehouses(db);
-      res.send(warehouse);
+      const warehouses = await warehouseAPIs.getAllWarehouses(db);
+      res.send(warehouses);
     })
   );
 
@@ -37,7 +36,6 @@ module.exports = (db) => {
   router.get(
     '/searchbykeyword',
     doAsync(async (req, res, next) => {
-      console.log(req.path);
       const result = await warehouseAPIs.searchWarehouseByKeyword(req, db);
       res.send(result);
     })
@@ -58,8 +56,8 @@ module.exports = (db) => {
     authenticate,
     doAsync(async (req, res, next) => {
       const warehouse_id = req.params.id;
-      const warehoues = await warehouseAPIs.getWarehouseInfo(warehouse_id, db);
-      res.send(warehoues);
+      const warehouse = await warehouseAPIs.getWarehouseInfo(warehouse_id, db);
+      res.send(warehouse);
     })
   );
 
@@ -70,7 +68,6 @@ module.exports = (db) => {
     authorizeAdmin,
     upload.array('images', 6),
     doAsync(async (req, res, next) => {
-      console.log('창고 등록 요청됨');
       const newWarehouse = await warehouseAPIs.registerWarehouse(req, db);
       res.status(200).send(newWarehouse);
     })
