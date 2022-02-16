@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= __('locale') %>">
   <head>
     <meta charset="UTF-8" />
     <%- include('../head') %>
@@ -16,7 +16,9 @@
         <li style="display: flex; align-items: center">
           <h2 style="font-family: nanum-eb"><%= __('warehouse_title') %></h2>
           <% if(locals.role == 'admin') { %>
-          <button class="add_wh">+</button>
+          <button class="add_wh" , onclick="location.href='/warehouse/enroll';">
+            +
+          </button>
           <% } %>
           <div class="searchbar" style="margin-left: auto">
             <div class="search">
@@ -69,7 +71,11 @@
             onclick="location.href='/warehouse/'+'<%= warehouses[i].warehouse_id %>';"
           >
             <div class="container left">
+              <% if(warehouses[i].image) { %>
               <img class="image" src="<%= warehouses[i].image %>" />
+              <% } else { %>
+              <img class="image" src="/image/default-image.jpg" />
+              <% } %>
             </div>
             <div class="container center">
               <ul>
@@ -161,11 +167,10 @@
           location.search.split('&').forEach((query) => {
             if (query.includes('keyword')) {
               keyword = query.split('=')[1];
-              console.log(keyword);
             }
           });
-
-          window.location.href = `/warehouse?page_num=${page}&keyword=${keyword}`;
+          console.log(parseInt('<%= total_page %>'));
+          window.location.href = `/warehouse?keyword=${keyword}&page_num=${page}`;
         },
       });
       $('#search').on('keyup', function (key) {

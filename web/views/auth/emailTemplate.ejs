@@ -1,12 +1,12 @@
-<html lang="en" dir="ltr">
+<html lang="<%= __('locale') %>" dir="ltr">
   <body>
     <div>
       <img
-        src="https://raw.githubusercontent.com/kjaehyeon/KNUCDP1-202102-Team7/master/Public/Image/inven_logo.png"
+        src="https://user-images.githubusercontent.com/75069880/154211409-8ed65d5d-0524-4507-99ea-5980a410dddc.png"
         style="width: 17rem"
       />
       <hr />
-      <h2 style="font-weight: bold">test</h2>
+      <h2 style="font-weight: bold"><%= __('user_auth') %></h2>
       <h2
         style="
           font-weight: bold;
@@ -18,9 +18,15 @@
       >
         <%= auth_code %>
       </h2>
-      <p style="font-size: 1rem; font-weight: bold">test</p>
-      <p style="font-size: 1rem; font-weight: bold">test</p>
-      <p style="font-size: 1rem; font-weight: bold">test</p>
+      <p style="font-size: 1rem; font-weight: bold">
+        <%= __('user_auth_ment1') %>
+      </p>
+      <p style="font-size: 1rem; font-weight: bold">
+        <%= __('user_auth_ment2') %>
+      </p>
+      <p style="font-size: 1rem; font-weight: bold">
+        <%= __('user_auth_ment3') %>
+      </p>
     </div>
     <br />
     <br />

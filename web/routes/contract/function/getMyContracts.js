@@ -26,6 +26,7 @@ const getConditions = (keyword) => {
 
 // 자신의 계약목록
 module.exports = async (db, user_email, locale, page_num, keyword) => {
+  const getLocalePrice = require('$base/utils/getLocalePrice');
   const getLocaleLanguageValue = require('$base/utils/getLocaleLanguageValue');
 
   let offset = 0;
@@ -76,6 +77,7 @@ module.exports = async (db, user_email, locale, page_num, keyword) => {
   });
 
   const count = await db.LeaseContract.count({
+    include: { model: db.Warehouse, required: true, where: where_clause },
     where: { user_email },
   });
 
@@ -92,7 +94,7 @@ module.exports = async (db, user_email, locale, page_num, keyword) => {
         ),
         period: `${contract.start_date} ~ ${contract.end_date}`,
         area: contract.lease_area,
-        price: contract.amount,
+        price: getLocalePrice(locale, contract.amount),
         created_date: contract.createdAt,
       };
     }),

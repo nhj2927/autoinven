@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= __('locale') %>">
   <head>
     <meta charset="UTF-8" />
     <%- include('../head') %>
@@ -225,7 +225,6 @@
                   class="form-check-input"
                   type="checkbox"
                   style="margin-left: 1rem"
-                  checked
                 />
                 <% } %>
                 <label
@@ -250,7 +249,6 @@
                   class="form-check-input"
                   type="checkbox"
                   style="margin-left: 1rem"
-                  checked
                 />
                 <% } %>
                 <label
@@ -282,7 +280,7 @@
                 type="number"
                 class="form-control info-td-area"
                 min="0"
-                value="<%= warehouse.common_area %>"
+                value="<%= warehouse.total_ground_area %>"
               />
               <span>㎡</span>
             </td>
@@ -295,7 +293,7 @@
                 type="number"
                 class="form-control info-td-area"
                 min="0"
-                value="<%= warehouse.dedicated_area %>"
+                value="<%= warehouse.common_area %>"
               />
               <span>㎡</span>
             </td>
@@ -306,7 +304,7 @@
                 type="number"
                 class="form-control info-td-area"
                 min="0"
-                value="<%= warehouse.total_ground_area %>"
+                value="<%= warehouse.dedicated_area %>"
               />
               <span>㎡</span>
             </td>
@@ -662,8 +660,9 @@
             icon: 'success',
             title: '<%= __("success") %>',
             text: '창고 정보가 변경 되었습니다.',
+          }).then(function () {
+            window.location.href = '/warehouse/<%= warehouse.warehouse_id %>';
           });
-          window.location.href = '/warehouse/<%= warehouse.warehouse_id %>';
         },
         error: function (e) {
           // 전송 후 에러 발생 시 실행 코드
@@ -771,7 +770,6 @@
     attZone.addEventListener(
       'drop',
       (e) => {
-        var files = {};
         e.preventDefault();
         e.stopPropagation();
         var dt = e.dataTransfer;

@@ -66,6 +66,7 @@ const getItemsOfWarehouse = (contracts) => {
 module.exports = async (db, locale, warehouse_id, user_email) => {
   const { fn, col } = require('sequelize');
 
+  const getLocalePrice = require('$base/utils/getLocalePrice');
   const getLocaleLanguageValue = require('$base/utils/getLocaleLanguageValue');
   const where_clause = user_email ? { user_email } : null;
 
@@ -160,7 +161,7 @@ module.exports = async (db, locale, warehouse_id, user_email) => {
       warehouse_result.Category.name_ko,
       warehouse_result.Category.name_en
     ),
-    rent: warehouse_result.rent,
+    rent: getLocalePrice(locale, warehouse_result.rent),
     address1: getLocaleLanguageValue(
       locale,
       warehouse_result.address1_ko,

@@ -28,6 +28,7 @@ const throwUnauthenticatedError = (next) => {
 };
 
 module.exports = (req, res, next) => {
+  console.log(req);
   const request_type = checkClientType(req.headers['user-agent']);
   // 웹 요청
   if (request_type === 'web') {

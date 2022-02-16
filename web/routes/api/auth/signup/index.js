@@ -28,7 +28,7 @@ module.exports = (db) => {
         body: { email },
       } = req;
 
-      const auth_code = await verifyEmail(email, db);
+      const auth_code = await verifyEmail(email, db, res);
 
       res.status(200).json({
         auth_code,

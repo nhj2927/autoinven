@@ -22,6 +22,7 @@ module.exports = async (db, locale, warehouse_id) => {
   const { fn, col } = require('sequelize');
   console.log(warehouse_id);
 
+  const getLocalePrice = require('$base/utils/getLocalePrice');
   const getLocaleLanguageValue = require('$base/utils/getLocaleLanguageValue');
 
   const warehouse_result = await db.Warehouse.findOne({
@@ -70,7 +71,7 @@ module.exports = async (db, locale, warehouse_id) => {
       warehouse_result.Category.name_ko,
       warehouse_result.Category.name_en
     ),
-    rent: warehouse_result.rent,
+    rent: getLocalePrice(locale, warehouse_result.rent),
     address1: getLocaleLanguageValue(
       locale,
       warehouse_result.address1_ko,

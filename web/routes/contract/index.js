@@ -115,7 +115,7 @@ module.exports = (db) => {
         phone,
       };
 
-      const contract = await getContractDetail(db, contract_id);
+      const contract = await getContractDetail(db, locale, contract_id);
       const warehouse = await getWarehouseDetail(
         db,
         locale,
