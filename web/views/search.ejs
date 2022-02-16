@@ -125,7 +125,10 @@
       </div>
     </div>
     <!-- 목록 -->
-    <div class="marker_list w-full md:w-1/3"></div>
+    <div class="marker_list w-full md:w-1/3">
+      <div class="marker_list_items"></div>
+      <button class="w-full h-10 btn-danger" id="more_button">더보기</button>
+    </div>
   </div>
 </body>
 <script type="text/javascript">
@@ -140,13 +143,27 @@
   setWarehouses(_warehouses, _locale);
   //초기화
   $('#initializeLists').click(() => {
+    $('.marker_list_items').text('');
     $('.searchInput').val('');
     $('#pac-input').val('');
     map.setCenter(center);
     map.setZoom(7.5);
-    listing(markers);
+    more_type = 1;
+    list_last_index = 0;
+    listing(initial_lists);
     infowindow.close();
     infowindowContent.style.display = 'none';
+  });
+  $('#more_button').click(() => {
+    if (more_type === 1) {
+      listing(initial_lists);
+    } else if (more_type === 2) {
+      const startDate = $('#startDate')[0].value;
+      const endDate = $('#endDate')[0].value;
+      let whType = [$('#whType option:selected').val()];
+      let leaseArea = $('#leaseArea')[0].value;
+      searchResultListing(lists, search_type, startDate, endDate, leaseArea);
+    }
   });
 </script>
 <script
