@@ -14,7 +14,7 @@
       <div class="modal-header">
         <h5 class="modal-title" id="ItemDetailModalTitle">
           <img src="/image/icon/box-solid.svg" class="badge-svg" />
-          상세정보
+          <%= __('itemdetail_modal_title')%>
         </h5>
         <button
           type="button"
@@ -39,9 +39,13 @@
             <col width="35%" />
           </colgroup>
           <tr>
-            <td class="info-table-td-head">물품명</td>
-            <td id="item-modal-name" class="info-table-td">상자</td>
-            <td class="info-table-td-head">상태</td>
+            <td class="info-table-td-head">
+              <%= __('itemdetail_modal_item_name')%>
+            </td>
+            <td id="item-modal-name" class="info-table-td">-</td>
+            <td class="info-table-td-head">
+              <%= __('itemdetail_modal_status')%>
+            </td>
             <td class="info-table-td table-td-modal">
               <span id="item-modal-status" class="badge bg-success bg-modal"
                 ><%= __('warehousedetailwithitem_badge_in')%></span
@@ -49,7 +53,9 @@
             </td>
           </tr>
           <tr>
-            <td class="info-table-td-head">취급시 유의사항</td>
+            <td class="info-table-td-head">
+              <%= __('itemdetail_modal_note')%>
+            </td>
             <td class="info-table-td" colspan="3">
               <textarea
                 id="item-modal-note"
@@ -68,9 +74,15 @@
           <col width="33%" />
           <col width="33%" />
           <tr>
-            <td class="info-table-td-head">등록일</td>
-            <td class="info-table-td-head">입고일</td>
-            <td class="info-table-td-head">출고일</td>
+            <td class="info-table-td-head">
+              <%= __('itemdetail_modal_registration_date')%>
+            </td>
+            <td class="info-table-td-head">
+              <%= __('itemdetail_modal_delivery_date')%>
+            </td>
+            <td class="info-table-td-head">
+              <%= __('itemdetail_modal_release_date')%>
+            </td>
           </tr>
           <tr>
             <td
@@ -101,10 +113,10 @@
         <% } %>
 
         <button type="button" class="btn btn-submit" onclick="printQR()">
-          QR코드
+          <%= __('itemdetail_modal_qr')%>
         </button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          닫기
+          <%= __('itemdetail_modal_close')%>
         </button>
       </div>
     </div>
@@ -201,27 +213,30 @@
         item_state = data.i_state_id;
         switch (data.i_state_id) {
           case 1 /*before in*/:
-            itemStatus.innerText = '입고전';
+            itemStatus.innerText =
+              '<%= __("itemdetail_modal_badge_before_in")%>';
             itemStatus.setAttribute('class', 'badge bg-secondary bg-modal');
             if (itemStateChangeBtn != null) {
               itemStateChangeBtn.innerText = '입고처리';
               itemStateChangeBtn.setAttribute(
-                'class', 'btn btn-item-state-change-in'
+                'class',
+                'btn btn-item-state-change-in'
               );
             }
             break;
           case 2 /*in*/:
-            itemStatus.innerText = '입고';
+            itemStatus.innerText = '<%= __("itemdetail_modal_badge_in")%>';
             itemStatus.setAttribute('class', 'badge bg-success bg-modal');
             if (itemStateChangeBtn != null) {
               itemStateChangeBtn.innerText = '출고처리';
               itemStateChangeBtn.setAttribute(
-                'class', 'btn btn-item-state-change-out'
+                'class',
+                'btn btn-item-state-change-out'
               );
             }
             break;
           case 3 /*out*/:
-            itemStatus.innerText = '출고';
+            itemStatus.innerText = '<%= __("itemdetail_modal_badge_out")%>';
             itemStatus.setAttribute('class', 'badge bg-danger bg-modal');
             break;
         }

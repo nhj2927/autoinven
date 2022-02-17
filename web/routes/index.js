@@ -38,9 +38,9 @@ module.exports = (db) => {
         ],
       });
 
-      warehouses.forEach((warehouse) => {
-        warehouse.rent = getLocalePrice(locale, warehouse.rent);
-      });
+      for (const warehouse of warehouses) {
+        warehouse.rent = await getLocalePrice(locale, warehouse.rent);
+      }
 
       const categories_result = await db.Category.findAll();
       const categories = categories_result.map((category) => {
