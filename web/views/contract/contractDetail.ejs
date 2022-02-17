@@ -68,7 +68,7 @@
                     </tr>
                     <tr>
                         <td class=info-table-td-head><%=__('contractDetail_cost')%></td>
-                        <td class="info-table-td" colspan="3">￦ <%= warehouse.rent%>㎡/일</td>
+                        <td class="info-table-td" colspan="3"><%= warehouse.rent%><%= __('cost_unit')%> ㎡/<%= __('warehousedetail_day')%></td>
                     </tr>
                     <tr>
                         <td class=info-table-td-head><%=__('contractDetail_total_cost')%></td>
@@ -85,7 +85,7 @@
                     
                 </table>
             </div>
-            <div class="col-5">
+            <div class="col">
               <h4 class="contract-sub-title"><%=__('contractDetail_lender_info')%></h4>
               <table class="table info-table" style="height: 30rem;">
                 <tr>
@@ -116,7 +116,13 @@
         </div>
         
         <h4 class="contract-sub-title" style="display: inline;"><%=__('contractDetail_wh_info')%></h4>
-        <button type="button" class="btn btn-detail" onclick='location.href = "/warehouse/<%= warehouse.warehouse_id%>"' style="margin-bottom: 0.5rem;">더보기</button>
+        <button 
+        type="button" 
+        class="btn btn-detail" 
+        onclick='location.href = "/warehouse/<%= warehouse.warehouse_id%>"' 
+        style="margin-bottom: 0.5rem;">
+        <%= __('contractDetail_more')%>
+        </button>
         <table id="wh-info-table" class="table info-table" style="height: 25rem;">
           <tr>
               <td class="info-table-td-head"><%=__('contractDetail_wh_name')%></td>
@@ -186,7 +192,7 @@
 <script>
   $(document).ready(function() {
     const amount = document.getElementById('amount')
-    amount.innerText = parseInt('<%= contract_info.total_cost%>').toLocaleString('ko-KR') + '원'
+    amount.innerText = parseInt('<%= contract_info.total_cost%>').toLocaleString('ko-KR') + '<%= __("cost_unit")%>'
   })
   
   adminApproval= (item_id)=>{

@@ -182,6 +182,7 @@
   "contractDetail_net_leaseable_area": "Net Leaseable Area",
   "contractDetail_submit": "REQUEST APPROVAL",
   "contractDetail_cancel": "CANCEL",
+  "contractDetail_more": "MORE",
   "search_searchPlace": "Search location",
   "search_leaseArea": "Lease Area",
   "search_whtype": "total",
@@ -245,5 +246,19 @@
   "success_itemregister": "You have successfully registered the item.",
   "success_signup": "Sign up is complete.",
   "error_name": "error_name",
-  "cost_unit": "$"
+  "cost_unit": "$",
+  "warehousedetail_day": "warehousedetail_day",
+
+  "itemdetail_modal_title": "DETAIL",
+  "itemdetail_modal_item_name": "Name",
+  "itemdetail_modal_status": "Status",
+  "itemdetail_modal_note": "Notice",
+  "itemdetail_modal_qr": "QR Code",
+  "itemdetail_modal_close": "Close",
+  "itemdetail_modal_registration_date": "Registration Date",
+  "itemdetail_modal_delivery_date": "Delivery Date",
+  "itemdetail_modal_release_date": "Release Date",
+  "itemdetail_modal_badge_before_in": "BEFORE IN",
+  "itemdetail_modal_badge_in": "IN",
+  "itemdetail_modal_badge_out": "OUT"
 }

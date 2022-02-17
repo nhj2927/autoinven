@@ -182,6 +182,7 @@
   "contractDetail_net_leaseable_area": "전용면적",
   "contractDetail_submit": "승인요청",
   "contractDetail_cancel": "취소",
+  "contractDetail_more": "더보기",
   "search_searchPlace": "위치를 검색하세요",
   "search_leaseArea": "계약 면적",
   "search_whtype": "전체",
@@ -245,5 +246,19 @@
   "success_itemregister": "물품을 성공적으로 등록하였습니다.",
   "success_signup": "회원가입이 완료되었습니다.",
   "error_name": "error_name",
-  "cost_unit": "￦"
+  "cost_unit": "￦",
+  "warehousedetail_day": "warehousedetail_day",
+
+  "itemdetail_modal_title": "상세정보",
+  "itemdetail_modal_item_name": "물품명",
+  "itemdetail_modal_status": "상태",
+  "itemdetail_modal_note": "취급시 유의사항",
+  "itemdetail_modal_qr": "QR코드",
+  "itemdetail_modal_close": "닫기",
+  "itemdetail_modal_registration_date": "등록일",
+  "itemdetail_modal_delivery_date": "입고일",
+  "itemdetail_modal_release_date": "출고일",
+  "itemdetail_modal_badge_before_in": "입고전",
+  "itemdetail_modal_badge_in": "입고",
+  "itemdetail_modal_badge_out": "출고"
 }
