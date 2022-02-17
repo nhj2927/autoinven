@@ -127,7 +127,12 @@ const checkEmptyWarehouseAttribute = (warehouse) => {
 const registerWarehouse = async (req, db) => {
   const newWarehouse = checkEmptyWarehouseAttribute(getNewWarehouse(req.body)); // 창고 가져오기
 
-  const { device_ids } = req.body;
+  let { device_ids } = req.body;
+  if (device_ids === '') {
+    device_ids = null;
+  } else {
+    device_ids.pop();
+  }
   if (newWarehouse.completion_date == '') {
     delete newWarehouse.completion_date;
   }
@@ -176,6 +181,11 @@ const editWarehouse = async (req, db) => {
   const newInfo = checkEmptyWarehouseAttribute(getNewWarehouse(req.body)); // 새 창고정보 가져오기
   const addressInfo = getAddressInfo(req.body); // 주소 가져오기
   const { iot_device_ids } = req.body; // iot 허브 디바이스 아이디들 가져오기
+  if (iot_device_ids === '') {
+    iot_device_ids = null;
+  } else {
+    iot_device_ids.pop();
+  }
   const whFiles = req.files;
   // 주소가 기존에 존재하는지 검색(제약조건 때문)
   let address = await db.Address.findByPk(addressInfo.address);

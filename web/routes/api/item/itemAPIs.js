@@ -40,6 +40,7 @@ const getItem = async (item_id, db) => {
         model: db.ItemImage,
         attributes: ['url'],
       },
+      { model: db.User, attributes: ['name'] },
     ],
   });
   return item;
