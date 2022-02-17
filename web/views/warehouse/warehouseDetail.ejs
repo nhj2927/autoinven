@@ -91,7 +91,7 @@
             <img src="/image/icon/is_bonded_icon.svg" class="badge-svg" /> <%=
             __('warehousedetail_is_bonded')%> <% }%>
 
-            <% if(!warehouse.is_docked && !warehouse.rack && !warehouse.commercial_lift && !warehouse.is_bonded) { %>
+            <% if(!warehouse.docking_station && !warehouse.rack && !warehouse.commercial_lift && !warehouse.is_bonded) { %>
               <p class="badge-svg"/>
             <% } %>
           </p>
@@ -119,7 +119,7 @@
                 colspan="3"
                 style="color: #d00101; font-family: 'nanum-b'"
               >
-              <%= __('cost_unit') %> <%= warehouse.rent%> ㎡/일
+              <%= __('cost_unit') %> <%= warehouse.rent%> ㎡/<%= __('warehousedetail_day') %> 
               </td>
             </tr>
             <tr>
@@ -194,7 +194,7 @@
             <td class="info-table-td-head">
               <%= __('warehousedetail_floor_num')%>
             </td>
-            <td class="info-table-td"><%= warehouse.story == null ? "-" : warehouse.story%>층</td>
+            <td class="info-table-td"><%= warehouse.story == null ? "-" : warehouse.story%><%= __('warehousedetail_floor') %></td>
             <td class="info-table-td-head">
               <%= __('warehousedetail_valid_floor_height')%>
             </td>
@@ -243,6 +243,7 @@
           <h3 class="wh-detail-title" style="display: inline">
             <%= __('warehousedetail_environ')%>
           </h3>
+          <a class="monitoring-link" href="/warehouse/<%= warehouse.warehouse_id %>/iot/monitoring"><%= __('warehousedetail_monitoring') %></a>
 
           <div style="display: inline; float: right">
             <div style="display: inline">
