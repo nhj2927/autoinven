@@ -86,7 +86,6 @@ app.get('/ko', (req, res) => {
 // 에러 처리
 app.use((err, req, res, next) => {
   console.log(err);
-  console.log();
   if (req.path.slice(1, 4) === 'api') {
     res.statusCode = err.statusCode || 500;
     res.json({

@@ -26,7 +26,6 @@ module.exports = async (locale, rent) => {
       if (!rate) {
         try {
           rate = await getUSDExchangeRate();
-          console.log(rate);
         } catch (err) {
           console.log(err);
         }

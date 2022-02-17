@@ -15,7 +15,16 @@ const getAllItems = async (db) => {
 };
 const getItem = async (item_id, db) => {
   const item = await db.Item.findOne({
-    where: { item_id },
+    where: {
+      [Op.or]: [
+        {
+          item_id,
+        },
+        {
+          qrcode: item_id,
+        },
+      ],
+    },
     include: [
       {
         model: db.ItemTimestamp,
@@ -31,13 +40,13 @@ const getItem = async (item_id, db) => {
         model: db.ItemImage,
         attributes: ['url'],
       },
+      { model: db.User, attributes: ['name'] },
     ],
   });
   return item;
 };
 
 const registerItem = async (req, db) => {
-  console.log(req.body);
   const newItem = getItemInfo(req.body); // 아이템 가져오기
   const itFiles = req.files; // 이미지 파일들 가져오기
 
@@ -138,7 +147,6 @@ const itemStateChange = async (item_id, state, db) => {
 
 const sendQR = async (item_id, db) => {
   const item = await db.Item.findOne({ where: { item_id } });
-  console.log(item.qrcode);
   const QRcode = await qrcode.toDataURL(item.qrcode);
   return QRcode;
 };

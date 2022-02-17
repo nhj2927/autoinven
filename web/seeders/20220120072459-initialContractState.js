@@ -21,6 +21,10 @@ module.exports = {
           name_ko: '승인 거부',
           name_en: 'rejected',
         },
+        {
+          name_ko: '만료',
+          name_en: 'expired',
+        },
       ],
       {}
     );
