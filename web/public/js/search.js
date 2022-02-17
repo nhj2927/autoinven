@@ -299,6 +299,8 @@ async function initMap() {
       },
       map,
       icon: notAvailableIcon,
+      title: warehouses[index].name_ko,
+      label: warehouses[index].name_ko,
     });
     markers_for_clustering.push(mk);
     markers[warehouses[index].warehouse_id] = mk;
@@ -308,10 +310,18 @@ async function initMap() {
     let address;
     if (locale === 'ko') {
       name = warehouses[index].name_ko;
-      address = warehouses[index].address1_ko + warehouses[index].address2_ko;
+      if (warehouses[index].address2_ko) {
+        address = warehouses[index].address1_ko + warehouses[index].address2_ko;
+      } else {
+        address = warehouses[index].address1_ko;
+      }
     } else if (locale == 'en') {
       name = warehouses[index].name_en;
-      address = warehouses[index].address1_en + warehouses[index].address2_en;
+      if (warehouses[index].address2_ko) {
+        address = warehouses[index].address1_en + warehouses[index].address2_en;
+      } else {
+        address = warehouses[index].address1_en;
+      }
     }
     const m = markers[warehouses[index].warehouse_id];
     const wid = warehouses[index].warehouse_id;
@@ -352,6 +362,16 @@ async function initMap() {
 
   // 초기 리스팅
   //listing(markers);
+  initial_lists.sort(function (a, b) {
+    const aindex = a.index;
+    const bindex = b.index;
+    if (warehouses[aindex].is_verified) {
+      return -1;
+    }
+    if (warehouses[bindex].is_verified) {
+      return 1;
+    }
+  });
   listing(initial_lists);
 
   const card = document.getElementById('pac-card');
@@ -432,10 +452,30 @@ async function initMap() {
           lists.push({ marker: markers[m], distance: d });
         }
         lists.sort(function (a, b) {
+          const aindex = a.marker.index;
+          const bindex = b.marker.index;
+          if (
+            warehouses[aindex].is_verified === warehouses[bindex].is_verified
+          ) {
+            return a.distance < b.distance
+              ? -1
+              : a.distance > b.distance
+              ? 1
+              : 0;
+          }
+          if (warehouses[aindex].is_verified) {
+            return -1;
+          }
+          if (warehouses[bindex].is_verified) {
+            return 1;
+          }
+        });
+        /*
+        lists.sort(function (a, b) {
           if (a.distance > b.distance) return 1;
           if (a.distance === b.distance) return 0;
           if (a.distance < b.distance) return -1;
-        });
+        });*/
         search_type = 1;
         searchResultListing(lists, search_type);
       } else {
