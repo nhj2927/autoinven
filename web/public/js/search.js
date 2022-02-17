@@ -514,9 +514,23 @@ async function initMap() {
           });
         }
         lists.sort(function (a, b) {
-          if (a.distance > b.distance) return 1;
-          if (a.distance === b.distance) return 0;
-          if (a.distance < b.distance) return -1;
+          const aindex = a.marker.index;
+          const bindex = b.marker.index;
+          if (
+            warehouses[aindex].is_verified === warehouses[bindex].is_verified
+          ) {
+            return a.distance < b.distance
+              ? -1
+              : a.distance > b.distance
+              ? 1
+              : 0;
+          }
+          if (warehouses[aindex].is_verified) {
+            return -1;
+          }
+          if (warehouses[bindex].is_verified) {
+            return 1;
+          }
         });
         search_type = 2;
         searchResultListing(lists, search_type, startDate, endDate, leaseArea);
