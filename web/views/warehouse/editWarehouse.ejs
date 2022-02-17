@@ -643,9 +643,6 @@
         formdata.append('images', file);
       });
 
-      for (var pair of formdata.entries()) {
-        console.log(pair[0] + ', ' + pair[1]);
-      }
       $.ajax({
         url: '/api/warehouse/' + '<%= warehouse.warehouse_id %>',
         type: 'PUT',
@@ -692,9 +689,6 @@
           zipcode.value = data.zonecode;
           address1_ko.value = data.roadAddress;
           address1_en.value = data.roadAddressEnglish;
-          console.log(data.zonecode);
-          console.log(data.roadAddress);
-          console.log(data.roadAddressEnglish);
 
           let baseAPIUrl =
             'https://maps.googleapis.com/maps/api/geocode/json?address=';
@@ -707,7 +701,6 @@
             url: baseAPIUrl,
             type: 'GET',
             success: function (data) {
-              console.log('in geocode success');
               latitude.value = data.results[0].geometry.location.lat;
               longitude.value = data.results[0].geometry.location.lng;
             },
@@ -857,10 +850,8 @@
       image_url = image_url.replace(/&#34;/gi, '"');
       image_url = JSON.parse(image_url);
       for (f of image_url) {
-        console.log(f);
         let a = await fetch(f);
         a = await a.blob();
-        console.log(a);
         var file = new File([a], 'foo.txt', { type: 'text/plain' });
         imageLoader(file);
       }

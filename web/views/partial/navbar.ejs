@@ -1,6 +1,3 @@
-<script>
-  console.log("<%= locals.role %>");
-</script>
 <div id="main_nav"class="nav_inner">
   <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #FFF; position: fixed;;">
     <div class="container-fluid">
@@ -95,7 +92,6 @@ $(document).ready(function () {
       text: text,
     }).then(callback);
   $('#signout').on('click', () => {
-    console.log('clicked');
     $.ajax({
       url: '/api/auth/signout',
       type: 'GET',

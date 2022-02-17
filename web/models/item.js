@@ -54,10 +54,7 @@ module.exports = (sequelize, DataTypes) => {
       qrcode: {
         type: DataTypes.STRING,
       },
-      note: {
-        allowNull: false,
-        type: DataTypes.TEXT,
-      },
+      note: DataTypes.TEXT,
       createdAt: {
         allowNull: false,
         type: DataTypes.DATE,

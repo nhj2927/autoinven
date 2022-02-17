@@ -76,7 +76,10 @@ module.exports = (sequelize, DataTypes) => {
       rack: DataTypes.BOOLEAN,
       is_bonded: DataTypes.BOOLEAN,
       commercial_lift: DataTypes.BOOLEAN,
-      is_verified: DataTypes.BOOLEAN,
+      is_verified: {
+        allowNull: false,
+        type: DataTypes.BOOLEAN,
+      },
       createdAt: {
         allowNull: false,
         type: DataTypes.DATE,

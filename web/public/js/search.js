@@ -273,7 +273,6 @@ const listing = (lists) => {
     });
   }
   list_last_index = l;
-  console.log(list_last_index);
 };
 
 async function initMap() {
@@ -300,7 +299,6 @@ async function initMap() {
       map,
       icon: notAvailableIcon,
       title: warehouses[index].name_ko,
-      label: warehouses[index].name_ko,
     });
     markers_for_clustering.push(mk);
     markers[warehouses[index].warehouse_id] = mk;
@@ -399,7 +397,6 @@ async function initMap() {
 
   // 검색 엔터 쳤을 때
   searchBox.addListener('places_changed', async () => {
-    console.log($('#pac-input').val());
     $('.marker_list_items').text('');
     more_type = 2;
     list_last_index = 0;
@@ -441,7 +438,6 @@ async function initMap() {
       infowindow.open(map, marker);
 
       if (startDate === '' && endDate === '' && leaseArea === '') {
-        console.log('if 문으로 들어옴');
         // 그냥 검색한 곳에서 가까운대로 리스팅
         $('.marker_list_items').text('');
         for (m in markers) {
@@ -479,7 +475,6 @@ async function initMap() {
         search_type = 1;
         searchResultListing(lists, search_type);
       } else {
-        console.log('else 문으로 들어옴');
         // 검색해서 주위 이용가능 한 창고만 리스팅
         // 입력 안했을 경우, 서버에서 인식 가능하도로 null로 변경
         if (whType[0] == '창고종류') {
@@ -495,12 +490,9 @@ async function initMap() {
           area: leaseArea,
           // 전송할 데이터
         });
-        console.log(JSON.stringify(searchResult[0]));
 
         for (index in searchResult) {
           markers[searchResult[index].warehouse_id].setIcon(myIcon);
-          //const index = markers[searchResult[index].warehouse_id].index;
-          //console.log(m);
           const d = calcDistance(
             new google.maps.LatLng(
               markers[searchResult[index].warehouse_id].position
@@ -551,6 +543,5 @@ function calcDistance(p1, p2) {
   var d = (
     google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000
   ).toFixed(2);
-  //console.log(d);
   return d;
 }

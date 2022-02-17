@@ -10,7 +10,6 @@ module.exports = (db) => {
     doAsync(async (req, res) => {
       const { item_id } = req.params;
       const item = await db.Item.findOne({ where: { item_id } });
-      console.log(item.qrcode);
       const qr_code = await qrcode.toDataURL(item.qrcode);
       res.render('warehouse/qrPopup', { qr_code });
     })
