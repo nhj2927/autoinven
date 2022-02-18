@@ -97,7 +97,13 @@ async function getSensorData(type, IpAdd, locale) {
         labels.push('{0}'.format(date.getMonth() + 1));
       }
     }
-
+    const no_data_in_that_date = () => {
+      if (locale === 'ko') {
+        return `해당 날짜에는 데이터가 없습니다<br>`;
+      } else if (locale === 'en') {
+        return 'There is no data for that date<br>';
+      }
+    };
     const average = (arr) => arr.reduce((p, c) => p + c, 0) / arr.length;
     //temp 최대, 최소, 평균
     maxTemp = Math.max(...temp).toFixed(2);
@@ -154,13 +160,7 @@ async function getSensorData(type, IpAdd, locale) {
   } else {
     Swal.fire({
       title: 'Not Exists',
-      html: () => {
-        if (locale === 'ko') {
-          return `해당 날짜에는 데이터가 없습니다<br>`;
-        } else if (locale === 'en') {
-          return 'There is no data for that date<br>';
-        }
-      },
+      html: no_data_in_that_date,
       icon: 'error',
     });
     chartMaxTemp = 100;
@@ -239,8 +239,6 @@ async function getSensorData(type, IpAdd, locale) {
           fill: false,
           borderColor: '#8fbe96',
           tension: 0.1,
-          //borderWidth: 1,
-          //backgroundColor: '#8fbe96'
         },
       ],
     },
