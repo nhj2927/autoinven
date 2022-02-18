@@ -3,6 +3,7 @@ module.exports = async (email, password, db, session, client_type) => {
 
   // 멤버 확인
   let role = 'user';
+
   let member = await db.User.findOne({
     where: {
       email,
