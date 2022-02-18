@@ -4,4 +4,4 @@
 
 
 ## 창고 검색 페이지
-![qr_page.PNG](Public/qr_page.PNG)
+![qr_page.PNG](Public/Image/qr_page.PNG)
