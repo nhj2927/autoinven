@@ -251,7 +251,6 @@
           location.search.split('&').forEach((query) => {
             if (query.includes('keyword')) {
               keyword = query.split('=')[1];
-              console.log(keyword);
             }
           });
           window.location.href = `/contract?keyword=${keyword}&page_num=${page}`;

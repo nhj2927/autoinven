@@ -27,8 +27,13 @@ const throwUnauthenticatedError = (next) => {
   next(error);
 };
 
+const throwInvalidTokenError = (next) => {
+  const error = new Error('Invalid Token');
+  error.statusCode = 406;
+  next(error);
+};
+
 module.exports = (req, res, next) => {
-  console.log(req);
   const request_type = checkClientType(req.headers['user-agent']);
   // 웹 요청
   if (request_type === 'web') {
@@ -48,7 +53,7 @@ module.exports = (req, res, next) => {
       req.user = user_info;
       next();
     } else {
-      throwUnauthenticatedError(next);
+      throwInvalidTokenError(next);
     }
   }
 };

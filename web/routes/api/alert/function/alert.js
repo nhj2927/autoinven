@@ -59,8 +59,6 @@ module.exports = async (db, ip) => {
     });
   });
 
-  console.log(phone_list);
-
   // API 설정
   const ncp_accessKey = process.env.ACCESS_KEY;
   const ncp_secretKey = process.env.SECRET_KEY;

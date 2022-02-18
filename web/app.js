@@ -22,7 +22,8 @@ const PORT = process.env.PORT || 5000;
 db.sequelize.sync().then((response) => {
   console.log('DB sync is completed.');
   // 환율 하루에 한번 갱신
-  require('./initExchangeRate')(db);
+  require('./scheduleJob/initExchangeRate')(db);
+  require('./scheduleJob/terminateContract')(db);
 });
 
 // 1. 설정
@@ -86,7 +87,6 @@ app.get('/ko', (req, res) => {
 // 에러 처리
 app.use((err, req, res, next) => {
   console.log(err);
-  console.log();
   if (req.path.slice(1, 4) === 'api') {
     res.statusCode = err.statusCode || 500;
     res.json({

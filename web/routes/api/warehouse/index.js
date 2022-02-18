@@ -26,7 +26,6 @@ module.exports = (db) => {
   router.get(
     '/search',
     doAsync(async (req, res, next) => {
-      console.log('request is incomming');
       const result = await warehouseAPIs.searchWarehouse(req, db);
       res.send(result);
     })
@@ -50,7 +49,20 @@ module.exports = (db) => {
     })
   );
 
-  // 4) 특정 id 창고 조회
+  // 4) 해당 창고 내의 모든 물품 조회
+  router.get(
+    '/:warehouse_id/items',
+    authenticate,
+    doAsync(async (req, res, next) => {
+      const items = await warehouseAPIs.getItemsOfWarehouse(
+        db,
+        req.params.warehouse_id
+      );
+      res.send(items);
+    })
+  );
+
+  // 5) 특정 id 창고 조회
   router.get(
     '/:id',
     authenticate,
@@ -61,7 +73,7 @@ module.exports = (db) => {
     })
   );
 
-  // 5) 창고 등록 관리자
+  // 6) 창고 등록 관리자
   router.post(
     '/',
     authenticate,
@@ -73,7 +85,7 @@ module.exports = (db) => {
     })
   );
 
-  // 6) 창고 수정 관리자
+  // 7) 창고 수정 관리자
   router.put(
     '/:warehouse_id',
     authenticate,

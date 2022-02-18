@@ -3,6 +3,7 @@ module.exports = async (email, password, db, session, client_type) => {
 
   // 멤버 확인
   let role = 'user';
+
   let member = await db.User.findOne({
     where: {
       email,
@@ -58,7 +59,10 @@ module.exports = async (email, password, db, session, client_type) => {
           name: member.name,
           phone: member.phone,
         },
-        secret_key
+        secret_key,
+        {
+          expiresIn: '1h',
+        }
       ),
     };
   }

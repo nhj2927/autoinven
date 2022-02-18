@@ -176,9 +176,8 @@
   urls = urls.replaceAll(/\n|\r\n/gi, '\\r\\n');
   urls = JSON.parse(urls);
   // 일단 기기 하나만 한다고 가정하여, 0번 인덱스 가져옴
-  // const iotIPAd = urls[0].url;
-  const iotIPAd = 'http://192.168.0.149:8000';
-  console.log(iotIPAd);
+  const iotIPAd = urls[0].url;
+  //const iotIPAd = 'http://192.168.0.149:8000';
 
   // locale 할당
   let _locale = "<%= __('locale') %>";

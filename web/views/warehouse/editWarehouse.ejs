@@ -597,82 +597,105 @@
     };
   </script>
   <!--Iot 디바이스 추가 버튼-->
-  <!--formdata 생성 및 post요청-->
+  <!--formdata 생성 및 put요청-->
   <script>
     clkSubmit = () => {
-      let formdata = new FormData();
+      if (
+        $('#name_ko')[0].value == '' ||
+        $('#address1_ko')[0].value == '' ||
+        $('#rent')[0].value == '' ||
+        $('#name_en')[0].value == '' ||
+        $('select[name=category_id] option:selected')[0].value == 0
+      ) {
+        Swal.fire({
+          icon: 'error',
+          title: '실패',
+          text: '필수 정보를 모두 입력해주세요',
+        });
+      } else {
+        const iot_table_body = document.getElementById('iot-device-table-body');
+        let formdata = new FormData();
+        let iot_device_ids = [];
 
-      formdata.append('name_ko', $('#name_ko')[0].value);
-      formdata.append('name_en', $('#name_en')[0].value);
-      formdata.append(
-        'category_id',
-        $('select[name=category_id] option:selected')[0].value
-      );
-      formdata.append('rent', $('#rent')[0].value);
-      formdata.append('address1_ko', $('#address1_ko')[0].value);
-      formdata.append('address1_en', $('#address1_en')[0].value);
-      formdata.append('address2_ko', $('#address2_ko')[0].value);
-      formdata.append('address2_en', $('#address2_en')[0].value);
-      formdata.append('latitude', $('#latitude')[0].value);
-      formdata.append('longitude', $('#longitude')[0].value);
-      formdata.append('zip_code', $('#zip_code')[0].value);
-      formdata.append('land_area', $('#land_area')[0].value);
-      formdata.append('total_ground_area', $('#total_ground_area')[0].value);
-      formdata.append('common_area', $('#common_area')[0].value);
-      formdata.append('dedicated_area', $('#dedicated_area')[0].value);
-      if ($('#completion_date')[0].value !== '') {
+        document.querySelectorAll('#device-id').forEach((item) => {
+          if (item.value.trim() != '') {
+            iot_device_ids.push(item.value);
+          }
+        });
+
+        formdata.append('name_ko', $('#name_ko')[0].value);
+        formdata.append('name_en', $('#name_en')[0].value);
+        formdata.append(
+          'category_id',
+          $('select[name=category_id] option:selected')[0].value
+        );
+        formdata.append('rent', $('#rent')[0].value);
+        formdata.append('address1_ko', $('#address1_ko')[0].value);
+        formdata.append('address1_en', $('#address1_en')[0].value);
+        formdata.append('address2_ko', $('#address2_ko')[0].value);
+        formdata.append('address2_en', $('#address2_en')[0].value);
+        formdata.append('latitude', $('#latitude')[0].value);
+        formdata.append('longitude', $('#longitude')[0].value);
+        formdata.append('zip_code', $('#zip_code')[0].value);
+        formdata.append('land_area', $('#land_area')[0].value);
+        formdata.append('total_ground_area', $('#total_ground_area')[0].value);
+        formdata.append('common_area', $('#common_area')[0].value);
+        formdata.append('dedicated_area', $('#dedicated_area')[0].value);
         formdata.append('completion_date', $('#completion_date')[0].value);
-      }
-      formdata.append('description_ko', $('#description_ko')[0].value);
-      formdata.append('description_en', $('#description_en')[0].value);
-      formdata.append('note_ko', $('#note_ko')[0].value);
-      formdata.append('note_en', $('#note_en')[0].value);
-      formdata.append('story', $('#story')[0].value);
-      formdata.append('restriction_ko', $('#restriction_ko')[0].value);
-      formdata.append('restriction_en', $('#restriction_en')[0].value);
-      formdata.append('access_ko', $('#access_ko')[0].value);
-      formdata.append('access_en', $('#access_en')[0].value);
-      formdata.append('height', $('#height')[0].value);
-      formdata.append('docking_station', $('#docking_station')[0].checked);
-      formdata.append('rack', $('#rack')[0].checked);
-      formdata.append('is_bonded', $('#is_bonded')[0].checked);
-      formdata.append('commercial_lift', $('#commercial_lift')[0].checked);
-      formdata.append('is_verified', $('#is_verified')[0].checked);
+        formdata.append('description_ko', $('#description_ko')[0].value);
+        formdata.append('description_en', $('#description_en')[0].value);
+        formdata.append('note_ko', $('#note_ko')[0].value);
+        formdata.append('note_en', $('#note_en')[0].value);
+        formdata.append('story', $('#story')[0].value);
+        formdata.append('restriction_ko', $('#restriction_ko')[0].value);
+        formdata.append('restriction_en', $('#restriction_en')[0].value);
+        formdata.append('access_ko', $('#access_ko')[0].value);
+        formdata.append('access_en', $('#access_en')[0].value);
+        formdata.append('height', $('#height')[0].value);
+        formdata.append('docking_station', $('#docking_station')[0].checked);
+        formdata.append('rack', $('#rack')[0].checked);
+        formdata.append('is_bonded', $('#is_bonded')[0].checked);
+        formdata.append('commercial_lift', $('#commercial_lift')[0].checked);
+        formdata.append('is_verified', $('#is_verified')[0].checked);
 
-      sel_files.forEach((file) => {
-        formdata.append('images', file);
-      });
+        sel_files.forEach((file) => {
+          formdata.append('images', file);
+        });
 
-      for (var pair of formdata.entries()) {
-        console.log(pair[0] + ', ' + pair[1]);
+        iot_device_ids.forEach((id) => {
+          formdata.append('iot_device_ids', id);
+        });
+        formdata.append('iot_device_ids', '');
+
+        $.ajax({
+          //url: server_url + 'api/warehouse',
+          url: '/api/warehouse/' + '<%= warehouse.warehouse_id %>',
+          type: 'PUT',
+          enctype: 'multipart/form-data',
+          data: formdata,
+          processData: false,
+          contentType: false,
+          cache: false,
+          success: function (data) {
+            // 전송 후 성공 시 실행 코드
+            Swal.fire({
+              icon: 'success',
+              title: '<%= __("success") %>',
+              text: '창고가 등록 되었습니다..',
+            }).then(function () {
+              window.location.href = '/warehouse';
+            });
+          },
+          error: function (e) {
+            // 전송 후 에러 발생 시 실행 코드
+            Swal.fire({
+              title: `${e.status} <%= __('error') %>`,
+              html: "<h3><%= __('error_any_msg') %></h3><br><%= __('error_any_msg2') %><br><%= __('error_any_msg3') %>",
+              icon: 'error',
+            });
+          },
+        });
       }
-      $.ajax({
-        url: '/api/warehouse/' + '<%= warehouse.warehouse_id %>',
-        type: 'PUT',
-        enctype: 'multipart/form-data',
-        data: formdata,
-        processData: false,
-        contentType: false,
-        cache: false,
-        success: function (data) {
-          // 전송 후 성공 시 실행 코드
-          Swal.fire({
-            icon: 'success',
-            title: '<%= __("success") %>',
-            text: '창고 정보가 변경 되었습니다.',
-          }).then(function () {
-            window.location.href = '/warehouse/<%= warehouse.warehouse_id %>';
-          });
-        },
-        error: function (e) {
-          // 전송 후 에러 발생 시 실행 코드
-          Swal.fire({
-            title: e.status + " <%= __('error') %>",
-            html: "<h3><%= __('error_any_msg') %></h3><br><%= __('error_any_msg2') %><br><%= __('error_any_msg3') %>",
-            icon: 'error',
-          });
-        },
-      });
     };
   </script>
   <!--formdata 생성 및 post요청-->
@@ -692,9 +715,6 @@
           zipcode.value = data.zonecode;
           address1_ko.value = data.roadAddress;
           address1_en.value = data.roadAddressEnglish;
-          console.log(data.zonecode);
-          console.log(data.roadAddress);
-          console.log(data.roadAddressEnglish);
 
           let baseAPIUrl =
             'https://maps.googleapis.com/maps/api/geocode/json?address=';
@@ -707,7 +727,6 @@
             url: baseAPIUrl,
             type: 'GET',
             success: function (data) {
-              console.log('in geocode success');
               latitude.value = data.results[0].geometry.location.lat;
               longitude.value = data.results[0].geometry.location.lng;
             },
@@ -857,10 +876,8 @@
       image_url = image_url.replace(/&#34;/gi, '"');
       image_url = JSON.parse(image_url);
       for (f of image_url) {
-        console.log(f);
         let a = await fetch(f);
         a = await a.blob();
-        console.log(a);
         var file = new File([a], 'foo.txt', { type: 'text/plain' });
         imageLoader(file);
       }

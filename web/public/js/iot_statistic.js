@@ -1,5 +1,4 @@
 async function getSensorData(type, IpAdd, locale) {
-  console.log('데이터 받기');
   String.prototype.format = function () {
     var formatted = this;
     for (var arg in arguments) {
@@ -25,7 +24,6 @@ async function getSensorData(type, IpAdd, locale) {
       },
     };
   } else if (type == 3) {
-    console.log($('.datepicker').val());
     options = {
       uri: IpAdd + '/api/stat/year',
       qs: {
@@ -104,7 +102,6 @@ async function getSensorData(type, IpAdd, locale) {
     //temp 최대, 최소, 평균
     maxTemp = Math.max(...temp).toFixed(2);
     minTemp = Math.min(...temp).toFixed(2);
-    console.log(maxTemp);
     document.getElementById('maxTemp').innerHTML = maxTemp + '°C';
     document.getElementById('minTemp').innerHTML = minTemp + '°C';
     document.getElementById('avgTemp').innerHTML =

@@ -20,7 +20,6 @@ const getImages = (images) => {
 
 module.exports = async (db, locale, warehouse_id) => {
   const { fn, col } = require('sequelize');
-  console.log(warehouse_id);
 
   const getLocalePrice = require('$base/utils/getLocalePrice');
   const getLocaleLanguageValue = require('$base/utils/getLocaleLanguageValue');

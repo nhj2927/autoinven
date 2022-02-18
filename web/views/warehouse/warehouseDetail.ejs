@@ -78,7 +78,7 @@
         <!--창고 정보 테이블-->
         <div id="wh-info-table-div" class="col">
           <h3 class="wh-detail-title"><%= __('warehousedetail_info')%></h3>
-          <p id='badge-p' class="badge-text">
+          <p id="badge-p" class="badge-text">
             <% if(warehouse.docking_station){ %>
             <img src="/image/icon/truck-solid.svg" class="badge-svg" /> <%=
             __('warehousedetail_is_docked')%> <% }%> <% if(warehouse.rack){ %>
@@ -89,12 +89,14 @@
             __('warehousedetail_elevator')%> <% }%> <% if(warehouse.is_bonded){
             %>
             <img src="/image/icon/is_bonded_icon.svg" class="badge-svg" /> <%=
-            __('warehousedetail_is_bonded')%> <% }%>
-
-            <% if(!warehouse.docking_station && !warehouse.rack && !warehouse.commercial_lift && !warehouse.is_bonded) { %>
-              <p class="badge-svg"/>
-            <% } %>
+            __('warehousedetail_is_bonded')%> <% }%> <%
+            if(!warehouse.docking_station && !warehouse.rack &&
+            !warehouse.commercial_lift && !warehouse.is_bonded) { %>
           </p>
+
+          <p class="badge-svg"></p>
+
+          <% } %>
           <table id="wh-info-table" class="table info-table">
             <tr>
               <td class="info-table-td-head">
@@ -119,7 +121,8 @@
                 colspan="3"
                 style="color: #d00101; font-family: 'nanum-b'"
               >
-              <%= __('cost_unit') %> <%= warehouse.rent%> ㎡/<%= __('warehousedetail_day') %> 
+                <%= __('cost_unit') %> <%= warehouse.rent%> ㎡/<%=
+                __('warehousedetail_day') %>
               </td>
             </tr>
             <tr>
@@ -135,28 +138,38 @@
                 <%= __('warehousedetail_detail_address')%>
               </td>
               <td class="info-table-td" colspan="3">
-                <%= warehouse.address2 == null ?  "-" : warehouse.address2%>
+                <%= warehouse.address2 == null ? "-" : warehouse.address2%>
               </td>
             </tr>
             <tr>
               <td class="info-table-td-head">
                 <%= __('warehousedetail_land_area')%>
               </td>
-              <td class="info-table-td"><%= warehouse.land_area == null ? "-" : warehouse.land_area%>㎡</td>
+              <td class="info-table-td">
+                <%= warehouse.land_area == null ? "-" : warehouse.land_area%>㎡
+              </td>
               <td class="info-table-td-head">
                 <%= __('warehousedetail_total_ground_area')%>
               </td>
-              <td class="info-table-td"><%= warehouse.total_ground_area == null ? "-" : warehouse.total_ground_area%>㎡</td>
+              <td class="info-table-td">
+                <%= warehouse.total_ground_area == null ? "-" :
+                warehouse.total_ground_area%>㎡
+              </td>
             </tr>
             <tr>
               <td class="info-table-td-head">
                 <%= __('warehousedetail_common_area')%>
               </td>
-              <td class="info-table-td"><%= warehouse.common_area == null ? "-" : warehouse.common_area %>㎡</td>
+              <td class="info-table-td">
+                <%= warehouse.common_area == null ? "-" : warehouse.common_area
+                %>㎡
+              </td>
               <td class="info-table-td-head">
                 <%= __('warehousedetail_dedicated_area')%>
               </td>
-              <td class="info-table-td"><%=warehouse.dedicated_area ? "-" : warehouse.dedicated_area%>㎡</td>
+              <td class="info-table-td">
+                <%=warehouse.dedicated_area ? "-" : warehouse.dedicated_area%>㎡
+              </td>
             </tr>
           </table>
         </div>
@@ -194,15 +207,22 @@
             <td class="info-table-td-head">
               <%= __('warehousedetail_floor_num')%>
             </td>
-            <td class="info-table-td"><%= warehouse.story == null ? "-" : warehouse.story%><%= __('warehousedetail_floor') %></td>
+            <td class="info-table-td">
+              <%= warehouse.story == null ? "-" : warehouse.story%><%=
+              __('warehousedetail_floor') %>
+            </td>
             <td class="info-table-td-head">
               <%= __('warehousedetail_valid_floor_height')%>
             </td>
-            <td class="info-table-td"><%= warehouse.height == null ? "-" : warehouse.height%>m</td>
+            <td class="info-table-td">
+              <%= warehouse.height == null ? "-" : warehouse.height%>m
+            </td>
             <td class="info-table-td-head">
               <%= __('warehousedetail_accessable_vehicle') %>
             </td>
-            <td class="info-table-td"><%= warehouse.restriction == null ? "-" : warehouse.restriction %></td>
+            <td class="info-table-td">
+              <%= warehouse.restriction == null ? "-" : warehouse.restriction %>
+            </td>
           </tr>
           <tr>
             <td class="info-table-td-head">
@@ -212,7 +232,9 @@
             <td class="info-table-td-head">
               <%= __('warehousedetail_accessability')%>
             </td>
-            <td class="info-table-td" colspan="3"><%= warehouse.access == null ? "-" : warehouse.access%></td>
+            <td class="info-table-td" colspan="3">
+              <%= warehouse.access == null ? "-" : warehouse.access%>
+            </td>
           </tr>
           <tr>
             <td class="info-table-td-head">
@@ -237,14 +259,19 @@
       <!--창고 상세정보-->
 
       <!--인증된 창고일 경우 창고 환경 정보 제공-->
-      <% if(warehouse.is_verified) { %>
+      <% if(warehouse.iot_url.length) { %>
       <div style="margin-bottom: 5rem">
         <div id="environ-title">
           <h3 class="wh-detail-title" style="display: inline">
             <%= __('warehousedetail_environ')%>
           </h3>
-          <a class="monitoring-link" href="/warehouse/<%= warehouse.warehouse_id %>/iot/monitoring"><%= __('warehousedetail_monitoring') %></a>
-
+          <% if(user.is_contracted || locals.role == 'admin') { %>
+          <a
+            class="monitoring-link"
+            href="/warehouse/<%= warehouse.warehouse_id %>/iot/monitoring"
+            ><%= __('warehousedetail_monitoring') %></a
+          >
+          <% } %>
           <div style="display: inline; float: right">
             <div style="display: inline">
               <input type="date" id="currentDate" style="width: 10rem" />
@@ -268,7 +295,6 @@
             </div>
           </div>
         </div>
-
         <div><%- include('./warehouseDetail_Environment') %></div>
       </div>
       <% } %>

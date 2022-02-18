@@ -14,6 +14,7 @@ WORKDIR /usr/src/app
 # 와일드카드를 사용
 COPY package*.json ./
 
+# 개발용
 RUN npm install
 # 프로덕션을 위한 코드를 빌드하는 경우
 # RUN npm ci --only=production
@@ -26,4 +27,4 @@ RUN chmod +x docker-entrypoint.sh
 ENTRYPOINT ./docker-entrypoint.sh
 
 EXPOSE 80
-# CMD ["npm", "run", "serv"]
+

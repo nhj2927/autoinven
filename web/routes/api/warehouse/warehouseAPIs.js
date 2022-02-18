@@ -1,4 +1,5 @@
 const { Op, literal } = require('sequelize');
+const warehouseWithItems = require('../../warehouse/function/getWarehouseDetailWithItem');
 
 const getNewWarehouse = ({
   name_ko,
@@ -73,12 +74,23 @@ const getAddressInfo = ({
 });
 
 const getAllWarehouses = async (db) => {
-  const warehouses = await db.Warehouse.findAll();
+  const warehouses = await db.Warehouse.findAll({
+    where: { is_verified: true },
+    include: [{ model: db.WarehouseImage, attributes: ['url'] }],
+  });
   return warehouses;
 };
-const getWarehouseInfo = async (id, db) => {
-  const warehouse = await db.Warehouse.findByPk(id);
+const getWarehouseInfo = async (warehouse_id, db) => {
+  const warehouse = await db.Warehouse.findOne({
+    where: { warehouse_id },
+    include: [{ model: db.WarehouseImage, attributes: ['url'] }],
+  });
   return warehouse;
+};
+
+const getItemsOfWarehouse = async (db, warehouse_id) => {
+  const { items } = await warehouseWithItems(db, 'ko', warehouse_id);
+  return items;
 };
 
 const checkEmpty = (data) => {
@@ -119,7 +131,12 @@ const checkEmptyWarehouseAttribute = (warehouse) => {
 const registerWarehouse = async (req, db) => {
   const newWarehouse = checkEmptyWarehouseAttribute(getNewWarehouse(req.body)); // 창고 가져오기
 
-  const { device_ids } = req.body;
+  let { device_ids } = req.body;
+  if (device_ids === '') {
+    device_ids = null;
+  } else {
+    device_ids.pop();
+  }
   if (newWarehouse.completion_date == '') {
     delete newWarehouse.completion_date;
   }
@@ -164,11 +181,16 @@ const registerWarehouse = async (req, db) => {
 };
 
 const editWarehouse = async (req, db) => {
-  console.log(req.body);
   const { warehouse_id } = req.params;
   const newInfo = checkEmptyWarehouseAttribute(getNewWarehouse(req.body)); // 새 창고정보 가져오기
   const addressInfo = getAddressInfo(req.body); // 주소 가져오기
-  const { iot_device_ids } = req.body; // iot 허브 디바이스 아이디들 가져오기
+  let { iot_device_ids } = req.body; // iot 허브 디바이스 아이디들 가져오기
+
+  if (iot_device_ids === '') {
+    iot_device_ids = null;
+  } else {
+    iot_device_ids.pop();
+  }
   const whFiles = req.files;
   // 주소가 기존에 존재하는지 검색(제약조건 때문)
   let address = await db.Address.findByPk(addressInfo.address);
@@ -216,7 +238,6 @@ const editWarehouse = async (req, db) => {
 
 const searchWarehouse = async (req, db) => {
   let { startDate, endDate, type, area } = req.query;
-  console.log(req.query);
   // 타입이 입력되지 않으면 전체타입으로 대체
   if (!type) {
     type = [1, 2, 3];
@@ -225,7 +246,6 @@ const searchWarehouse = async (req, db) => {
   if (!area) {
     area = 1;
   }
-  console.log(req.query.startDate);
   // 1. 기간이 있다면
   if (startDate) {
     //(1) 해당 기간이 포함 된 계약 모두 조회
@@ -279,7 +299,7 @@ const getAvailableArea = async (req, db) => {
   let { startDate, endDate } = req.query;
   if (!startDate || !endDate) {
     const err = new Error('start date or end date is not proper.');
-    err.statusCode(400);
+    err.statusCode = 400;
     throw err;
   }
   const warehouse = await db.Warehouse.findOne({
@@ -338,7 +358,6 @@ const searchWarehouseByKeyword = async (req, db) => {
   let offset = 0;
   const re = /[ .:;?!~,`"&|()<>{}\[\]\r\n/\\]+/;
   const keywords = keyword.split(re);
-  console.log(keywords);
 
   let conditions = [];
   for (x in keywords) {
@@ -390,4 +409,5 @@ module.exports = {
   searchWarehouse,
   getAvailableArea,
   searchWarehouseByKeyword,
+  getItemsOfWarehouse,
 };
