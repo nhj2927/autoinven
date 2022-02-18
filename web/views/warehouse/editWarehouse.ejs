@@ -601,6 +601,7 @@
   <!--formdata 생성 및 put요청-->
   <script>
     clkSubmit = () => {
+      console.log('hi');
       if (
         $('#name_ko')[0].value == '' ||
         $('#address1_ko')[0].value == '' ||
@@ -616,7 +617,7 @@
       } else {
         const iot_table_body = document.getElementById('iot-device-table-body');
         let formdata = new FormData();
-        
+
         let input_device_ids = [];
         let cur_device_ids = '<%= JSON.stringify(warehouse)%>';
         cur_device_ids = cur_device_ids.replace(/&#34;/gi, '"');
@@ -685,6 +686,11 @@
           formdata.append('added_iot_device_ids', id);
         });
         formdata.append('added_iot_device_ids', '');
+
+        for (var item of formdata.entries()) {
+          console.log(item[0] + ' : ' + item[1]);
+        }
+        console.log('hi');
 
         $.ajax({
           //url: server_url + 'api/warehouse',
