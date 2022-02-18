@@ -4,9 +4,316 @@
     <meta charset="UTF-8" />
     <%- include('./head') %>
   </head>
+  <style>
+    .main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: url('image/mainbg.png');
+      height: 50rem;
+      color: #fff;
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: 100vh;
+    }
+
+    .main .title {
+      text-align: center;
+      margin: 5rem 0 2rem 0;
+      font-weight: 600;
+    }
+
+    .main .slogan {
+      font-size: 1.5rem;
+      text-align: center;
+    }
+
+    .search {
+      height: 22rem;
+      background: url('image/search_bg.png');
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .search .title {
+      font-size: 3rem;
+      color: #fff;
+      margin-right: 1rem;
+      padding-bottom: 1rem;
+      text-decoration: none;
+      border-bottom: 5px solid #fff;
+    }
+
+    .search .title:hover {
+      cursor: pointer;
+    }
+
+    .warehouse {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 45rem;
+    }
+
+    .warehouse .title {
+      font-weight: 600;
+      margin: 5rem 0 1rem;
+    }
+
+    .warehouse .content {
+      text-align: center;
+      font-size: 1.4rem;
+      margin: 1rem;
+    }
+
+    .warehouse .more {
+      color: purple;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+
+    .enroll {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 10rem 0 10rem 15rem;
+      height: 22rem;
+      background: url('image/bg_2.png');
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .enroll .title {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .enroll .content {
+      color: #fff;
+      font-size: 1.4rem;
+      margin-bottom: 2rem;
+    }
+
+    .enroll .btn {
+      background: #fff;
+      color: purple;
+      border-radius: 1rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+      width: 12rem;
+    }
+
+    .info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 50rem;
+    }
+
+    .info .title {
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .info .content {
+      display: grid;
+      width: 70rem;
+      height: 35rem;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      column-gap: 1.3rem;
+    }
+
+    .info .content .card {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      box-shadow: 1px 1px 5px 2px #e4e6e9;
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+
+    .info .content .card .img {
+      width: 40%;
+      height: 50%;
+      margin-bottom: 1rem;
+    }
+
+    .signup {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: url('image/bg_3.png');
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: 22rem;
+    }
+
+    .signup .title {
+      font-weight: 600;
+      text-align: center;
+      color: #fff;
+      margin-bottom: 5rem;
+    }
+
+    .signup .btn {
+      background: #fff;
+      color: purple;
+      border-radius: 1rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+      width: 14rem;
+    }
+
+    .autoinven {
+      height: 10rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .autoinven .img {
+      width: 20rem;
+      height: 5rem;
+    }
+    .swiper {
+      width: 30rem;
+      height: 30rem;
+    }
+  </style>
   <body>
     <header><%- include('./partial/navbar') %></header>
-    <div class="container test-gray" style="height: 50rem"></div>
+    <div class="main">
+      <h1 class="title">
+        <%= __('main_title') %>
+        <br />
+        <%= __('main_title1') %>
+      </h1>
+
+      <p class="slogan">
+        <%= __('main_slogan') %>
+        <br />
+        <%= __('main_slogan1') %>
+        <br />
+        <%= __('main_slogan2') %>
+      </p>
+
+      <div id="#swiper-title" class="swiper swiper1" style="margin-top: 3rem">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img src="image/slide_1.png" />
+          </div>
+          <div class="swiper-slide">
+            <img src="image/slide_2.png" />
+          </div>
+          <div class="swiper-slide">
+            <img src="image/slide_3.png" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="search">
+      <a class="title" href="search"><%= __('main_title_search') %></a>
+      <img src="image/icon/search_icon.svg" alt="search" />
+    </div>
+    <div class="warehouse">
+      <h2 class="title"><%= __('main_text1') %></h2>
+      <p class="content">
+        <%= __('main_text2') %>
+        <br />
+        <%= __('main_text2-1') %>
+      </p>
+      <a class="more" href="search"><%= __('main_text3') %></a>
+      <div class="list">
+        <div class="card"></div>
+      </div>
+    </div>
+    <div class="enroll">
+      <h2 class="title"><%= __('main_text4') %></h2>
+      <p class="content">
+        <%= __('main_text5') %>
+        <br />
+        <%= __('main_text5-1') %>
+      </p>
+      <div class="btn" onclick="Inqurey()"><%= __('main_text6') %></div>
+      <script>
+        Inqurey = () => {
+          Swal.fire({
+            title: 'Autoin',
+            html: `<%= __('main_phone') %> 1644-1393`,
+            icon: 'info',
+          });
+        };
+      </script>
+    </div>
+    <div class="info">
+      <h2 class="title">
+        <%= __('main_text7') %>
+        <br />
+        <%= __('main_text7-1') %>
+      </h2>
+      <div class="content">
+        <div class="card">
+          <img class="img" src="image/ico_1.svg" alt="info" />
+          <%= __('main_text8') %>
+          <br />
+          <%= __('main_text8-1') %>
+        </div>
+        <div class="card">
+          <img class="img" src="image/ico_2.svg" alt="info" />
+          <%= __('main_text9') %>
+          <br />
+          <%= __('main_text9-1') %>
+        </div>
+        <div class="card">
+          <img class="img" src="image/ico_3.svg" alt="info" />
+          <%= __('main_text10') %>
+          <br />
+          <%= __('main_text10-1') %>
+        </div>
+        <div class="card">
+          <img class="img" src="image/ico_4.svg" alt="info" />
+          <%= __('main_text11') %>
+          <br />
+          <%= __('main_text11-1') %>
+        </div>
+        <div class="card">
+          <img class="img" src="image/ico_5.svg" alt="info" />
+          <%= __('main_text12') %>
+          <br />
+          <%= __('main_text12-1') %>
+        </div>
+        <div class="card">
+          <img class="img" src="image/ico_6.svg" alt="info" />
+          <%= __('main_text13') %>
+          <br />
+          <%= __('main_text13-1') %>
+        </div>
+      </div>
+    </div>
+    <div class="signup">
+      <h2 class="title">
+        <%= __('main_text14') %>
+        <br />
+        <%= __('main_text14-1') %>
+      </h2>
+      <a class="btn" href="signup"> <%= __('main_text15') %> </a>
+    </div>
+    <div class="autoinven">
+      <img class="img" src="image/inven_logo.png" alt="logo" />
+    </div>
     <footer><%- include('./partial/footer') %></footer>
   </body>
+  <script>
+    const swiper_title = new Swiper('.swiper1', {
+      direction: 'horizontal',
+      loop: true,
+    });
+  </script>
 </html>

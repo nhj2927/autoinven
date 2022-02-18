@@ -263,5 +263,7 @@
   "itemdetail_modal_release_date": "Release Date",
   "itemdetail_modal_badge_before_in": "BEFORE IN",
   "itemdetail_modal_badge_in": "IN",
-  "itemdetail_modal_badge_out": "OUT"
+  "itemdetail_modal_badge_out": "OUT",
+
+  "main_phone:": "Representative number"
 }
