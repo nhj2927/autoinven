@@ -51,7 +51,7 @@ module.exports = (db) => {
 
   // 4) 해당 창고 내의 모든 물품 조회
   router.get(
-    '/:warehoud_id/items',
+    '/:warehouse_id/items',
     authenticate,
     doAsync(async (req, res, next) => {
       const items = await warehouseAPIs.getItemsOfWarehouse(
