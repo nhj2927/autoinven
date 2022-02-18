@@ -92,7 +92,8 @@
 }
 
 .warehouse .list .card .wh_info .name {
-  height: 4rem;
+  font-family: 'nanum-b';
+  height: 10rem;
 }
 
 .warehouse .list .card .wh_info .detail {

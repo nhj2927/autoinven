@@ -102,7 +102,16 @@
         <br />
         <%= __('main_text5-1') %>
       </p>
-      <div class="btn"><%= __('main_text6') %></div>
+      <div class="btn" onclick="Inqurey()"><%= __('main_text6') %></div>
+      <script>
+        Inqurey = () => {
+          Swal.fire({
+            title: 'Autoin',
+            html: `<%= __('main_phone') %> 1644-1393`,
+            icon: 'info',
+          });
+        };
+      </script>
     </div>
     <div class="info">
       <h2 class="title">
@@ -112,37 +121,37 @@
       </h2>
       <div class="content">
         <div class="card">
-          <img class="img" src="image/ico_1.png" alt="info" />
+          <img class="img" src="image/ico_1.svg" alt="info" />
           <%= __('main_text8') %>
           <br />
           <%= __('main_text8-1') %>
         </div>
         <div class="card">
-          <img class="img" src="image/ico_2.png" alt="info" />
+          <img class="img" src="image/ico_2.svg" alt="info" />
           <%= __('main_text9') %>
           <br />
           <%= __('main_text9-1') %>
         </div>
         <div class="card">
-          <img class="img" src="image/ico_3.png" alt="info" />
+          <img class="img" src="image/ico_3.svg" alt="info" />
           <%= __('main_text10') %>
           <br />
           <%= __('main_text10-1') %>
         </div>
         <div class="card">
-          <img class="img" src="image/ico_4.png" alt="info" />
+          <img class="img" src="image/ico_4.svg" alt="info" />
           <%= __('main_text11') %>
           <br />
           <%= __('main_text11-1') %>
         </div>
         <div class="card">
-          <img class="img" src="image/ico_5.png" alt="info" />
+          <img class="img" src="image/ico_5.svg" alt="info" />
           <%= __('main_text12') %>
           <br />
           <%= __('main_text12-1') %>
         </div>
         <div class="card">
-          <img class="img" src="image/ico_6.png" alt="info" />
+          <img class="img" src="image/ico_6.svg" alt="info" />
           <%= __('main_text13') %>
           <br />
           <%= __('main_text13-1') %>
