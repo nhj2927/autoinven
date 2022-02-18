@@ -29,6 +29,7 @@
     }
 
     .search {
+      height: 22rem;
       background: url('image/search_bg.png');
       background-repeat : no-repeat;
       background-size : cover;
@@ -202,7 +203,7 @@
         <%= __('main_slogan2') %>
       </p>
 
-      <div class="swiper" style="margin-top: 3rem">
+      <div id="#swiper-title" class="swiper swiper1" style="margin-top: 3rem">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
             <img src="image/slide_1.png" />
@@ -250,37 +251,37 @@
       </h2>
       <div class="content">
         <div class="card">
-          <img class="img" src="image/ico_1.png" alt="info" />
+          <img class="img" src="image/ico_1.svg" alt="info" />
           <%= __('main_text8') %>
           <br />
           <%= __('main_text8-1') %>
         </div>
         <div class="card">
-          <img class="img" src="image/ico_2.png" alt="info" />
+          <img class="img" src="image/ico_2.svg" alt="info" />
           <%= __('main_text9') %>
           <br />
           <%= __('main_text9-1') %>
         </div>
         <div class="card">
-          <img class="img" src="image/ico_3.png" alt="info" />
+          <img class="img" src="image/ico_3.svg" alt="info" />
           <%= __('main_text10') %>
           <br />
           <%= __('main_text10-1') %>
         </div>
         <div class="card">
-          <img class="img" src="image/ico_4.png" alt="info" />
+          <img class="img" src="image/ico_4.svg" alt="info" />
           <%= __('main_text11') %>
           <br />
           <%= __('main_text11-1') %>
         </div>
         <div class="card">
-          <img class="img" src="image/ico_5.png" alt="info" />
+          <img class="img" src="image/ico_5.svg" alt="info" />
           <%= __('main_text12') %>
           <br />
           <%= __('main_text12-1') %>
         </div>
         <div class="card">
-          <img class="img" src="image/ico_6.png" alt="info" />
+          <img class="img" src="image/ico_6.svg" alt="info" />
           <%= __('main_text13') %>
           <br />
           <%= __('main_text13-1') %>
@@ -301,8 +302,7 @@
     <footer><%- include('./partial/footer') %></footer>
   </body>
   <script>
-    const swiper_title = new Swiper('.swiper', {
-      // Optional parameters
+    const swiper_title = new Swiper('.swiper1', {
       direction: 'horizontal',
       loop: true,
     });
