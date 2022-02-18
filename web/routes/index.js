@@ -1,3 +1,5 @@
+const getWarehousesForMain = require('./warehouse/function/getWarehousesForMain');
+
 module.exports = (db) => {
   const express = require('express');
   const router = express.Router();
@@ -7,8 +9,12 @@ module.exports = (db) => {
   const authenticate = require('$base/middlewares/authenticate');
 
   // 메인페이지
-  router.get('/', (req, res) => {
-    res.render('main');
+  router.get('/', async (req, res) => {
+    const locale = res.locale;
+
+    const warehouses = await getWarehousesForMain(db, locale);
+
+    res.render('main', { warehouses });
   });
 
   // 로그인
