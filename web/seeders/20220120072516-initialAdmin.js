@@ -5,7 +5,7 @@ const crypto = require('crypto');
 const buf1 = crypto.randomBytes(64);
 const pass1 = crypto.pbkdf2Sync(
   process.env.ADMIN1_PW,
-  buf.toString('base64'),
+  buf1.toString('base64'),
   100000,
   64,
   'sha512'
@@ -13,7 +13,7 @@ const pass1 = crypto.pbkdf2Sync(
 const buf2 = crypto.randomBytes(64);
 const pass2 = crypto.pbkdf2Sync(
   process.env.ADMIN2_PW,
-  buf.toString('base64'),
+  buf2.toString('base64'),
   100000,
   64,
   'sha512'
