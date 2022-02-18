@@ -160,7 +160,7 @@ async function getSensorData(type, IpAdd, locale) {
   } else {
     Swal.fire({
       title: 'Not Exists',
-      html: no_data_in_that_date,
+      html: `${no_data_in_that_date}`,
       icon: 'error',
     });
     chartMaxTemp = 100;
