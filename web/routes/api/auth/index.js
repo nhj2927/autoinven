@@ -13,10 +13,6 @@ module.exports = (db) => {
       const {
         body: { email, password },
       } = req;
-      console.log(req);
-      console.log(req.body);
-      console.log(req.params);
-      console.log(req.query);
 
       const result = await signin(
         email,
