@@ -224,6 +224,7 @@
   "error_any_msg2": "조속한 해결을 위해 현재 열심히 노력 중입니다.",
   "error_any_msg3": "잠시 후 다시 시도해주세요.",
   "error_403_msg": "권한이 없습니다.",
+  "error_signin": "회원정보가 일치하지 않습니다.",
   "error_current_pw": "현재 비밀번호를 입력해주세요.",
   "error_new_pw": "새 비밀번호를 입력해주세요.",
   "error_new_pw_ch": "새 비밀번호 확인을 입력해주세요.",
@@ -250,7 +251,6 @@
   "success_signup": "회원가입이 완료되었습니다.",
   "error_name": "error_name",
   "cost_unit": "￦",
-  "warehousedetail_day": "warehousedetail_day",
 
   "itemdetail_modal_title": "상세정보",
   "itemdetail_modal_item_name": "물품명",
