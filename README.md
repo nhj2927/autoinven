@@ -2,7 +2,7 @@
 
 
 ## 메인 페이지
-![main.jpeg](Public/Image/main.jpeg)
+![main.jpeg](https://user-images.githubusercontent.com/60174385/154646310-0bb4b69e-4467-48b7-b06a-b2b1e417a6d1.jpeg)
 
 
 ## 창고 검색 페이지
