@@ -185,9 +185,6 @@ const editWarehouse = async (req, db) => {
   const newInfo = checkEmptyWarehouseAttribute(getNewWarehouse(req.body)); // 새 창고정보 가져오기
   const addressInfo = getAddressInfo(req.body); // 주소 가져오기
   let { deleted_iot_device_ids, added_iot_device_ids } = req.body; // iot 허브 디바이스 아이디들 가져오기
-  console.log(req.body);
-  console.log(deleted_iot_device_ids);
-  console.log(added_iot_device_ids);
 
   if (deleted_iot_device_ids === '') {
     deleted_iot_device_ids = null;
