@@ -337,7 +337,6 @@
                   class="form-control"
                   value="<%= warehouse.devices[i].device_id %>"
                 />
-                <button class="btn btn-sub">삭제</button>
               </td>
             </tr>
             <% } %> <% } else { %>
@@ -621,6 +620,7 @@
         let input_device_ids = [];
         let cur_device_ids = '<%= JSON.stringify(warehouse)%>';
         console.log(cur_device_ids);
+        cur_device_ids = cur_device_ids.replaceAll(/\n|\r\n/gi, '\\r\\n');
         cur_device_ids = cur_device_ids.replace(/&#34;/gi, '"');
         cur_device_ids = JSON.parse(cur_device_ids).devices.map((device) => {
           return device.device_id;
