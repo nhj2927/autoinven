@@ -597,6 +597,7 @@
     };
   </script>
   <!--Iot 디바이스 추가 버튼-->
+
   <!--formdata 생성 및 put요청-->
   <script>
     clkSubmit = () => {
@@ -615,11 +616,17 @@
       } else {
         const iot_table_body = document.getElementById('iot-device-table-body');
         let formdata = new FormData();
-        let iot_device_ids = [];
+        
+        let input_device_ids = [];
+        let cur_device_ids = '<%= JSON.stringify(warehouse)%>';
+        cur_device_ids = cur_device_ids.replace(/&#34;/gi, '"');
+        cur_device_ids = JSON.parse(cur_device_ids).devices.map((device) => {
+          return device.device_id;
+        });
 
         document.querySelectorAll('#device-id').forEach((item) => {
           if (item.value.trim() != '') {
-            iot_device_ids.push(item.value);
+            input_device_ids.push(item.value);
           }
         });
 
@@ -662,10 +669,22 @@
           formdata.append('images', file);
         });
 
-        iot_device_ids.forEach((id) => {
-          formdata.append('iot_device_ids', id);
+        let for_delete = cur_device_ids.filter(
+          (x) => !input_device_ids.includes(x)
+        );
+        let for_post = input_device_ids.filter(
+          (x) => !cur_device_ids.includes(x)
+        );
+
+        for_delete.forEach((id) => {
+          formdata.append('deleted_iot_device_ids, ', id);
         });
-        formdata.append('iot_device_ids', '');
+        formdata.append('deleted_iot_device_ids', '');
+
+        for_delete.forEach((id) => {
+          formdata.append('added_iot_device_ids', id);
+        });
+        formdata.append('added_iot_device_ids', '');
 
         $.ajax({
           //url: server_url + 'api/warehouse',
