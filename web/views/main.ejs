@@ -3,188 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <%- include('./head') %>
+    <link rel="stylesheet" href="/css/main.css" />
+    <title>Main</title>
   </head>
-  <style>
-    .main {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background: url('image/mainbg.png');
-      height: 50rem;
-      color: #fff;
-      background-repeat: no-repeat;
-      background-size: cover;
-      height: 100vh;
-    }
-
-    .main .title {
-      text-align: center;
-      margin: 5rem 0 2rem 0;
-      font-weight: 600;
-    }
-
-    .main .slogan {
-      font-size: 1.5rem;
-      text-align: center;
-    }
-
-    .search {
-      background: url('image/search_bg.png');
-      background-repeat: no-repeat;
-      background-size: cover;
-    }
-
-    .search .title {
-      font-size: 3rem;
-      color: #fff;
-      margin-right: 1rem;
-      padding-bottom: 1rem;
-      text-decoration: none;
-      border-bottom: 5px solid #fff;
-    }
-
-    .search .title:hover {
-      cursor: pointer;
-    }
-
-    .warehouse {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      height: 45rem;
-    }
-
-    .warehouse .title {
-      font-weight: 600;
-      margin: 5rem 0 1rem;
-    }
-
-    .warehouse .content {
-      text-align: center;
-      font-size: 1.4rem;
-      margin: 1rem;
-    }
-
-    .warehouse .more {
-      color: purple;
-      text-decoration: none;
-      cursor: pointer;
-      font-size: 1.2rem;
-    }
-
-    .enroll {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 10rem 0 10rem 15rem;
-      height: 22rem;
-      background: url('image/bg_2.png');
-      background-repeat: no-repeat;
-      background-size: cover;
-    }
-
-    .enroll .title {
-      color: #fff;
-      font-weight: 600;
-    }
-
-    .enroll .content {
-      color: #fff;
-      font-size: 1.4rem;
-      margin-bottom: 2rem;
-    }
-
-    .enroll .btn {
-      background: #fff;
-      color: purple;
-      border-radius: 1rem;
-      font-size: 1.2rem;
-      font-weight: 600;
-      width: 12rem;
-    }
-
-    .info {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 50rem;
-    }
-
-    .info .title {
-      font-weight: 600;
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-
-    .info .content {
-      display: grid;
-      width: 70rem;
-      height: 35rem;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: repeat(2, 1fr);
-      column-gap: 1.3rem;
-    }
-
-    .info .content .card {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      box-shadow: 1px 1px 5px 2px #e4e6e9;
-      font-size: 1.4rem;
-      font-weight: 600;
-    }
-
-    .info .content .card .img {
-      width: 40%;
-      height: 50%;
-      margin-bottom: 1rem;
-    }
-
-    .signup {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background: url('image/bg_3.png');
-      background-repeat: no-repeat;
-      background-size: cover;
-      height: 22rem;
-    }
-
-    .signup .title {
-      font-weight: 600;
-      text-align: center;
-      color: #fff;
-      margin-bottom: 5rem;
-    }
-
-    .signup .btn {
-      background: #fff;
-      color: purple;
-      border-radius: 1rem;
-      font-size: 1.2rem;
-      font-weight: 600;
-      width: 14rem;
-    }
-
-    .autoinven {
-      height: 10rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .autoinven .img {
-      width: 20rem;
-      height: 5rem;
-    }
-    .swiper {
-      width: 30rem;
-      height: 30rem;
-    }
-  </style>
   <body>
     <header><%- include('./partial/navbar') %></header>
     <div class="main">
@@ -202,7 +23,7 @@
         <%= __('main_slogan2') %>
       </p>
 
-      <div class="swiper" style="margin-top: 3rem">
+      <div class="swiper swiper1" style="margin-top: 3rem">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
             <img src="image/slide_1.png" />
@@ -229,8 +50,51 @@
         <%= __('main_text2-1') %>
       </p>
       <a class="more" href="search"><%= __('main_text3') %></a>
-      <div class="list">
-        <div class="card"></div>
+      <!-- Slider main container -->
+      <div class="swiper swiper2">
+        <!-- Additional required wrapper -->
+        <div class="swiper-wrapper">
+          <% for(let i = 0; i < warehouses.length; i++) { %>
+          <div class="swiper-slide list">
+            <div class="card">
+              <% if(warehouses[i].image) { %>
+              <img class="img" src="<%= warehouses[i].image %>" />
+              <% } else { %>
+              <img class="img" src="image/default-image.png" />
+              <% } %>
+              <div class="wh_info">
+                <h4 class="name"><%= warehouses[i].name %></h4>
+                <div
+                  style="
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    height: 20rem;
+                  "
+                >
+                  <div>
+                    <div class="category">
+                      <%= __('main_type') %>: <%= warehouses[i].category %>
+                    </div>
+                    <div class="address">
+                      <%= __('main_location') %>: <%= warehouses[i].address %>
+                    </div>
+                  </div>
+                  <a href="warehouse/<%=i%>" class="detail"
+                    ><%= __('main_more') %></a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <% } %>
+        </div>
+        <!-- If we need pagination -->
+        <div class="swiper-pagination"></div>
+
+        <!-- If we need navigation buttons -->
+        <div style="color: #7c139a" class="swiper-button-prev"></div>
+        <div style="color: #7c139a" class="swiper-button-next"></div>
       </div>
     </div>
     <div class="enroll">
@@ -259,37 +123,37 @@
       </h2>
       <div class="content">
         <div class="card">
-          <img class="img" src="image/ico_1.png" alt="info" />
+          <img class="img" src="image/ico_1.svg" alt="info" />
           <%= __('main_text8') %>
           <br />
           <%= __('main_text8-1') %>
         </div>
         <div class="card">
-          <img class="img" src="image/ico_2.png" alt="info" />
+          <img class="img" src="image/ico_2.svg" alt="info" />
           <%= __('main_text9') %>
           <br />
           <%= __('main_text9-1') %>
         </div>
         <div class="card">
-          <img class="img" src="image/ico_3.png" alt="info" />
+          <img class="img" src="image/ico_3.svg" alt="info" />
           <%= __('main_text10') %>
           <br />
           <%= __('main_text10-1') %>
         </div>
         <div class="card">
-          <img class="img" src="image/ico_4.png" alt="info" />
+          <img class="img" src="image/ico_4.svg" alt="info" />
           <%= __('main_text11') %>
           <br />
           <%= __('main_text11-1') %>
         </div>
         <div class="card">
-          <img class="img" src="image/ico_5.png" alt="info" />
+          <img class="img" src="image/ico_5.svg" alt="info" />
           <%= __('main_text12') %>
           <br />
           <%= __('main_text12-1') %>
         </div>
         <div class="card">
-          <img class="img" src="image/ico_6.png" alt="info" />
+          <img class="img" src="image/ico_6.svg" alt="info" />
           <%= __('main_text13') %>
           <br />
           <%= __('main_text13-1') %>
@@ -310,10 +174,29 @@
     <footer><%- include('./partial/footer') %></footer>
   </body>
   <script>
-    const swiper_title = new Swiper('.swiper', {
+    const swiper_title = new Swiper('.swiper1', {
+      // Optional parametersq
+      direction: 'horizontal',
+      loop: true,
+    });
+    const swiper = new Swiper('.swiper2', {
       // Optional parameters
       direction: 'horizontal',
       loop: true,
+      spaceBetween: 10,
+
+      //for centered slide
+      slidesPerView: 4,
+
+      //pagination
+      pagination: {
+        el: '.swiper-pagination',
+      },
+      // Navigation arrows
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
     });
   </script>
 </html>
