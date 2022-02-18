@@ -59,7 +59,10 @@ module.exports = async (email, password, db, session, client_type) => {
           name: member.name,
           phone: member.phone,
         },
-        secret_key
+        secret_key,
+        {
+          expiresIn: '1h',
+        }
       ),
     };
   }
