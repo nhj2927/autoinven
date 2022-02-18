@@ -337,7 +337,7 @@
                   class="form-control"
                   value="<%= warehouse.devices[i].device_id %>"
                 />
-                <button id="btn btn-sub">삭제</button>
+                <button class="btn btn-sub">삭제</button>
               </td>
             </tr>
             <% } %> <% } else { %>
@@ -620,6 +620,7 @@
 
         let input_device_ids = [];
         let cur_device_ids = '<%= JSON.stringify(warehouse)%>';
+        console.log(cur_device_ids);
         cur_device_ids = cur_device_ids.replace(/&#34;/gi, '"');
         cur_device_ids = JSON.parse(cur_device_ids).devices.map((device) => {
           return device.device_id;
@@ -682,7 +683,7 @@
         });
         formdata.append('deleted_iot_device_ids', '');
 
-        for_delete.forEach((id) => {
+        for_post.forEach((id) => {
           formdata.append('added_iot_device_ids', id);
         });
         formdata.append('added_iot_device_ids', '');
