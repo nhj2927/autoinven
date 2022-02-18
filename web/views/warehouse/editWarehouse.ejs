@@ -667,7 +667,7 @@
         error: function (e) {
           // 전송 후 에러 발생 시 실행 코드
           Swal.fire({
-            title: "500 <%= __('error') %>",
+            title: e.status + " <%= __('error') %>",
             html: "<h3><%= __('error_any_msg') %></h3><br><%= __('error_any_msg2') %><br><%= __('error_any_msg3') %>",
             icon: 'error',
           });
