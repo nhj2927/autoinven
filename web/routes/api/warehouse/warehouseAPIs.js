@@ -75,6 +75,7 @@ const getAddressInfo = ({
 
 const getAllWarehouses = async (db) => {
   const warehouses = await db.Warehouse.findAll({
+    where: { is_verified: True },
     include: [{ model: db.WarehouseImage, attributes: ['url'] }],
   });
   return warehouses;
