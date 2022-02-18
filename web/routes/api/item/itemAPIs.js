@@ -15,6 +15,10 @@ const getAllItems = async (db) => {
 };
 const getItem = async (item_id, db) => {
   const item = await db.Item.findOne({
+    attributes: [
+      fn('date_format', col('Item.createdAt'), '%Y-%m-%d %H:%i:%S'),
+      'Item.createdAt',
+    ],
     where: {
       [Op.or]: [
         {
@@ -28,13 +32,7 @@ const getItem = async (item_id, db) => {
     include: [
       {
         model: db.ItemTimestamp,
-        attributes: [
-          'i_state_id',
-          [
-            fn('date_format', col('Item.createdAt'), '%Y-%m-%d %H:%i:%S'),
-            'createdAt',
-          ],
-        ],
+        attributes: ['i_state_id'],
       },
       {
         model: db.ItemImage,
