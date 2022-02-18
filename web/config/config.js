@@ -24,7 +24,7 @@ module.exports = {
   production: {
     username: env.MYSQL_USER,
     password: env.MYSQL_PASSWORD,
-    database: env.MYSQL_DATABASE_PRO,
+    database: env.MYSQL_DATABASE,
     host: 'mysql',
     dialect: 'mysql',
     pool: {
