@@ -1,7 +1,9 @@
 # autoinven-new
 
 ## 메인 페이지
-
+![main.jpeg](Public/Image/main.jpeg)
 
 ## 창고 검색 페이지
-![qr_page.PNG](Public/Image/qr_page.PNG)
+![serach1.PNG](Public/Image/search1.PNG)
+![serach2.PNG](Public/Image/search2.PNG)
+![serach3.PNG](Public/Image/search3.PNG)
