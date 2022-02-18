@@ -107,3 +107,6 @@ uploads
 docker-compose.yml
 docker-entrypoint.sh
 dockerfile
+/docker-compose.yml
+/docker-entrypoint.sh
+/dockerfile

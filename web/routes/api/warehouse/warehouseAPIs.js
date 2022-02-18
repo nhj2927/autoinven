@@ -80,8 +80,11 @@ const getAllWarehouses = async (db) => {
   });
   return warehouses;
 };
-const getWarehouseInfo = async (id, db) => {
-  const warehouse = await db.Warehouse.findByPk(id);
+const getWarehouseInfo = async (warehouse_id, db) => {
+  const warehouse = await db.Warehouse.findOne({
+    where: { warehouse_id },
+    include: [{ model: db.WarehouseImage, attributes: ['url'] }],
+  });
   return warehouse;
 };
 
