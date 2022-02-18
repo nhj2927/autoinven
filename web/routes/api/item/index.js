@@ -9,8 +9,7 @@ module.exports = (db) => {
     authorizeAdmin,
     authorizeUser,
   } = require('$base/middlewares/authorize');
-  // To-Do
-  // 1. 모바일 관련 API 추가해야함
+
   router.get(
     '/',
     doAsync(async (req, res) => {
