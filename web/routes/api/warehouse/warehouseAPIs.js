@@ -184,12 +184,17 @@ const editWarehouse = async (req, db) => {
   const { warehouse_id } = req.params;
   const newInfo = checkEmptyWarehouseAttribute(getNewWarehouse(req.body)); // 새 창고정보 가져오기
   const addressInfo = getAddressInfo(req.body); // 주소 가져오기
-  let { iot_device_ids } = req.body; // iot 허브 디바이스 아이디들 가져오기
+  let { deleted_iot_device_ids, added_iot_device_ids } = req.body; // iot 허브 디바이스 아이디들 가져오기
 
-  if (iot_device_ids === '') {
-    iot_device_ids = null;
+  if (deleted_iot_device_ids === '') {
+    deleted_iot_device_ids = null;
   } else {
-    iot_device_ids.pop();
+    deleted_iot_device_ids.pop();
+  }
+  if (added_iot_device_ids === '') {
+    added_iot_device_ids = null;
+  } else {
+    added_iot_device_ids.pop();
   }
   const whFiles = req.files;
   // 주소가 기존에 존재하는지 검색(제약조건 때문)
@@ -198,10 +203,22 @@ const editWarehouse = async (req, db) => {
   if (!address) {
     address = await db.Address.create(addressInfo);
   }
+  // 삭제할 iot 디바이스 허브 아이디 모두 삭제
+  if (deleted_iot_device_ids) {
+    for (i in deleted_iot_device_ids) {
+      const del_result = await db.WarehouseImage.destroy({
+        where: { device_id: deleted_iot_device_ids[i] },
+      });
+      if (del_result) {
+        const err = new Error('iot device delete error');
+        err.statusCode = 400;
+        throw err;
+      }
+    }
+  }
   // 기존 창고 사진 모두 삭제
   const result = await db.WarehouseImage.destroy({ where: { warehouse_id } });
-  // 기존 iot 디바이스 허브 아이디 모두 삭제
-  const result2 = await db.IotDevice.destroy({ where: { warehouse_id } });
+
   // 창고 정보 업데이트
   const result3 = await db.Warehouse.update(newInfo, {
     where: { warehouse_id },
@@ -214,10 +231,11 @@ const editWarehouse = async (req, db) => {
       warehouse_id: warehouse_id,
     });
   }
-  if (iot_device_ids) {
-    for (i in iot_device_ids) {
+  // 추가할 iot device 추가
+  if (added_iot_device_ids) {
+    for (i in added_iot_device_ids) {
       const iot_device = await db.IotDevice.create({
-        device_id: iot_device_ids[i],
+        device_id: added_iot_device_ids[i],
         warehouse_id: warehouse_id,
       });
       if (!iot_device) {
