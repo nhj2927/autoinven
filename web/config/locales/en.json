@@ -250,7 +250,7 @@
   "success_signup": "Sign up is complete.",
   "error_name": "error_name",
   "cost_unit": "$",
-  "warehousedetail_day": "warehousedetail_day",
+  "error_signin": "Invalid user info.",
 
   "itemdetail_modal_title": "DETAIL",
   "itemdetail_modal_item_name": "Name",
