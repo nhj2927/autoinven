@@ -65,19 +65,20 @@ async function getSensorData(type, IpAdd, locale) {
             window.open(IpAdd);
           });
         }
-      }
-      if (locale === 'ko') {
-        Swal.fire({
-          title: '500 연결 실패',
-          html: `Iot 서버 연결 실패<br>`,
-          icon: 'error',
-        });
-      } else if (locale === 'en') {
-        Swal.fire({
-          title: '500 Connect Error',
-          html: `Iot Server connection failed<br>`,
-          icon: 'error',
-        });
+      } else {
+        if (locale === 'ko') {
+          Swal.fire({
+            title: '500 연결 실패',
+            html: `Iot 서버 연결 실패<br>`,
+            icon: 'error',
+          });
+        } else if (locale === 'en') {
+          Swal.fire({
+            title: '500 Connect Error',
+            html: `Iot Server connection failed<br>`,
+            icon: 'error',
+          });
+        }
       }
     });
   var ctx1 = $('#chart_temp');
