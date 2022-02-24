@@ -111,7 +111,7 @@
         Inqurey = () => {
           Swal.fire({
             title: 'Autoin',
-            html: `<%= __('main_phone') %> 1644-1393`,
+            html: `<%= __('main_phone') %> 1644-1393, <br> service@autoinven.com`,
             icon: 'info',
           });
         };
@@ -180,6 +180,9 @@
       // Optional parametersq
       direction: 'horizontal',
       loop: true,
+      autoplay: {
+        delay: 5000,
+      },
     });
     const swiper = new Swiper('.swiper2', {
       // Optional parameters
