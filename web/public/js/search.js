@@ -330,6 +330,28 @@ async function initMap() {
       map.setZoom(16);
       infowindow.open(map, m);
       clickedMarker = document.querySelector(`#marker${wid}`);
+      if (!clickedMarker) {
+        lists = [];
+        $('.marker_list_items').text('');
+        lists.push({ marker: mk, distance: 0 });
+        for (const marker in markers) {
+          const d = calcDistance(
+            new google.maps.LatLng(markers[marker].position),
+            new google.maps.LatLng(mk.position)
+          );
+          lists.push({ marker: markers[marker], distance: parseFloat(d) });
+        }
+        lists.sort(function (a, b) {
+          if (a.distance > b.distance) return 1;
+          if (a.distance === b.distance) return 0;
+          if (a.distance < b.distance) return -1;
+        });
+        search_type = 1;
+        more_type = 2;
+        list_last_index = 0;
+        searchResultListing(lists, search_type);
+        clickedMarker = document.querySelector(`#marker${wid}`);
+      }
       clickedMarker.focus();
       clickedMarker.scrollIntoView();
       clickedMarker.classList.add('bg-slate-100');
@@ -448,30 +470,10 @@ async function initMap() {
           lists.push({ marker: markers[m], distance: d });
         }
         lists.sort(function (a, b) {
-          const aindex = a.marker.index;
-          const bindex = b.marker.index;
-          if (
-            warehouses[aindex].is_verified === warehouses[bindex].is_verified
-          ) {
-            return a.distance < b.distance
-              ? -1
-              : a.distance > b.distance
-              ? 1
-              : 0;
-          }
-          if (warehouses[aindex].is_verified) {
-            return -1;
-          }
-          if (warehouses[bindex].is_verified) {
-            return 1;
-          }
-        });
-        /*
-        lists.sort(function (a, b) {
           if (a.distance > b.distance) return 1;
           if (a.distance === b.distance) return 0;
           if (a.distance < b.distance) return -1;
-        });*/
+        });
         search_type = 1;
         searchResultListing(lists, search_type);
       } else {
@@ -506,23 +508,9 @@ async function initMap() {
           });
         }
         lists.sort(function (a, b) {
-          const aindex = a.marker.index;
-          const bindex = b.marker.index;
-          if (
-            warehouses[aindex].is_verified === warehouses[bindex].is_verified
-          ) {
-            return a.distance < b.distance
-              ? -1
-              : a.distance > b.distance
-              ? 1
-              : 0;
-          }
-          if (warehouses[aindex].is_verified) {
-            return -1;
-          }
-          if (warehouses[bindex].is_verified) {
-            return 1;
-          }
+          if (a.distance > b.distance) return 1;
+          if (a.distance === b.distance) return 0;
+          if (a.distance < b.distance) return -1;
         });
         search_type = 2;
         searchResultListing(lists, search_type, startDate, endDate, leaseArea);
