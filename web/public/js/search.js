@@ -29,13 +29,6 @@ const setWarehouses = (_warehouses, _locale) => {
   locale = _locale;
 };
 
-/*
-$(clearSearchBox).click(function () {
-  let input = document.getElementById('pac-input');
-  input.value = null;
-});
-*/
-
 const searchResultListing = (
   lists,
   searchType,
@@ -333,7 +326,6 @@ async function initMap() {
       if (!clickedMarker) {
         lists = [];
         $('.marker_list_items').text('');
-        lists.push({ marker: mk, distance: 0 });
         for (const marker in markers) {
           const d = calcDistance(
             new google.maps.LatLng(markers[marker].position),
@@ -380,8 +372,29 @@ async function initMap() {
     styles[i].textColor = 'white';
   }
 
+  // 줌 이벤트 발생시 센터에서 가까운곳 리스팅
+  google.maps.event.addListener(map, 'zoom_changed', () => {
+    lists = [];
+    $('.marker_list_items').text('');
+    for (const marker in markers) {
+      const d = calcDistance(
+        new google.maps.LatLng(markers[marker].position),
+        new google.maps.LatLng(map.getCenter())
+      );
+      lists.push({ marker: markers[marker], distance: parseFloat(d) });
+    }
+    lists.sort(function (a, b) {
+      if (a.distance > b.distance) return 1;
+      if (a.distance === b.distance) return 0;
+      if (a.distance < b.distance) return -1;
+    });
+    search_type = 1;
+    more_type = 2;
+    list_last_index = 0;
+    searchResultListing(lists, search_type);
+  });
+
   // 초기 리스팅
-  //listing(markers);
   initial_lists.sort(function (a, b) {
     const aindex = a.index;
     const bindex = b.index;
