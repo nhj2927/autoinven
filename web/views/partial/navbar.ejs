@@ -37,18 +37,6 @@
               </li>
             <% } %>
           
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-              data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 1.2rem;">
-              <%= __('navbar_help1')%>
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="#">
-                  <%= __('navbar_help2')%>
-                </a></li>
-              <li><a class="dropdown-item" href="#">FAQ</a></li>
-            </ul>
-          </li>
           <% if(locals.role) { %>
             <li class="nav-item">
               <a class="nav-link" href="/myinfo" style="font-size: 1.2rem;">
