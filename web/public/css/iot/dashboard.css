@@ -1,7 +1,7 @@
 .dashboard__container {
   display: flex;
   background: #f8f9ff;
-  min-height: 1200px;
+  min-height: 1150px;
   height: 100vh;
 }
 
@@ -88,7 +88,7 @@
   align-items: center;
   text-align: center;
   margin: 0 3%;
-  height: 80%;
+  height: 13rem;
 }
 
 .dashboard__container
@@ -131,7 +131,7 @@
   justify-content: center;
   border-radius: 10px;
   margin-bottom: 10px;
-  width: 65%;
+  width: 8rem;
   height: 100%;
 }
 
@@ -182,6 +182,7 @@
   .value-wrapper
   .sensor-icon2 {
   font-size: 40px;
+  width: 12rem;
   margin-top: 10px;
   margin-bottom: 20px;
 }
@@ -223,7 +224,7 @@
 .dashboard__container .dashboard-main .image .content #warehouse-img {
   margin: 0 auto;
   width: 70%;
-  height: 20rem;
+  height: 23rem;
 }
 
 .dashboard__container .dashboard-main .capability {
