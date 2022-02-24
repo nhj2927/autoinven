@@ -47,6 +47,25 @@ async function getSensorData(type, IpAdd, locale) {
       returnValue = response;
     })
     .fail(function (error) {
+      if (error.status === 511) {
+        if (locale === 'ko') {
+          Swal.fire({
+            title: '리마인더 확인 필요',
+            html: `리마인더 페이지에서 Continue 버튼을 클릭해 주세요<br>`,
+            icon: 'error',
+          }).then(() => {
+            window.open(IpAdd);
+          });
+        } else if (locale === 'en') {
+          Swal.fire({
+            title: 'Need Reminder Check',
+            html: `Click Continue button on Reminder page<br>`,
+            icon: 'error',
+          }).then(() => {
+            window.open(IpAdd);
+          });
+        }
+      }
       if (locale === 'ko') {
         Swal.fire({
           title: '500 연결 실패',
