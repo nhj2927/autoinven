@@ -439,7 +439,6 @@ async function initMap() {
     const endDate = $('#endDate')[0].value;
     let whType = [$('#whType option:selected').val()];
     let leaseArea = $('#leaseArea')[0].value;
-    lists = [];
     // 시작, 종료일 면적 모두 입력하거나 입력하지 않은 경우
     if (
       (startDate === '' && endDate === '' && leaseArea === '') ||
@@ -472,6 +471,7 @@ async function initMap() {
         place.formatted_address;
       infowindow.open(map, marker);
 
+      lists = [];
       if (startDate === '' && endDate === '' && leaseArea === '') {
         // 그냥 검색한 곳에서 가까운대로 리스팅
         $('.marker_list_items').text('');
@@ -480,7 +480,7 @@ async function initMap() {
             new google.maps.LatLng(markers[m].position),
             new google.maps.LatLng(marker.position)
           );
-          lists.push({ marker: markers[m], distance: d });
+          lists.push({ marker: markers[m], distance: parseFloat(d) });
         }
         lists.sort(function (a, b) {
           if (a.distance > b.distance) return 1;
@@ -488,6 +488,7 @@ async function initMap() {
           if (a.distance < b.distance) return -1;
         });
         search_type = 1;
+        list_last_index = 0;
         searchResultListing(lists, search_type);
       } else {
         // 검색해서 주위 이용가능 한 창고만 리스팅
@@ -526,6 +527,7 @@ async function initMap() {
           if (a.distance < b.distance) return -1;
         });
         search_type = 2;
+        list_last_index = 0;
         searchResultListing(lists, search_type, startDate, endDate, leaseArea);
       }
     } else {
