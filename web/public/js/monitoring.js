@@ -159,8 +159,7 @@ const addClickListener = (locale) => {
     chart1.options.scales.y.min = lpg_yaxis[0];
     chart1.options.scales.y.max = lpg_yaxis[1];
     graph = 'lpg';
-    const title =
-      locale === 'en' ? '&nbsp;Realtime lpg' : '&nbsp;실시간 프로판';
+    const title = locale === 'en' ? '&nbsp;Realtime LPG' : '&nbsp;실시간 LPG';
     $('.realtime .title span').html(title);
     chart1.update();
   });
