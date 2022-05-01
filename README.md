@@ -32,3 +32,9 @@
 
 ## 창고 관리 페이지
 ![manage.PNG](Public/Image/manage.PNG)
+
+## 창고 모니터링 페이지
+![image](https://user-images.githubusercontent.com/60174385/166152731-a904312a-d65d-4e20-bfbe-21e615cf6ef4.png)
+
+## 이상상황 발생시 알림 메시지
+![image](https://user-images.githubusercontent.com/60174385/166152776-32916656-68e9-4c71-abf9-45448f3d983c.png)
